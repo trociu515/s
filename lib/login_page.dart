@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:lets_work/main.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -8,6 +12,27 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final usernameController = new TextEditingController();
+  final passwordController = new TextEditingController();
+
+  Future<http.Response> login(String username, String password) async {
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    var res = await http
+        .get('$SERVER_IP/login/mobile', headers: {'authorization': basicAuth});
+    return res;
+  }
+
+  displayDialog(BuildContext context, String title, String text) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(text),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final title = TextField(
@@ -20,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final username = TextFormField(
+      controller: usernameController,
       autofocus: false,
       decoration: InputDecoration(
         hintText: 'Nazwa użytkownika',
@@ -31,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final password = TextFormField(
+      controller: passwordController,
       autofocus: false,
       obscureText: true,
       decoration: InputDecoration(
@@ -43,12 +70,26 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final loginButton = RaisedButton(
-      onPressed: () async {},
       color: Colors.lightBlueAccent,
       shape: new RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(30.0),
       ),
       child: Text('Login'),
+      onPressed: () async {
+        login(usernameController.text, passwordController.text).then((res) {
+          if (res.statusCode == 200) {
+            storage.write(
+                key: 'authorization',
+                value:
+                'Basic ' + base64Encode(utf8.encode('$username:$password')));
+            displayDialog(context, 'Sukces', 'Zalogowałeś się!');
+          } else {
+            displayDialog(context, 'Błąd', 'Błędny login lub hasło');
+          }
+        }, onError: (e) {
+          displayDialog(context, 'Błąd', 'Nie można się połączyć z serwerem');
+        });
+      },
     );
 
     return Scaffold(
