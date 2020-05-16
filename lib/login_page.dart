@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lets_work/main.dart';
 import 'package:lets_work/toastr_service.dart';
+import 'package:lets_work/validator_service.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -67,6 +68,16 @@ class _LoginPageState extends State<LoginPage> {
       ),
       child: Text('Login'),
       onPressed: () async {
+        String username = usernameController.text;
+        String password = passwordController.text;
+
+        String invalidMessage =
+            ValidatorService.validateLoginCredentials(username, password);
+        if (invalidMessage != null) {
+          ToastService.showToast(invalidMessage, Colors.red);
+          return;
+        }
+
         login(usernameController.text, passwordController.text).then((res) {
           FocusScope.of(context).unfocus();
           if (res.statusCode == 200) {
