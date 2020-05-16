@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:lets_work/employee_page.dart';
 import 'package:lets_work/main.dart';
 import 'package:lets_work/toastr_service.dart';
 import 'package:lets_work/validator_service.dart';
@@ -85,6 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                 key: 'authorization',
                 value: 'Basic ' +
                     base64Encode(utf8.encode('$username:$password')));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => EmployeePage()));
             ToastService.showToast('Zalogowano pomyślnie!', Colors.green);
           } else {
             ToastService.showToast('Błędny login lub hasło', Colors.red);
