@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lets_work/main.dart';
+import 'package:lets_work/toastr_service.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -21,16 +22,6 @@ class _LoginPageState extends State<LoginPage> {
     var res = await http
         .get('$SERVER_IP/login/mobile', headers: {'authorization': basicAuth});
     return res;
-  }
-
-  displayDialog(BuildContext context, String title, String text) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(text),
-      ),
-    );
   }
 
   @override
@@ -77,17 +68,19 @@ class _LoginPageState extends State<LoginPage> {
       child: Text('Login'),
       onPressed: () async {
         login(usernameController.text, passwordController.text).then((res) {
+          FocusScope.of(context).unfocus();
           if (res.statusCode == 200) {
             storage.write(
                 key: 'authorization',
-                value:
-                'Basic ' + base64Encode(utf8.encode('$username:$password')));
-            displayDialog(context, 'Sukces', 'Zalogowałeś się!');
+                value: 'Basic ' +
+                    base64Encode(utf8.encode('$username:$password')));
+            ToastService.showToast('Zalogowano pomyślnie!', Colors.green);
           } else {
-            displayDialog(context, 'Błąd', 'Błędny login lub hasło');
+            ToastService.showToast('Błędny login lub hasło', Colors.red);
           }
         }, onError: (e) {
-          displayDialog(context, 'Błąd', 'Nie można się połączyć z serwerem');
+          ToastService.showToast(
+              'Nie można się połączyć z serwerem', Colors.red);
         });
       },
     );
