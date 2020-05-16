@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:lets_work/employee_page.dart';
+import 'package:lets_work/employee/employee_page.dart';
 import 'package:lets_work/login_page.dart';
-import 'package:lets_work/manager_page.dart';
+import 'package:lets_work/manager/manager_page.dart';
+
+import 'shared/constants.dart';
 
 const SERVER_IP = 'http://10.0.2.2:8080/api';
 final storage = new FlutterSecureStorage();
@@ -34,9 +36,9 @@ class MyApp extends StatelessWidget {
             return LoginPage();
           }
           String role = data['role'];
-          if (role == 'ROLE_EMPLOYEE') {
+          if (role == ROLE_EMPLOYEE) {
             return EmployeePage();
-          } else if (role == 'ROLE_MANAGER') {
+          } else if (role == ROLE_MANAGER) {
             return ManagerPage();
           } else {
             return LoginPage();

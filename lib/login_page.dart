@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:lets_work/employee_page.dart';
+import 'package:lets_work/employee/employee_page.dart';
 import 'package:lets_work/main.dart';
-import 'package:lets_work/manager_page.dart';
-import 'package:lets_work/toastr_service.dart';
-import 'package:lets_work/validator_service.dart';
+import 'package:lets_work/manager/manager_page.dart';
+import 'package:lets_work/shared/toastr_service.dart';
+import 'package:lets_work/shared/validator_service.dart';
+
+import 'shared/constants.dart';
 
 class LoginPage extends StatefulWidget {
-  static String tag = 'login-page';
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 40,
       ),
       decoration:
-          InputDecoration(border: InputBorder.none, hintText: 'Lets work'),
+          InputDecoration(border: InputBorder.none, hintText: APP_NAME),
     );
 
     final username = TextFormField(
@@ -89,10 +89,10 @@ class _LoginPageState extends State<LoginPage> {
                     base64Encode(utf8.encode('$username:$password')));
             String role = res.body;
             storage.write(key: 'role', value: role);
-            if (role == 'ROLE_EMPLOYEE') {
+            if (role == ROLE_EMPLOYEE) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => EmployeePage()));
-            } else if (role == 'ROLE_MANAGER') {
+            } else if (role == ROLE_MANAGER) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ManagerPage()));
             }
