@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lets_work/login_page.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,14 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Lets work')
-        ),
-        body: Center(
-          child: Text('Hello world!'),
-        ),
-      )
+      home: LoginPage(),
     );
   }
 }
