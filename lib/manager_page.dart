@@ -3,12 +3,12 @@ import 'package:lets_work/login_page.dart';
 import 'package:lets_work/main.dart';
 import 'package:lets_work/toastr_service.dart';
 
-class EmployeePage extends StatefulWidget {
+class ManagerPage extends StatefulWidget {
   @override
-  _EmployeePageState createState() => _EmployeePageState();
+  _ManagerPageState createState() => _ManagerPageState();
 }
 
-class _EmployeePageState extends State<EmployeePage> {
+class _ManagerPageState extends State<ManagerPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,7 +22,7 @@ class _EmployeePageState extends State<EmployeePage> {
           //child: Text('Its works!')
           child: ListView(
             children: <Widget>[
-              Text('Pracownik'),
+              Text('Menadżer'),
               RaisedButton(
                 child: Text('Wyloguj'),
                 onPressed: () async {
