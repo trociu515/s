@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:lets_work/localization/demo_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'demo_localization.dart';
 
 String getTranslated(BuildContext context, String key) {
   return DemoLocalization.of(context).getTranslatedValue(key);

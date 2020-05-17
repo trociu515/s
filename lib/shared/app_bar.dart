@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lets_work/language/language.dart';
-import 'package:lets_work/localization/localization_constants.dart';
+import 'package:lets_work/internationalization/language/language.dart';
+import 'package:lets_work/internationalization/localization/localization_constants.dart';
 
 import '../main.dart';
 import 'constants.dart';

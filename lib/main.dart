@@ -4,8 +4,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lets_work/shared/constants.dart';
 
 import 'employee/employee_page.dart';
-import 'localization/demo_localization.dart';
-import 'localization/localization_constants.dart';
+import 'internationalization/localization/demo_localization.dart';
+import 'internationalization/localization/localization_constants.dart';
 import 'login_page.dart';
 import 'manager/manager_page.dart';
 
