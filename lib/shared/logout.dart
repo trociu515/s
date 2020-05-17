@@ -6,7 +6,7 @@ import '../login_page.dart';
 import '../main.dart';
 
 class Logout {
-  static showAlert(BuildContext context) {
+  static logout(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -21,7 +21,8 @@ class Logout {
                 storage.delete(key: 'role');
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LoginPage()));
-                ToastService.showToast(getTranslated(context, 'logoutSuccessfully'), Colors.green);
+                ToastService.showToast(
+                    getTranslated(context, 'logoutSuccessfully'), Colors.green);
               },
             ),
             FlatButton(

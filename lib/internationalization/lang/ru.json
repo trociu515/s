@@ -9,8 +9,11 @@
   "usernameRequired": "Имя пользователя требуется",
   "passwordRequired": "Необходим пароль",
   "logout": "логирование",
+  "signOut": "выход",
   "logoutConfirm": "Вы действительно хотите выйти?",
   "logoutSuccessfully": "Выйти успешно",
   "yes": "да",
-  "no": "нет"
+  "no": "нет",
+  "employee": "Работник",
+  "manager": "управляющий делами"
 }

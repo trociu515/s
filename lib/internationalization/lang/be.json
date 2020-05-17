@@ -9,8 +9,11 @@
   "usernameRequired": "Неабходна імя карыстальніка",
   "passwordRequired": "Пароль патрабуецца",
   "logout": "Нарыхтоўка лесу",
+  "signOut": "выйсці",
   "logoutConfirm": "Вы ўпэўнены, што хочаце выйсці?",
   "logoutSuccessfully": "Выйшла паспяхова",
   "yes": "Так",
-  "no": "Не"
+  "no": "Не",
+  "employee": "Супрацоўнік",
+  "manager": "менеджэр"
 }

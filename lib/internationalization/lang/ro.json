@@ -9,8 +9,11 @@
   "usernameRequired": "Numele de utilizator este necesar",
   "passwordRequired": "Parola este necesara",
   "logout": "Logare",
+  "signOut": "Sign out",
   "logoutConfirm": "Sigur vrei să te deconectezi?",
   "logoutSuccessfully": "Deconectat cu succes",
   "yes": "da",
-  "no": "Nu"
+  "no": "Nu",
+  "employee": "Angajat",
+  "manager": "administrator"
 }

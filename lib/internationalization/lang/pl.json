@@ -9,8 +9,11 @@
   "usernameRequired": "Nazwa użytkownika jest wymagana",
   "passwordRequired": "Hasło jest wymagane",
   "logout": "Wylogowywanie",
+  "signOut": "Wyloguj",
   "logoutConfirm": "Czy na pewno chcesz się wylogować?",
   "logoutSuccessfully": "Wylogowano pomyślnie",
   "yes": "Tak",
-  "no": "Nie"
+  "no": "Nie",
+  "employee": "Pracownik",
+  "manager": "Menadżer"
 }

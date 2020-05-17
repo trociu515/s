@@ -4,7 +4,6 @@ import 'package:lets_work/internationalization/localization/localization_constan
 
 import '../main.dart';
 import 'constants.dart';
-import 'logout.dart';
 
 void _changeLanguage(Language language, BuildContext context) async {
   Locale _temp = await setLocale(language.languageCode);
@@ -13,7 +12,11 @@ void _changeLanguage(Language language, BuildContext context) async {
 
 AppBar appBar(BuildContext context) {
   return AppBar(
-    title: Text(APP_NAME),
+    title: Text(
+      APP_NAME,
+      style: TextStyle(
+          fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+    ),
     actions: <Widget>[
       Padding(
         padding: EdgeInsets.only(right: 20.0),
@@ -41,15 +44,6 @@ AppBar appBar(BuildContext context) {
                 ),
               )
               .toList(),
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.only(right: 20.0),
-        child: GestureDetector(
-          onTap: () {
-            Logout.showAlert(context);
-          },
-          child: Icon(Icons.exit_to_app),
         ),
       ),
     ],

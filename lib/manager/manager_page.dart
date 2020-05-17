@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lets_work/internationalization/localization/localization_constants.dart';
 import 'package:lets_work/shared/app_bar.dart';
 import 'package:lets_work/shared/constants.dart';
+import 'package:lets_work/shared/side_bar.dart';
 
 class ManagerPage extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _ManagerPageState extends State<ManagerPage> {
       ),
       home: Scaffold(
         appBar: appBar(context),
+        drawer: sideBar(context, getTranslated(context, 'manager')),
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lets_work/internationalization/localization/localization_constants.dart';
 import 'package:lets_work/shared/app_bar.dart';
+import 'package:lets_work/shared/side_bar.dart';
 
 import '../shared/constants.dart';
 
@@ -18,6 +20,7 @@ class _EmployeePageState extends State<EmployeePage> {
       ),
       home: Scaffold(
         appBar: appBar(context),
+        drawer: sideBar(context, getTranslated(context, 'employee')),
       ),
     );
   }
