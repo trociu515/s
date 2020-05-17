@@ -19,9 +19,10 @@ AppBar appBar(BuildContext context) {
         padding: EdgeInsets.only(right: 20.0),
         child: DropdownButton(
           underline: SizedBox(),
-          icon: Icon(
-            Icons.language,
-            color: Colors.white,
+          hint: Text(
+            'Language',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
           ),
           onChanged: (Language language) {
             _changeLanguage(language, context);

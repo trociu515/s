@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:lets_work/employee/employee_page.dart';
 import 'package:lets_work/main.dart';
@@ -8,6 +9,7 @@ import 'package:lets_work/manager/manager_page.dart';
 import 'package:lets_work/shared/toastr_service.dart';
 import 'package:lets_work/shared/validator_service.dart';
 
+import 'internationalization/language/language.dart';
 import 'internationalization/localization/localization_constants.dart';
 import 'shared/constants.dart';
 
@@ -30,6 +32,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    void _changeLanguage(Language language, BuildContext context) async {
+      Locale _temp = await setLocale(language.languageCode);
+      MyApp.setLocale(context, _temp);
+    }
+
     final title = TextField(
       textAlign: TextAlign.center,
       style: TextStyle(
@@ -75,8 +82,8 @@ class _LoginPageState extends State<LoginPage> {
         String username = usernameController.text;
         String password = passwordController.text;
 
-        String invalidMessage =
-            ValidatorService.validateLoginCredentials(username, password, context);
+        String invalidMessage = ValidatorService.validateLoginCredentials(
+            username, password, context);
         if (invalidMessage != null) {
           ToastService.showToast(invalidMessage, Colors.red);
           return;
@@ -111,6 +118,38 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
 
+    final languageButton = Center(
+      child: DropdownButton(
+        iconEnabledColor: Colors.blueAccent,
+        underline: SizedBox(),
+        hint: Text(
+          '🇧🇾 🇺🇸 🇩🇪 🇲🇩 🇵🇱 🇷🇺 🇺🇦',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+            color: Colors.black,
+          ),
+        ),
+        onChanged: (Language language) {
+          _changeLanguage(language, context);
+        },
+        items: Language.languageList()
+            .map<DropdownMenuItem<Language>>(
+              (lang) => DropdownMenuItem(
+                value: lang,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text(lang.flag),
+                    Text(lang.name),
+                  ],
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -124,7 +163,9 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 8.0),
             password,
             SizedBox(height: 24.0),
-            loginButton
+            loginButton,
+            SizedBox(height: 8.0),
+            languageButton
           ],
         ),
       ),
