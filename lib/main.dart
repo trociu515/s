@@ -62,14 +62,19 @@ class _MyAppState extends State<MyApp> {
       );
     } else {
       return MaterialApp(
-        title: 'Flutter Demo',
+        title: APP_NAME,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         locale: _locale,
         supportedLocales: [
+          Locale('be', 'BY'),
           Locale('en', 'US'),
+          Locale('de', 'DE'),
+          Locale('ro', 'RO'),
           Locale('pl', 'PL'),
+          Locale('ru', 'RU'),
+          Locale('uk', 'UA'),
         ],
         localizationsDelegates: [
           DemoLocalization.delegate,

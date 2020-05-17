@@ -17,13 +17,6 @@ class _ManagerPageState extends State<ManagerPage> {
       ),
       home: Scaffold(
         appBar: appBar(context),
-        body: Center(
-          child: ListView(
-            children: <Widget>[
-              Text('Menadżer'),
-            ],
-          ),
-        ),
       ),
     );
   }

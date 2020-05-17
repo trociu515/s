@@ -1,0 +1,16 @@
+{
+  "username": "Nume de utilizator",
+  "password": "Parola",
+  "login": "Autentificare",
+  "loginSuccessfully": "Autentificat cu succes!",
+  "wrongUsernameOrPassword": "Numele de utilizator sau parola incorectă",
+  "cannotConnectToServer": "Imposibil de conectat la server",
+  "usernameAndPasswordRequired": "Numele de utilizator și parola sunt obligatorii",
+  "usernameRequired": "Numele de utilizator este necesar",
+  "passwordRequired": "Parola este necesara",
+  "logout": "Logare",
+  "logoutConfirm": "Sigur vrei să te deconectezi?",
+  "logoutSuccessfully": "Deconectat cu succes",
+  "yes": "da",
+  "no": "Nu"
+}

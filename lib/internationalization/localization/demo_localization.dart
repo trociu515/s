@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lets_work/internationalization/localization/localization_constants.dart';
 
 class DemoLocalization {
   final Locale locale;
@@ -38,7 +39,8 @@ class _DemoLocalizationDelegate
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'pl'].contains(locale.languageCode);
+    return [BELARUSIAN, ENGLISH, GERMAN, MOLDAVIAN, POLISH, RUSSIAN, UKRAINIAN]
+        .contains(locale.languageCode);
   }
 
   @override

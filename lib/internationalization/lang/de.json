@@ -1,0 +1,16 @@
+{
+  "username": "Nutzername",
+  "password": "Passwort",
+  "login": "Anmeldung",
+  "loginSuccessfully": "Erfolgreich angemeldet!",
+  "wrongUsernameOrPassword": "Falscher Benutzername oder falsches Passwort",
+  "cannotConnectToServer": "Verbindung zum Server nicht möglich",
+  "usernameAndPasswordRequired": "Benutzername und Passwort sind erforderlich",
+  "usernameRequired": "Ein Benutzername wird benötigt",
+  "passwordRequired": "Passwort wird benötigt",
+  "logout": "Protokollierung",
+  "logoutConfirm": "Möchten Sie sich abmelden?",
+  "logoutSuccessfully": "Erfolgreich abgemeldet",
+  "yes": "Ja",
+  "no": "Nein"
+}

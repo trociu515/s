@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lets_work/internationalization/localization/localization_constants.dart';
 import 'package:lets_work/shared/toastr_service.dart';
 
 import '../login_page.dart';
@@ -10,21 +11,21 @@ class Logout {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Wylogowywanie'),
-          content: Text("Czy na pewno chcesz się wylogować?"),
+          title: Text(getTranslated(context, 'logout')),
+          content: Text(getTranslated(context, 'logoutConfirm')),
           actions: <Widget>[
             FlatButton(
-              child: Text("Tak"),
+              child: Text(getTranslated(context, 'yes')),
               onPressed: () {
                 storage.delete(key: 'authorization');
                 storage.delete(key: 'role');
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LoginPage()));
-                ToastService.showToast('Wylogowano pomyślnie', Colors.green);
+                ToastService.showToast(getTranslated(context, 'logoutSuccessfully'), Colors.green);
               },
             ),
             FlatButton(
-              child: Text("Nie"),
+              child: Text(getTranslated(context, 'no')),
               onPressed: () {
                 Navigator.of(context).pop();
               },

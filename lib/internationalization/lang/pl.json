@@ -1,3 +1,16 @@
 {
-  "home_page": "Strona główna"
+  "username": "Nazwa użytkownika",
+  "password": "Hasło",
+  "login": "Zaloguj",
+  "loginSuccessfully": "Zalogowano pomyślnie!",
+  "wrongUsernameOrPassword": "Błędna nazwa użytkownika lub hasło",
+  "cannotConnectToServer": "Nie można połączyć się z serwerem",
+  "usernameAndPasswordRequired": "Nazwa użytkownika oraz hasło jest wymagane",
+  "usernameRequired": "Nazwa użytkownika jest wymagana",
+  "passwordRequired": "Hasło jest wymagane",
+  "logout": "Wylogowywanie",
+  "logoutConfirm": "Czy na pewno chcesz się wylogować?",
+  "logoutSuccessfully": "Wylogowano pomyślnie",
+  "yes": "Tak",
+  "no": "Nie"
 }

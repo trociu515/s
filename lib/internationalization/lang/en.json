@@ -1,3 +1,16 @@
 {
-  "home_page": "Home Page"
+  "username": "username",
+  "password": "password",
+  "login": "Log in",
+  "loginSuccessfully": "Signed in successfully!",
+  "wrongUsernameOrPassword": "Incorrect username or password",
+  "cannotConnectToServer": "Unable to connect to server",
+  "usernameAndPasswordRequired": "Username and password are required",
+  "usernameRequired": "Username is required",
+  "passwordRequired": "Password is required",
+  "logout": "Logout",
+  "logoutConfirm": "Are you sure you want to log out?",
+  "logoutSuccessfully": "Logged out successfully",
+  "yes": "Yes",
+  "no": "No"
 }

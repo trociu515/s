@@ -1,0 +1,16 @@
+{
+  "username": "Імя карыстальніка",
+  "password": "Пароль",
+  "login": "Увайсці",
+  "loginSuccessfully": "Уваход паспяхова!",
+  "wrongUsernameOrPassword": "Няправільнае імя карыстальніка або пароль",
+  "cannotConnectToServer": "Немагчыма падключыцца да сервера",
+  "usernameAndPasswordRequired": "Імя карыстальніка і пароль абавязковыя",
+  "usernameRequired": "Неабходна імя карыстальніка",
+  "passwordRequired": "Пароль патрабуецца",
+  "logout": "Нарыхтоўка лесу",
+  "logoutConfirm": "Вы ўпэўнены, што хочаце выйсці?",
+  "logoutSuccessfully": "Выйшла паспяхова",
+  "yes": "Так",
+  "no": "Не"
+}

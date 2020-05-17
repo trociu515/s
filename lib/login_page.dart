@@ -8,6 +8,7 @@ import 'package:lets_work/manager/manager_page.dart';
 import 'package:lets_work/shared/toastr_service.dart';
 import 'package:lets_work/shared/validator_service.dart';
 
+import 'internationalization/localization/localization_constants.dart';
 import 'shared/constants.dart';
 
 class LoginPage extends StatefulWidget {
@@ -34,15 +35,14 @@ class _LoginPageState extends State<LoginPage> {
       style: TextStyle(
         fontSize: 40,
       ),
-      decoration:
-          InputDecoration(border: InputBorder.none, hintText: APP_NAME),
+      decoration: InputDecoration(border: InputBorder.none, hintText: APP_NAME),
     );
 
     final username = TextFormField(
       controller: usernameController,
       autofocus: false,
       decoration: InputDecoration(
-        hintText: 'Nazwa użytkownika',
+        hintText: getTranslated(context, 'username'),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(32.0),
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: false,
       obscureText: true,
       decoration: InputDecoration(
-        hintText: 'Hasło',
+        hintText: getTranslated(context, 'password'),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(32.0),
@@ -68,13 +68,15 @@ class _LoginPageState extends State<LoginPage> {
       shape: new RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(30.0),
       ),
-      child: Text('Login'),
+      child: Text(
+        getTranslated(context, 'login'),
+      ),
       onPressed: () async {
         String username = usernameController.text;
         String password = passwordController.text;
 
         String invalidMessage =
-            ValidatorService.validateLoginCredentials(username, password);
+            ValidatorService.validateLoginCredentials(username, password, context);
         if (invalidMessage != null) {
           ToastService.showToast(invalidMessage, Colors.red);
           return;
@@ -96,13 +98,15 @@ class _LoginPageState extends State<LoginPage> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ManagerPage()));
             }
-            ToastService.showToast('Zalogowano pomyślnie!', Colors.green);
+            ToastService.showToast(
+                getTranslated(context, 'loginSuccessfully'), Colors.green);
           } else {
-            ToastService.showToast('Błędny login lub hasło', Colors.red);
+            ToastService.showToast(
+                getTranslated(context, 'wrongUsernameOrPassword'), Colors.red);
           }
         }, onError: (e) {
           ToastService.showToast(
-              'Nie można się połączyć z serwerem', Colors.red);
+              getTranslated(context, 'cannotConnectToServer'), Colors.red);
         });
       },
     );

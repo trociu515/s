@@ -1,0 +1,16 @@
+{
+  "username": "Ім'я користувача",
+  "password": "Пароль",
+  "login": "Увійти",
+  "loginSuccessfully": "Увійти успішно!",
+  "wrongUsernameOrPassword": "Неправильне ім'я користувача або пароль",
+  "cannotConnectToServer": "Неможливо підключитися до сервера",
+  "usernameAndPasswordRequired": "Ім'я користувача та пароль обов'язкові",
+  "usernameRequired": "Ім'я користувача обов'язкове",
+  "passwordRequired": "Пароль необхідний",
+  "logout": "Ведення журналів",
+  "logoutConfirm": "Ви впевнені, що хочете вийти?",
+  "logoutSuccessfully": "Вийшов із системи успішно",
+  "yes": "Так",
+  "no": "Ні"
+}

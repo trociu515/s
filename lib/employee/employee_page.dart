@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lets_work/internationalization/localization/localization_constants.dart';
 import 'package:lets_work/shared/app_bar.dart';
 
 import '../shared/constants.dart';
@@ -19,12 +18,6 @@ class _EmployeePageState extends State<EmployeePage> {
       ),
       home: Scaffold(
         appBar: appBar(context),
-        body: Center(
-          //child: Text('Its works!')
-          child: ListView(
-            children: <Widget>[Text(getTranslated(context, 'home_page'))],
-          ),
-        ),
       ),
     );
   }
