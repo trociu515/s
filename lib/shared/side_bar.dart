@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lets_work/internationalization/localization/localization_constants.dart';
 import 'package:lets_work/shared/logout.dart';
 
-Drawer sideBar(BuildContext context, String role) {
+Drawer sideBar(BuildContext context, String userInfo, String role) {
   return Drawer(
     child: Column(
       children: <Widget>[
@@ -29,7 +29,7 @@ Drawer sideBar(BuildContext context, String role) {
                   ),
                 ),
                 Text(
-                  'Jan Kowalski',
+                  userInfo,
                   style: TextStyle(fontSize: 22, color: Colors.white),
                 ),
                 Text(

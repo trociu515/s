@@ -5,6 +5,10 @@ import 'package:lets_work/shared/constants.dart';
 import 'package:lets_work/shared/side_bar.dart';
 
 class ManagerPage extends StatefulWidget {
+  final String _userInfo;
+
+  const ManagerPage(this._userInfo);
+
   @override
   _ManagerPageState createState() => _ManagerPageState();
 }
@@ -19,7 +23,11 @@ class _ManagerPageState extends State<ManagerPage> {
       ),
       home: Scaffold(
         appBar: appBar(context),
-        drawer: sideBar(context, getTranslated(context, 'manager')),
+        drawer: sideBar(
+          context,
+          widget._userInfo,
+          getTranslated(context, 'manager'),
+        ),
       ),
     );
   }

@@ -100,10 +100,11 @@ class _MyAppState extends State<MyApp> {
               return LoginPage();
             }
             String role = data['role'];
+            String userInfo = data['userInfo'];
             if (role == ROLE_EMPLOYEE) {
-              return EmployeePage();
+              return EmployeePage(userInfo == null ? '' : userInfo);
             } else if (role == ROLE_MANAGER) {
-              return ManagerPage();
+              return ManagerPage(userInfo == null ? '' : userInfo);
             } else {
               return LoginPage();
             }

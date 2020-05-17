@@ -96,14 +96,17 @@ class _LoginPageState extends State<LoginPage> {
                 key: 'authorization',
                 value: 'Basic ' +
                     base64Encode(utf8.encode('$username:$password')));
-            String role = res.body;
+            Map map = json.decode(res.body);
+            String role = map['role'];
+            String userInfo = map['userInfo'];
             storage.write(key: 'role', value: role);
+            storage.write(key: 'userInfo', value: userInfo);
             if (role == ROLE_EMPLOYEE) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EmployeePage()));
+                  MaterialPageRoute(builder: (context) => EmployeePage(userInfo)));
             } else if (role == ROLE_MANAGER) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ManagerPage()));
+                  MaterialPageRoute(builder: (context) => ManagerPage(userInfo)));
             }
             ToastService.showToast(
                 getTranslated(context, 'loginSuccessfully'), Colors.green);

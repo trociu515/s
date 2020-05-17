@@ -6,6 +6,10 @@ import 'package:lets_work/shared/side_bar.dart';
 import '../shared/constants.dart';
 
 class EmployeePage extends StatefulWidget {
+  final String _userInfo;
+
+  const EmployeePage(this._userInfo);
+
   @override
   _EmployeePageState createState() => _EmployeePageState();
 }
@@ -20,7 +24,11 @@ class _EmployeePageState extends State<EmployeePage> {
       ),
       home: Scaffold(
         appBar: appBar(context),
-        drawer: sideBar(context, getTranslated(context, 'employee')),
+        drawer: sideBar(
+          context,
+          widget._userInfo,
+          getTranslated(context, 'employee'),
+        ),
       ),
     );
   }
