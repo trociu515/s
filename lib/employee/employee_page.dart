@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lets_work/language/language.dart';
+import 'package:lets_work/localization/localization_constants.dart';
+import 'package:lets_work/main.dart';
 import 'package:lets_work/shared/logout.dart';
 
 import '../shared/constants.dart';
@@ -10,8 +12,9 @@ class EmployeePage extends StatefulWidget {
 }
 
 class _EmployeePageState extends State<EmployeePage> {
-  void _changeLanguage(Language language) {
-    print(language.languageCode);
+  void _changeLanguage(Language language) async {
+    Locale _temp = await setLocale(language.languageCode);
+    MyApp.setLocale(context, _temp);
   }
 
   @override
@@ -66,9 +69,7 @@ class _EmployeePageState extends State<EmployeePage> {
         body: Center(
           //child: Text('Its works!')
           child: ListView(
-            children: <Widget>[
-              Text('Pracownik'),
-            ],
+            children: <Widget>[Text(getTranslated(context, 'home_page'))],
           ),
         ),
       ),
