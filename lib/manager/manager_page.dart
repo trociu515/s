@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lets_work/shared/constants.dart';
-import 'package:lets_work/login_page.dart';
-import 'package:lets_work/main.dart';
-import 'package:lets_work/shared/toastr_service.dart';
+import 'package:lets_work/shared/logout.dart';
 
 class ManagerPage extends StatefulWidget {
   @override
@@ -18,22 +16,24 @@ class _ManagerPageState extends State<ManagerPage> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text(APP_NAME)),
+        appBar: AppBar(
+          title: Text(APP_NAME),
+          actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Logout.showAlert(context);
+                  },
+                  child: Icon(Icons.exit_to_app),
+                )),
+          ],
+        ),
         body: Center(
           //child: Text('Its works!')
           child: ListView(
             children: <Widget>[
               Text('Menadżer'),
-              RaisedButton(
-                child: Text('Wyloguj'),
-                onPressed: () async {
-                  storage.delete(key: 'authorization');
-                  storage.delete(key: 'role');
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                  ToastService.showToast('Wylogowano pomyślnie', Colors.green);
-                },
-              ),
             ],
           ),
         ),
