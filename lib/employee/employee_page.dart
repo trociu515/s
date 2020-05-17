@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lets_work/language/language.dart';
 import 'package:lets_work/localization/localization_constants.dart';
-import 'package:lets_work/main.dart';
-import 'package:lets_work/shared/logout.dart';
+import 'package:lets_work/shared/app_bar.dart';
 
 import '../shared/constants.dart';
 
@@ -12,11 +10,6 @@ class EmployeePage extends StatefulWidget {
 }
 
 class _EmployeePageState extends State<EmployeePage> {
-  void _changeLanguage(Language language) async {
-    Locale _temp = await setLocale(language.languageCode);
-    MyApp.setLocale(context, _temp);
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,47 +18,7 @@ class _EmployeePageState extends State<EmployeePage> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(APP_NAME),
-          actions: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: DropdownButton(
-                underline: SizedBox(),
-                icon: Icon(
-                  Icons.language,
-                  color: Colors.white,
-                ),
-                onChanged: (Language language) {
-                  _changeLanguage(language);
-                },
-                items: Language.languageList()
-                    .map<DropdownMenuItem<Language>>(
-                      (lang) => DropdownMenuItem(
-                        value: lang,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(lang.flag),
-                            Text(lang.name),
-                          ],
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Logout.showAlert(context);
-                },
-                child: Icon(Icons.exit_to_app),
-              ),
-            ),
-          ],
-        ),
+        appBar: appBar(context),
         body: Center(
           //child: Text('Its works!')
           child: ListView(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lets_work/shared/app_bar.dart';
 import 'package:lets_work/shared/constants.dart';
-import 'package:lets_work/shared/logout.dart';
 
 class ManagerPage extends StatefulWidget {
   @override
@@ -16,21 +16,8 @@ class _ManagerPageState extends State<ManagerPage> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(APP_NAME),
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Logout.showAlert(context);
-                  },
-                  child: Icon(Icons.exit_to_app),
-                )),
-          ],
-        ),
+        appBar: appBar(context),
         body: Center(
-          //child: Text('Its works!')
           child: ListView(
             children: <Widget>[
               Text('Menadżer'),
