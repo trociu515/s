@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
-import 'package:lets_work/employee/employee_page.dart';
-import 'package:lets_work/main.dart';
-import 'package:lets_work/manager/manager_page.dart';
-import 'package:lets_work/shared/toastr_service.dart';
-import 'package:lets_work/shared/validator_service.dart';
+import 'package:give_job/employee/employee_page.dart';
+import 'package:give_job/main.dart';
+import 'package:give_job/manager/manager_page.dart';
+import 'package:give_job/shared/toastr_service.dart';
+import 'package:give_job/shared/validator_service.dart';
 
 import 'internationalization/language/language.dart';
 import 'internationalization/localization/localization_constants.dart';
@@ -43,6 +43,11 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 40,
       ),
       decoration: InputDecoration(border: InputBorder.none, hintText: APP_NAME),
+    );
+
+    final logo = Image(
+      image: AssetImage('images/logo.png'),
+      height: 250
     );
 
     final username = TextFormField(
@@ -126,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
         iconEnabledColor: Colors.blueAccent,
         underline: SizedBox(),
         hint: Text(
-          '🇧🇾 🇺🇸 🇩🇪 🇲🇩 🇵🇱 🇷🇺 🇺🇦',
+          '🇧🇾 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇩🇪 🇲🇩 🇵🇱 🇷🇺 🇺🇦',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 25,
@@ -160,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
-            title,
+            logo,
             SizedBox(height: 20.0),
             username,
             SizedBox(height: 8.0),

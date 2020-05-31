@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lets_work/internationalization/localization/localization_constants.dart';
-import 'package:lets_work/shared/app_bar.dart';
-import 'package:lets_work/shared/side_bar.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/side_bar.dart';
 
 import '../shared/constants.dart';
 

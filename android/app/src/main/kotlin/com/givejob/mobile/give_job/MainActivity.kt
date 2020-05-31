@@ -1,4 +1,4 @@
-package com.letswork.mobile.lets_work
+package com.givejob.mobile.give_job
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lets_work/internationalization/localization/localization_constants.dart';
-import 'package:lets_work/shared/toastr_service.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/shared/toastr_service.dart';
 
 import '../login_page.dart';
 import '../main.dart';

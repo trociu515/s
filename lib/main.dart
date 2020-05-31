@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:lets_work/shared/constants.dart';
+import 'package:give_job/shared/constants.dart';
 
 import 'employee/employee_page.dart';
 import 'internationalization/localization/demo_localization.dart';

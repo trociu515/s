@@ -1,6 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:lets_work/internationalization/localization/localization_constants.dart';
-import 'package:lets_work/shared/logout.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/shared/logout.dart';
 
 Drawer sideBar(BuildContext context, String userInfo, String role) {
   return Drawer(
@@ -23,8 +25,7 @@ Drawer sideBar(BuildContext context, String userInfo, String role) {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: NetworkImage(
-                            'https://material.angular.io/assets/img/examples/shiba2.jpg'),
+                        image: AssetImage('images/logo.png'),
                         fit: BoxFit.fill),
                   ),
                 ),
