@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:http/http.dart' as http;
 import 'package:give_job/employee/employee_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/manager_page.dart';
 import 'package:give_job/shared/toastr_service.dart';
 import 'package:give_job/shared/validator_service.dart';
+import 'package:http/http.dart' as http;
 
 import 'internationalization/language/language.dart';
 import 'internationalization/localization/localization_constants.dart';
@@ -37,18 +37,7 @@ class _LoginPageState extends State<LoginPage> {
       MyApp.setLocale(context, _temp);
     }
 
-    final title = TextField(
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 40,
-      ),
-      decoration: InputDecoration(border: InputBorder.none, hintText: APP_NAME),
-    );
-
-    final logo = Image(
-      image: AssetImage('images/logo.png'),
-      height: 250
-    );
+    final logo = Image(image: AssetImage('images/logo.png'), height: 250);
 
     final username = TextFormField(
       controller: usernameController,
@@ -107,11 +96,15 @@ class _LoginPageState extends State<LoginPage> {
             storage.write(key: 'role', value: role);
             storage.write(key: 'userInfo', value: userInfo);
             if (role == ROLE_EMPLOYEE) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EmployeePage(userInfo)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EmployeePage(userInfo)));
             } else if (role == ROLE_MANAGER) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ManagerPage(userInfo)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ManagerPage(userInfo)));
             }
             ToastService.showToast(
                 getTranslated(context, 'loginSuccessfully'), Colors.green);
