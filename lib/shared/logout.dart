@@ -19,8 +19,10 @@ class Logout {
               onPressed: () {
                 storage.delete(key: 'authorization');
                 storage.delete(key: 'role');
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    (e) => false);
                 ToastService.showToast(
                     getTranslated(context, 'logoutSuccessfully'), Colors.green);
               },

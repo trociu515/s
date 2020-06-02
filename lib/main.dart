@@ -46,9 +46,11 @@ class _MyAppState extends State<MyApp> {
   Future<Map<String, String>> get authOrEmpty async {
     var auth = await storage.read(key: 'authorization');
     var role = await storage.read(key: 'role');
+    var userInfo = await storage.read(key: 'userInfo');
     Map<String, String> map = new Map();
     map['authorization'] = auth;
     map['role'] = role;
+    map['userInfo'] = userInfo;
     return map.isNotEmpty ? map : null;
   }
 
