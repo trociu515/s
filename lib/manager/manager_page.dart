@@ -5,9 +5,10 @@ import 'package:give_job/shared/constants.dart';
 import 'package:give_job/shared/logout.dart';
 
 class ManagerPage extends StatefulWidget {
+  final String _id;
   final String _userInfo;
 
-  const ManagerPage(this._userInfo);
+  const ManagerPage(this._id, this._userInfo);
 
   @override
   _ManagerPageState createState() => _ManagerPageState();
@@ -17,7 +18,7 @@ class _ManagerPageState extends State<ManagerPage> {
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
-      child: MaterialApp(
+      child: new MaterialApp(
         title: APP_NAME,
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -26,6 +27,7 @@ class _ManagerPageState extends State<ManagerPage> {
           appBar: appBar(context),
           drawer: managerSideBar(
             context,
+            widget._id,
             widget._userInfo,
           ),
         ),

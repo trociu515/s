@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/logout.dart';
 
-Drawer employeeSideBar(BuildContext context, String userInfo) {
+Drawer employeeSideBar(
+    BuildContext context, String employeeId, String userInfo) {
   return Drawer(
     child: Column(
       children: <Widget>[
@@ -31,7 +32,7 @@ Drawer employeeSideBar(BuildContext context, String userInfo) {
                   style: TextStyle(fontSize: 22, color: Colors.white),
                 ),
                 Text(
-                  getTranslated(context, 'employee'),
+                  getTranslated(context, 'employee') + ' #' + employeeId,
                   style: TextStyle(color: Colors.white),
                 ),
               ],

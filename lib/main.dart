@@ -102,11 +102,13 @@ class _MyAppState extends State<MyApp> {
               return LoginPage();
             }
             String role = data['role'];
+            String id = data['id'];
             String userInfo = data['userInfo'];
             if (role == ROLE_EMPLOYEE) {
-              return EmployeePage(userInfo == null ? '' : userInfo);
+              return EmployeePage(id == null ? '' : id, userInfo == null ? '' : userInfo);
             } else if (role == ROLE_MANAGER) {
-              return ManagerPage(userInfo == null ? '' : userInfo);
+              return ManagerPage(id == null ? '' : id, userInfo == null ? '' : userInfo);
+              //return LoginPage();
             } else {
               return LoginPage();
             }

@@ -6,9 +6,10 @@ import 'package:give_job/shared/logout.dart';
 import '../shared/constants.dart';
 
 class EmployeePage extends StatefulWidget {
+  final String _id;
   final String _userInfo;
 
-  const EmployeePage(this._userInfo);
+  const EmployeePage(this._id, this._userInfo);
 
   @override
   _EmployeePageState createState() => _EmployeePageState();
@@ -27,6 +28,7 @@ class _EmployeePageState extends State<EmployeePage> {
           appBar: appBar(context),
           drawer: employeeSideBar(
             context,
+            widget._id,
             widget._userInfo,
           ),
         ),
