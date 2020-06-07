@@ -37,5 +37,6 @@
   "passportExpirationDate": "Passport expiration date",
   "groupId": "Group Id",
   "groupName": "Group name",
-  "empty": "Empty"
+  "empty": "Empty",
+  "home": "Home"
 }

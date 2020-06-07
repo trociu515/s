@@ -37,5 +37,6 @@
   "passportExpirationDate": "Ablaufdatum des Ausweises",
   "groupId": "Gruppen-ID",
   "groupName": "Gruppenname",
-  "empty": "Mangel"
+  "empty": "Mangel",
+  "home": "Zuhause"
 }

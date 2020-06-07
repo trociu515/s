@@ -37,5 +37,6 @@
   "passportExpirationDate": "Data ważności paszportu",
   "groupId": "Id grupy",
   "groupName": "Nazwa grupy",
-  "empty": "Brak"
+  "empty": "Brak",
+  "home": "Strona główna"
 }

@@ -37,5 +37,6 @@
   "passportExpirationDate": "Data de expirare a pasaportului",
   "groupId": "ID-ul grupului",
   "groupName": "Numele Grupului",
-  "empty": "lipsă"
+  "empty": "lipsă",
+  "home": "Acasă"
 }
