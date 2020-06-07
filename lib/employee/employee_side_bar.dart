@@ -39,6 +39,18 @@ Drawer employeeSideBar(BuildContext context, String userInfo) {
           ),
         ),
         ListTile(
+          leading: Icon(Icons.person),
+          title: Text(
+            getTranslated(context, 'information'),
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+          onTap: () {
+            /* to be implemented */
+          },
+        ),
+        ListTile(
           leading: Icon(Icons.exit_to_app),
           title: Text(
             getTranslated(context, 'signOut'),
