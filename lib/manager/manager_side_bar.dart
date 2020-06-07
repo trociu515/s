@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/logout.dart';
 
-Drawer sideBar(BuildContext context, String userInfo, String role) {
+Drawer managerSideBar(BuildContext context, String userInfo) {
   return Drawer(
     child: Column(
       children: <Widget>[
@@ -25,8 +23,7 @@ Drawer sideBar(BuildContext context, String userInfo, String role) {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: AssetImage('images/logo.png'),
-                        fit: BoxFit.fill),
+                        image: AssetImage('images/logo.png'), fit: BoxFit.fill),
                   ),
                 ),
                 Text(
@@ -34,7 +31,7 @@ Drawer sideBar(BuildContext context, String userInfo, String role) {
                   style: TextStyle(fontSize: 22, color: Colors.white),
                 ),
                 Text(
-                  role,
+                  getTranslated(context, 'manager'),
                   style: TextStyle(color: Colors.white),
                 ),
               ],

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/constants.dart';
 import 'package:give_job/shared/logout.dart';
-import 'package:give_job/shared/side_bar.dart';
 
 class ManagerPage extends StatefulWidget {
   final String _userInfo;
@@ -25,10 +24,9 @@ class _ManagerPageState extends State<ManagerPage> {
         ),
         home: Scaffold(
           appBar: appBar(context),
-          drawer: sideBar(
+          drawer: managerSideBar(
             context,
             widget._userInfo,
-            getTranslated(context, 'manager'),
           ),
         ),
       ),
