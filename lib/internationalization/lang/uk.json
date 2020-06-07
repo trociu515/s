@@ -8,7 +8,7 @@
   "usernameAndPasswordRequired": "Ім'я користувача та пароль обов'язкові",
   "usernameRequired": "Ім'я користувача обов'язкове",
   "passwordRequired": "Пароль необхідний",
-  "logout": "Ведення журналів",
+  "logout": "Вийти",
   "signOut": "вийти з аккаунта",
   "logoutConfirm": "Ви впевнені, що хочете вийти?",
   "logoutSuccessfully": "Вийшов із системи успішно",

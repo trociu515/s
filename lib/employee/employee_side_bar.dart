@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:give_job/employee/employee_details.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/logout.dart';
 
-Drawer employeeSideBar(
-    BuildContext context, String employeeId, String userInfo) {
+Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
+    String authHeader) {
   return Drawer(
     child: Column(
       children: <Widget>[
@@ -48,7 +49,13 @@ Drawer employeeSideBar(
             ),
           ),
           onTap: () {
-            /* to be implemented */
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    EmployeeDetails(employeeId, userInfo, authHeader),
+              ),
+            );
           },
         ),
         ListTile(

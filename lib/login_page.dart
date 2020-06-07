@@ -86,10 +86,9 @@ class _LoginPageState extends State<LoginPage> {
         login(usernameController.text, passwordController.text).then((res) {
           FocusScope.of(context).unfocus();
           if (res.statusCode == 200) {
-            storage.write(
-                key: 'authorization',
-                value: 'Basic ' +
-                    base64Encode(utf8.encode('$username:$password')));
+            String authHeader =
+                'Basic ' + base64Encode(utf8.encode('$username:$password'));
+            storage.write(key: 'authorization', value: authHeader);
             Map map = json.decode(res.body);
             String role = map['role'];
             String id = map['id'];
@@ -101,7 +100,8 @@ class _LoginPageState extends State<LoginPage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => EmployeePage(id, userInfo)));
+                      builder: (context) =>
+                          EmployeePage(id, userInfo, authHeader)));
             } else if (role == ROLE_MANAGER) {
               Navigator.push(
                   context,

@@ -8,8 +8,9 @@ import '../shared/constants.dart';
 class EmployeePage extends StatefulWidget {
   final String _id;
   final String _userInfo;
+  final String _authHeader;
 
-  const EmployeePage(this._id, this._userInfo);
+  const EmployeePage(this._id, this._userInfo, this._authHeader);
 
   @override
   _EmployeePageState createState() => _EmployeePageState();
@@ -30,6 +31,7 @@ class _EmployeePageState extends State<EmployeePage> {
             context,
             widget._id,
             widget._userInfo,
+            widget._authHeader
           ),
         ),
       ),

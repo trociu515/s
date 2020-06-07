@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:give_job/shared/group.dto/id_name_group_dto.dart';
 
 class EmployeeDto {
   final int id;
   final String username;
   final String name;
   final String surname;
-  final DateTime dateOfBirth;
+  final String dateOfBirth;
   final String fatherName;
   final String motherName;
-  final DateTime expirationDateOfWorkInPoland;
+  final String expirationDateOfWorkInPoland;
   final String nip;
   final String bankAccountNumber;
   final double moneyPerHour;
@@ -19,9 +18,10 @@ class EmployeeDto {
   final String zipCode;
   final String locality;
   final String passportNumber;
-  final DateTime passportReleaseDate;
-  final DateTime passportExpirationDate;
-  final IdNameGroupDto groupDto;
+  final String passportReleaseDate;
+  final String passportExpirationDate;
+  final int groupId;
+  final String groupName;
 
   EmployeeDto({
     @required this.id,
@@ -43,7 +43,8 @@ class EmployeeDto {
     @required this.passportNumber,
     @required this.passportReleaseDate,
     @required this.passportExpirationDate,
-    @required this.groupDto,
+    @required this.groupId,
+    @required this.groupName,
   });
 
   factory EmployeeDto.fromJson(Map<String, dynamic> json) {
@@ -52,11 +53,11 @@ class EmployeeDto {
       username: json['username'] as String,
       name: json['name'] as String,
       surname: json['surname'] as String,
-      dateOfBirth: json['dateOfBirth'] as DateTime,
+      dateOfBirth: json['dateOfBirth'] as String,
       fatherName: json['fatherName'] as String,
       motherName: json['motherName'] as String,
       expirationDateOfWorkInPoland:
-          json['expirationDateOfWorkInPoland'] as DateTime,
+          json['expirationDateOfWorkInPoland'] as String,
       nip: json['nip'] as String,
       bankAccountNumber: json['bankAccountNumber'] as String,
       moneyPerHour: json['moneyPerHour'] as double,
@@ -66,9 +67,10 @@ class EmployeeDto {
       zipCode: json['zipCode'] as String,
       locality: json['locality'] as String,
       passportNumber: json['passportNumber'] as String,
-      passportReleaseDate: json['passportReleaseDate'] as DateTime,
-      passportExpirationDate: json['passportExpirationDate'] as DateTime,
-      groupDto: json['groupDto'] as IdNameGroupDto,
+      passportReleaseDate: json['passportReleaseDate'] as String,
+      passportExpirationDate: json['passportExpirationDate'] as String,
+      groupId: json['groupId'] as int,
+      groupName: json['groupName'] as String,
     );
   }
 }

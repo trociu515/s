@@ -8,7 +8,7 @@
   "usernameAndPasswordRequired": "Требуется имя пользователя и пароль",
   "usernameRequired": "Имя пользователя требуется",
   "passwordRequired": "Необходим пароль",
-  "logout": "логирование",
+  "logout": "выйти",
   "signOut": "выход",
   "logoutConfirm": "Вы действительно хотите выйти?",
   "logoutSuccessfully": "Выйти успешно",
