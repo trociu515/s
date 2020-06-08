@@ -37,6 +37,10 @@
   "passportExpirationDate": "Passport expiration date",
   "groupId": "Group Id",
   "groupName": "Group name",
+  "groupDescription": "Group description",
+  "groupManager": "Group manager",
   "empty": "Empty",
-  "home": "Home"
+  "home": "Home",
+  "group": "Group",
+  "employeeDoesNotHaveGroup": "The employee does not have a group"
 }

@@ -37,6 +37,10 @@
   "passportExpirationDate": "Data ważności paszportu",
   "groupId": "Id grupy",
   "groupName": "Nazwa grupy",
+  "groupDescription": "Opis grupy",
+  "groupManager": "Menadżer grupy",
   "empty": "Brak",
-  "home": "Strona główna"
+  "home": "Strona główna",
+  "group": "Grupa",
+  "employeeDoesNotHaveGroup": "Pracownik nie posiada grupy"
 }

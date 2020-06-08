@@ -37,6 +37,10 @@
   "passportExpirationDate": "Ablaufdatum des Ausweises",
   "groupId": "Gruppen-ID",
   "groupName": "Gruppenname",
+  "groupDescription": "Gruppenbeschreibung",
+  "groupManager": "Gruppenleiter",
   "empty": "Mangel",
-  "home": "Zuhause"
+  "home": "Zuhause",
+  "group": "Gruppe",
+  "employeeDoesNotHaveGroup": "Der Mitarbeiter hat keine Gruppe"
 }

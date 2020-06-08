@@ -37,6 +37,10 @@
   "passportExpirationDate": "Data de expirare a pasaportului",
   "groupId": "ID-ul grupului",
   "groupName": "Numele Grupului",
+  "groupDescription": "Descrierea Grupului",
+  "groupManager": "Manager de grup",
   "empty": "lipsă",
-  "home": "Acasă"
+  "home": "Acasă",
+  "group": "grup",
+  "employeeDoesNotHaveGroup": "Angajatul nu are un grup"
 }

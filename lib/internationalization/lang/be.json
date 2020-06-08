@@ -37,6 +37,10 @@
   "passportExpirationDate": "Дата заканчэння тэрміну дзеяння пашпарта",
   "groupId": "Id група",
   "groupName": "Назва групы",
+  "groupDescription": "Апісанне групы",
+  "groupManager": "Кіраўнік групы",
   "empty": "Недахоп",
-  "home": "Дадому"
+  "home": "Дадому",
+  "group": "Група",
+  "employeeDoesNotHaveGroup": "У супрацоўніка няма групы"
 }

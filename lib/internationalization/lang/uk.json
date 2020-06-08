@@ -37,6 +37,10 @@
   "passportExpirationDate": "Дата закінчення терміну дії паспорта",
   "groupId": "Ідентифікатор групи",
   "groupName": "Назва групи",
+  "groupDescription": "Опис групи",
+  "groupManager": "Керівник групи",
   "empty": "Нестача",
-  "home": "Головна"
+  "home": "Головна",
+  "group": "Групувати",
+  "employeeDoesNotHaveGroup": "У працівника немає групи"
 }

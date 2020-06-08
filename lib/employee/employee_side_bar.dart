@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_details.dart';
+import 'package:give_job/employee/employee_group.dart';
 import 'package:give_job/employee/employee_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/logout.dart';
@@ -73,6 +74,24 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
               MaterialPageRoute(
                 builder: (context) =>
                     EmployeeDetails(employeeId, userInfo, authHeader),
+              ),
+            );
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.group),
+          title: Text(
+            getTranslated(context, 'group'),
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    EmployeeGroup(employeeId, userInfo, authHeader),
               ),
             );
           },
