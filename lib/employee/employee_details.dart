@@ -37,7 +37,7 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
           return MaterialApp(
             title: APP_NAME,
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.green,
             ),
             home: Scaffold(
               appBar: appBar(context, getTranslated(context, 'information')),

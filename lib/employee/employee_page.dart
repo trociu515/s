@@ -24,7 +24,7 @@ class _EmployeePageState extends State<EmployeePage> {
       child: new MaterialApp(
         title: APP_NAME,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
         ),
         home: Scaffold(
           appBar: appBar(context, getTranslated(context, 'home')),

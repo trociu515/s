@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final loginButton = RaisedButton(
-      color: Colors.lightBlueAccent,
+      color: Colors.green,
       shape: new RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(30.0),
       ),
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final languageButton = Center(
       child: DropdownButton(
-        iconEnabledColor: Colors.blueAccent,
+        iconEnabledColor: Colors.lightGreen,
         underline: SizedBox(),
         hint: Text(
           '🇧🇾 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇫🇷 🇬🇪 🇩🇪 🇲🇩 \n🇳🇱 🇵🇱 🇷🇺 🇪🇸 🇸🇪 🇺🇦',

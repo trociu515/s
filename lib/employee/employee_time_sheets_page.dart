@@ -84,7 +84,7 @@ class _EmployeeTimeSheetsPageState extends State<EmployeeTimeSheetsPage> {
           return MaterialApp(
             title: APP_NAME,
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.green,
             ),
             home: Scaffold(
               appBar: appBar(context, getTranslated(context, 'workTimeSheets')),

@@ -22,7 +22,7 @@ class _ManagerPageState extends State<ManagerPage> {
       child: new MaterialApp(
         title: APP_NAME,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
         ),
         home: Scaffold(
           appBar: appBar(context, getTranslated(context, 'home')),
