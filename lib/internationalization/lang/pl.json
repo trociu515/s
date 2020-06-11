@@ -43,5 +43,19 @@
   "home": "Strona główna",
   "group": "Grupa",
   "employeeDoesNotHaveGroup": "Pracownik nie posiada grupy",
-  "workTimeSheets": "Arkusze czasu pracy"
+  "workTimeSheets": "Arkusze czasu pracy",
+  "hoursWorked": "Przepracowane godziny",
+  "averageRating": "Średnia ocen",
+  "january": "Styczeń",
+  "february": "Luty",
+  "march": "Marzec",
+  "april": "Kwiecień",
+  "may": "Maj",
+  "june": "Czerwiec",
+  "july": "Lipiec",
+  "august": "Sierpień",
+  "september": "Wrzesień",
+  "october": "Październik",
+  "november": "Listopad",
+  "december": "Grudzień"
 }

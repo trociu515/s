@@ -43,5 +43,19 @@
   "home": "Головна",
   "group": "Групувати",
   "employeeDoesNotHaveGroup": "У працівника немає групи",
-  "workTimeSheets": "Графіки робочого часу"
+  "workTimeSheets": "Графіки робочого часу",
+  "hoursWorked": "Години працювали",
+  "averageRating": "Середня оцінка",
+  "january": "Styczeń",
+  "february": "Luty",
+  "march": "Marzec",
+  "april": "Kwiecień",
+  "may": "Maj",
+  "june": "Czerwiec",
+  "july": "Lipiec",
+  "august": "Sierpień",
+  "september": "Wrzesień",
+  "october": "Październik",
+  "november": "Listopad",
+  "december": "Grudzień"
 }

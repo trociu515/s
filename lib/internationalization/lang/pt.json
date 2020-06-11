@@ -43,5 +43,19 @@
   "home": "მთავარი",
   "group": "ჯგუფი",
   "employeeDoesNotHaveGroup": "დასაქმებულს ჯგუფი არ ჰყავს",
-  "workTimeSheets": "სამუშაო დროის ფურცლები"
+  "workTimeSheets": "სამუშაო დროის ფურცლები",
+  "hoursWorked": "საათები მუშაობდნენ",
+  "averageRating": "საშუალო ნიშანი",
+  "january": "Styczeń",
+  "february": "Luty",
+  "march": "Marzec",
+  "april": "Kwiecień",
+  "may": "Maj",
+  "june": "Czerwiec",
+  "july": "Lipiec",
+  "august": "Sierpień",
+  "september": "Wrzesień",
+  "october": "Październik",
+  "november": "Listopad",
+  "december": "Grudzień"
 }

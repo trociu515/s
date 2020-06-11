@@ -43,5 +43,19 @@
   "home": "Home",
   "group": "Group",
   "employeeDoesNotHaveGroup": "The employee does not have a group",
-  "workTimeSheets": "Work time sheets"
+  "workTimeSheets": "Work time sheets",
+  "hoursWorked": "Hours worked",
+  "averageRating": "Average rating",
+  "january": "January",
+  "february": "February",
+  "march": "March",
+  "april": "April",
+  "may": "May",
+  "june": "June",
+  "july": "July",
+  "august": "August",
+  "september": "September",
+  "october": "October",
+  "november": "November",
+  "december": "December"
 }

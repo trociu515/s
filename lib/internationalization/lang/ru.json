@@ -43,5 +43,19 @@
   "home": "Дом",
   "group": "группа",
   "employeeDoesNotHaveGroup": "У работника нет группы",
-  "workTimeSheets": "Таблицы рабочего времени"
+  "workTimeSheets": "Таблицы рабочего времени",
+  "hoursWorked": "часы работали",
+  "averageRating": "средний рейтинг",
+  "january": "Styczeń",
+  "february": "Luty",
+  "march": "Marzec",
+  "april": "Kwiecień",
+  "may": "Maj",
+  "june": "Czerwiec",
+  "july": "Lipiec",
+  "august": "Sierpień",
+  "september": "Wrzesień",
+  "october": "Październik",
+  "november": "Listopad",
+  "december": "Grudzień"
 }

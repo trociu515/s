@@ -43,5 +43,19 @@
   "home": "Zuhause",
   "group": "Gruppe",
   "employeeDoesNotHaveGroup": "Der Mitarbeiter hat keine Gruppe",
-  "workTimeSheets": "Arbeitszeitnachweise"
+  "workTimeSheets": "Arbeitszeitnachweise",
+  "hoursWorked": "Arbeitsstunden",
+  "averageRating": "Durchschnittliche Bewertung",
+  "january": "Styczeń",
+  "february": "Luty",
+  "march": "Marzec",
+  "april": "Kwiecień",
+  "may": "Maj",
+  "june": "Czerwiec",
+  "july": "Lipiec",
+  "august": "Sierpień",
+  "september": "Wrzesień",
+  "october": "Październik",
+  "november": "Listopad",
+  "december": "Grudzień"
 }
