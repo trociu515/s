@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/constants.dart';
@@ -24,7 +25,7 @@ class _ManagerPageState extends State<ManagerPage> {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-          appBar: appBar(context),
+          appBar: appBar(context, getTranslated(context, 'home')),
           drawer: managerSideBar(
             context,
             widget._id,

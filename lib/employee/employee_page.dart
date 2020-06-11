@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/logout.dart';
 
@@ -26,13 +27,9 @@ class _EmployeePageState extends State<EmployeePage> {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-          appBar: appBar(context),
+          appBar: appBar(context, getTranslated(context, 'home')),
           drawer: employeeSideBar(
-            context,
-            widget._id,
-            widget._userInfo,
-            widget._authHeader
-          ),
+              context, widget._id, widget._userInfo, widget._authHeader),
         ),
       ),
       onWillPop: _onWillPop,

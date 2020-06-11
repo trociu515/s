@@ -80,7 +80,7 @@ class _EmployeeTimeSheetsPageState extends State<EmployeeTimeSheetsPage> {
               primarySwatch: Colors.blue,
             ),
             home: Scaffold(
-              appBar: appBar(context),
+              appBar: appBar(context, getTranslated(context, 'workTimeSheets')),
               drawer: employeeSideBar(context, widget._employeeId,
                   widget._employeeInfo, widget._authHeader),
               body: SingleChildScrollView(

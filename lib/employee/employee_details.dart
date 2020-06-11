@@ -40,7 +40,7 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
               primarySwatch: Colors.blue,
             ),
             home: Scaffold(
-              appBar: appBar(context),
+              appBar: appBar(context, getTranslated(context, 'information')),
               drawer: employeeSideBar(context, widget._employeeId,
                   widget._employeeInfo, widget._authHeader),
               body: SingleChildScrollView(

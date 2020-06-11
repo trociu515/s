@@ -3,17 +3,16 @@ import 'package:give_job/internationalization/language/language.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 
 import '../main.dart';
-import 'constants.dart';
 
 void _changeLanguage(Language language, BuildContext context) async {
   Locale _temp = await setLocale(language.languageCode);
   MyApp.setLocale(context, _temp);
 }
 
-AppBar appBar(BuildContext context) {
+AppBar appBar(BuildContext context, String title) {
   return AppBar(
     title: Text(
-      APP_NAME,
+      title,
       style: TextStyle(
           fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
     ),
