@@ -9,6 +9,7 @@ String getTranslated(BuildContext context, String key) {
 
 const String BELARUSIAN = 'be';
 const String ENGLISH = 'en';
+const String GEORGIA = 'pt';
 const String GERMAN = 'de';
 const String MOLDAVIAN = 'ro';
 const String POLISH = 'pl';
@@ -31,6 +32,9 @@ Locale _locale(String languageCode) {
       break;
     case ENGLISH:
       _temp = Locale(languageCode, 'US');
+      break;
+    case GEORGIA:
+      _temp = Locale(languageCode, 'PT');
       break;
     case GERMAN:
       _temp = Locale(languageCode, 'DE');

@@ -39,7 +39,7 @@ class _DemoLocalizationDelegate
 
   @override
   bool isSupported(Locale locale) {
-    return [BELARUSIAN, ENGLISH, GERMAN, MOLDAVIAN, POLISH, RUSSIAN, UKRAINIAN]
+    return [BELARUSIAN, ENGLISH, GEORGIA, GERMAN, MOLDAVIAN, POLISH, RUSSIAN, UKRAINIAN]
         .contains(locale.languageCode);
   }
 
