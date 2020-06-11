@@ -10,12 +10,16 @@ class Language {
     return <Language>[
       Language(1, '🇧🇾', 'Belarusian', 'be'),
       Language(2, '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'English', 'en'),
-      Language(3, '🇬🇪', 'Georgia', 'pt'),
-      Language(4, '🇩🇪', 'German', 'de'),
-      Language(5, '🇲🇩', 'Moldavian', 'ro'),
-      Language(6, '🇵🇱', 'Polish', 'pl'),
-      Language(7, '🇷🇺', 'Russian', 'ru'),
-      Language(8, '🇺🇦', 'Ukrainian', 'uk'),
+      Language(3, '🇫🇷', 'French', 'fr'),
+      Language(4, '🇬🇪', 'Georgia', 'pt'),
+      Language(5, '🇩🇪', 'German', 'de'),
+      Language(6, '🇲🇩', 'Moldavian', 'ro'),
+      Language(7, '🇳🇱', 'Netherlands', 'nl'),
+      Language(8, '🇵🇱', 'Polish', 'pl'),
+      Language(9, '🇷🇺', 'Russian', 'ru'),
+      Language(10, '🇪🇸', 'Spain', 'es'),
+      Language(11, '🇸🇪', 'Sweden', 'ca'),
+      Language(12, '🇺🇦', 'Ukrainian', 'uk'),
     ];
   }
 }

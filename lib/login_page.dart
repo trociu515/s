@@ -126,10 +126,10 @@ class _LoginPageState extends State<LoginPage> {
         iconEnabledColor: Colors.blueAccent,
         underline: SizedBox(),
         hint: Text(
-          '🇧🇾 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇬🇪 🇩🇪 🇲🇩 🇵🇱 🇷🇺 🇺🇦',
+          '🇧🇾 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇫🇷 🇬🇪 🇩🇪 🇲🇩 \n🇳🇱 🇵🇱 🇷🇺 🇪🇸 🇸🇪 🇺🇦',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 25,
+            fontSize: 20,
             color: Colors.black,
           ),
         ),

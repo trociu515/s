@@ -9,11 +9,15 @@ String getTranslated(BuildContext context, String key) {
 
 const String BELARUSIAN = 'be';
 const String ENGLISH = 'en';
+const String FRENCH = 'fr';
 const String GEORGIA = 'pt';
 const String GERMAN = 'de';
 const String MOLDAVIAN = 'ro';
+const String NETHERLANDS = 'nl';
 const String POLISH = 'pl';
 const String RUSSIAN = 'ru';
+const String SPAIN = 'es';
+const String SWEDEN = 'ca';
 const String UKRAINIAN = 'uk';
 
 const String LANGUAGE_CODE = 'languageCode';
@@ -31,7 +35,10 @@ Locale _locale(String languageCode) {
       _temp = Locale(languageCode, 'BY');
       break;
     case ENGLISH:
-      _temp = Locale(languageCode, 'US');
+      _temp = Locale(languageCode, 'EN');
+      break;
+    case FRENCH:
+      _temp = Locale(languageCode, 'FR');
       break;
     case GEORGIA:
       _temp = Locale(languageCode, 'PT');
@@ -42,17 +49,26 @@ Locale _locale(String languageCode) {
     case MOLDAVIAN:
       _temp = Locale(languageCode, 'RO');
       break;
+    case NETHERLANDS:
+      _temp = Locale(languageCode, 'NL');
+      break;
     case POLISH:
       _temp = Locale(languageCode, 'PL');
       break;
     case RUSSIAN:
       _temp = Locale(languageCode, 'RU');
       break;
+    case SPAIN:
+      _temp = Locale(languageCode, 'ES');
+      break;
+    case SWEDEN:
+      _temp = Locale(languageCode, 'CA');
+      break;
     case UKRAINIAN:
       _temp = Locale(languageCode, 'UA');
       break;
     default:
-      _temp = Locale(ENGLISH, 'US');
+      _temp = Locale(ENGLISH, 'EN');
   }
   return _temp;
 }
