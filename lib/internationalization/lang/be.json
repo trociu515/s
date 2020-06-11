@@ -42,5 +42,6 @@
   "empty": "Недахоп",
   "home": "Дадому",
   "group": "Група",
-  "employeeDoesNotHaveGroup": "У супрацоўніка няма групы"
+  "employeeDoesNotHaveGroup": "У супрацоўніка няма групы",
+  "workTimeSheets": "Працоўны ліст"
 }

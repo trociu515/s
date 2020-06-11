@@ -42,5 +42,6 @@
   "empty": "lipsă",
   "home": "Acasă",
   "group": "grup",
-  "employeeDoesNotHaveGroup": "Angajatul nu are un grup"
+  "employeeDoesNotHaveGroup": "Angajatul nu are un grup",
+  "workTimeSheets": "Fișe de lucru"
 }

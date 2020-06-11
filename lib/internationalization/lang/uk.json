@@ -42,5 +42,6 @@
   "empty": "Нестача",
   "home": "Головна",
   "group": "Групувати",
-  "employeeDoesNotHaveGroup": "У працівника немає групи"
+  "employeeDoesNotHaveGroup": "У працівника немає групи",
+  "workTimeSheets": "Графіки робочого часу"
 }

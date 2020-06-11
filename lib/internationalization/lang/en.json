@@ -42,5 +42,6 @@
   "empty": "Empty",
   "home": "Home",
   "group": "Group",
-  "employeeDoesNotHaveGroup": "The employee does not have a group"
+  "employeeDoesNotHaveGroup": "The employee does not have a group",
+  "workTimeSheets": "Work time sheets"
 }

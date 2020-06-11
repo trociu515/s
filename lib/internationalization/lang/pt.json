@@ -42,5 +42,6 @@
   "empty": "ცარიელი",
   "home": "მთავარი",
   "group": "ჯგუფი",
-  "employeeDoesNotHaveGroup": "დასაქმებულს ჯგუფი არ ჰყავს"
+  "employeeDoesNotHaveGroup": "დასაქმებულს ჯგუფი არ ჰყავს",
+  "workTimeSheets": "სამუშაო დროის ფურცლები"
 }

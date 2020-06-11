@@ -42,5 +42,6 @@
   "empty": "отсутствие",
   "home": "Дом",
   "group": "группа",
-  "employeeDoesNotHaveGroup": "У работника нет группы"
+  "employeeDoesNotHaveGroup": "У работника нет группы",
+  "workTimeSheets": "Таблицы рабочего времени"
 }

@@ -42,5 +42,6 @@
   "empty": "Mangel",
   "home": "Zuhause",
   "group": "Gruppe",
-  "employeeDoesNotHaveGroup": "Der Mitarbeiter hat keine Gruppe"
+  "employeeDoesNotHaveGroup": "Der Mitarbeiter hat keine Gruppe",
+  "workTimeSheets": "Arbeitszeitnachweise"
 }

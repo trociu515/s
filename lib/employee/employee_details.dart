@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/employee/employee_service.dart';
+import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/app_bar.dart';

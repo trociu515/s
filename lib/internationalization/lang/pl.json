@@ -42,5 +42,6 @@
   "empty": "Brak",
   "home": "Strona główna",
   "group": "Grupa",
-  "employeeDoesNotHaveGroup": "Pracownik nie posiada grupy"
+  "employeeDoesNotHaveGroup": "Pracownik nie posiada grupy",
+  "workTimeSheets": "Arkusze czasu pracy"
 }
