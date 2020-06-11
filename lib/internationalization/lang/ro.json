@@ -57,5 +57,6 @@
   "september": "Septembrie",
   "october": "octombrie",
   "november": "noiembrie",
-  "december": "decembrie"
+  "december": "decembrie",
+  "employeeDoesNotHaveTimeSheets": "Angajatul nu are fise de lucru"
 }

@@ -64,7 +64,8 @@ class _EmployeeTimeSheetsPageState extends State<EmployeeTimeSheetsPage> {
           .findEmployeeTimeSheetsById(widget._employeeId, widget._authHeader)
           .catchError((e) {
         ToastService.showToast(
-            getTranslated(context, 'employeeDoesNotHaveGroup'), Colors.red);
+            getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
+            Colors.red);
         Navigator.pop(context);
       }),
       builder: (BuildContext context,
@@ -74,6 +75,12 @@ class _EmployeeTimeSheetsPageState extends State<EmployeeTimeSheetsPage> {
           return Center(child: CircularProgressIndicator());
         } else {
           List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
+          if (timeSheets.isEmpty) {
+            ToastService.showToast(
+                getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
+                Colors.red);
+            Navigator.pop(context);
+          }
           return MaterialApp(
             title: APP_NAME,
             theme: ThemeData(

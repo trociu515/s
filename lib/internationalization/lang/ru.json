@@ -57,5 +57,6 @@
   "september": "сентябрь",
   "october": "октября",
   "november": "ноябрь",
-  "december": "Декабрь"
+  "december": "Декабрь",
+  "employeeDoesNotHaveTimeSheets": "У работника нет рабочего графика"
 }

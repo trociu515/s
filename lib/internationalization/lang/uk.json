@@ -57,5 +57,6 @@
   "september": "Вересень",
   "october": "Жовтень",
   "november": "Листопад",
-  "december": "Грудень"
+  "december": "Грудень",
+  "employeeDoesNotHaveTimeSheets": "Працівник не має листків робочого часу"
 }

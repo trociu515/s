@@ -57,5 +57,6 @@
   "september": "Верасень",
   "october": "Кастрычніцкая",
   "november": "Лістапада",
-  "december": "Снежань"
+  "december": "Снежань",
+  "employeeDoesNotHaveTimeSheets": "У работніка няма працоўнага ліста"
 }

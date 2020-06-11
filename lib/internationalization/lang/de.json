@@ -39,7 +39,7 @@
   "groupName": "Gruppenname",
   "groupDescription": "Gruppenbeschreibung",
   "groupManager": "Gruppenleiter",
-  "empty": "leeren",
+  "empty": "Leeren",
   "home": "Startseite",
   "group": "Gruppe",
   "employeeDoesNotHaveGroup": "Der Mitarbeiter hat keine Gruppe",
@@ -57,5 +57,6 @@
   "september": "September",
   "october": "Oktober",
   "november": "November",
-  "december": "Dezember"
+  "december": "Dezember",
+  "employeeDoesNotHaveTimeSheets": "Der Mitarbeiter hat keine Arbeitszeitnachweise"
 }

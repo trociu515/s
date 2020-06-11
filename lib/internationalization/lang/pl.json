@@ -57,5 +57,6 @@
   "september": "Wrzesień",
   "october": "Październik",
   "november": "Listopad",
-  "december": "Grudzień"
+  "december": "Grudzień",
+  "employeeDoesNotHaveTimeSheets": "Pracownik nie posiada arkuszy czasu pracy"
 }
