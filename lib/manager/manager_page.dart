@@ -8,8 +8,9 @@ import 'package:give_job/shared/logout.dart';
 class ManagerPage extends StatefulWidget {
   final String _id;
   final String _userInfo;
+  final String _authHeader;
 
-  const ManagerPage(this._id, this._userInfo);
+  const ManagerPage(this._id, this._userInfo, this._authHeader);
 
   @override
   _ManagerPageState createState() => _ManagerPageState();
@@ -27,10 +28,7 @@ class _ManagerPageState extends State<ManagerPage> {
         home: Scaffold(
           appBar: appBar(context, getTranslated(context, 'home')),
           drawer: managerSideBar(
-            context,
-            widget._id,
-            widget._userInfo,
-          ),
+              context, widget._id, widget._userInfo, widget._authHeader),
         ),
       ),
       onWillPop: _onWillPop,

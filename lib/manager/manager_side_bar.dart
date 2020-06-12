@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/manager_details.dart';
+import 'package:give_job/manager/manager_page.dart';
 import 'package:give_job/shared/logout.dart';
 
-Drawer managerSideBar(BuildContext context, String managerId, String userInfo) {
+Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
+    String authHeader) {
   return Drawer(
     child: Column(
       children: <Widget>[
@@ -39,6 +42,24 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo) {
           ),
         ),
         ListTile(
+          leading: Icon(Icons.home),
+          title: Text(
+            getTranslated(context, 'home'),
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    ManagerPage(managerId, userInfo, authHeader),
+              ),
+            );
+          },
+        ),
+        ListTile(
           leading: Icon(Icons.person),
           title: Text(
             getTranslated(context, 'information'),
@@ -47,7 +68,13 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo) {
             ),
           ),
           onTap: () {
-            /* to be implemented */
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    ManagerDetails(managerId, userInfo, authHeader),
+              ),
+            );
           },
         ),
         ListTile(

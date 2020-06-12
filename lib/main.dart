@@ -114,10 +114,14 @@ class _MyAppState extends State<MyApp> {
             String authHeader = data['authorization'];
             if (role == ROLE_EMPLOYEE) {
               return EmployeePage(
-                  id == null ? '' : id, userInfo == null ? '' : userInfo, authHeader == null ? '' : authHeader);
+                  id == null ? '' : id,
+                  userInfo == null ? '' : userInfo,
+                  authHeader == null ? '' : authHeader);
             } else if (role == ROLE_MANAGER) {
               return ManagerPage(
-                  id == null ? '' : id, userInfo == null ? '' : userInfo);
+                  id == null ? '' : id,
+                  userInfo == null ? '' : userInfo,
+                  authHeader == null ? '' : authHeader);
             } else {
               return LoginPage();
             }
