@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:give_job/shared/constants.dart';
+import 'package:give_job/shared/own_http_overrides.dart';
 
 import 'employee/employee_page.dart';
 import 'internationalization/localization/demo_localization.dart';
@@ -12,7 +15,10 @@ import 'manager/manager_page.dart';
 const SERVER_IP = 'http://10.0.2.2:8080/api';
 final storage = new FlutterSecureStorage();
 
-void main() => runApp(MyApp());
+void main() {
+  HttpOverrides.global = new OwnHttpOverrides();
+  runApp(new MyApp());
+}
 
 class MyApp extends StatefulWidget {
   static void setLocale(BuildContext context, Locale locale) {
