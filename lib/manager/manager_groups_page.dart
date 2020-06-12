@@ -62,30 +62,45 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: <Widget>[
-                      for (var group in groups)
-                        Card(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              ListTile(
-                                title: Text(utf8.decode(group.name != null
-                                    ? group.name.runes.toList()
-                                    : getTranslated(context, 'empty'))),
-                                subtitle: Wrap(
-                                  children: <Widget>[
-                                    Text('Number of employees: ' +
-                                        group.numberOfEmployees.toString()),
-                                  ],
-                                ),
-                                trailing: Wrap(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.edit,
+                      for (int i = 0; i < groups.length; i++)
+                        new GestureDetector(
+                          onTap: () => {
+                            print('to be implemented'),
+                          },
+                          child: Card(
+                            child: InkWell(
+                              onTap: () {},
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: Text(
+                                      '#' + (i + 1).toString(),
+                                      style: TextStyle(fontSize: 20),
                                     ),
-                                  ],
-                                ),
+                                    title: Text(utf8.decode(
+                                        groups[i].name != null
+                                            ? groups[i].name.runes.toList()
+                                            : getTranslated(context, 'empty'))),
+                                    subtitle: Wrap(
+                                      children: <Widget>[
+                                        Text('Number of employees: ' +
+                                            groups[i]
+                                                .numberOfEmployees
+                                                .toString()),
+                                      ],
+                                    ),
+                                    trailing: Wrap(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.edit,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                     ],
