@@ -63,5 +63,7 @@
   "managerDoesNotHaveGroups": "У менеджера немає груп",
   "numberOfEmployees": "Кількість працівників",
   "numberOfEmployeesInGroups": "Кількість працівників у групах",
-  "numberOfGroups": "Кількість груп"
+  "numberOfGroups": "Кількість груп",
+  "numberOfHoursWorked": "Кількість відпрацьованих годин",
+  "amountOfEarnedMoney": "Сума зароблених грошей"
 }

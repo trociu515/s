@@ -63,5 +63,7 @@
   "managerDoesNotHaveGroups": "Menadżer nie posiada grup",
   "numberOfEmployees": "Liczba pracowników",
   "numberOfEmployeesInGroups": "Liczba pracowników w grupach",
-  "numberOfGroups": "Liczba grup"
+  "numberOfGroups": "Liczba grup",
+  "numberOfHoursWorked": "Liczba przepracowanych godzin",
+  "amountOfEarnedMoney": "Ilość zarobionych pieniędzy"
 }

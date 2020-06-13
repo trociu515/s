@@ -63,5 +63,7 @@
   "managerDoesNotHaveGroups": "Manager does not have groups",
   "numberOfEmployees": "Number of employees",
   "numberOfEmployeesInGroups": "Number of employees in groups",
-  "numberOfGroups": "Number of groups"
+  "numberOfGroups": "Number of groups",
+  "numberOfHoursWorked": "Number of hours worked",
+  "amountOfEarnedMoney": "Amount of earned money"
 }

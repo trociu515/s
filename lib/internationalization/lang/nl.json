@@ -63,5 +63,7 @@
   "managerDoesNotHaveGroups": "Manager heeft geen groepen",
   "numberOfEmployees": "Aantal werknemers",
   "numberOfEmployeesInGroups": "Aantal werknemers in groepen",
-  "numberOfGroups": "Aantal groepen"
+  "numberOfGroups": "Aantal groepen",
+  "numberOfHoursWorked": "Aantal gewerkte uren",
+  "amountOfEarnedMoney": "Bedrag van verdiend geld"
 }

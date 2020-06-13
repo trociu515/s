@@ -63,5 +63,7 @@
   "managerDoesNotHaveGroups": "Le gestionnaire n'a pas de groupes",
   "numberOfEmployees": "Nombre d'employés",
   "numberOfEmployeesInGroups": "Nombre d'employés dans les groupes",
-  "numberOfGroups": "Nombre de groupes"
+  "numberOfGroups": "Nombre de groupes",
+  "numberOfHoursWorked": "Nombre d'heures travaillées",
+  "amountOfEarnedMoney": "Montant gagné"
 }

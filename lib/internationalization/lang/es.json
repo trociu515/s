@@ -63,5 +63,7 @@
   "managerDoesNotHaveGroups": "El gerente no tiene grupos",
   "numberOfEmployees": "Numero de empleados",
   "numberOfEmployeesInGroups": "Número de empleados en grupos",
-  "numberOfGroups": "Numero de grupos"
+  "numberOfGroups": "Numero de grupos",
+  "numberOfHoursWorked": "Numero de horas trabajadas",
+  "amountOfEarnedMoney": "Cantidad de dinero ganado"
 }

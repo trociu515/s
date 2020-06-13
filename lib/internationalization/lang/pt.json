@@ -63,5 +63,7 @@
   "managerDoesNotHaveGroups": "მენეჯერს არ აქვს ჯგუფები",
   "numberOfEmployees": "ანამშრომლების რაოდენობა",
   "numberOfEmployeesInGroups": "ჯგუფებში დასაქმებულთა რაოდენობა",
-  "numberOfGroups": "ჯგუფების რაოდენობა"
+  "numberOfGroups": "ჯგუფების რაოდენობა",
+  "numberOfHoursWorked": "საათების რაოდენობა",
+  "amountOfEarnedMoney": "მიღებული ფულის ოდენობა"
 }

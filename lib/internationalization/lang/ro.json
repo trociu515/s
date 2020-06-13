@@ -63,5 +63,7 @@
   "managerDoesNotHaveGroups": "Managerul nu are grupuri",
   "numberOfEmployees": "Numar de angajati",
   "numberOfEmployeesInGroups": "Numărul de angajați din grupuri",
-  "numberOfGroups": "Număr de grupuri"
+  "numberOfGroups": "Număr de grupuri",
+  "numberOfHoursWorked": "Numărul de ore lucrate",
+  "amountOfEarnedMoney": "Suma de bani câștigați"
 }

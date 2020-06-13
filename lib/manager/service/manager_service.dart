@@ -3,12 +3,14 @@ import 'dart:io';
 
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/dto/manager_dto.dart';
+import 'package:give_job/manager/dto/manager_employees_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_overview_dto.dart';
 import 'package:http/http.dart';
 
 class ManagerService {
   final String baseManagerUrl = SERVER_IP + '/mobile/managers';
   final String baseGroupUrl = SERVER_IP + '/mobile/groups';
+  final String baseEmployeeUrl = SERVER_IP + '/mobile/employees';
 
   Future<ManagerDto> findById(String id, String authHeader) async {
     Response res = await get(
@@ -30,6 +32,22 @@ class ManagerService {
     if (res.statusCode == 200) {
       return (json.decode(res.body) as List)
           .map((data) => ManagerGroupOverviewDto.fromJson(data))
+          .toList();
+    } else if (res.statusCode == 400) {
+      return Future.error(res.body);
+    }
+    return null;
+  }
+
+  Future<List<ManagerEmployeesGroupDetailsDto>> findEmployeesGroupDetails(
+      String groupId, String authHeader) async {
+    Response res = await get(
+      baseEmployeeUrl + '/groups/${int.parse(groupId)}/details',
+      headers: {HttpHeaders.authorizationHeader: authHeader},
+    );
+    if (res.statusCode == 200) {
+      return (json.decode(res.body) as List)
+          .map((data) => ManagerEmployeesGroupDetailsDto.fromJson(data))
           .toList();
     } else if (res.statusCode == 400) {
       return Future.error(res.body);
