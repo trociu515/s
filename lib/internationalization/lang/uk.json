@@ -35,6 +35,7 @@
   "passportNumber": "Номер паспорта",
   "passportReleaseDate": "Дата відновлення паспорта",
   "passportExpirationDate": "Дата закінчення терміну дії паспорта",
+  "groups": "Групи",
   "groupId": "Ідентифікатор групи",
   "groupName": "Назва групи",
   "groupDescription": "Опис групи",
@@ -58,5 +59,9 @@
   "october": "Жовтень",
   "november": "Листопад",
   "december": "Грудень",
-  "employeeDoesNotHaveTimeSheets": "Працівник не має листків робочого часу"
+  "employeeDoesNotHaveTimeSheets": "Працівник не має листків робочого часу",
+  "managerDoesNotHaveGroups": "У менеджера немає груп",
+  "numberOfEmployees": "Кількість працівників",
+  "numberOfEmployeesInGroups": "Кількість працівників у групах",
+  "numberOfGroups": "Кількість груп"
 }

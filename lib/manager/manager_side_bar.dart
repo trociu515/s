@@ -84,7 +84,7 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
         ListTile(
           leading: Icon(Icons.group),
           title: Text(
-            'Groups',
+            getTranslated(context, 'groups'),
             style: TextStyle(
               fontSize: 18,
             ),

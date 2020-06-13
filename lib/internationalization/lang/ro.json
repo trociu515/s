@@ -35,6 +35,7 @@
   "passportNumber": "Numarul pasaportului",
   "passportReleaseDate": "Data de eliberare a pașaportului",
   "passportExpirationDate": "Data expirare pasaport",
+  "groups": "Grupuri",
   "groupId": "ID de grup",
   "groupName": "Numele Grupului",
   "groupDescription": "Descrierea Grupului",
@@ -58,5 +59,9 @@
   "october": "octombrie",
   "november": "noiembrie",
   "december": "decembrie",
-  "employeeDoesNotHaveTimeSheets": "Angajatul nu are fise de lucru"
+  "employeeDoesNotHaveTimeSheets": "Angajatul nu are fise de lucru",
+  "managerDoesNotHaveGroups": "Managerul nu are grupuri",
+  "numberOfEmployees": "Numar de angajati",
+  "numberOfEmployeesInGroups": "Numărul de angajați din grupuri",
+  "numberOfGroups": "Количество групп"
 }

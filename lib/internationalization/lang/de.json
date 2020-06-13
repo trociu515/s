@@ -35,6 +35,7 @@
   "passportNumber": "Ausweisnummer",
   "passportReleaseDate": "Datum der Freigabe des Reisepasses",
   "passportExpirationDate": "Ablaufdatum des Passes",
+  "groups": "Gruppen",
   "groupId": "Gruppen-ID",
   "groupName": "Gruppenname",
   "groupDescription": "Gruppenbeschreibung",
@@ -58,5 +59,9 @@
   "october": "Oktober",
   "november": "November",
   "december": "Dezember",
-  "employeeDoesNotHaveTimeSheets": "Der Mitarbeiter hat keine Arbeitszeitnachweise"
+  "employeeDoesNotHaveTimeSheets": "Der Mitarbeiter hat keine Arbeitszeitnachweise",
+  "managerDoesNotHaveGroups": "Manager hat keine Gruppen",
+  "numberOfEmployees": "Anzahl der Angestellten",
+  "numberOfEmployeesInGroups": "Anzahl der Mitarbeiter in Gruppen",
+  "numberOfGroups": "Anzahl der Gruppen"
 }

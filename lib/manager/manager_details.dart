@@ -81,11 +81,11 @@ class _ManagerDetailsState extends State<ManagerDetails> {
                               ),
                             ),
                             ListTile(
-                              title: Text('Number of groups'),
+                              title: Text(getTranslated(context, 'numberOfGroups')),
                               subtitle: Text(manager.numberOfGroups.toString()),
                             ),
                             ListTile(
-                              title: Text('Number of employees in groups'),
+                              title: Text(getTranslated(context, 'numberOfEmployeesInGroups')),
                               subtitle: Text(
                                   manager.numberOfEmployeesInGroups.toString()),
                             ),

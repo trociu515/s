@@ -35,6 +35,7 @@
   "passportNumber": "Paspoortnummer",
   "passportReleaseDate": "Paspoort relase datum",
   "passportExpirationDate": "Paspoort vervaldatum",
+  "groups": "Groepen",
   "groupId": "Groeps-ID",
   "groupName": "Groepsnaam",
   "groupDescription": "Groepsomschrijving",
@@ -58,5 +59,9 @@
   "october": "Oktober",
   "november": "November",
   "december": "December",
-  "employeeDoesNotHaveTimeSheets": "De werknemer heeft geen werktijdregistratie"
+  "employeeDoesNotHaveTimeSheets": "De werknemer heeft geen werktijdregistratie",
+  "managerDoesNotHaveGroups": "Manager heeft geen groepen",
+  "numberOfEmployees": "Aantal werknemers",
+  "numberOfEmployeesInGroups": "Aantal werknemers in groepen",
+  "numberOfGroups": "Aantal groepen"
 }
