@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/manager_details.dart';
@@ -32,7 +34,7 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
                   ),
                 ),
                 Text(
-                  userInfo,
+                  utf8.decode(userInfo != null ? userInfo.runes.toList() : '-'),
                   style: TextStyle(fontSize: 22, color: Colors.white),
                 ),
                 Text(

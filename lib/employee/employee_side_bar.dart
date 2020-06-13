@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_details.dart';
 import 'package:give_job/employee/employee_group.dart';
@@ -32,7 +34,7 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
                   ),
                 ),
                 Text(
-                  userInfo,
+                  utf8.decode(userInfo != null ? userInfo.runes.toList() : '-'),
                   style: TextStyle(fontSize: 22, color: Colors.white),
                 ),
                 Text(
