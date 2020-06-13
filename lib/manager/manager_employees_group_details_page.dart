@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_employees_group_details_dto.dart';
+import 'package:give_job/manager/manager_employee_time_sheets_page.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
@@ -91,7 +93,19 @@ class _ManagerEmployeesGroupDetailsPageState
                         Card(
                           child: InkWell(
                             onTap: () {
-                              /* to be implemented */
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ManagerEmployeeTimeSheetsPage(
+                                          widget._managerId,
+                                          widget._managerInfo,
+                                          widget._authHeader,
+                                          widget._groupId,
+                                          employees[i].employeeId,
+                                          employees[i].employeeInfo),
+                                ),
+                              );
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
