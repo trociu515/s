@@ -14,37 +14,41 @@ AppBar appBar(BuildContext context, String title) {
     title: Text(
       title,
       style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+          fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white),
     ),
     actions: <Widget>[
       Padding(
-        padding: EdgeInsets.only(right: 20.0),
-        child: DropdownButton(
-          underline: SizedBox(),
-          hint: Text(
-            'Language',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
-          ),
-          onChanged: (Language language) {
-            _changeLanguage(language, context);
-          },
-          items: Language.languageList()
-              .map<DropdownMenuItem<Language>>(
-                (lang) => DropdownMenuItem(
-                  value: lang,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Text(lang.flag),
-                      Text(lang.name),
-                    ],
-                  ),
+          padding: EdgeInsets.only(right: 20.0),
+          child: Container(
+            width: 100,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                underline: SizedBox(),
+                hint: Container(
+                  alignment: Alignment.centerRight,
+                  width: 75,
+                  child: Icon(Icons.language),
                 ),
-              )
-              .toList(),
-        ),
-      ),
+                onChanged: (Language language) {
+                  _changeLanguage(language, context);
+                },
+                items: Language.languageList()
+                    .map<DropdownMenuItem<Language>>(
+                      (lang) => DropdownMenuItem(
+                        value: lang,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(lang.flag),
+                            Text(lang.name),
+                          ],
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+          )),
     ],
   );
 }

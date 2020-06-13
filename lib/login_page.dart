@@ -123,34 +123,38 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final languageButton = Center(
-      child: DropdownButton(
-        iconEnabledColor: Colors.lightGreen,
-        underline: SizedBox(),
-        hint: Text(
-          '🇧🇾 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇫🇷 🇬🇪 🇩🇪 🇲🇩 \n🇳🇱 🇵🇱 🇷🇺 🇪🇸 🇸🇪 🇺🇦',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            color: Colors.black,
+      child: Container(
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            iconEnabledColor: Colors.lightGreen,
+            underline: SizedBox(),
+            hint: Text(
+              '🇧🇾 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇫🇷 🇬🇪 🇩🇪 🇲🇩 \n🇳🇱 🇵🇱 🇷🇺 🇪🇸 🇸🇪 🇺🇦',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+            onChanged: (Language language) {
+              _changeLanguage(language, context);
+            },
+            items: Language.languageList()
+                .map<DropdownMenuItem<Language>>(
+                  (lang) => DropdownMenuItem(
+                    value: lang,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Text(lang.flag),
+                        Text(lang.name),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
           ),
         ),
-        onChanged: (Language language) {
-          _changeLanguage(language, context);
-        },
-        items: Language.languageList()
-            .map<DropdownMenuItem<Language>>(
-              (lang) => DropdownMenuItem(
-                value: lang,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Text(lang.flag),
-                    Text(lang.name),
-                  ],
-                ),
-              ),
-            )
-            .toList(),
       ),
     );
 

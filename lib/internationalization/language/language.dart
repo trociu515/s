@@ -8,18 +8,18 @@ class Language {
 
   static List<Language> languageList() {
     return <Language>[
-      Language(1, '🇧🇾', 'Belarusian', 'be'),
-      Language(2, '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'English', 'en'),
-      Language(3, '🇫🇷', 'French', 'fr'),
-      Language(4, '🇬🇪', 'Georgia', 'pt'),
-      Language(5, '🇩🇪', 'German', 'de'),
-      Language(6, '🇲🇩', 'Moldavian', 'ro'),
-      Language(7, '🇳🇱', 'Netherlands', 'nl'),
-      Language(8, '🇵🇱', 'Polish', 'pl'),
-      Language(9, '🇷🇺', 'Russian', 'ru'),
-      Language(10, '🇪🇸', 'Spain', 'es'),
-      Language(11, '🇸🇪', 'Sweden', 'ca'),
-      Language(12, '🇺🇦', 'Ukrainian', 'uk'),
+      Language(1, '🇧🇾', 'BE', 'be'),
+      Language(2, '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'EN', 'en'),
+      Language(3, '🇫🇷', 'FR', 'fr'),
+      Language(4, '🇬🇪', 'GE', 'pt'),
+      Language(5, '🇩🇪', 'DE', 'de'),
+      Language(6, '🇲🇩', 'RO', 'ro'),
+      Language(7, '🇳🇱', 'NL', 'nl'),
+      Language(8, '🇵🇱', 'PL', 'pl'),
+      Language(9, '🇷🇺', 'RU', 'ru'),
+      Language(10, '🇪🇸', 'ES', 'es'),
+      Language(11, '🇸🇪', 'SE', 'ca'),
+      Language(12, '🇺🇦', 'UK', 'uk'),
     ];
   }
 }
