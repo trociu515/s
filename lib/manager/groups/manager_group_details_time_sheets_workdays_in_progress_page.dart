@@ -496,27 +496,50 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             ],
           );
         } else if (content == 'RATING') {
+          final ratingController = new TextEditingController();
+          TextFormField field = TextFormField(
+            controller: ratingController,
+            autofocus: true,
+            keyboardType: TextInputType.number,
+            maxLength: 1,
+            decoration: InputDecoration(
+              labelText: 'New rating (1-5)',
+            ),
+          );
           return AlertDialog(
             title: Text('Updating rating ...'),
             content: Row(
               children: <Widget>[
-                Expanded(
-                  child: TextFormField(
-                    autofocus: true,
-                    keyboardType: TextInputType.number,
-                    maxLength: 1,
-                    decoration: InputDecoration(
-                      labelText: 'New rating (1-5)',
-                    ),
-                  ),
-                )
+                Expanded(child: field),
               ],
             ),
             actions: <Widget>[
               FlatButton(
                 child: Text('Update'),
                 onPressed: () {
-                  print(selectedIds);
+                  int hours;
+                  try {
+                    hours = int.parse(ratingController.text);
+                  } catch (FormatException) {
+                    ToastService.showToast(
+                        'Given value is not a number', Colors.red);
+                    return;
+                  }
+                  String invalidMessage =
+                      ValidatorService.validateUpdatingRating(hours);
+                  if (invalidMessage != null) {
+                    ToastService.showToast(invalidMessage, Colors.red);
+                    return;
+                  }
+                  _managerService
+                      .updateWorkdaysRating(
+                          selectedIds, hours, widget._authHeader)
+                      .then((res) {
+                    Navigator.of(context).pop();
+                    ToastService.showToast(
+                        'Rating updated successfully', Colors.green);
+                    Navigator.pop(context);
+                  });
                 },
               ),
               FlatButton(
