@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/manager_readonly_employee_time_sheet_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/toastr_service.dart';
@@ -118,52 +119,73 @@ class _ManagerEmployeeTimeSheetsPageState
                       ),
                       for (var timeSheet in timeSheets)
                         Card(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(
-                                  timeSheet.status == 'Accepted'
-                                      ? Icons.check_circle_outline
-                                      : Icons.radio_button_unchecked,
-                                  color: timeSheet.status == 'Accepted'
-                                      ? Colors.green
-                                      : Colors.orange,
+                          child: InkWell(
+                            onTap: () {
+                              if (timeSheet.status == 'Accepted') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ManagerReadonlyEmployeeTimeSheetPage(
+                                            widget._managerId,
+                                            widget._managerInfo,
+                                            widget._authHeader,
+                                            widget._employeeInfo,
+                                            timeSheet),
+                                  ),
+                                );
+                              } else {
+                                /* to be implemented */
+                              }
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                ListTile(
+                                  leading: Icon(
+                                    timeSheet.status == 'Accepted'
+                                        ? Icons.check_circle_outline
+                                        : Icons.radio_button_unchecked,
+                                    color: timeSheet.status == 'Accepted'
+                                        ? Colors.green
+                                        : Colors.orange,
+                                  ),
+                                  title: Text(timeSheet.year.toString() +
+                                      ' ' +
+                                      translateMonth(timeSheet.month) +
+                                      '\n' +
+                                      utf8.decode(
+                                          timeSheet.groupName.runes.toList())),
+                                  subtitle: Wrap(
+                                    children: <Widget>[
+                                      Text(getTranslated(
+                                              context, 'hoursWorked') +
+                                          ': ' +
+                                          timeSheet.totalHours.toString() +
+                                          'h'),
+                                      Text(getTranslated(
+                                              context, 'averageRating') +
+                                          ': ' +
+                                          timeSheet.averageEmployeeRating
+                                              .toString()),
+                                    ],
+                                  ),
+                                  trailing: Wrap(
+                                    children: <Widget>[
+                                      Text(
+                                        timeSheet.totalMoneyEarned.toString(),
+                                        style: TextStyle(
+                                            color: Colors.green, fontSize: 20),
+                                      ),
+                                      Icon(
+                                        Icons.attach_money,
+                                        color: Colors.green,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                title: Text(timeSheet.year.toString() +
-                                    ' ' +
-                                    translateMonth(timeSheet.month) +
-                                    '\n' +
-                                    utf8.decode(
-                                        timeSheet.groupName.runes.toList())),
-                                subtitle: Wrap(
-                                  children: <Widget>[
-                                    Text(getTranslated(context, 'hoursWorked') +
-                                        ': ' +
-                                        timeSheet.totalHours.toString() +
-                                        'h'),
-                                    Text(getTranslated(
-                                            context, 'averageRating') +
-                                        ': ' +
-                                        timeSheet.averageEmployeeRating
-                                            .toString()),
-                                  ],
-                                ),
-                                trailing: Wrap(
-                                  children: <Widget>[
-                                    Text(
-                                      timeSheet.totalMoneyEarned.toString(),
-                                      style: TextStyle(
-                                          color: Colors.green, fontSize: 20),
-                                    ),
-                                    Icon(
-                                      Icons.attach_money,
-                                      color: Colors.green,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                     ],
