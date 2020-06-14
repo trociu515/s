@@ -7,6 +7,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
 
 import '../shared/constants.dart';
@@ -30,36 +31,6 @@ class ManagerReadonlyEmployeeTimeSheetPage extends StatefulWidget {
 
 class _ManagerReadonlyEmployeeTimeSheetPageState
     extends State<ManagerReadonlyEmployeeTimeSheetPage> {
-  String translateMonth(String toTranslate) {
-    switch (toTranslate) {
-      case JANUARY:
-        return getTranslated(context, 'january');
-      case FEBRUARY:
-        return getTranslated(context, 'february');
-      case MARCH:
-        return getTranslated(context, 'march');
-      case APRIL:
-        return getTranslated(context, 'april');
-      case MAY:
-        return getTranslated(context, 'may');
-      case JUNE:
-        return getTranslated(context, 'june');
-      case JULY:
-        return getTranslated(context, 'july');
-      case AUGUST:
-        return getTranslated(context, 'august');
-      case SEPTEMBER:
-        return getTranslated(context, 'september');
-      case OCTOBER:
-        return getTranslated(context, 'october');
-      case NOVEMBER:
-        return getTranslated(context, 'november');
-      case DECEMBER:
-        return getTranslated(context, 'december');
-    }
-    throw 'Wrong month to translate!';
-  }
-
   final ManagerService _managerService = new ManagerService();
 
   @override
@@ -70,7 +41,8 @@ class _ManagerReadonlyEmployeeTimeSheetPageState
               widget.timeSheet.id.toString(), widget._authHeader)
           .catchError((e) {
         ToastService.showToast(
-            getTranslated(context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
+            getTranslated(
+                context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
             Colors.red);
         Navigator.pop(context);
       }),
@@ -83,7 +55,8 @@ class _ManagerReadonlyEmployeeTimeSheetPageState
           List<WorkdayDto> workdays = snapshot.data;
           if (workdays.isEmpty) {
             ToastService.showToast(
-                getTranslated(context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
+                getTranslated(
+                    context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
                 Colors.red);
             Navigator.pop(context);
           }
@@ -124,7 +97,8 @@ class _ManagerReadonlyEmployeeTimeSheetPageState
                         ),
                         title: Text(widget.timeSheet.year.toString() +
                             ' ' +
-                            translateMonth(widget.timeSheet.month) +
+                            MonthUtil.translateMonth(
+                                context, widget.timeSheet.month) +
                             '\n' +
                             utf8.decode(
                                 widget.timeSheet.groupName.runes.toList())),

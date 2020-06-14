@@ -7,6 +7,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/manager_readonly_employee_time_sheet_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
 
 import '../shared/constants.dart';
@@ -42,36 +43,6 @@ class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
 class _ManagerEmployeeTimeSheetsPageState
     extends State<ManagerEmployeeTimeSheetsPage> {
   final ManagerService _managerService = new ManagerService();
-
-  String translateMonth(String toTranslate) {
-    switch (toTranslate) {
-      case JANUARY:
-        return getTranslated(context, 'january');
-      case FEBRUARY:
-        return getTranslated(context, 'february');
-      case MARCH:
-        return getTranslated(context, 'march');
-      case APRIL:
-        return getTranslated(context, 'april');
-      case MAY:
-        return getTranslated(context, 'may');
-      case JUNE:
-        return getTranslated(context, 'june');
-      case JULY:
-        return getTranslated(context, 'july');
-      case AUGUST:
-        return getTranslated(context, 'august');
-      case SEPTEMBER:
-        return getTranslated(context, 'september');
-      case OCTOBER:
-        return getTranslated(context, 'october');
-      case NOVEMBER:
-        return getTranslated(context, 'november');
-      case DECEMBER:
-        return getTranslated(context, 'december');
-    }
-    throw 'Wrong month to translate!';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +149,8 @@ class _ManagerEmployeeTimeSheetsPageState
                                   ),
                                   title: Text(timeSheet.year.toString() +
                                       ' ' +
-                                      translateMonth(timeSheet.month)),
+                                      MonthUtil.translateMonth(
+                                          context, timeSheet.month)),
                                   subtitle: Wrap(
                                     children: <Widget>[
                                       Text(getTranslated(
