@@ -142,26 +142,30 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                RaisedButton(
-                                  child: Text('Update hours'),
+                                RaisedButton.icon(
+                                  label: Text(getTranslated(context, 'hours')),
+                                  icon: Icon(Icons.edit),
                                   onPressed: () {
                                     /* to be implemented */
                                   },
                                 ),
-                                RaisedButton(
-                                  child: Text('Update rating'),
+                                RaisedButton.icon(
+                                  label: Text(getTranslated(context, 'rating')),
+                                  icon: Icon(Icons.edit),
                                   onPressed: () {
                                     /* to be implemented */
                                   },
                                 ),
-                                RaisedButton(
-                                  child: Text('Update comment'),
+                                RaisedButton.icon(
+                                  label:
+                                      Text(getTranslated(context, 'comment')),
+                                  icon: Icon(Icons.edit),
                                   onPressed: () {
                                     /* to be implemented */
                                   },
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -307,26 +311,29 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          RaisedButton(
-                            child: Text('Update hours'),
+                          RaisedButton.icon(
+                            label: Text(getTranslated(context, 'hours')),
+                            icon: Icon(Icons.edit),
                             onPressed: () {
                               /* to be implemented */
                             },
                           ),
-                          RaisedButton(
-                            child: Text('Update rating'),
+                          RaisedButton.icon(
+                            label: Text(getTranslated(context, 'rating')),
+                            icon: Icon(Icons.edit),
                             onPressed: () {
                               /* to be implemented */
                             },
                           ),
-                          RaisedButton(
-                            child: Text('Update comment'),
+                          RaisedButton.icon(
+                            label: Text(getTranslated(context, 'comment')),
+                            icon: Icon(Icons.edit),
                             onPressed: () {
                               /* to be implemented */
                             },
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                   SizedBox(
