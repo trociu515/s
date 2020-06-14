@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:give_job/employee/information/employee_information_page.dart';
-import 'package:give_job/employee/group/employee_group.dart';
 import 'package:give_job/employee/employee_page.dart';
+import 'package:give_job/employee/group/employee_group.dart';
+import 'package:give_job/employee/information/employee_information_page.dart';
 import 'package:give_job/employee/timesheet/employee_time_sheets_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/logout.dart';
@@ -11,7 +11,8 @@ import 'package:give_job/shared/logout.dart';
 Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
     String authHeader) {
   return Drawer(
-    child: Column(
+    child: ListView(
+      padding: EdgeInsets.zero,
       children: <Widget>[
         Container(
           width: double.infinity,

@@ -10,7 +10,7 @@
   "passwordRequired": "Password is required",
   "logout": "Logout",
   "signOut": "Sing out",
-  "logoutConfirm": "Are you sure you want to log out??",
+  "logoutConfirm": "Are you sure you want to log out?",
   "logoutSuccessfully": "Logout successfull",
   "yes": "Yes",
   "no": "No",

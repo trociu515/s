@@ -11,7 +11,8 @@ import 'groups/manager_groups_page.dart';
 Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
     String authHeader) {
   return Drawer(
-    child: Column(
+    child: ListView(
+      padding: EdgeInsets.zero,
       children: <Widget>[
         Container(
           width: double.infinity,
