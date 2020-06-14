@@ -34,6 +34,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
     extends State<ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage> {
   final ManagerService _managerService = new ManagerService();
 
+  Set<int> selectedIds = new Set();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<WorkdayDto>>(
@@ -140,31 +142,46 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                             columns: [
                               DataColumn(label: Text('#')),
                               DataColumn(
-                                  label: Text(getTranslated(context, 'hours'))),
-                              DataColumn(
-                                  label:
-                                      Text(getTranslated(context, 'rating'))),
-                              DataColumn(
-                                  label: Text(getTranslated(context, 'money'))),
-                              DataColumn(
-                                  label:
-                                      Text(getTranslated(context, 'comment'))),
-                            ],
-                            rows: [
-                              for (var workday in workdays)
-                                DataRow(
-                                  cells: [
-                                    DataCell(Text(workday.number.toString())),
-                                    DataCell(Text(workday.hours.toString())),
-                                    DataCell(Text(workday.rating.toString())),
-                                    DataCell(Text(workday.money.toString())),
-                                    DataCell(Text(workday.comment != null
-                                        ? utf8.decode(
-                                            workday.comment.runes.toList())
-                                        : getTranslated(context, 'empty'))),
-                                  ],
+                                label: Text(
+                                  getTranslated(context, 'hours'),
                                 ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  getTranslated(context, 'rating'),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  getTranslated(context, 'money'),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  getTranslated(context, 'comment'),
+                                ),
+                              ),
                             ],
+                            rows: workdays
+                                .map(
+                                  (workday) => DataRow(
+                                    selected: selectedIds.contains(workday.id),
+                                    onSelectChanged: (bool selected) {
+                                      onSelectedRow(selected, workday.id);
+                                    },
+                                    cells: [
+                                      DataCell(Text(workday.number.toString())),
+                                      DataCell(Text(workday.hours.toString())),
+                                      DataCell(Text(workday.rating.toString())),
+                                      DataCell(Text(workday.money.toString())),
+                                      DataCell(Text(workday.comment != null
+                                          ? utf8.decode(
+                                              workday.comment.runes.toList())
+                                          : getTranslated(context, 'empty'))),
+                                    ],
+                                  ),
+                                )
+                                .toList(),
                           ),
                         ),
                       ),
@@ -177,5 +194,12 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
         }
       },
     );
+  }
+
+  void onSelectedRow(bool selected, int id) {
+    setState(() {
+      selected ? selectedIds.add(id) : selectedIds.remove(id);
+    });
+    print(selectedIds);
   }
 }
