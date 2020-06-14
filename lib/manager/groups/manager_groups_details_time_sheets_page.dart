@@ -12,6 +12,7 @@ import 'package:give_job/shared/toastr_service.dart';
 
 import '../../shared/constants.dart';
 import '../manager_side_bar.dart';
+import 'manager_group_details_time_sheets_workdays_in_progress_page.dart';
 
 class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
   final String _managerId;
@@ -132,7 +133,18 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                   ),
                                 );
                               } else {
-                                /* to be implemented */
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
+                                            widget._managerId,
+                                            widget._managerInfo,
+                                            widget._authHeader,
+                                            widget._employeeInfo,
+                                            timeSheet),
+                                  ),
+                                );
                               }
                             },
                             child: Column(
