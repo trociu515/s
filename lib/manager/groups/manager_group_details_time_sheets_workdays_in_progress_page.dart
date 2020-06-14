@@ -146,14 +146,14 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                   label: Text(getTranslated(context, 'hours')),
                                   icon: Icon(Icons.edit),
                                   onPressed: () {
-                                    _showDialog('HOURS');
+                                    _showDialog('HOURS', selectedIds);
                                   },
                                 ),
                                 RaisedButton.icon(
                                   label: Text(getTranslated(context, 'rating')),
                                   icon: Icon(Icons.edit),
                                   onPressed: () {
-                                    _showDialog('RATING');
+                                    _showDialog('RATING', selectedIds);
                                   },
                                 ),
                                 RaisedButton.icon(
@@ -161,7 +161,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                       Text(getTranslated(context, 'comment')),
                                   icon: Icon(Icons.edit),
                                   onPressed: () {
-                                    _showDialog('COMMENT');
+                                    _showDialog('COMMENT', selectedIds);
                                   },
                                 ),
                               ],
@@ -315,21 +315,21 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                             label: Text(getTranslated(context, 'hours')),
                             icon: Icon(Icons.edit),
                             onPressed: () {
-                              _showDialog('HOURS');
+                              _showDialog('HOURS', selectedIds);
                             },
                           ),
                           RaisedButton.icon(
                             label: Text(getTranslated(context, 'rating')),
                             icon: Icon(Icons.edit),
                             onPressed: () {
-                              _showDialog('RATING');
+                              _showDialog('RATING', selectedIds);
                             },
                           ),
                           RaisedButton.icon(
                             label: Text(getTranslated(context, 'comment')),
                             icon: Icon(Icons.edit),
                             onPressed: () {
-                              _showDialog('COMMENT');
+                              _showDialog('COMMENT', selectedIds);
                             },
                           ),
                         ],
@@ -406,29 +406,108 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
     });
   }
 
-  void _showDialog(String content) {
+  void _showDialog(String content, Set<int> selectedIds) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Updating ' + content + ' ...'),
-          content: Text(
-              'Are you sure u want to update selected days ' + content + '?'),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Yes, I want to update'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+        if (content == 'HOURS') {
+          return AlertDialog(
+            title: Text('Updating hours ...'),
+            content: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextFormField(
+                    autofocus: true,
+                    keyboardType: TextInputType.number,
+                    maxLength: 2,
+                    decoration: InputDecoration(
+                      labelText: 'New hours (0-24)',
+                    ),
+                  ),
+                )
+              ],
             ),
-            FlatButton(
-              child: Text('No'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Update'),
+                onPressed: () {
+                  print(selectedIds);
+                },
+              ),
+              FlatButton(
+                child: Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        } else if (content == 'RATING') {
+          return AlertDialog(
+            title: Text('Updating rating ...'),
+            content: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextFormField(
+                    autofocus: true,
+                    keyboardType: TextInputType.number,
+                    maxLength: 1,
+                    decoration: InputDecoration(
+                      labelText: 'New rating (1-5)',
+                    ),
+                  ),
+                )
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Update'),
+                onPressed: () {
+                  print(selectedIds);
+                },
+              ),
+              FlatButton(
+                child: Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        } else {
+          return AlertDialog(
+            title: Text('Updating comment ...'),
+            content: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextFormField(
+                    autofocus: true,
+                    keyboardType: TextInputType.multiline,
+                    maxLength: 510,
+                    maxLines: 10,
+                    decoration: InputDecoration(
+                      labelText: 'New comment',
+                    ),
+                  ),
+                )
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Update'),
+                onPressed: () {
+                  print(selectedIds);
+                },
+              ),
+              FlatButton(
+                child: Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        }
       },
     );
   }
