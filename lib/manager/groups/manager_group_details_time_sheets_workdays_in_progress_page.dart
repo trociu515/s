@@ -36,6 +36,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
 
   Set<int> selectedIds = new Set();
   List<WorkdayDto> workdays = new List();
+  bool sort = true;
 
   @override
   Widget build(BuildContext context) {
@@ -176,10 +177,17 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: DataTable(
-                              sortAscending: true,
+                              sortAscending: sort,
                               sortColumnIndex: 0,
                               columns: [
-                                DataColumn(label: Text('No.')),
+                                DataColumn(
+                                    label: Text('No.'),
+                                    onSort: (columnIndex, ascending) {
+                                      setState(() {
+                                        sort = !sort;
+                                      });
+                                      onSortColum(columnIndex, ascending);
+                                    }),
                                 DataColumn(
                                   label: Text(
                                     getTranslated(context, 'hours'),
@@ -346,10 +354,17 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
-                        sortAscending: true,
+                        sortAscending: sort,
                         sortColumnIndex: 0,
                         columns: [
-                          DataColumn(label: Text('No.')),
+                          DataColumn(
+                              label: Text('No.'),
+                              onSort: (columnIndex, ascending) {
+                                setState(() {
+                                  sort = !sort;
+                                });
+                                onSortColum(columnIndex, ascending);
+                              }),
                           DataColumn(
                             label: Text(
                               getTranslated(context, 'hours'),
@@ -408,6 +423,16 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
     setState(() {
       selected ? selectedIds.add(id) : selectedIds.remove(id);
     });
+  }
+
+  onSortColum(int columnIndex, bool ascending) {
+    if (columnIndex == 0) {
+      if (ascending) {
+        workdays.sort((a, b) => a.number.compareTo(b.number));
+      } else {
+        workdays.sort((a, b) => b.number.compareTo(a.number));
+      }
+    }
   }
 
   void _showDialog(String content, Set<int> selectedIds) {
