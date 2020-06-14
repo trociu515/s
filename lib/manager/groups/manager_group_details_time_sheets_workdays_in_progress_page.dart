@@ -146,14 +146,14 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                   label: Text(getTranslated(context, 'hours')),
                                   icon: Icon(Icons.edit),
                                   onPressed: () {
-                                    /* to be implemented */
+                                    _showDialog('HOURS');
                                   },
                                 ),
                                 RaisedButton.icon(
                                   label: Text(getTranslated(context, 'rating')),
                                   icon: Icon(Icons.edit),
                                   onPressed: () {
-                                    /* to be implemented */
+                                    _showDialog('RATING');
                                   },
                                 ),
                                 RaisedButton.icon(
@@ -161,7 +161,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                       Text(getTranslated(context, 'comment')),
                                   icon: Icon(Icons.edit),
                                   onPressed: () {
-                                    /* to be implemented */
+                                    _showDialog('COMMENT');
                                   },
                                 ),
                               ],
@@ -315,21 +315,21 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                             label: Text(getTranslated(context, 'hours')),
                             icon: Icon(Icons.edit),
                             onPressed: () {
-                              /* to be implemented */
+                              _showDialog('HOURS');
                             },
                           ),
                           RaisedButton.icon(
                             label: Text(getTranslated(context, 'rating')),
                             icon: Icon(Icons.edit),
                             onPressed: () {
-                              /* to be implemented */
+                              _showDialog('RATING');
                             },
                           ),
                           RaisedButton.icon(
                             label: Text(getTranslated(context, 'comment')),
                             icon: Icon(Icons.edit),
                             onPressed: () {
-                              /* to be implemented */
+                              _showDialog('COMMENT');
                             },
                           ),
                         ],
@@ -404,5 +404,32 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
     setState(() {
       selected ? selectedIds.add(id) : selectedIds.remove(id);
     });
+  }
+
+  void _showDialog(String content) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Updating ' + content + ' ...'),
+          content: Text(
+              'Are you sure u want to update selected days ' + content + '?'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Yes, I want to update'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 }
