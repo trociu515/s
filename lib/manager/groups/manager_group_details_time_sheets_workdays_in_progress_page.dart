@@ -486,13 +486,13 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Comment details'),
+          title: Text(getTranslated(context, 'commentDetails')),
           content: Text(comment != null
               ? utf8.decode(comment.runes.toList())
               : getTranslated(context, 'empty')),
           actions: <Widget>[
             FlatButton(
-              child: Text('Close'),
+              child: Text(getTranslated(context, 'close')),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -515,11 +515,11 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             keyboardType: TextInputType.number,
             maxLength: 2,
             decoration: InputDecoration(
-              labelText: 'New hours (0-24)',
+              labelText: getTranslated(context, 'newHours') + ' (0-24)',
             ),
           );
           return AlertDialog(
-            title: Text('Updating hours ...'),
+            title: Text(getTranslated(context, 'updatingHours')),
             content: Row(
               children: <Widget>[
                 Expanded(child: field),
@@ -527,14 +527,15 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text('Update'),
+                child: Text(getTranslated(context, 'update')),
                 onPressed: () {
                   int hours;
                   try {
                     hours = int.parse(hoursController.text);
                   } catch (FormatException) {
                     ToastService.showToast(
-                        'Given value is not a number', Colors.red);
+                        getTranslated(context, 'givenValueIsNotANumber'),
+                        Colors.red);
                     return;
                   }
                   String invalidMessage =
@@ -549,13 +550,14 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       .then((res) {
                     Navigator.of(context).pop();
                     ToastService.showToast(
-                        'Hours updated successfully', Colors.green);
+                        getTranslated(context, 'hoursUpdatedSuccessfully'),
+                        Colors.green);
                     Navigator.pop(context);
                   });
                 },
               ),
               FlatButton(
-                child: Text('Close'),
+                child: Text(getTranslated(context, 'close')),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -570,11 +572,11 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             keyboardType: TextInputType.number,
             maxLength: 1,
             decoration: InputDecoration(
-              labelText: 'New rating (1-5)',
+              labelText: getTranslated(context, 'newRating') + ' (1-5)',
             ),
           );
           return AlertDialog(
-            title: Text('Updating rating ...'),
+            title: Text(getTranslated(context, 'updatingRating')),
             content: Row(
               children: <Widget>[
                 Expanded(child: field),
@@ -582,14 +584,15 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text('Update'),
+                child: Text(getTranslated(context, 'update')),
                 onPressed: () {
                   int hours;
                   try {
                     hours = int.parse(ratingController.text);
                   } catch (FormatException) {
                     ToastService.showToast(
-                        'Given value is not a number', Colors.red);
+                        getTranslated(context, 'givenValueIsNotANumber'),
+                        Colors.red);
                     return;
                   }
                   String invalidMessage =
@@ -604,13 +607,14 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       .then((res) {
                     Navigator.of(context).pop();
                     ToastService.showToast(
-                        'Rating updated successfully', Colors.green);
+                        getTranslated(context, 'ratingUpdatedSuccessfully'),
+                        Colors.green);
                     Navigator.pop(context);
                   });
                 },
               ),
               FlatButton(
-                child: Text('Close'),
+                child: Text(getTranslated(context, 'close')),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -626,11 +630,11 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             maxLength: 510,
             maxLines: 10,
             decoration: InputDecoration(
-              labelText: 'New comment',
+              labelText: getTranslated(context, 'newComment'),
             ),
           );
           return AlertDialog(
-            title: Text('Updating comment ...'),
+            title: Text(getTranslated(context, 'updatingComment')),
             content: Row(
               children: <Widget>[
                 Expanded(child: field),
@@ -638,7 +642,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text('Update'),
+                child: Text(getTranslated(context, 'update')),
                 onPressed: () {
                   String comment = commentController.text;
                   String invalidMessage =
@@ -653,13 +657,13 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       .then((res) {
                     Navigator.of(context).pop();
                     ToastService.showToast(
-                        'Comment updated successfully', Colors.green);
+                        getTranslated(context, 'commentUpdatedSuccessfully'), Colors.green);
                     Navigator.pop(context);
                   });
                 },
               ),
               FlatButton(
-                child: Text('Close'),
+                child: Text(getTranslated(context, 'close')),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

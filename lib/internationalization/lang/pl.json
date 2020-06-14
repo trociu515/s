@@ -72,5 +72,18 @@
   "comment": "Komentarz",
   "workdays": "Dni pracy",
   "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "Pracownik nie posiada dni roboczych w bieżącym arkuszu czasu pracy",
-  "employeesOfTheGroup": "Pracownicy grupy"
+  "employeesOfTheGroup": "Pracownicy grupy",
+  "commentDetails": "Szczegóły komentarza",
+  "close": "Zamknij",
+  "newHours": "Nowe godziny",
+  "updatingHours": "Aktualizacja godzin",
+  "update": "Aktualizuj",
+  "givenValueIsNotANumber": "Podana wartość nie jest liczbą",
+  "hoursUpdatedSuccessfully": "Godziny zaktualizowane pomyślnie",
+  "newRating": "Nowa ocena",
+  "updatingRating": "Aktualizacja oceny",
+  "ratingUpdatedSuccessfully": "Ocena zaktualizowana pomyślnie",
+  "newComment": "Nowy komentarz",
+  "updatingComment": "Aktualizowanie komentarza",
+  "commentUpdatedSuccessfully": "Komentarz zaktualizowany pomyślnie"
 }

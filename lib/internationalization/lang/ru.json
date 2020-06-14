@@ -72,5 +72,18 @@
   "comment": "Комментарий",
   "workdays": "Рабочие дни",
   "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "У работника нет рабочих дней в текущем расписании",
-  "employeesOfTheGroup": "Angajații grupului"
+  "employeesOfTheGroup": "Angajații grupului",
+  "commentDetails": "Детали комментария",
+  "close": "близко",
+  "newHours": "Новые часы",
+  "updatingHours": "Обновление часов",
+  "update": "Обновить",
+  "givenValueIsNotANumber": "Данное значение не является числом",
+  "hoursUpdatedSuccessfully": "Часы успешно обновлены",
+  "newRating": "Новый рейтинг",
+  "updatingRating": "Обновление рейтинга",
+  "ratingUpdatedSuccessfully": "Рейтинг успешно обновлен",
+  "newComment": "Новый комментарий",
+  "updatingComment": "Обновление комментария",
+  "commentUpdatedSuccessfully": "Комментарий успешно обновлен"
 }

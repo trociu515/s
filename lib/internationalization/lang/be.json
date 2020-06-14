@@ -72,5 +72,18 @@
   "comment": "Каментаваць",
   "workdays": "Працоўныя дні",
   "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "У супрацоўніка няма працоўных дзён у бягучым часовым лісце",
-  "employeesOfTheGroup": "Супрацоўнікі групы"
+  "employeesOfTheGroup": "Супрацоўнікі групы",
+  "commentDetails": "Падрабязнасці каментарыяў",
+  "close": "Зачыніць",
+  "newHours": "Новыя гадзіны",
+  "updatingHours": "Абнаўленне гадзін",
+  "update": "Абнаўленне",
+  "givenValueIsNotANumber": "Дадзенае значэнне не лік",
+  "hoursUpdatedSuccessfully": "Гадзіны паспяхова абнаўляюцца",
+  "newRating": "Новы рэйтынг",
+  "updatingRating": "Абнаўленне рэйтынгу",
+  "ratingUpdatedSuccessfully": "Рэйтынг паспяхова абнаўляецца",
+  "newComment": "Новы каментар",
+  "updatingComment": "Абнаўленне каментара",
+  "commentUpdatedSuccessfully": "Каментар паспяхова абноўлены"
 }

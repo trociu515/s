@@ -72,5 +72,18 @@
   "comment": "Comment",
   "workdays": "Workdays",
   "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "The employee does not have workdays in current time sheet",
-  "employeesOfTheGroup": "Employees of the group"
+  "employeesOfTheGroup": "Employees of the group",
+  "commentDetails": "Comment details",
+  "close": "Close",
+  "newHours": "New hours",
+  "updatingHours": "Updating hours",
+  "update": "Update",
+  "givenValueIsNotANumber": "Given value is not a number",
+  "hoursUpdatedSuccessfully": "Hours updated successfully",
+  "newRating": "New rating",
+  "updatingRating": "Updating rating",
+  "ratingUpdatedSuccessfully": "Rating updated successfully",
+  "newComment": "New comment",
+  "updatingComment": "Updating comment",
+  "commentUpdatedSuccessfully": "Comment updated successfully"
 }

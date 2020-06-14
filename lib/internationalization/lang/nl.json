@@ -72,5 +72,18 @@
   "comment": "Commentaar",
   "workdays": "Werkdagen",
   "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "De werknemer heeft geen werkdagen in de huidige urenstaat",
-  "employeesOfTheGroup": "Medewerkers van de groep"
+  "employeesOfTheGroup": "Medewerkers van de groep",
+  "commentDetails": "Details van opmerkingen",
+  "close": "Dichtbij",
+  "newHours": "Nieuwe uren",
+  "updatingHours": "Openingstijden bijwerken",
+  "update": "Bijwerken",
+  "givenValueIsNotANumber": "Gegeven waarde is geen nummer",
+  "hoursUpdatedSuccessfully": "Uren succesvol bijgewerkt",
+  "newRating": "Nieuwe beoordeling",
+  "updatingRating": "Beoordeling bijwerken",
+  "ratingUpdatedSuccessfully": "Beoordeling succesvol bijgewerkt",
+  "newComment": "Nieuwe reactie",
+  "updatingComment": "Reactie bijwerken",
+  "commentUpdatedSuccessfully": "Reactie succesvol bijgewerkt"
 }

@@ -72,5 +72,18 @@
   "comment": "კომენტარი",
   "workdays": "სამუშაო დღეებში",
   "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "დასაქმებულს არ აქვს სამუშაო დღეები მიმდინარე დროში",
-  "employeesOfTheGroup": "ჯგუფის თანამშრომლები"
+  "employeesOfTheGroup": "ჯგუფის თანამშრომლები",
+  "commentDetails": "კომენტარის დეტალები",
+  "close": "დახურვა",
+  "newHours": "ახალი საათები",
+  "updatingHours": "საათების განახლება",
+  "update": "განახლება",
+  "givenValueIsNotANumber": "მოცემული მნიშვნელობა არ არის ნომერი",
+  "hoursUpdatedSuccessfully": "საათები წარმატებით განახლდა",
+  "newRating": "ახალი რეიტინგი",
+  "updatingRating": "შეფასების განახლება",
+  "ratingUpdatedSuccessfully": "რეიტინგი წარმატებით განახლდა",
+  "newComment": "ახალი კომენტარი",
+  "updatingComment": "კომენტარის განახლება",
+  "commentUpdatedSuccessfully": "კომენტარი წარმატებით განახლდა"
 }

@@ -206,13 +206,13 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Comment details'),
+          title: Text(getTranslated(context, 'commentDetails')),
           content: Text(comment != null
               ? utf8.decode(comment.runes.toList())
               : getTranslated(context, 'empty')),
           actions: <Widget>[
             FlatButton(
-              child: Text('Close'),
+              child: Text(getTranslated(context, 'close')),
               onPressed: () {
                 Navigator.of(context).pop();
               },

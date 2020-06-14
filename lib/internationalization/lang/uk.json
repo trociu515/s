@@ -72,5 +72,18 @@
   "comment": "Прокоментуйте",
   "workdays": "Робочі дні",
   "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "У працівника немає робочих днів у поточному часовому табелі",
-  "employeesOfTheGroup": "Співробітники групи"
+  "employeesOfTheGroup": "Співробітники групи",
+  "commentDetails": "Деталі коментарів",
+  "close": "Закрити",
+  "newHours": "Нові години",
+  "updatingHours": "Оновлення годин",
+  "update": "Оновлення",
+  "givenValueIsNotANumber": "Дане значення - це не число",
+  "hoursUpdatedSuccessfully": "Години успішно оновлено",
+  "newRating": "Новий рейтинг",
+  "updatingRating": "Оновлення рейтингу",
+  "ratingUpdatedSuccessfully": "Рейтинг успішно оновлений",
+  "newComment": "Новий коментар",
+  "updatingComment": "Оновлення коментаря",
+  "commentUpdatedSuccessfully": "Коментар успішно оновлений"
 }

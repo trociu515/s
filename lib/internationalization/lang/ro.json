@@ -72,5 +72,18 @@
   "comment": "Cometariu",
   "workdays": "Zile lucrătoare",
   "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "Angajatul nu are zile lucrătoare în foaia de timp curentă",
-  "employeesOfTheGroup": "Сотрудники группы"
+  "employeesOfTheGroup": "Angajații grupului",
+  "commentDetails": "Detalii despre comentarii",
+  "close": "Închide",
+  "newHours": "Noi ore",
+  "updatingHours": "Actualizare ore",
+  "update": "Actualizați",
+  "givenValueIsNotANumber": "Valoarea dată nu este un număr",
+  "hoursUpdatedSuccessfully": "Ore actualizate cu succes",
+  "newRating": "Nou rating",
+  "updatingRating": "Actualizarea ratingului",
+  "ratingUpdatedSuccessfully": "Evaluarea a fost actualizată cu succes",
+  "newComment": "Comentariu nou",
+  "updatingComment": "Actualizarea comentariului",
+  "commentUpdatedSuccessfully": "Comentariu actualizat cu succes"
 }

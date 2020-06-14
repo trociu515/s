@@ -72,5 +72,18 @@
   "comment": "Kommentar",
   "workdays": "Arbetsdagar",
   "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "Den anställda har inte arbetsdagar i aktuell tid",
-  "employeesOfTheGroup": "Anställda i gruppen"
+  "employeesOfTheGroup": "Anställda i gruppen",
+  "commentDetails": "Kommentarinformation",
+  "close": "Stänga",
+  "newHours": "Nya timmar",
+  "updatingHours": "Uppdaterar timmar",
+  "update": "Uppdatering",
+  "givenValueIsNotANumber": "Givet värde är inte ett tal",
+  "hoursUpdatedSuccessfully": "Tiderna har uppdaterats",
+  "newRating": "Nytt betyg",
+  "updatingRating": "Uppdaterar betyg",
+  "ratingUpdatedSuccessfully": "Betyg har uppdaterats",
+  "newComment": "Ny kommentar",
+  "updatingComment": "Uppdaterar kommentaren",
+  "commentUpdatedSuccessfully": "Kommentaren har uppdaterats"
 }
