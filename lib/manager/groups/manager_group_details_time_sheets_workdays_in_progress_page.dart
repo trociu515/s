@@ -137,6 +137,36 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                         SizedBox(
                           height: 10,
                         ),
+                        Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                RaisedButton(
+                                  child: Text('Update hours'),
+                                  onPressed: () {
+                                    /* to be implemented */
+                                  },
+                                ),
+                                RaisedButton(
+                                  child: Text('Update rating'),
+                                  onPressed: () {
+                                    /* to be implemented */
+                                  },
+                                ),
+                                RaisedButton(
+                                  child: Text('Update comment'),
+                                  onPressed: () {
+                                    /* to be implemented */
+                                  },
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: SingleChildScrollView(
@@ -268,6 +298,36 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                         ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          RaisedButton(
+                            child: Text('Update hours'),
+                            onPressed: () {
+                              /* to be implemented */
+                            },
+                          ),
+                          RaisedButton(
+                            child: Text('Update rating'),
+                            onPressed: () {
+                              /* to be implemented */
+                            },
+                          ),
+                          RaisedButton(
+                            child: Text('Update comment'),
+                            onPressed: () {
+                              /* to be implemented */
+                            },
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                   SizedBox(
                     height: 10,
