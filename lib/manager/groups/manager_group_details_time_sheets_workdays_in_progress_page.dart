@@ -176,8 +176,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: DataTable(
+                              sortAscending: true,
+                              sortColumnIndex: 0,
                               columns: [
-                                DataColumn(label: Text('#')),
+                                DataColumn(label: Text('No.')),
                                 DataColumn(
                                   label: Text(
                                     getTranslated(context, 'hours'),
@@ -344,8 +346,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
+                        sortAscending: true,
+                        sortColumnIndex: 0,
                         columns: [
-                          DataColumn(label: Text('#')),
+                          DataColumn(label: Text('No.')),
                           DataColumn(
                             label: Text(
                               getTranslated(context, 'hours'),
@@ -411,27 +415,36 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
       context: context,
       builder: (BuildContext context) {
         if (content == 'HOURS') {
+          final hoursController = new TextEditingController();
+          TextFormField field = TextFormField(
+            controller: hoursController,
+            autofocus: true,
+            keyboardType: TextInputType.number,
+            maxLength: 2,
+            decoration: InputDecoration(
+              labelText: 'New hours (0-24)',
+            ),
+          );
           return AlertDialog(
             title: Text('Updating hours ...'),
             content: Row(
               children: <Widget>[
-                Expanded(
-                  child: TextFormField(
-                    autofocus: true,
-                    keyboardType: TextInputType.number,
-                    maxLength: 2,
-                    decoration: InputDecoration(
-                      labelText: 'New hours (0-24)',
-                    ),
-                  ),
-                )
+                Expanded(child: field),
               ],
             ),
             actions: <Widget>[
               FlatButton(
                 child: Text('Update'),
                 onPressed: () {
-                  print(selectedIds);
+                  _managerService
+                      .updateWorkdaysHours(selectedIds,
+                          int.parse(hoursController.text), widget._authHeader)
+                      .then((res) {
+                    Navigator.of(context).pop();
+                    ToastService.showToast(
+                        'Hours updated successfully', Colors.green);
+                    Navigator.pop(context);
+                  });
                 },
               ),
               FlatButton(
