@@ -551,28 +551,44 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             ],
           );
         } else {
+          final commentController = new TextEditingController();
+          TextFormField field = TextFormField(
+            controller: commentController,
+            autofocus: true,
+            keyboardType: TextInputType.multiline,
+            maxLength: 510,
+            maxLines: 10,
+            decoration: InputDecoration(
+              labelText: 'New comment',
+            ),
+          );
           return AlertDialog(
             title: Text('Updating comment ...'),
             content: Row(
               children: <Widget>[
-                Expanded(
-                  child: TextFormField(
-                    autofocus: true,
-                    keyboardType: TextInputType.multiline,
-                    maxLength: 510,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                      labelText: 'New comment',
-                    ),
-                  ),
-                )
+                Expanded(child: field),
               ],
             ),
             actions: <Widget>[
               FlatButton(
                 child: Text('Update'),
                 onPressed: () {
-                  print(selectedIds);
+                  String comment = commentController.text;
+                  String invalidMessage =
+                  ValidatorService.validateUpdatingComment(comment);
+                  if (invalidMessage != null) {
+                    ToastService.showToast(invalidMessage, Colors.red);
+                    return;
+                  }
+                  _managerService
+                      .updateWorkdaysComment(
+                      selectedIds, comment, widget._authHeader)
+                      .then((res) {
+                    Navigator.of(context).pop();
+                    ToastService.showToast(
+                        'Comment updated successfully', Colors.green);
+                    Navigator.pop(context);
+                  });
                 },
               ),
               FlatButton(

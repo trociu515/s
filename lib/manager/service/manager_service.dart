@@ -136,4 +136,26 @@ class ManagerService {
     }
     return null;
   }
+
+  Future<dynamic> updateWorkdaysComment(
+      Set<int> workdayIds, String comment, String authHeader) async {
+    Map<String, dynamic> map = {
+      'workdayIds': workdayIds.map((el) => el.toString()).toList(),
+      'comment': comment
+    };
+    Response res = await put(
+      baseWorkdayUrl + '/comment',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    if (res.statusCode == 200) {
+      return res;
+    } else if (res.statusCode == 400) {
+      return Future.error(res.body);
+    }
+    return null;
+  }
 }

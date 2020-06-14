@@ -35,4 +35,10 @@ class ValidatorService {
     }
     return invalidMessage;
   }
+
+  static String validateUpdatingComment(String comment) {
+    return comment != null && comment.length > 510
+        ? 'Comment length cannot be higher than 510'
+        : null;
+  }
 }
