@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 
 class ValidatorService {
@@ -11,6 +12,16 @@ class ValidatorService {
       invalidMessage = getTranslated(context, 'usernameRequired');
     } else if (password.isEmpty) {
       invalidMessage = getTranslated(context, 'passwordRequired');
+    }
+    return invalidMessage;
+  }
+
+  static String validateUpdatingHours(int hours) {
+    String invalidMessage;
+    if (hours.isNegative) {
+      invalidMessage = 'Hours cannot be lower than 0';
+    } else if (hours > 24) {
+      invalidMessage = 'Hours cannot be higher than 24';
     }
     return invalidMessage;
   }

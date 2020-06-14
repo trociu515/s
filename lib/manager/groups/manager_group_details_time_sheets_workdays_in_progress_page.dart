@@ -9,6 +9,7 @@ import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
+import 'package:give_job/shared/validator_service.dart';
 
 import '../../shared/constants.dart';
 import '../manager_side_bar.dart';
@@ -461,9 +462,23 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
               FlatButton(
                 child: Text('Update'),
                 onPressed: () {
+                  int hours;
+                  try {
+                    hours = int.parse(hoursController.text);
+                  } catch (FormatException) {
+                    ToastService.showToast(
+                        'Given value is not a number', Colors.red);
+                    return;
+                  }
+                  String invalidMessage =
+                      ValidatorService.validateUpdatingHours(hours);
+                  if (invalidMessage != null) {
+                    ToastService.showToast(invalidMessage, Colors.red);
+                    return;
+                  }
                   _managerService
-                      .updateWorkdaysHours(selectedIds,
-                          int.parse(hoursController.text), widget._authHeader)
+                      .updateWorkdaysHours(
+                          selectedIds, hours, widget._authHeader)
                       .then((res) {
                     Navigator.of(context).pop();
                     ToastService.showToast(
