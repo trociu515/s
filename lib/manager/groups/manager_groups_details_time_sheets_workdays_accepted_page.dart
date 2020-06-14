@@ -10,10 +10,11 @@ import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
 
-import '../shared/constants.dart';
-import 'manager_side_bar.dart';
+import '../../shared/constants.dart';
+import '../manager_side_bar.dart';
 
-class ManagerReadonlyEmployeeTimeSheetPage extends StatefulWidget {
+class ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage
+    extends StatefulWidget {
   final String _managerId;
   final String _managerInfo;
   final String _authHeader;
@@ -21,16 +22,16 @@ class ManagerReadonlyEmployeeTimeSheetPage extends StatefulWidget {
   final String _employeeInfo;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerReadonlyEmployeeTimeSheetPage(this._managerId, this._managerInfo,
-      this._authHeader, this._employeeInfo, this.timeSheet);
+  const ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(this._managerId,
+      this._managerInfo, this._authHeader, this._employeeInfo, this.timeSheet);
 
   @override
-  _ManagerReadonlyEmployeeTimeSheetPageState createState() =>
-      _ManagerReadonlyEmployeeTimeSheetPageState();
+  _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState createState() =>
+      _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState();
 }
 
-class _ManagerReadonlyEmployeeTimeSheetPageState
-    extends State<ManagerReadonlyEmployeeTimeSheetPage> {
+class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
+    extends State<ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage> {
   final ManagerService _managerService = new ManagerService();
 
   @override

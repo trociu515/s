@@ -2,26 +2,28 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
+import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/constants.dart';
 
-import 'dto/employee_dto.dart';
+import '../dto/employee_dto.dart';
 
-class EmployeeDetails extends StatefulWidget {
+class EmployeeInformationPage extends StatefulWidget {
   final String _employeeId;
   final String _employeeInfo;
   final String _authHeader;
 
-  EmployeeDetails(this._employeeId, this._employeeInfo, this._authHeader);
+  EmployeeInformationPage(
+      this._employeeId, this._employeeInfo, this._authHeader);
 
   @override
-  _EmployeeDetailsState createState() => _EmployeeDetailsState();
+  _EmployeeInformationPageState createState() =>
+      _EmployeeInformationPageState();
 }
 
-class _EmployeeDetailsState extends State<EmployeeDetails> {
+class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
   final EmployeeService _employeeService = new EmployeeService();
 
   @override

@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/dto/manager_dto.dart';
-import 'package:give_job/manager/dto/manager_employees_group_details_dto.dart';
-import 'package:give_job/manager/dto/manager_group_overview_dto.dart';
+import 'package:give_job/manager/dto/manager_group_details_dto.dart';
+import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:http/http.dart';
 
@@ -27,7 +27,7 @@ class ManagerService {
     throw 'Cannot find manager by id';
   }
 
-  Future<List<ManagerGroupOverviewDto>> findGroupsManager(
+  Future<List<ManagerGroupDto>> findGroupsManager(
       String id, String authHeader) async {
     Response res = await get(
       baseGroupUrl + '/${int.parse(id)}',
@@ -35,7 +35,7 @@ class ManagerService {
     );
     if (res.statusCode == 200) {
       return (json.decode(res.body) as List)
-          .map((data) => ManagerGroupOverviewDto.fromJson(data))
+          .map((data) => ManagerGroupDto.fromJson(data))
           .toList();
     } else if (res.statusCode == 400) {
       return Future.error(res.body);
@@ -43,7 +43,7 @@ class ManagerService {
     return null;
   }
 
-  Future<List<ManagerEmployeesGroupDetailsDto>> findEmployeesGroupDetails(
+  Future<List<ManagerGroupDetailsDto>> findEmployeesGroupDetails(
       String groupId, String authHeader) async {
     Response res = await get(
       baseEmployeeUrl + '/groups/${int.parse(groupId)}/details',
@@ -51,7 +51,7 @@ class ManagerService {
     );
     if (res.statusCode == 200) {
       return (json.decode(res.body) as List)
-          .map((data) => ManagerEmployeesGroupDetailsDto.fromJson(data))
+          .map((data) => ManagerGroupDetailsDto.fromJson(data))
           .toList();
     } else if (res.statusCode == 400) {
       return Future.error(res.body);

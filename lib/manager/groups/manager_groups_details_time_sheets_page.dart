@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/manager_readonly_employee_time_sheet_page.dart';
+import 'package:give_job/manager/groups/manager_groups_details_time_sheets_workdays_accepted_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
 
-import '../shared/constants.dart';
-import 'manager_side_bar.dart';
+import '../../shared/constants.dart';
+import '../manager_side_bar.dart';
 
-class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
+class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
   final String _managerId;
   final String _managerInfo;
   final String _authHeader;
@@ -24,7 +24,7 @@ class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
   final int _employeeId;
   final String _employeeInfo;
 
-  const ManagerEmployeeTimeSheetsPage(
+  const ManagerGroupsDetailsTimeSheetsPage(
     this._managerId,
     this._managerInfo,
     this._authHeader,
@@ -36,12 +36,12 @@ class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
   );
 
   @override
-  _ManagerEmployeeTimeSheetsPageState createState() =>
-      _ManagerEmployeeTimeSheetsPageState();
+  _ManagerGroupsDetailsTimeSheetsPageState createState() =>
+      _ManagerGroupsDetailsTimeSheetsPageState();
 }
 
-class _ManagerEmployeeTimeSheetsPageState
-    extends State<ManagerEmployeeTimeSheetsPage> {
+class _ManagerGroupsDetailsTimeSheetsPageState
+    extends State<ManagerGroupsDetailsTimeSheetsPage> {
   final ManagerService _managerService = new ManagerService();
 
   @override
@@ -123,7 +123,7 @@ class _ManagerEmployeeTimeSheetsPageState
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        ManagerReadonlyEmployeeTimeSheetPage(
+                                        ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
                                             widget._managerId,
                                             widget._managerInfo,
                                             widget._authHeader,

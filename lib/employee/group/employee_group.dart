@@ -7,8 +7,8 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/toastr_service.dart';
 
-import '../shared/constants.dart';
-import 'service/employee_service.dart';
+import '../../shared/constants.dart';
+import '../service/employee_service.dart';
 
 class EmployeeGroup extends StatefulWidget {
   final String _employeeId;

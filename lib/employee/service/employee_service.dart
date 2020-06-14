@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:give_job/employee/dto/employee_dto.dart';
 import 'package:give_job/employee/dto/employee_group_dto.dart';
 import 'package:give_job/main.dart';
-import 'package:give_job/shared/group.dto/id_name_group_dto.dart';
+import 'package:give_job/shared/dto/id_name_group_dto.dart';
 import 'package:http/http.dart';
 
 class EmployeeService {

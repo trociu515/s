@@ -8,7 +8,7 @@ import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/constants.dart';
 
-import 'dto/manager_dto.dart';
+import '../dto/manager_dto.dart';
 
 class ManagerDetails extends StatefulWidget {
   final String _managerId;

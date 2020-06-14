@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 
-class ManagerGroupOverviewDto {
+class ManagerGroupDto {
   final int id;
   final String name;
   final String description;
   final int numberOfEmployees;
 
-  ManagerGroupOverviewDto({
+  ManagerGroupDto({
     @required this.id,
     @required this.name,
     @required this.description,
     @required this.numberOfEmployees,
   });
 
-  factory ManagerGroupOverviewDto.fromJson(Map<String, dynamic> json) {
-    return ManagerGroupOverviewDto(
+  factory ManagerGroupDto.fromJson(Map<String, dynamic> json) {
+    return ManagerGroupDto(
       id: json['id'] as int,
       name: json['name'] as String,
       description: json['description'] as String,

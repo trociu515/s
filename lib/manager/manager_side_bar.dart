@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/manager_details.dart';
+import 'package:give_job/manager/information/manager_information_page.dart';
 import 'package:give_job/manager/manager_page.dart';
 import 'package:give_job/shared/logout.dart';
 
-import 'manager_groups_page.dart';
+import 'groups/manager_groups_page.dart';
 
 Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
     String authHeader) {
