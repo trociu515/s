@@ -158,10 +158,32 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                                     DataCell(Text(workday.hours.toString())),
                                     DataCell(Text(workday.rating.toString())),
                                     DataCell(Text(workday.money.toString())),
-                                    DataCell(Text(workday.comment != null
-                                        ? utf8.decode(
-                                            workday.comment.runes.toList())
-                                        : getTranslated(context, 'empty'))),
+                                    DataCell(
+                                      Wrap(
+                                        children: <Widget>[
+                                          Text(workday.comment != null
+                                              ? workday.comment.length > 10
+                                                  ? utf8
+                                                          .decode(workday
+                                                              .comment.runes
+                                                              .toList())
+                                                          .substring(0, 10) +
+                                                      '...'
+                                                  : utf8.decode(workday
+                                                      .comment.runes
+                                                      .toList())
+                                              : getTranslated(
+                                                  context, 'empty')),
+                                          workday.comment != null &&
+                                                  workday.comment != ''
+                                              ? Icon(Icons.zoom_in)
+                                              : Text('')
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        _showCommentDetails(workday.comment);
+                                      },
+                                    ),
                                   ],
                                 ),
                             ],
@@ -175,6 +197,28 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
             ),
           );
         }
+      },
+    );
+  }
+
+  void _showCommentDetails(String comment) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Comment details'),
+          content: Text(comment != null
+              ? utf8.decode(comment.runes.toList())
+              : getTranslated(context, 'empty')),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
       },
     );
   }

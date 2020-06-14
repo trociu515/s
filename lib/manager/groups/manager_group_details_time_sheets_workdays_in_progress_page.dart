@@ -228,10 +228,34 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                             Text(workday.rating.toString())),
                                         DataCell(
                                             Text(workday.money.toString())),
-                                        DataCell(Text(workday.comment != null
-                                            ? utf8.decode(
-                                                workday.comment.runes.toList())
-                                            : getTranslated(context, 'empty'))),
+                                        DataCell(
+                                          Wrap(
+                                            children: <Widget>[
+                                              Text(workday.comment != null
+                                                  ? workday.comment.length > 10
+                                                      ? utf8
+                                                              .decode(workday
+                                                                  .comment.runes
+                                                                  .toList())
+                                                              .substring(
+                                                                  0, 10) +
+                                                          '...'
+                                                      : utf8.decode(workday
+                                                          .comment.runes
+                                                          .toList())
+                                                  : getTranslated(
+                                                      context, 'empty')),
+                                              workday.comment != null &&
+                                                      workday.comment != ''
+                                                  ? Icon(Icons.zoom_in)
+                                                  : Text('')
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            _showCommentDetails(
+                                                workday.comment);
+                                          },
+                                        ),
                                       ],
                                     ),
                                   )
@@ -400,10 +424,31 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                   DataCell(Text(workday.hours.toString())),
                                   DataCell(Text(workday.rating.toString())),
                                   DataCell(Text(workday.money.toString())),
-                                  DataCell(Text(workday.comment != null
-                                      ? utf8.decode(
-                                          workday.comment.runes.toList())
-                                      : getTranslated(context, 'empty'))),
+                                  DataCell(
+                                    Wrap(
+                                      children: <Widget>[
+                                        Text(workday.comment != null
+                                            ? workday.comment.length > 10
+                                                ? utf8
+                                                        .decode(workday
+                                                            .comment.runes
+                                                            .toList())
+                                                        .substring(0, 10) +
+                                                    '...'
+                                                : utf8.decode(workday
+                                                    .comment.runes
+                                                    .toList())
+                                            : getTranslated(context, 'empty')),
+                                        workday.comment != null &&
+                                                workday.comment != ''
+                                            ? Icon(Icons.zoom_in)
+                                            : Text('')
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      _showCommentDetails(workday.comment);
+                                    },
+                                  ),
                                 ],
                               ),
                             )
@@ -434,6 +479,28 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
         workdays.sort((a, b) => b.number.compareTo(a.number));
       }
     }
+  }
+
+  void _showCommentDetails(String comment) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Comment details'),
+          content: Text(comment != null
+              ? utf8.decode(comment.runes.toList())
+              : getTranslated(context, 'empty')),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _showDialog(String content, Set<int> selectedIds) {
@@ -575,14 +642,14 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                 onPressed: () {
                   String comment = commentController.text;
                   String invalidMessage =
-                  ValidatorService.validateUpdatingComment(comment);
+                      ValidatorService.validateUpdatingComment(comment);
                   if (invalidMessage != null) {
                     ToastService.showToast(invalidMessage, Colors.red);
                     return;
                   }
                   _managerService
                       .updateWorkdaysComment(
-                      selectedIds, comment, widget._authHeader)
+                          selectedIds, comment, widget._authHeader)
                       .then((res) {
                     Navigator.of(context).pop();
                     ToastService.showToast(
