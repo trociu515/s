@@ -65,5 +65,12 @@
   "numberOfEmployeesInGroups": "ჯგუფებში დასაქმებულთა რაოდენობა",
   "numberOfGroups": "ჯგუფების რაოდენობა",
   "numberOfHoursWorked": "საათების რაოდენობა",
-  "amountOfEarnedMoney": "მიღებული ფულის ოდენობა"
+  "amountOfEarnedMoney": "მიღებული ფულის ოდენობა",
+  "hours": "საათები",
+  "rating": "რეიტინგი",
+  "money": "ფული",
+  "comment": "კომენტარი",
+  "workdays": "სამუშაო დღეებში",
+  "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "დასაქმებულს არ აქვს სამუშაო დღეები მიმდინარე დროში",
+  "employeesOfTheGroup": "ჯგუფის თანამშრომლები"
 }

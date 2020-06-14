@@ -65,5 +65,12 @@
   "numberOfEmployeesInGroups": "Numărul de angajați din grupuri",
   "numberOfGroups": "Număr de grupuri",
   "numberOfHoursWorked": "Numărul de ore lucrate",
-  "amountOfEarnedMoney": "Suma de bani câștigați"
+  "amountOfEarnedMoney": "Suma de bani câștigați",
+  "hours": "Ore",
+  "rating": "Evaluare",
+  "money": "Bani",
+  "comment": "Cometariu",
+  "workdays": "Zile lucrătoare",
+  "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "Angajatul nu are zile lucrătoare în foaia de timp curentă",
+  "employeesOfTheGroup": "Сотрудники группы"
 }

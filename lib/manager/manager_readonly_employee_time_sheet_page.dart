@@ -70,7 +70,7 @@ class _ManagerReadonlyEmployeeTimeSheetPageState
               widget.timeSheet.id.toString(), widget._authHeader)
           .catchError((e) {
         ToastService.showToast(
-            getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
+            getTranslated(context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
             Colors.red);
         Navigator.pop(context);
       }),
@@ -83,7 +83,7 @@ class _ManagerReadonlyEmployeeTimeSheetPageState
           List<WorkdayDto> workdays = snapshot.data;
           if (workdays.isEmpty) {
             ToastService.showToast(
-                getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
+                getTranslated(context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
                 Colors.red);
             Navigator.pop(context);
           }
@@ -93,7 +93,7 @@ class _ManagerReadonlyEmployeeTimeSheetPageState
               primarySwatch: Colors.green,
             ),
             home: Scaffold(
-              appBar: appBar(context, getTranslated(context, 'workTimeSheets')),
+              appBar: appBar(context, getTranslated(context, 'workdays')),
               drawer: managerSideBar(context, widget._managerId,
                   widget._managerInfo, widget._authHeader),
               body: SingleChildScrollView(
@@ -164,10 +164,16 @@ class _ManagerReadonlyEmployeeTimeSheetPageState
                           child: DataTable(
                             columns: [
                               DataColumn(label: Text('#')),
-                              DataColumn(label: Text('Hours')),
-                              DataColumn(label: Text('Rating')),
-                              DataColumn(label: Text('Money')),
-                              DataColumn(label: Text('Comment')),
+                              DataColumn(
+                                  label: Text(getTranslated(context, 'hours'))),
+                              DataColumn(
+                                  label:
+                                      Text(getTranslated(context, 'rating'))),
+                              DataColumn(
+                                  label: Text(getTranslated(context, 'money'))),
+                              DataColumn(
+                                  label:
+                                      Text(getTranslated(context, 'comment'))),
                             ],
                             rows: [
                               for (var workday in workdays)

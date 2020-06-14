@@ -54,7 +54,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
               primarySwatch: Colors.green,
             ),
             home: Scaffold(
-              appBar: appBar(context, 'Groups'),
+              appBar: appBar(context, getTranslated(context, 'groups')),
               drawer: managerSideBar(context, widget._managerId,
                   widget._managerInfo, widget._authHeader),
               body: SingleChildScrollView(

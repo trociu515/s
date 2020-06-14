@@ -65,5 +65,12 @@
   "numberOfEmployeesInGroups": "Number of employees in groups",
   "numberOfGroups": "Number of groups",
   "numberOfHoursWorked": "Number of hours worked",
-  "amountOfEarnedMoney": "Amount of earned money"
+  "amountOfEarnedMoney": "Amount of earned money",
+  "hours": "Hours",
+  "rating": "Rating",
+  "money": "Money",
+  "comment": "Comment",
+  "workdays": "Workdays",
+  "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "The employee does not have workdays in current time sheet",
+  "employeesOfTheGroup": "Employees of the group"
 }

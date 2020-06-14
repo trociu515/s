@@ -65,5 +65,12 @@
   "numberOfEmployeesInGroups": "Количество сотрудников в группах",
   "numberOfGroups": "Количество групп",
   "numberOfHoursWorked": "Количество отработанных часов",
-  "amountOfEarnedMoney": "Сумма заработанных денег"
+  "amountOfEarnedMoney": "Сумма заработанных денег",
+  "hours": "часов",
+  "rating": "Рейтинг",
+  "money": "Деньги",
+  "comment": "Комментарий",
+  "workdays": "Рабочие дни",
+  "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "У работника нет рабочих дней в текущем расписании",
+  "employeesOfTheGroup": "Angajații grupului"
 }

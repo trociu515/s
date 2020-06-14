@@ -65,5 +65,12 @@
   "numberOfEmployeesInGroups": "Número de empleados en grupos",
   "numberOfGroups": "Numero de grupos",
   "numberOfHoursWorked": "Numero de horas trabajadas",
-  "amountOfEarnedMoney": "Cantidad de dinero ganado"
+  "amountOfEarnedMoney": "Cantidad de dinero ganado",
+  "hours": "Horas",
+  "rating": "Clasificación",
+  "money": "Dinero",
+  "comment": "Comentario",
+  "workdays": "Días laborables",
+  "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "El empleado no tiene días de trabajo en la hoja de tiempo actual",
+  "employeesOfTheGroup": "Employés du groupe"
 }

@@ -65,5 +65,12 @@
   "numberOfEmployeesInGroups": "Anzahl der Mitarbeiter in Gruppen",
   "numberOfGroups": "Anzahl der Gruppen",
   "numberOfHoursWorked": "Anzahl der geleisteten Arbeitsstunden",
-  "amountOfEarnedMoney": "Betrag des verdienten Geldes"
+  "amountOfEarnedMoney": "Betrag des verdienten Geldes",
+  "hours": "Std",
+  "rating": "Bewertung",
+  "money": "Geld",
+  "comment": "Kommentar",
+  "workdays": "Arbeitstage",
+  "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "Der Mitarbeiter hat im aktuellen Arbeitszeitblatt keine Arbeitstage",
+  "employeesOfTheGroup": "Mitarbeiter der Gruppe"
 }

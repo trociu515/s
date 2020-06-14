@@ -18,11 +18,21 @@ class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
   final String _authHeader;
 
   final int _groupId;
+  final String _groupName;
+  final String _groupDescription;
   final int _employeeId;
   final String _employeeInfo;
 
-  const ManagerEmployeeTimeSheetsPage(this._managerId, this._managerInfo,
-      this._authHeader, this._groupId, this._employeeId, this._employeeInfo);
+  const ManagerEmployeeTimeSheetsPage(
+    this._managerId,
+    this._managerInfo,
+    this._authHeader,
+    this._groupId,
+    this._groupName,
+    this._groupDescription,
+    this._employeeId,
+    this._employeeInfo,
+  );
 
   @override
   _ManagerEmployeeTimeSheetsPageState createState() =>
@@ -104,14 +114,30 @@ class _ManagerEmployeeTimeSheetsPageState
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: <Widget>[
-                      Text(
-                        widget._employeeInfo != null
-                            ? 'Arkusze czasu pracownika: ' +
-                                utf8.decode(widget._employeeInfo.runes.toList())
-                            : getTranslated(context, 'empty'),
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                      ListTile(
+                        title: Text(widget._groupName != null
+                            ? utf8.decode(widget._groupName.runes.toList())
+                            : getTranslated(context, 'empty')),
+                        subtitle: Wrap(
+                          children: <Widget>[
+                            Text(widget._groupDescription != null
+                                ? utf8.decode(
+                                    widget._groupDescription.runes.toList())
+                                : getTranslated(context, 'empty')),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Text(
+                              widget._employeeInfo != null
+                                  ? utf8.decode(
+                                      widget._employeeInfo.runes.toList())
+                                  : getTranslated(context, 'empty'),
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(
@@ -152,10 +178,7 @@ class _ManagerEmployeeTimeSheetsPageState
                                   ),
                                   title: Text(timeSheet.year.toString() +
                                       ' ' +
-                                      translateMonth(timeSheet.month) +
-                                      '\n' +
-                                      utf8.decode(
-                                          timeSheet.groupName.runes.toList())),
+                                      translateMonth(timeSheet.month)),
                                   subtitle: Wrap(
                                     children: <Widget>[
                                       Text(getTranslated(

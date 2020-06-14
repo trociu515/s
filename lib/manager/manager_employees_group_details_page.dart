@@ -68,7 +68,7 @@ class _ManagerEmployeesGroupDetailsPageState
               primarySwatch: Colors.green,
             ),
             home: Scaffold(
-              appBar: appBar(context, 'Groups'),
+              appBar: appBar(context, getTranslated(context, 'employeesOfTheGroup')),
               drawer: managerSideBar(context, widget._managerId,
                   widget._managerInfo, widget._authHeader),
               body: SingleChildScrollView(
@@ -102,6 +102,8 @@ class _ManagerEmployeesGroupDetailsPageState
                                           widget._managerInfo,
                                           widget._authHeader,
                                           widget._groupId,
+                                          widget._groupName,
+                                          widget._groupDescription,
                                           employees[i].employeeId,
                                           employees[i].employeeInfo),
                                 ),

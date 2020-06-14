@@ -65,5 +65,12 @@
   "numberOfEmployeesInGroups": "Antal anställda i grupper",
   "numberOfGroups": "Antal grupper",
   "numberOfHoursWorked": "Antal arbetade timmar",
-  "amountOfEarnedMoney": "Mängd tjänade pengar"
+  "amountOfEarnedMoney": "Mängd tjänade pengar",
+  "hours": "Timmar",
+  "rating": "Betyg",
+  "money": "Pengar",
+  "comment": "Kommentar",
+  "workdays": "Arbetsdagar",
+  "employeeDoesNotHaveWorkdaysInCurrentTimeSheet": "Den anställda har inte arbetsdagar i aktuell tid",
+  "employeesOfTheGroup": "Anställda i gruppen"
 }
