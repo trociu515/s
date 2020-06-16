@@ -85,5 +85,6 @@
   "ratingUpdatedSuccessfully": "Evaluarea a fost actualizată cu succes",
   "newComment": "Comentariu nou",
   "updatingComment": "Actualizarea comentariului",
-  "commentUpdatedSuccessfully": "Comentariu actualizat cu succes"
+  "commentUpdatedSuccessfully": "Comentariu actualizat cu succes",
+  "loading": "Se încarcă ..."
 }

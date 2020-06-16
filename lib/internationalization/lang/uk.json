@@ -85,5 +85,6 @@
   "ratingUpdatedSuccessfully": "Рейтинг успішно оновлений",
   "newComment": "Новий коментар",
   "updatingComment": "Оновлення коментаря",
-  "commentUpdatedSuccessfully": "Коментар успішно оновлений"
+  "commentUpdatedSuccessfully": "Коментар успішно оновлений",
+  "loading": "Завантаження ..."
 }

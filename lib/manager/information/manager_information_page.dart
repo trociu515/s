@@ -7,6 +7,7 @@ import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/constants.dart';
+import 'package:give_job/shared/loader_widget.dart';
 
 import '../dto/manager_dto.dart';
 
@@ -31,7 +32,12 @@ class _ManagerDetailsState extends State<ManagerDetails> {
       builder: (BuildContext context, AsyncSnapshot<ManagerDto> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return Center(child: CircularProgressIndicator());
+          return loaderWidget(
+            context,
+            getTranslated(context, 'loading'),
+            managerSideBar(context, widget._managerId, widget._managerInfo,
+                widget._authHeader),
+          );
         } else {
           ManagerDto manager = snapshot.data;
           return MaterialApp(
@@ -81,11 +87,13 @@ class _ManagerDetailsState extends State<ManagerDetails> {
                               ),
                             ),
                             ListTile(
-                              title: Text(getTranslated(context, 'numberOfGroups')),
+                              title: Text(
+                                  getTranslated(context, 'numberOfGroups')),
                               subtitle: Text(manager.numberOfGroups.toString()),
                             ),
                             ListTile(
-                              title: Text(getTranslated(context, 'numberOfEmployeesInGroups')),
+                              title: Text(getTranslated(
+                                  context, 'numberOfEmployeesInGroups')),
                               subtitle: Text(
                                   manager.numberOfEmployeesInGroups.toString()),
                             ),

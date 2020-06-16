@@ -7,6 +7,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/loader_widget.dart';
 import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
 
@@ -51,7 +52,12 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
           (BuildContext context, AsyncSnapshot<List<WorkdayDto>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return Center(child: CircularProgressIndicator());
+          return loaderWidget(
+            context,
+            getTranslated(context, 'loading'),
+            managerSideBar(context, widget._managerId, widget._managerInfo,
+                widget._authHeader),
+          );
         } else {
           List<WorkdayDto> workdays = snapshot.data;
           if (workdays.isEmpty) {

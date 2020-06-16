@@ -6,6 +6,7 @@ import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/service/employee_time_sheet_service.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/loader_widget.dart';
 import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
 
@@ -43,7 +44,12 @@ class _EmployeeTimeSheetsPageState extends State<EmployeeTimeSheetsPage> {
           AsyncSnapshot<List<EmployeeTimeSheetDto>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return Center(child: CircularProgressIndicator());
+          return loaderWidget(
+            context,
+            getTranslated(context, 'loading'),
+            employeeSideBar(context, widget._employeeId, widget._employeeInfo,
+                widget._authHeader),
+          );
         } else {
           List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
           if (timeSheets.isEmpty) {

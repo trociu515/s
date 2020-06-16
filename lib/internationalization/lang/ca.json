@@ -85,5 +85,6 @@
   "ratingUpdatedSuccessfully": "Betyg har uppdaterats",
   "newComment": "Ny kommentar",
   "updatingComment": "Uppdaterar kommentaren",
-  "commentUpdatedSuccessfully": "Kommentaren har uppdaterats"
+  "commentUpdatedSuccessfully": "Kommentaren har uppdaterats",
+  "loading": "Läser in ..."
 }

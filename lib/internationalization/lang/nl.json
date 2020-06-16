@@ -85,5 +85,6 @@
   "ratingUpdatedSuccessfully": "Beoordeling succesvol bijgewerkt",
   "newComment": "Nieuwe reactie",
   "updatingComment": "Reactie bijwerken",
-  "commentUpdatedSuccessfully": "Reactie succesvol bijgewerkt"
+  "commentUpdatedSuccessfully": "Reactie succesvol bijgewerkt",
+  "loading": "Bezig met laden ..."
 }

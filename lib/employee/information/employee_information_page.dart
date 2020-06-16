@@ -7,6 +7,7 @@ import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/constants.dart';
+import 'package:give_job/shared/loader_widget.dart';
 
 import '../dto/employee_dto.dart';
 
@@ -33,7 +34,12 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
       builder: (BuildContext context, AsyncSnapshot<EmployeeDto> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return Center(child: CircularProgressIndicator());
+          return loaderWidget(
+            context,
+            getTranslated(context, 'loading'),
+            employeeSideBar(context, widget._employeeId, widget._employeeInfo,
+                widget._authHeader),
+          );
         } else {
           EmployeeDto employee = snapshot.data;
           return MaterialApp(

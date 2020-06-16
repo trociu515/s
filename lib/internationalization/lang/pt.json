@@ -85,5 +85,6 @@
   "ratingUpdatedSuccessfully": "რეიტინგი წარმატებით განახლდა",
   "newComment": "ახალი კომენტარი",
   "updatingComment": "კომენტარის განახლება",
-  "commentUpdatedSuccessfully": "კომენტარი წარმატებით განახლდა"
+  "commentUpdatedSuccessfully": "კომენტარი წარმატებით განახლდა",
+  "loading": "ჩატვირთვა ..."
 }

@@ -8,6 +8,7 @@ import 'package:give_job/manager/manager_page.dart';
 import 'package:give_job/shared/toastr_service.dart';
 import 'package:give_job/shared/validator_service.dart';
 import 'package:http/http.dart' as http;
+import 'package:progress_dialog/progress_dialog.dart';
 
 import 'internationalization/language/language.dart';
 import 'internationalization/localization/localization_constants.dart';
@@ -37,6 +38,11 @@ class _LoginPageState extends State<LoginPage> {
       MyApp.setLocale(context, _temp);
     }
 
+    final ProgressDialog progressDialog = new ProgressDialog(context);
+    progressDialog.style(
+      message: getTranslated(context, 'loading'),
+      messageTextStyle: TextStyle(color: Colors.green),
+    );
     final logo = Image(image: AssetImage('images/logo.png'), height: 250);
 
     final username = TextFormField(
@@ -82,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
           ToastService.showToast(invalidMessage, Colors.red);
           return;
         }
-
+        progressDialog.show();
         login(usernameController.text, passwordController.text).then((res) {
           FocusScope.of(context).unfocus();
           if (res.statusCode == 200) {
@@ -112,10 +118,12 @@ class _LoginPageState extends State<LoginPage> {
             ToastService.showToast(
                 getTranslated(context, 'loginSuccessfully'), Colors.green);
           } else {
+            progressDialog.hide();
             ToastService.showToast(
                 getTranslated(context, 'wrongUsernameOrPassword'), Colors.red);
           }
         }, onError: (e) {
+          progressDialog.hide();
           ToastService.showToast(
               getTranslated(context, 'cannotConnectToServer'), Colors.red);
         });

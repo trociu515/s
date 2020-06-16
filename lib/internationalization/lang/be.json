@@ -85,5 +85,6 @@
   "ratingUpdatedSuccessfully": "Рэйтынг паспяхова абнаўляецца",
   "newComment": "Новы каментар",
   "updatingComment": "Абнаўленне каментара",
-  "commentUpdatedSuccessfully": "Каментар паспяхова абноўлены"
+  "commentUpdatedSuccessfully": "Каментар паспяхова абноўлены",
+  "loading": "Загрузка ..."
 }

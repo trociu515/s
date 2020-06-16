@@ -85,5 +85,6 @@
   "ratingUpdatedSuccessfully": "Rating updated successfully",
   "newComment": "New comment",
   "updatingComment": "Updating comment",
-  "commentUpdatedSuccessfully": "Comment updated successfully"
+  "commentUpdatedSuccessfully": "Comment updated successfully",
+  "loading": "Loading ..."
 }

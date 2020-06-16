@@ -7,6 +7,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/groups/manager_groups_details_time_sheets_workdays_accepted_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/loader_widget.dart';
 import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
 
@@ -63,7 +64,12 @@ class _ManagerGroupsDetailsTimeSheetsPageState
           AsyncSnapshot<List<EmployeeTimeSheetDto>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return Center(child: CircularProgressIndicator());
+          return loaderWidget(
+            context,
+            getTranslated(context, 'loading'),
+            managerSideBar(context, widget._managerId, widget._managerInfo,
+                widget._authHeader),
+          );
         } else {
           List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
           if (timeSheets.isEmpty) {

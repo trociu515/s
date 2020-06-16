@@ -85,5 +85,6 @@
   "ratingUpdatedSuccessfully": "Évaluation mise à jour avec succès",
   "newComment": "Nouveau commentaire",
   "updatingComment": "Mise à jour du commentaire",
-  "commentUpdatedSuccessfully": "Commentaire mis à jour avec succès"
+  "commentUpdatedSuccessfully": "Commentaire mis à jour avec succès",
+  "loading": "Chargement ..."
 }
