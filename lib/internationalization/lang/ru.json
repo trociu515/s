@@ -86,5 +86,10 @@
   "newComment": "Новый комментарий",
   "updatingComment": "Обновление комментария",
   "commentUpdatedSuccessfully": "Комментарий успешно обновлен",
-  "loading": "загрузка ..."
+  "loading": "загрузка ...",
+  "hoursCannotBeLowerThan0": "Часы не могут быть ниже 0",
+  "hoursCannotBeHigherThan24": "Часы не могут быть выше 24",
+  "ratingCannotBeLowerThan1": "Рейтинг не может быть ниже 1",
+  "ratingCannotBeHigherThan5": "Рейтинг не может быть выше 5",
+  "commentLengthCannotBeHigherThan510": "Comment length cannot be higher than 510"
 }

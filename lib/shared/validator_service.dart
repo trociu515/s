@@ -16,29 +16,29 @@ class ValidatorService {
     return invalidMessage;
   }
 
-  static String validateUpdatingHours(int hours) {
+  static String validateUpdatingHours(int hours, BuildContext context) {
     String invalidMessage;
     if (hours.isNegative) {
-      invalidMessage = 'Hours cannot be lower than 0';
+      invalidMessage = getTranslated(context, 'hoursCannotBeLowerThan0');
     } else if (hours > 24) {
-      invalidMessage = 'Hours cannot be higher than 24';
+      invalidMessage = getTranslated(context, 'hoursCannotBeHigherThan24');
     }
     return invalidMessage;
   }
 
-  static String validateUpdatingRating(int rating) {
+  static String validateUpdatingRating(int rating, BuildContext context) {
     String invalidMessage;
     if (rating < 1) {
-      invalidMessage = 'Rating cannot be lower than 1';
+      invalidMessage = getTranslated(context, 'ratingCannotBeLowerThan1');
     } else if (rating > 5) {
-      invalidMessage = 'Rating cannot be higher than 24';
+      invalidMessage = getTranslated(context, 'ratingCannotBeHigherThan5');
     }
     return invalidMessage;
   }
 
-  static String validateUpdatingComment(String comment) {
+  static String validateUpdatingComment(String comment, BuildContext context) {
     return comment != null && comment.length > 510
-        ? 'Comment length cannot be higher than 510'
+        ? getTranslated(context, 'commentLengthCannotBeHigherThan510')
         : null;
   }
 }

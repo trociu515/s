@@ -86,5 +86,10 @@
   "newComment": "New comment",
   "updatingComment": "Updating comment",
   "commentUpdatedSuccessfully": "Comment updated successfully",
-  "loading": "Loading ..."
+  "loading": "Loading ...",
+  "hoursCannotBeLowerThan0": "Hours cannot be lower than 0",
+  "hoursCannotBeHigherThan24": "Hours cannot be higher than 24",
+  "ratingCannotBeLowerThan1": "Rating cannot be lower than 1",
+  "ratingCannotBeHigherThan5": "Rating cannot be higher than 5",
+  "commentLengthCannotBeHigherThan510": "Comment length cannot be higher than 510"
 }

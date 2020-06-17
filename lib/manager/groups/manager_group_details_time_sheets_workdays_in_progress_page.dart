@@ -574,7 +574,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     return;
                   }
                   String invalidMessage =
-                      ValidatorService.validateUpdatingHours(hours);
+                      ValidatorService.validateUpdatingHours(hours, context);
                   if (invalidMessage != null) {
                     ToastService.showToast(invalidMessage, Colors.red);
                     return;
@@ -631,7 +631,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     return;
                   }
                   String invalidMessage =
-                      ValidatorService.validateUpdatingRating(hours);
+                      ValidatorService.validateUpdatingRating(hours, context);
                   if (invalidMessage != null) {
                     ToastService.showToast(invalidMessage, Colors.red);
                     return;
@@ -681,7 +681,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                 onPressed: () {
                   String comment = commentController.text;
                   String invalidMessage =
-                      ValidatorService.validateUpdatingComment(comment);
+                      ValidatorService.validateUpdatingComment(
+                          comment, context);
                   if (invalidMessage != null) {
                     ToastService.showToast(invalidMessage, Colors.red);
                     return;

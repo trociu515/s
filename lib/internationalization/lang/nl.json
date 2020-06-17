@@ -86,5 +86,10 @@
   "newComment": "Nieuwe reactie",
   "updatingComment": "Reactie bijwerken",
   "commentUpdatedSuccessfully": "Reactie succesvol bijgewerkt",
-  "loading": "Bezig met laden ..."
+  "loading": "Bezig met laden ...",
+  "hoursCannotBeLowerThan0": "Uren mogen niet lager zijn dan 0",
+  "hoursCannotBeHigherThan24": "Uren mogen niet hoger zijn dan 24",
+  "ratingCannotBeLowerThan1": "Beoordeling mag niet lager zijn dan 1",
+  "ratingCannotBeHigherThan5": "Beoordeling mag niet hoger zijn dan 5",
+  "commentLengthCannotBeHigherThan510": "Comment length cannot be higher than 510"
 }

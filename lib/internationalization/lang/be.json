@@ -86,5 +86,10 @@
   "newComment": "Новы каментар",
   "updatingComment": "Абнаўленне каментара",
   "commentUpdatedSuccessfully": "Каментар паспяхова абноўлены",
-  "loading": "Загрузка ..."
+  "loading": "Загрузка ...",
+  "hoursCannotBeLowerThan0": "Гадзіны не могуць быць менш за 0",
+  "hoursCannotBeHigherThan24": "Гадзіны не могуць быць вышэй за 24",
+  "ratingCannotBeLowerThan1": "Рэйтынг не можа быць ніжэй за 1",
+  "ratingCannotBeHigherThan5": "Рэйтынг не можа быць вышэй за 5",
+  "commentLengthCannotBeHigherThan510": "Comment length cannot be higher than 510"
 }
