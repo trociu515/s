@@ -26,118 +26,159 @@ class ManagerEmployeesPage extends StatefulWidget {
 class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
   final ManagerService _managerService = new ManagerService();
 
+  List<ManagerEmployeeGroupDto> _employees = new List();
+  List<ManagerEmployeeGroupDto> _filteredEmployees = new List();
+  bool _loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loading = true;
+    _managerService
+        .findGroupEmployeesByGroupManagerId(widget._id, widget._authHeader)
+        .then((res) {
+      setState(() {
+        _employees = res;
+        _filteredEmployees = _employees;
+        _loading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ManagerEmployeeGroupDto>>(
-      future: _managerService.findGroupEmployeesByGroupManagerId(
-          widget._id, widget._authHeader),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<ManagerEmployeeGroupDto>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting ||
-            snapshot.data == null) {
-          return loaderWidget(
-            context,
-            getTranslated(context, 'loading'),
-            managerSideBar(
-                context, widget._id, widget._userInfo, widget._authHeader),
-          );
-        } else {
-          List<ManagerEmployeeGroupDto> employees = snapshot.data;
-          return MaterialApp(
-            title: APP_NAME,
-            theme: ThemeData(
-              primarySwatch: Colors.green,
+    if (_loading) {
+      return loaderWidget(
+        context,
+        getTranslated(context, 'loading'),
+        managerSideBar(
+            context, widget._id, widget._userInfo, widget._authHeader),
+      );
+    }
+    return MaterialApp(
+      title: APP_NAME,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: Scaffold(
+        appBar: appBar(context, getTranslated(context, 'employees')),
+        drawer: managerSideBar(
+            context, widget._id, widget._userInfo, widget._authHeader),
+        body: Column(
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(15.0), hintText: 'Filter'),
+              onChanged: (string) {
+                setState(() {
+                  _filteredEmployees = _employees
+                      .where((u) => (u.employeeInfo
+                          .toLowerCase()
+                          .contains(string.toLowerCase())))
+                      .toList();
+                });
+              },
             ),
-            home: Scaffold(
-              appBar: appBar(context, getTranslated(context, 'employees')),
-              drawer: managerSideBar(
-                  context, widget._id, widget._userInfo, widget._authHeader),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    for (int i = 0; i < employees.length; i++)
-                      Card(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    ManagerGroupsDetailsTimeSheetsPage(
-                                        widget._id,
-                                        widget._userInfo,
-                                        widget._authHeader,
-                                        employees[i].groupId,
-                                        employees[i].groupName,
-                                        employees[i].groupDescription,
-                                        employees[i].employeeId,
-                                        employees[i].employeeInfo),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              ListTile(
-                                leading: Text(
-                                  '#' + (i + 1).toString(),
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                                title: Text(utf8.decode(
-                                    employees[i].employeeInfo != null
-                                        ? employees[i]
-                                            .employeeInfo
-                                            .runes
-                                            .toList()
-                                        : getTranslated(context, 'empty'))),
-                                subtitle: Wrap(
-                                  children: <Widget>[
-                                    Text(getTranslated(
-                                            context, 'moneyPerHour') +
-                                        ': ' +
-                                        employees[i].moneyPerHour.toString()),
-                                    Text(getTranslated(
-                                            context, 'numberOfHoursWorked') +
-                                        ': ' +
-                                        employees[i]
-                                            .numberOfHoursWorked
-                                            .toString()),
-                                    Text(getTranslated(
-                                            context, 'amountOfEarnedMoney') +
-                                        ': ' +
-                                        employees[i]
-                                            .amountOfEarnedMoney
-                                            .toString()),
-                                    Text(getTranslated(context, 'groupName') +
-                                        ': ' +
-                                        utf8.decode(employees[i].groupName !=
-                                                null
-                                            ? employees[i]
-                                                .groupName
-                                                .runes
-                                                .toList()
-                                            : getTranslated(context, 'empty'))),
-                                  ],
-                                ),
-                                trailing: Wrap(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.edit,
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.all(10.0),
+                itemCount: _filteredEmployees.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Card(
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  this.context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ManagerGroupsDetailsTimeSheetsPage(
+                                            widget._id,
+                                            widget._userInfo,
+                                            widget._authHeader,
+                                            _employees[index].groupId,
+                                            _employees[index].groupName,
+                                            _employees[index].groupDescription,
+                                            _employees[index].employeeId,
+                                            _employees[index].employeeInfo),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: Text(
+                                      '#' + (index + 1).toString(),
+                                      style: TextStyle(fontSize: 20),
                                     ),
-                                  ],
-                                ),
+                                    title: Text(
+                                      utf8.decode(_filteredEmployees[index]
+                                          .employeeInfo
+                                          .runes
+                                          .toList()),
+                                    ),
+                                    subtitle: Wrap(
+                                      children: <Widget>[
+                                        Text(getTranslated(
+                                                this.context, 'moneyPerHour') +
+                                            ': ' +
+                                            _employees[index]
+                                                .moneyPerHour
+                                                .toString()),
+                                        Text(getTranslated(this.context,
+                                                'numberOfHoursWorked') +
+                                            ': ' +
+                                            _employees[index]
+                                                .numberOfHoursWorked
+                                                .toString()),
+                                        Text(getTranslated(this.context,
+                                                'amountOfEarnedMoney') +
+                                            ': ' +
+                                            _employees[index]
+                                                .amountOfEarnedMoney
+                                                .toString()),
+                                        Text(getTranslated(
+                                                this.context, 'groupName') +
+                                            ': ' +
+                                            utf8.decode(_employees[index]
+                                                        .groupName !=
+                                                    null
+                                                ? _employees[index]
+                                                    .groupName
+                                                    .runes
+                                                    .toList()
+                                                : getTranslated(
+                                                    this.context, 'empty'))),
+                                      ],
+                                    ),
+                                    trailing: Wrap(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.edit,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                  ],
-                ),
+                    ),
+                  );
+                },
               ),
             ),
-          );
-        }
-      },
+          ],
+        ),
+      ),
     );
   }
 }
