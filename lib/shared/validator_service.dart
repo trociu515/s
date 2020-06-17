@@ -28,8 +28,8 @@ class ValidatorService {
 
   static String validateUpdatingRating(int rating) {
     String invalidMessage;
-    if (rating.isNegative) {
-      invalidMessage = 'Rating cannot be lower than 0';
+    if (rating < 1) {
+      invalidMessage = 'Rating cannot be lower than 1';
     } else if (rating > 5) {
       invalidMessage = 'Rating cannot be higher than 24';
     }
