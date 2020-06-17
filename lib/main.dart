@@ -14,6 +14,8 @@ import 'manager/manager_page.dart';
 
 const SERVER_IP = 'http://10.0.2.2:8080/api';
 final storage = new FlutterSecureStorage();
+final GlobalKey<RefreshIndicatorState> refreshIndicatorState =
+    new GlobalKey<RefreshIndicatorState>();
 
 void main() {
   HttpOverrides.global = new OwnHttpOverrides();

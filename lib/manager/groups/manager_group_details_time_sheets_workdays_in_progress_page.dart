@@ -12,6 +12,7 @@ import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
 import 'package:give_job/shared/validator_service.dart';
 
+import '../../main.dart';
 import '../../shared/constants.dart';
 import '../manager_side_bar.dart';
 
@@ -83,193 +84,203 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                 appBar: appBar(context, getTranslated(context, 'workdays')),
                 drawer: managerSideBar(context, widget._managerId,
                     widget._managerInfo, widget._authHeader),
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          widget._employeeInfo != null
-                              ? utf8.decode(widget._employeeInfo.runes.toList())
-                              : getTranslated(context, 'empty'),
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                body: RefreshIndicator(
+                  key: refreshIndicatorState,
+                  onRefresh: _refresh,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            widget._employeeInfo != null
+                                ? utf8
+                                    .decode(widget._employeeInfo.runes.toList())
+                                : getTranslated(context, 'empty'),
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ListTile(
-                          leading: Icon(
-                            widget.timeSheet.status == 'Accepted'
-                                ? Icons.check_circle_outline
-                                : Icons.radio_button_unchecked,
-                            color: widget.timeSheet.status == 'Accepted'
-                                ? Colors.green
-                                : Colors.orange,
+                          SizedBox(
+                            height: 10,
                           ),
-                          title: Text(widget.timeSheet.year.toString() +
-                              ' ' +
-                              MonthUtil.translateMonth(
-                                  context, widget.timeSheet.month) +
-                              '\n' +
-                              utf8.decode(
-                                  widget.timeSheet.groupName.runes.toList())),
-                          subtitle: Wrap(
-                            children: <Widget>[
-                              Text(getTranslated(context, 'hoursWorked') +
-                                  ': ' +
-                                  widget.timeSheet.totalHours.toString() +
-                                  'h'),
-                              Text(getTranslated(context, 'averageRating') +
-                                  ': ' +
-                                  widget.timeSheet.averageEmployeeRating
-                                      .toString()),
-                            ],
-                          ),
-                          trailing: Wrap(
-                            children: <Widget>[
-                              Text(
-                                widget.timeSheet.totalMoneyEarned.toString(),
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 20),
-                              ),
-                              Icon(
-                                Icons.attach_money,
-                                color: Colors.green,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          ListTile(
+                            leading: Icon(
+                              widget.timeSheet.status == 'Accepted'
+                                  ? Icons.check_circle_outline
+                                  : Icons.radio_button_unchecked,
+                              color: widget.timeSheet.status == 'Accepted'
+                                  ? Colors.green
+                                  : Colors.orange,
+                            ),
+                            title: Text(widget.timeSheet.year.toString() +
+                                ' ' +
+                                MonthUtil.translateMonth(
+                                    context, widget.timeSheet.month) +
+                                '\n' +
+                                utf8.decode(
+                                    widget.timeSheet.groupName.runes.toList())),
+                            subtitle: Wrap(
                               children: <Widget>[
-                                RaisedButton.icon(
-                                  label: Text(getTranslated(context, 'hours')),
-                                  icon: Icon(Icons.edit),
-                                  onPressed: () {
-                                    _showDialog('HOURS', selectedIds);
-                                  },
-                                ),
-                                RaisedButton.icon(
-                                  label: Text(getTranslated(context, 'rating')),
-                                  icon: Icon(Icons.edit),
-                                  onPressed: () {
-                                    _showDialog('RATING', selectedIds);
-                                  },
-                                ),
-                                RaisedButton.icon(
-                                  label:
-                                      Text(getTranslated(context, 'comment')),
-                                  icon: Icon(Icons.edit),
-                                  onPressed: () {
-                                    _showDialog('COMMENT', selectedIds);
-                                  },
-                                ),
+                                Text(getTranslated(context, 'hoursWorked') +
+                                    ': ' +
+                                    widget.timeSheet.totalHours.toString() +
+                                    'h'),
+                                Text(getTranslated(context, 'averageRating') +
+                                    ': ' +
+                                    widget.timeSheet.averageEmployeeRating
+                                        .toString()),
                               ],
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              sortAscending: sort,
-                              sortColumnIndex: 0,
-                              columns: [
-                                DataColumn(
-                                    label: Text('No.'),
-                                    onSort: (columnIndex, ascending) {
-                                      setState(() {
-                                        sort = !sort;
-                                      });
-                                      onSortColum(columnIndex, ascending);
-                                    }),
-                                DataColumn(
-                                  label: Text(
-                                    getTranslated(context, 'hours'),
-                                  ),
+                            trailing: Wrap(
+                              children: <Widget>[
+                                Text(
+                                  widget.timeSheet.totalMoneyEarned.toString(),
+                                  style: TextStyle(
+                                      color: Colors.green, fontSize: 20),
                                 ),
-                                DataColumn(
-                                  label: Text(
-                                    getTranslated(context, 'rating'),
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    getTranslated(context, 'money'),
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    getTranslated(context, 'comment'),
-                                  ),
+                                Icon(
+                                  Icons.attach_money,
+                                  color: Colors.green,
                                 ),
                               ],
-                              rows: this
-                                  .workdays
-                                  .map(
-                                    (workday) => DataRow(
-                                      selected:
-                                          selectedIds.contains(workday.id),
-                                      onSelectChanged: (bool selected) {
-                                        onSelectedRow(selected, workday.id);
-                                      },
-                                      cells: [
-                                        DataCell(
-                                            Text(workday.number.toString())),
-                                        DataCell(
-                                            Text(workday.hours.toString())),
-                                        DataCell(
-                                            Text(workday.rating.toString())),
-                                        DataCell(
-                                            Text(workday.money.toString())),
-                                        DataCell(
-                                          Wrap(
-                                            children: <Widget>[
-                                              Text(workday.comment != null
-                                                  ? workday.comment.length > 10
-                                                      ? utf8
-                                                              .decode(workday
-                                                                  .comment.runes
-                                                                  .toList())
-                                                              .substring(
-                                                                  0, 10) +
-                                                          '...'
-                                                      : utf8.decode(workday
-                                                          .comment.runes
-                                                          .toList())
-                                                  : getTranslated(
-                                                      context, 'empty')),
-                                              workday.comment != null &&
-                                                      workday.comment != ''
-                                                  ? Icon(Icons.zoom_in)
-                                                  : Text('')
-                                            ],
-                                          ),
-                                          onTap: () {
-                                            _showCommentDetails(
-                                                workday.comment);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  RaisedButton.icon(
+                                    label:
+                                        Text(getTranslated(context, 'hours')),
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {
+                                      _showDialog('HOURS', selectedIds);
+                                    },
+                                  ),
+                                  RaisedButton.icon(
+                                    label:
+                                        Text(getTranslated(context, 'rating')),
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {
+                                      _showDialog('RATING', selectedIds);
+                                    },
+                                  ),
+                                  RaisedButton.icon(
+                                    label:
+                                        Text(getTranslated(context, 'comment')),
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {
+                                      _showDialog('COMMENT', selectedIds);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                sortAscending: sort,
+                                sortColumnIndex: 0,
+                                columns: [
+                                  DataColumn(
+                                      label: Text('No.'),
+                                      onSort: (columnIndex, ascending) {
+                                        setState(() {
+                                          sort = !sort;
+                                        });
+                                        onSortColum(columnIndex, ascending);
+                                      }),
+                                  DataColumn(
+                                    label: Text(
+                                      getTranslated(context, 'hours'),
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      getTranslated(context, 'rating'),
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      getTranslated(context, 'money'),
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      getTranslated(context, 'comment'),
+                                    ),
+                                  ),
+                                ],
+                                rows: this
+                                    .workdays
+                                    .map(
+                                      (workday) => DataRow(
+                                        selected:
+                                            selectedIds.contains(workday.id),
+                                        onSelectChanged: (bool selected) {
+                                          onSelectedRow(selected, workday.id);
+                                        },
+                                        cells: [
+                                          DataCell(
+                                              Text(workday.number.toString())),
+                                          DataCell(
+                                              Text(workday.hours.toString())),
+                                          DataCell(
+                                              Text(workday.rating.toString())),
+                                          DataCell(
+                                              Text(workday.money.toString())),
+                                          DataCell(
+                                            Wrap(
+                                              children: <Widget>[
+                                                Text(workday.comment != null
+                                                    ? workday.comment.length >
+                                                            10
+                                                        ? utf8
+                                                                .decode(workday
+                                                                    .comment
+                                                                    .runes
+                                                                    .toList())
+                                                                .substring(
+                                                                    0, 10) +
+                                                            '...'
+                                                        : utf8.decode(workday
+                                                            .comment.runes
+                                                            .toList())
+                                                    : getTranslated(
+                                                        context, 'empty')),
+                                                workday.comment != null &&
+                                                        workday.comment != ''
+                                                    ? Icon(Icons.zoom_in)
+                                                    : Text('')
+                                              ],
+                                            ),
+                                            onTap: () {
+                                              _showCommentDetails(
+                                                  workday.comment);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -288,187 +299,205 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
           appBar: appBar(context, getTranslated(context, 'workdays')),
           drawer: managerSideBar(context, widget._managerId,
               widget._managerInfo, widget._authHeader),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    widget._employeeInfo != null
-                        ? utf8.decode(widget._employeeInfo.runes.toList())
-                        : getTranslated(context, 'empty'),
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+          body: RefreshIndicator(
+            key: refreshIndicatorState,
+            onRefresh: _refresh,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      widget._employeeInfo != null
+                          ? utf8.decode(widget._employeeInfo.runes.toList())
+                          : getTranslated(context, 'empty'),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      widget.timeSheet.status == 'Accepted'
-                          ? Icons.check_circle_outline
-                          : Icons.radio_button_unchecked,
-                      color: widget.timeSheet.status == 'Accepted'
-                          ? Colors.green
-                          : Colors.orange,
+                    SizedBox(
+                      height: 10,
                     ),
-                    title: Text(widget.timeSheet.year.toString() +
-                        ' ' +
-                        MonthUtil.translateMonth(
-                            context, widget.timeSheet.month) +
-                        '\n' +
-                        utf8.decode(widget.timeSheet.groupName.runes.toList())),
-                    subtitle: Wrap(
-                      children: <Widget>[
-                        Text(getTranslated(context, 'hoursWorked') +
-                            ': ' +
-                            widget.timeSheet.totalHours.toString() +
-                            'h'),
-                        Text(getTranslated(context, 'averageRating') +
-                            ': ' +
-                            widget.timeSheet.averageEmployeeRating.toString()),
-                      ],
-                    ),
-                    trailing: Wrap(
-                      children: <Widget>[
-                        Text(
-                          widget.timeSheet.totalMoneyEarned.toString(),
-                          style: TextStyle(color: Colors.green, fontSize: 20),
-                        ),
-                        Icon(
-                          Icons.attach_money,
-                          color: Colors.green,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ListTile(
+                      leading: Icon(
+                        widget.timeSheet.status == 'Accepted'
+                            ? Icons.check_circle_outline
+                            : Icons.radio_button_unchecked,
+                        color: widget.timeSheet.status == 'Accepted'
+                            ? Colors.green
+                            : Colors.orange,
+                      ),
+                      title: Text(widget.timeSheet.year.toString() +
+                          ' ' +
+                          MonthUtil.translateMonth(
+                              context, widget.timeSheet.month) +
+                          '\n' +
+                          utf8.decode(
+                              widget.timeSheet.groupName.runes.toList())),
+                      subtitle: Wrap(
                         children: <Widget>[
-                          RaisedButton.icon(
-                            label: Text(getTranslated(context, 'hours')),
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              _showDialog('HOURS', selectedIds);
-                            },
-                          ),
-                          RaisedButton.icon(
-                            label: Text(getTranslated(context, 'rating')),
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              _showDialog('RATING', selectedIds);
-                            },
-                          ),
-                          RaisedButton.icon(
-                            label: Text(getTranslated(context, 'comment')),
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              _showDialog('COMMENT', selectedIds);
-                            },
-                          ),
+                          Text(getTranslated(context, 'hoursWorked') +
+                              ': ' +
+                              widget.timeSheet.totalHours.toString() +
+                              'h'),
+                          Text(getTranslated(context, 'averageRating') +
+                              ': ' +
+                              widget.timeSheet.averageEmployeeRating
+                                  .toString()),
                         ],
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: DataTable(
-                        sortAscending: sort,
-                        sortColumnIndex: 0,
-                        columns: [
-                          DataColumn(
-                              label: Text('No.'),
-                              onSort: (columnIndex, ascending) {
-                                setState(() {
-                                  sort = !sort;
-                                });
-                                onSortColum(columnIndex, ascending);
-                              }),
-                          DataColumn(
-                            label: Text(
-                              getTranslated(context, 'hours'),
-                            ),
+                      trailing: Wrap(
+                        children: <Widget>[
+                          Text(
+                            widget.timeSheet.totalMoneyEarned.toString(),
+                            style: TextStyle(color: Colors.green, fontSize: 20),
                           ),
-                          DataColumn(
-                            label: Text(
-                              getTranslated(context, 'rating'),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Text(
-                              getTranslated(context, 'money'),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Text(
-                              getTranslated(context, 'comment'),
-                            ),
+                          Icon(
+                            Icons.attach_money,
+                            color: Colors.green,
                           ),
                         ],
-                        rows: this
-                            .workdays
-                            .map(
-                              (workday) => DataRow(
-                                selected: selectedIds.contains(workday.id),
-                                onSelectChanged: (bool selected) {
-                                  onSelectedRow(selected, workday.id);
-                                },
-                                cells: [
-                                  DataCell(Text(workday.number.toString())),
-                                  DataCell(Text(workday.hours.toString())),
-                                  DataCell(Text(workday.rating.toString())),
-                                  DataCell(Text(workday.money.toString())),
-                                  DataCell(
-                                    Wrap(
-                                      children: <Widget>[
-                                        Text(workday.comment != null
-                                            ? workday.comment.length > 10
-                                                ? utf8
-                                                        .decode(workday
-                                                            .comment.runes
-                                                            .toList())
-                                                        .substring(0, 10) +
-                                                    '...'
-                                                : utf8.decode(workday
-                                                    .comment.runes
-                                                    .toList())
-                                            : getTranslated(context, 'empty')),
-                                        workday.comment != null &&
-                                                workday.comment != ''
-                                            ? Icon(Icons.zoom_in)
-                                            : Text('')
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      _showCommentDetails(workday.comment);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            )
-                            .toList(),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            RaisedButton.icon(
+                              label: Text(getTranslated(context, 'hours')),
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                _showDialog('HOURS', selectedIds);
+                              },
+                            ),
+                            RaisedButton.icon(
+                              label: Text(getTranslated(context, 'rating')),
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                _showDialog('RATING', selectedIds);
+                              },
+                            ),
+                            RaisedButton.icon(
+                              label: Text(getTranslated(context, 'comment')),
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                _showDialog('COMMENT', selectedIds);
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: DataTable(
+                          sortAscending: sort,
+                          sortColumnIndex: 0,
+                          columns: [
+                            DataColumn(
+                                label: Text('No.'),
+                                onSort: (columnIndex, ascending) {
+                                  setState(() {
+                                    sort = !sort;
+                                  });
+                                  onSortColum(columnIndex, ascending);
+                                }),
+                            DataColumn(
+                              label: Text(
+                                getTranslated(context, 'hours'),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                getTranslated(context, 'rating'),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                getTranslated(context, 'money'),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                getTranslated(context, 'comment'),
+                              ),
+                            ),
+                          ],
+                          rows: this
+                              .workdays
+                              .map(
+                                (workday) => DataRow(
+                                  selected: selectedIds.contains(workday.id),
+                                  onSelectChanged: (bool selected) {
+                                    onSelectedRow(selected, workday.id);
+                                  },
+                                  cells: [
+                                    DataCell(Text(workday.number.toString())),
+                                    DataCell(Text(workday.hours.toString())),
+                                    DataCell(Text(workday.rating.toString())),
+                                    DataCell(Text(workday.money.toString())),
+                                    DataCell(
+                                      Wrap(
+                                        children: <Widget>[
+                                          Text(workday.comment != null
+                                              ? workday.comment.length > 10
+                                                  ? utf8
+                                                          .decode(workday
+                                                              .comment.runes
+                                                              .toList())
+                                                          .substring(0, 10) +
+                                                      '...'
+                                                  : utf8.decode(workday
+                                                      .comment.runes
+                                                      .toList())
+                                              : getTranslated(
+                                                  context, 'empty')),
+                                          workday.comment != null &&
+                                                  workday.comment != ''
+                                              ? Icon(Icons.zoom_in)
+                                              : Text('')
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        _showCommentDetails(workday.comment);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
       );
     }
+  }
+
+  Future<Null> _refresh() {
+    return _managerService
+        .findWorkdaysByTimeSheetId(
+            widget.timeSheet.id.toString(), widget._authHeader)
+        .then((_workdays) {
+      setState(() {
+        workdays = _workdays;
+      });
+    });
   }
 
   void onSelectedRow(bool selected, int id) {
@@ -558,7 +587,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     ToastService.showToast(
                         getTranslated(context, 'hoursUpdatedSuccessfully'),
                         Colors.green);
-                    Navigator.pop(context);
+                    _refresh();
                   });
                 },
               ),
@@ -615,7 +644,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     ToastService.showToast(
                         getTranslated(context, 'ratingUpdatedSuccessfully'),
                         Colors.green);
-                    Navigator.pop(context);
+                    _refresh();
                   });
                 },
               ),
@@ -665,7 +694,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     ToastService.showToast(
                         getTranslated(context, 'commentUpdatedSuccessfully'),
                         Colors.green);
-                    Navigator.pop(context);
+                    _refresh();
                   });
                 },
               ),
