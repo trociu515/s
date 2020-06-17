@@ -6,6 +6,7 @@ import 'package:give_job/manager/information/manager_information_page.dart';
 import 'package:give_job/manager/manager_page.dart';
 import 'package:give_job/shared/logout.dart';
 
+import 'employees/manager_employees_page.dart';
 import 'groups/manager_groups_page.dart';
 
 Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
@@ -96,6 +97,24 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               MaterialPageRoute(
                 builder: (context) =>
                     ManagerGroupsPage(managerId, userInfo, authHeader),
+              ),
+            );
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.people_outline),
+          title: Text(
+            getTranslated(context, 'employees'),
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    ManagerEmployeesPage(managerId, userInfo, authHeader),
               ),
             );
           },

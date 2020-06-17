@@ -91,5 +91,6 @@
   "hoursCannotBeHigherThan24": "Las horas no pueden ser superiores a 24",
   "ratingCannotBeLowerThan1": "La calificación no puede ser inferior a 1",
   "ratingCannotBeHigherThan5": "La calificación no puede ser superior a 5",
-  "commentLengthCannotBeHigherThan510": "Comment length cannot be higher than 510"
+  "commentLengthCannotBeHigherThan510": "La longitud del comentario no puede ser superior a 510",
+  "employees": "Empleados"
 }

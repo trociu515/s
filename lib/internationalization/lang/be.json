@@ -91,5 +91,6 @@
   "hoursCannotBeHigherThan24": "Гадзіны не могуць быць вышэй за 24",
   "ratingCannotBeLowerThan1": "Рэйтынг не можа быць ніжэй за 1",
   "ratingCannotBeHigherThan5": "Рэйтынг не можа быць вышэй за 5",
-  "commentLengthCannotBeHigherThan510": "Comment length cannot be higher than 510"
+  "commentLengthCannotBeHigherThan510": "Даўжыня каментарыяў не можа перавышаць 510",
+  "employees": "Супрацоўнікі"
 }
