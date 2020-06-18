@@ -92,5 +92,6 @@
   "ratingCannotBeLowerThan1": "Beoordeling mag niet lager zijn dan 1",
   "ratingCannotBeHigherThan5": "Beoordeling mag niet hoger zijn dan 5",
   "commentLengthCannotBeHigherThan510": "De lengte van de opmerking mag niet hoger zijn dan 510",
-  "employees": "Medewerkers"
+  "employees": "Medewerkers",
+  "managerDoesNotHaveEmployeesInGroups": "Manager heeft geen werknemers in groepen"
 }

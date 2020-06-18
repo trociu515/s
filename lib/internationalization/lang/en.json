@@ -92,5 +92,6 @@
   "ratingCannotBeLowerThan1": "Rating cannot be lower than 1",
   "ratingCannotBeHigherThan5": "Rating cannot be higher than 5",
   "commentLengthCannotBeHigherThan510": "Comment length cannot be higher than 510",
-  "employees": "Employees"
+  "employees": "Employees",
+  "managerDoesNotHaveEmployeesInGroups": "Manager does not have employees in groups"
 }

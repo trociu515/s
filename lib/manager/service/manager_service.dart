@@ -166,11 +166,12 @@ class ManagerService {
       baseEmployeeUrl + '/groups/${int.parse(groupManagerId)}',
       headers: {HttpHeaders.authorizationHeader: authHeader},
     );
-    if (res.statusCode == 200) {
+    if (res.statusCode == 200 && res.body != '[]') {
       return (json.decode(res.body) as List)
           .map((data) => ManagerEmployeeGroupDto.fromJson(data))
           .toList();
-    } else if (res.statusCode == 400) {
+    } else if ((res.statusCode == 200 && res.body == '[]') ||
+        res.statusCode == 400) {
       return Future.error(res.body);
     }
     return null;

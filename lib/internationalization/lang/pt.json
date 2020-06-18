@@ -92,5 +92,6 @@
   "ratingCannotBeLowerThan1": "შეფასება არ შეიძლება იყოს 1-ზე დაბალი",
   "ratingCannotBeHigherThan5": "შეფასება არ შეიძლება იყოს 5-ზე მეტი",
   "commentLengthCannotBeHigherThan510": "შეფასება არ შეიძლება იყოს 5-ზე მეტი",
-  "employees": "თანამშრომლები"
+  "employees": "თანამშრომლები",
+  "managerDoesNotHaveEmployeesInGroups": "მენეჯერს არ ჰყავს თანამშრომლები ჯგუფებში"
 }

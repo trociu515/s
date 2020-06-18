@@ -92,5 +92,6 @@
   "ratingCannotBeLowerThan1": "La note ne peut pas être inférieure à 1",
   "ratingCannotBeHigherThan5": "La note ne peut pas être supérieure à 5",
   "commentLengthCannotBeHigherThan510": "La longueur du commentaire ne peut pas être supérieure à 510",
-  "employees": "Des employés"
+  "employees": "Des employés",
+  "managerDoesNotHaveEmployeesInGroups": "Le gestionnaire n'a pas d'employés dans les groupes"
 }

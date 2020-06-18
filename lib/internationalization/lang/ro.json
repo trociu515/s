@@ -92,5 +92,6 @@
   "ratingCannotBeLowerThan1": "Evaluarea nu poate fi mai mică de 1",
   "ratingCannotBeHigherThan5": "Evaluarea nu poate fi mai mare de 5",
   "commentLengthCannotBeHigherThan510": "Lungimea comentariilor nu poate fi mai mare de 510",
-  "employees": "Angajați"
+  "employees": "Angajați",
+  "managerDoesNotHaveEmployeesInGroups": "Managerul nu are angajați în grupuri"
 }

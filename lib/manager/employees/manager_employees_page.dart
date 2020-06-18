@@ -9,6 +9,7 @@ import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
 import 'package:give_job/shared/constants.dart';
 import 'package:give_job/shared/loader_widget.dart';
+import 'package:give_job/shared/toastr_service.dart';
 
 import '../manager_side_bar.dart';
 
@@ -42,6 +43,11 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
         _filteredEmployees = _employees;
         _loading = false;
       });
+    }).catchError((e) {
+      ToastService.showToast(
+          getTranslated(context, 'managerDoesNotHaveEmployeesInGroups'),
+          Colors.red);
+      Navigator.pop(context);
     });
   }
 

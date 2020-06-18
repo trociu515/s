@@ -92,5 +92,6 @@
   "ratingCannotBeLowerThan1": "Betyg kan inte vara lägre än 1",
   "ratingCannotBeHigherThan5": "Betyget kan inte vara högre än 5",
   "commentLengthCannotBeHigherThan510": "Kommentarlängden kan inte vara högre än 510",
-  "employees": "anställda"
+  "employees": "anställda",
+  "managerDoesNotHaveEmployeesInGroups": "Chefen har inte anställda i grupper"
 }
