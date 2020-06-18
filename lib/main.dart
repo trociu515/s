@@ -12,7 +12,7 @@ import 'internationalization/localization/localization_constants.dart';
 import 'login_page.dart';
 import 'manager/manager_page.dart';
 
-const SERVER_IP = 'http://10.0.2.2:8080/api';
+const SERVER_IP = 'https://givejob-server.herokuapp.com/api';
 final storage = new FlutterSecureStorage();
 final GlobalKey<RefreshIndicatorState> refreshIndicatorState =
     new GlobalKey<RefreshIndicatorState>();
