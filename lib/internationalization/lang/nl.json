@@ -93,5 +93,8 @@
   "ratingCannotBeHigherThan5": "Beoordeling mag niet hoger zijn dan 5",
   "commentLengthCannotBeHigherThan510": "De lengte van de opmerking mag niet hoger zijn dan 510",
   "employees": "Medewerkers",
-  "managerDoesNotHaveEmployeesInGroups": "Manager heeft geen werknemers in groepen"
+  "managerDoesNotHaveEmployeesInGroups": "Manager heeft geen werknemers in groepen",
+  "bugReport": "Bug report",
+  "somethingWrongWithApplication": "Is er iets mis met de applicatie?",
+  "contactWithUsByGivenEmail": "Neem contact met ons op via e-mail!"
 }

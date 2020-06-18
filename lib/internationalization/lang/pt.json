@@ -93,5 +93,8 @@
   "ratingCannotBeHigherThan5": "შეფასება არ შეიძლება იყოს 5-ზე მეტი",
   "commentLengthCannotBeHigherThan510": "შეფასება არ შეიძლება იყოს 5-ზე მეტი",
   "employees": "თანამშრომლები",
-  "managerDoesNotHaveEmployeesInGroups": "მენეჯერს არ ჰყავს თანამშრომლები ჯგუფებში"
+  "managerDoesNotHaveEmployeesInGroups": "მენეჯერს არ ჰყავს თანამშრომლები ჯგუფებში",
+  "bugReport": "შეცდომის შესახებ",
+  "somethingWrongWithApplication": "რამე შეცდომაა განაცხადში?",
+  "contactWithUsByGivenEmail": "დაგვიკავშირდით მოცემული ელექტრონული ფოსტით!"
 }

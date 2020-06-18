@@ -93,5 +93,8 @@
   "ratingCannotBeHigherThan5": "Рейтинг не може бути вище 5",
   "commentLengthCannotBeHigherThan510": "Довжина коментарів не може перевищувати 510",
   "employees": "Співробітники",
-  "managerDoesNotHaveEmployeesInGroups": "Менеджер не має працівників у групах"
+  "managerDoesNotHaveEmployeesInGroups": "Менеджер не має працівників у групах",
+  "bugReport": "Повідомлення про помилку",
+  "somethingWrongWithApplication": "Щось не так у застосуванні?",
+  "contactWithUsByGivenEmail": "Звертайтесь до нас за вказаною електронною поштою!"
 }

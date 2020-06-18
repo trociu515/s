@@ -93,5 +93,8 @@
   "ratingCannotBeHigherThan5": "Betyget kan inte vara högre än 5",
   "commentLengthCannotBeHigherThan510": "Kommentarlängden kan inte vara högre än 510",
   "employees": "anställda",
-  "managerDoesNotHaveEmployeesInGroups": "Chefen har inte anställda i grupper"
+  "managerDoesNotHaveEmployeesInGroups": "Chefen har inte anställda i grupper",
+  "bugReport": "Buggrapport",
+  "somethingWrongWithApplication": "Något fel med ansökan?",
+  "contactWithUsByGivenEmail": "Kontakt med oss via givet e-post!"
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/information/manager_information_page.dart';
 import 'package:give_job/manager/manager_page.dart';
+import 'package:give_job/shared/dialog/bug_report_dialog.dart';
 import 'package:give_job/shared/logout.dart';
 
 import 'employees/manager_employees_page.dart';
@@ -117,6 +118,18 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
                     ManagerEmployeesPage(managerId, userInfo, authHeader),
               ),
             );
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.bug_report),
+          title: Text(
+            getTranslated(context, 'bugReport'),
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+          onTap: () {
+            bugReportDialog(context);
           },
         ),
         ListTile(

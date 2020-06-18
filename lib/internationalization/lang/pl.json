@@ -93,5 +93,8 @@
   "ratingCannotBeHigherThan5": "Ocena nie może być wyższa niż 5",
   "commentLengthCannotBeHigherThan510": "Długość komentarza nie może być większa niż 510",
   "employees": "Pracownicy",
-  "managerDoesNotHaveEmployeesInGroups": "Menedżer nie posiada pracowników w grupach"
+  "managerDoesNotHaveEmployeesInGroups": "Menedżer nie posiada pracowników w grupach",
+  "bugReport": "Zgłoszenie błędu",
+  "somethingWrongWithApplication": "Coś nie tak z aplikacją?",
+  "contactWithUsByGivenEmail": "Skontaktuj się z nami podanym adresem e-mail!"
 }

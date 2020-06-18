@@ -93,5 +93,8 @@
   "ratingCannotBeHigherThan5": "Evaluarea nu poate fi mai mare de 5",
   "commentLengthCannotBeHigherThan510": "Lungimea comentariilor nu poate fi mai mare de 510",
   "employees": "Angajați",
-  "managerDoesNotHaveEmployeesInGroups": "Managerul nu are angajați în grupuri"
+  "managerDoesNotHaveEmployeesInGroups": "Managerul nu are angajați în grupuri",
+  "bugReport": "Raport de erori",
+  "somethingWrongWithApplication": "Ceva în neregulă cu aplicarea?",
+  "contactWithUsByGivenEmail": "Contactează-ne prin e-mail!"
 }
