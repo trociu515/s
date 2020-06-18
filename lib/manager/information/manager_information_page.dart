@@ -74,16 +74,17 @@ class _ManagerDetailsState extends State<ManagerDetails> {
                             ),
                             ListTile(
                               title: Text(getTranslated(context, 'name')),
-                              subtitle: Text(utf8.decode(manager.name != null
-                                  ? manager.name.runes.toList()
-                                  : getTranslated(context, 'empty'))),
+                              subtitle: Text(manager.name != null
+                                  ? utf8.decode(manager.name.runes.toList())
+                                  : getTranslated(context, 'empty')),
                             ),
                             ListTile(
                               title: Text(getTranslated(context, 'surname')),
                               subtitle: Text(
-                                utf8.decode(manager.surname != null
-                                    ? manager.surname.runes.toList()
-                                    : getTranslated(context, 'empty')),
+                                manager.surname != null
+                                    ? utf8
+                                        .decode(manager.surname.runes.toList())
+                                    : getTranslated(context, 'empty'),
                               ),
                             ),
                             ListTile(

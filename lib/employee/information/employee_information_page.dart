@@ -96,17 +96,17 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                             ),
                             ListTile(
                               title: Text(getTranslated(context, 'fatherName')),
-                              subtitle: Text(utf8.decode(
-                                  employee.fatherName != null
-                                      ? employee.fatherName.runes.toList()
-                                      : getTranslated(context, 'empty'))),
+                              subtitle: Text(employee.fatherName != null
+                                  ? utf8.decode(
+                                      employee.fatherName.runes.toList())
+                                  : getTranslated(context, 'empty')),
                             ),
                             ListTile(
                               title: Text(getTranslated(context, 'motherName')),
-                              subtitle: Text(utf8.decode(
-                                  employee.motherName != null
-                                      ? employee.motherName.runes.toList()
-                                      : getTranslated(context, 'empty'))),
+                              subtitle: Text(employee.motherName != null
+                                  ? utf8.decode(
+                                      employee.motherName.runes.toList())
+                                  : getTranslated(context, 'empty')),
                             ),
                             ListTile(
                               title: Text(getTranslated(
