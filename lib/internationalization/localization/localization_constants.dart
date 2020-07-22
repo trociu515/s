@@ -14,6 +14,7 @@ const String GEORGIA = 'pt';
 const String GERMAN = 'de';
 const String MOLDAVIAN = 'ro';
 const String NETHERLANDS = 'nl';
+const String NORWAY = 'no';
 const String POLISH = 'pl';
 const String RUSSIAN = 'ru';
 const String SPAIN = 'es';
@@ -51,6 +52,9 @@ Locale _locale(String languageCode) {
       break;
     case NETHERLANDS:
       _temp = Locale(languageCode, 'NL');
+      break;
+    case NORWAY:
+      _temp = Locale(languageCode, 'NO');
       break;
     case POLISH:
       _temp = Locale(languageCode, 'PL');

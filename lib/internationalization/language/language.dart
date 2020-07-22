@@ -15,11 +15,12 @@ class Language {
       Language(5, '🇩🇪', 'DE', 'de'),
       Language(6, '🇲🇩', 'RO', 'ro'),
       Language(7, '🇳🇱', 'NL', 'nl'),
-      Language(8, '🇵🇱', 'PL', 'pl'),
-      Language(9, '🇷🇺', 'RU', 'ru'),
-      Language(10, '🇪🇸', 'ES', 'es'),
-      Language(11, '🇸🇪', 'SE', 'ca'),
-      Language(12, '🇺🇦', 'UK', 'uk'),
+      Language(8, '🇳🇴', 'NO', 'no'),
+      Language(9, '🇵🇱', 'PL', 'pl'),
+      Language(10, '🇷🇺', 'RU', 'ru'),
+      Language(11, '🇪🇸', 'ES', 'es'),
+      Language(12, '🇸🇪', 'SE', 'ca'),
+      Language(13, '🇺🇦', 'UK', 'uk'),
     ];
   }
 }

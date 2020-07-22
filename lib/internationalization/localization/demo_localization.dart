@@ -47,6 +47,7 @@ class _DemoLocalizationDelegate
       GERMAN,
       MOLDAVIAN,
       NETHERLANDS,
+      NORWAY,
       POLISH,
       RUSSIAN,
       SPAIN,
