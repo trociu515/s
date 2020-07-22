@@ -111,7 +111,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                   ? Icons.check_circle_outline
                                   : Icons.radio_button_unchecked,
                               color: widget.timeSheet.status == 'Accepted'
-                                  ? Colors.green
+                                  ? Color(0xffb5d76d)
                                   : Colors.orange,
                             ),
                             title: Text(widget.timeSheet.year.toString() +
@@ -138,11 +138,11 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                 Text(
                                   widget.timeSheet.totalMoneyEarned.toString(),
                                   style: TextStyle(
-                                      color: Colors.green, fontSize: 20),
+                                      color: Color(0xffb5d76d), fontSize: 20),
                                 ),
                                 Icon(
                                   Icons.attach_money,
-                                  color: Colors.green,
+                                  color: Color(0xffb5d76d),
                                 ),
                               ],
                             ),
@@ -325,7 +325,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
                         color: widget.timeSheet.status == 'Accepted'
-                            ? Colors.green
+                            ? Color(0xffb5d76d)
                             : Colors.orange,
                       ),
                       title: Text(widget.timeSheet.year.toString() +
@@ -351,11 +351,12 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                         children: <Widget>[
                           Text(
                             widget.timeSheet.totalMoneyEarned.toString(),
-                            style: TextStyle(color: Colors.green, fontSize: 20),
+                            style: TextStyle(
+                                color: Color(0xffb5d76d), fontSize: 20),
                           ),
                           Icon(
                             Icons.attach_money,
-                            color: Colors.green,
+                            color: Color(0xffb5d76d),
                           ),
                         ],
                       ),
@@ -586,7 +587,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     Navigator.of(context).pop();
                     ToastService.showToast(
                         getTranslated(context, 'hoursUpdatedSuccessfully'),
-                        Colors.green);
+                        Color(0xffb5d76d));
                     _refresh();
                   });
                 },
@@ -643,7 +644,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     Navigator.of(context).pop();
                     ToastService.showToast(
                         getTranslated(context, 'ratingUpdatedSuccessfully'),
-                        Colors.green);
+                        Color(0xffb5d76d));
                     _refresh();
                   });
                 },
@@ -694,7 +695,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                     Navigator.of(context).pop();
                     ToastService.showToast(
                         getTranslated(context, 'commentUpdatedSuccessfully'),
-                        Colors.green);
+                        Color(0xffb5d76d));
                     _refresh();
                   });
                 },

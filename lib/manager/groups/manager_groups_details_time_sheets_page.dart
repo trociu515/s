@@ -162,7 +162,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                         ? Icons.check_circle_outline
                                         : Icons.radio_button_unchecked,
                                     color: timeSheet.status == 'Accepted'
-                                        ? Colors.green
+                                        ? Color(0xffb5d76d)
                                         : Colors.orange,
                                   ),
                                   title: Text(timeSheet.year.toString() +
@@ -188,11 +188,11 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                       Text(
                                         timeSheet.totalMoneyEarned.toString(),
                                         style: TextStyle(
-                                            color: Colors.green, fontSize: 20),
+                                            color: Color(0xffb5d76d), fontSize: 20),
                                       ),
                                       Icon(
                                         Icons.attach_money,
-                                        color: Colors.green,
+                                        color: Color(0xffb5d76d),
                                       ),
                                     ],
                                   ),

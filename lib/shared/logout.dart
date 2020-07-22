@@ -24,7 +24,7 @@ class Logout {
                     MaterialPageRoute(builder: (context) => LoginPage()),
                     (e) => false);
                 ToastService.showToast(
-                    getTranslated(context, 'logoutSuccessfully'), Colors.green);
+                    getTranslated(context, 'logoutSuccessfully'), Color(0xffb5d76d));
               },
             ),
             FlatButton(

@@ -41,19 +41,24 @@ class _LoginPageState extends State<LoginPage> {
     final ProgressDialog progressDialog = new ProgressDialog(context);
     progressDialog.style(
       message: getTranslated(context, 'loading'),
-      messageTextStyle: TextStyle(color: Colors.green),
+      messageTextStyle: TextStyle(color: Color(0xffb5d76d)),
     );
     final logo = Image(image: AssetImage('images/logo.png'), height: 250);
 
     final username = TextFormField(
       controller: usernameController,
       autofocus: false,
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
         hintText: getTranslated(context, 'username'),
+        hintStyle: TextStyle(color: Colors.black54),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(32.0),
-        ),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.0),
+            borderSide: BorderSide(color: Color(0xffb5d76d), width: 2.0)),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.0),
+            borderSide: BorderSide(color: Color(0xffb5d76d), width: 2.0)),
       ),
     );
 
@@ -61,17 +66,22 @@ class _LoginPageState extends State<LoginPage> {
       controller: passwordController,
       autofocus: false,
       obscureText: true,
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
         hintText: getTranslated(context, 'password'),
+        hintStyle: TextStyle(color: Colors.black54),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(32.0),
-        ),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.0),
+            borderSide: BorderSide(color: Color(0xffb5d76d), width: 2.0)),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.0),
+            borderSide: BorderSide(color: Color(0xffb5d76d), width: 2.0)),
       ),
     );
 
     final loginButton = RaisedButton(
-      color: Colors.green,
+      color: Color(0xffb5d76d),
       shape: new RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(30.0),
       ),
@@ -116,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                           ManagerPage(id, userInfo, authHeader)));
             }
             ToastService.showToast(
-                getTranslated(context, 'loginSuccessfully'), Colors.green);
+                getTranslated(context, 'loginSuccessfully'), Color(0xffb5d76d));
           } else {
             progressDialog.hide();
             ToastService.showToast(
