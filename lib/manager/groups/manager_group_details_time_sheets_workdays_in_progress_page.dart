@@ -140,9 +140,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                   style: TextStyle(
                                       color: Color(0xffb5d76d), fontSize: 20),
                                 ),
-                                Icon(
-                                  Icons.attach_money,
-                                  color: Color(0xffb5d76d),
+                                Text(
+                                  " ZŁ",
+                                  style: TextStyle(
+                                      color: Color(0xffb5d76d), fontSize: 20),
                                 ),
                               ],
                             ),
@@ -354,9 +355,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                             style: TextStyle(
                                 color: Color(0xffb5d76d), fontSize: 20),
                           ),
-                          Icon(
-                            Icons.attach_money,
-                            color: Color(0xffb5d76d),
+                          Text(
+                            " ZŁ",
+                            style: TextStyle(
+                                color: Color(0xffb5d76d), fontSize: 20),
                           ),
                         ],
                       ),
