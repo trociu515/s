@@ -88,6 +88,33 @@ class _ManagerDetailsState extends State<ManagerDetails> {
                               ),
                             ),
                             ListTile(
+                              title: Text(getTranslated(context, 'email')),
+                              subtitle: Text(manager.email != null
+                                  ? manager.email
+                                  : getTranslated(context, 'empty')),
+                            ),
+                            ListTile(
+                              title:
+                                  Text(getTranslated(context, 'phoneNumber')),
+                              subtitle: Text(manager.phoneNumber != null
+                                  ? manager.phoneNumber
+                                  : getTranslated(context, 'empty')),
+                            ),
+                            ListTile(
+                              title:
+                                  Text(getTranslated(context, 'viberNumber')),
+                              subtitle: Text(manager.viberNumber != null
+                                  ? manager.viberNumber
+                                  : getTranslated(context, 'empty')),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  getTranslated(context, 'whatsAppNumber')),
+                              subtitle: Text(manager.whatsAppNumber != null
+                                  ? manager.whatsAppNumber
+                                  : getTranslated(context, 'empty')),
+                            ),
+                            ListTile(
                               title: Text(
                                   getTranslated(context, 'numberOfGroups')),
                               subtitle: Text(manager.numberOfGroups.toString()),

@@ -20,6 +20,10 @@ class EmployeeDto {
   final String passportNumber;
   final String passportReleaseDate;
   final String passportExpirationDate;
+  final String email;
+  final String phoneNumber;
+  final String viberNumber;
+  final String whatsAppNumber;
   final int groupId;
   final String groupName;
 
@@ -43,6 +47,10 @@ class EmployeeDto {
     @required this.passportNumber,
     @required this.passportReleaseDate,
     @required this.passportExpirationDate,
+    @required this.email,
+    @required this.phoneNumber,
+    @required this.viberNumber,
+    @required this.whatsAppNumber,
     @required this.groupId,
     @required this.groupName,
   });
@@ -69,6 +77,10 @@ class EmployeeDto {
       passportNumber: json['passportNumber'] as String,
       passportReleaseDate: json['passportReleaseDate'] as String,
       passportExpirationDate: json['passportExpirationDate'] as String,
+      email: json['email'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      viberNumber: json['viberNumber'] as String,
+      whatsAppNumber: json['whatsAppNumber'] as String,
       groupId: json['groupId'] as int,
       groupName: json['groupName'] as String,
     );

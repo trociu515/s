@@ -193,6 +193,33 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                       : getTranslated(context, 'empty')),
                             ),
                             ListTile(
+                              title: Text(getTranslated(context, 'email')),
+                              subtitle: Text(employee.email != null
+                                  ? employee.email
+                                  : getTranslated(context, 'empty')),
+                            ),
+                            ListTile(
+                              title:
+                                  Text(getTranslated(context, 'phoneNumber')),
+                              subtitle: Text(employee.phoneNumber != null
+                                  ? employee.phoneNumber
+                                  : getTranslated(context, 'empty')),
+                            ),
+                            ListTile(
+                              title:
+                                  Text(getTranslated(context, 'viberNumber')),
+                              subtitle: Text(employee.viberNumber != null
+                                  ? employee.viberNumber
+                                  : getTranslated(context, 'empty')),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  getTranslated(context, 'whatsAppNumber')),
+                              subtitle: Text(employee.whatsAppNumber != null
+                                  ? employee.whatsAppNumber
+                                  : getTranslated(context, 'empty')),
+                            ),
+                            ListTile(
                               title: Text(getTranslated(context, 'groupId')),
                               subtitle: Text(employee.groupId != null
                                   ? employee.groupId.toString()
