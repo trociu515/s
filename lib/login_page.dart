@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_page.dart';
 import 'package:give_job/get_started_page.dart';
@@ -60,10 +61,11 @@ class _LoginPageState extends State<LoginPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => GetStartedPage(),
+            Navigator.of(context).push(
+              CupertinoPageRoute<Null>(
+                builder: (BuildContext context) {
+                  return new GetStartedPage();
+                },
               ),
             );
           },
