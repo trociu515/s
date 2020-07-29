@@ -7,11 +7,11 @@ import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/groups/manager_groups_details_time_sheets_page.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
-import 'package:give_job/shared/widget/loader_widget.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/widget/loader_widget.dart';
 
 class ManagerGroupsDetailsPage extends StatefulWidget {
   final String _managerId;
@@ -108,19 +108,19 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
                           color: DARK,
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ManagerGroupsDetailsTimeSheetsPage(
-                                          widget._managerId,
-                                          widget._managerInfo,
-                                          widget._authHeader,
-                                          widget._groupId,
-                                          widget._groupName,
-                                          widget._groupDescription,
-                                          employees[i].employeeId,
-                                          employees[i].employeeInfo),
+                              Navigator.of(context).push(
+                                CupertinoPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return ManagerGroupsDetailsTimeSheetsPage(
+                                        widget._managerId,
+                                        widget._managerInfo,
+                                        widget._authHeader,
+                                        widget._groupId,
+                                        widget._groupName,
+                                        widget._groupDescription,
+                                        employees[i].employeeId,
+                                        employees[i].employeeInfo);
+                                  },
                                 ),
                               );
                             },

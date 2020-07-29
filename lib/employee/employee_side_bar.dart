@@ -1,13 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_page.dart';
 import 'package:give_job/employee/group/employee_group.dart';
 import 'package:give_job/employee/information/employee_information_page.dart';
 import 'package:give_job/employee/timesheet/employee_time_sheets_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
+import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/service/logout_service.dart';
 
 Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
@@ -63,11 +64,11 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      EmployeePage(employeeId, userInfo, authHeader),
+              Navigator.of(context).push(
+                CupertinoPageRoute<Null>(
+                  builder: (BuildContext context) {
+                    return EmployeePage(employeeId, userInfo, authHeader);
+                  },
                 ),
               );
             },
@@ -85,11 +86,12 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
               ),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      EmployeeInformationPage(employeeId, userInfo, authHeader),
+              Navigator.of(context).push(
+                CupertinoPageRoute<Null>(
+                  builder: (BuildContext context) {
+                    return EmployeeInformationPage(
+                        employeeId, userInfo, authHeader);
+                  },
                 ),
               );
             },
@@ -107,11 +109,11 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
               ),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      EmployeeGroup(employeeId, userInfo, authHeader),
+              Navigator.of(context).push(
+                CupertinoPageRoute<Null>(
+                  builder: (BuildContext context) {
+                    return EmployeeGroup(employeeId, userInfo, authHeader);
+                  },
                 ),
               );
             },
@@ -129,11 +131,12 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
               ),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      EmployeeTimeSheetsPage(employeeId, userInfo, authHeader),
+              Navigator.of(context).push(
+                CupertinoPageRoute<Null>(
+                  builder: (BuildContext context) {
+                    return EmployeeTimeSheetsPage(
+                        employeeId, userInfo, authHeader);
+                  },
                 ),
               );
             },

@@ -6,11 +6,11 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/manager_employee_group_dto.dart';
 import 'package:give_job/manager/groups/manager_groups_details_time_sheets_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
-import 'package:give_job/shared/widget/loader_widget.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/widget/loader_widget.dart';
 
 import '../manager_side_bar.dart';
 
@@ -106,19 +106,19 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                             color: DARK,
                             child: InkWell(
                               onTap: () {
-                                Navigator.push(
-                                  this.context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ManagerGroupsDetailsTimeSheetsPage(
-                                            widget._id,
-                                            widget._userInfo,
-                                            widget._authHeader,
-                                            _employees[index].groupId,
-                                            _employees[index].groupName,
-                                            _employees[index].groupDescription,
-                                            _employees[index].employeeId,
-                                            _employees[index].employeeInfo),
+                                Navigator.of(this.context).push(
+                                  CupertinoPageRoute<Null>(
+                                    builder: (BuildContext context) {
+                                      return ManagerGroupsDetailsTimeSheetsPage(
+                                          widget._id,
+                                          widget._userInfo,
+                                          widget._authHeader,
+                                          _employees[index].groupId,
+                                          _employees[index].groupName,
+                                          _employees[index].groupDescription,
+                                          _employees[index].employeeId,
+                                          _employees[index].employeeInfo);
+                                    },
                                   ),
                                 );
                               },

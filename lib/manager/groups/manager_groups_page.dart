@@ -6,11 +6,11 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
-import 'package:give_job/shared/widget/loader_widget.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/widget/loader_widget.dart';
 
 import 'manager_groups_details_page.dart';
 
@@ -75,17 +75,17 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                           color: DARK,
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ManagerGroupsDetailsPage(
-                                          widget._managerId,
-                                          widget._managerInfo,
-                                          widget._authHeader,
-                                          groups[i].id,
-                                          groups[i].name,
-                                          groups[i].description),
+                              Navigator.of(context).push(
+                                CupertinoPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return ManagerGroupsDetailsPage(
+                                        widget._managerId,
+                                        widget._managerInfo,
+                                        widget._authHeader,
+                                        groups[i].id,
+                                        groups[i].name,
+                                        groups[i].description);
+                                  },
                                 ),
                               );
                             },

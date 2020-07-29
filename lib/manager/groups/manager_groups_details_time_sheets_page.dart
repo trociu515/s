@@ -1,16 +1,17 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/groups/manager_groups_details_time_sheets_workdays_accepted_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
-import 'package:give_job/shared/widget/loader_widget.dart';
-import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/util/month_util.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/widget/loader_widget.dart';
 
 import '../../shared/libraries/constants.dart';
 import '../manager_side_bar.dart';
@@ -137,29 +138,29 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                           child: InkWell(
                             onTap: () {
                               if (timeSheet.status == 'Accepted') {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
-                                            widget._managerId,
-                                            widget._managerInfo,
-                                            widget._authHeader,
-                                            widget._employeeInfo,
-                                            timeSheet),
+                                Navigator.of(context).push(
+                                  CupertinoPageRoute<Null>(
+                                    builder: (BuildContext context) {
+                                      return ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
+                                          widget._managerId,
+                                          widget._managerInfo,
+                                          widget._authHeader,
+                                          widget._employeeInfo,
+                                          timeSheet);
+                                    },
                                   ),
                                 );
                               } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
-                                            widget._managerId,
-                                            widget._managerInfo,
-                                            widget._authHeader,
-                                            widget._employeeInfo,
-                                            timeSheet),
+                                Navigator.of(context).push(
+                                  CupertinoPageRoute<Null>(
+                                    builder: (BuildContext context) {
+                                      return ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
+                                          widget._managerId,
+                                          widget._managerInfo,
+                                          widget._authHeader,
+                                          widget._employeeInfo,
+                                          timeSheet);
+                                    },
                                   ),
                                 );
                               }

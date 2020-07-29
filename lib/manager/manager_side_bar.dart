@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/information/manager_information_page.dart';
 import 'package:give_job/manager/manager_page.dart';
-import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
+import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/service/logout_service.dart';
 
 import 'employees/manager_employees_page.dart';
@@ -64,11 +65,11 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ManagerPage(managerId, userInfo, authHeader),
+              Navigator.of(context).push(
+                CupertinoPageRoute<Null>(
+                  builder: (BuildContext context) {
+                    return ManagerPage(managerId, userInfo, authHeader);
+                  },
                 ),
               );
             },
@@ -83,11 +84,11 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ManagerDetails(managerId, userInfo, authHeader),
+              Navigator.of(context).push(
+                CupertinoPageRoute<Null>(
+                  builder: (BuildContext context) {
+                    return ManagerDetails(managerId, userInfo, authHeader);
+                  },
                 ),
               );
             },
@@ -102,11 +103,11 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ManagerGroupsPage(managerId, userInfo, authHeader),
+              Navigator.of(context).push(
+                CupertinoPageRoute<Null>(
+                  builder: (BuildContext context) {
+                    return ManagerGroupsPage(managerId, userInfo, authHeader);
+                  },
                 ),
               );
             },
@@ -121,11 +122,12 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ManagerEmployeesPage(managerId, userInfo, authHeader),
+              Navigator.of(context).push(
+                CupertinoPageRoute<Null>(
+                  builder: (BuildContext context) {
+                    return ManagerEmployeesPage(
+                        managerId, userInfo, authHeader);
+                  },
                 ),
               );
             },
