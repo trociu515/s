@@ -63,19 +63,27 @@ class _GetStartedPageState extends State<GetStartedPage> {
             Text(
               getTranslated(context, 'getStartedTitle'),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 28),
+              style: TextStyle(color: Colors.white, fontSize: 30),
             ),
-            SizedBox(height: 20),
-            Text(
-              getTranslated(context, 'getStartedDescription'),
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 16),
+            SizedBox(height: 5),
+            Container(
+              child: Text(
+                getTranslated(context, 'getStartedDescription'),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 17),
+              ),
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
-            Text(getTranslated(context, 'getStartedLanguage'),
-                style: TextStyle(color: Colors.white, fontSize: 20)),
+            Center(
+              child: Text(getTranslated(context, 'getStartedLanguage'),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 17)),
+            ),
+            SizedBox(
+              height: 15,
+            ),
             Container(
               child: Center(
                 child: Theme(
@@ -86,7 +94,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                     children: <Widget>[
                       DropdownButtonHideUnderline(
                         child: DropdownButton(
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyle(color: Colors.white, fontSize: 37),
                           value: _selectedLanguage,
                           items: _dropdownMenuItems,
                           onChanged: (Language language) {

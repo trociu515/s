@@ -9,7 +9,7 @@ class Language {
   static List<Language> getLanguages() {
     return <Language>[
       Language(1, '🇧🇾', 'BE', 'be'),
-      Language(2, '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'EN', 'en'),
+      Language(2, '🇬🇧', 'EN', 'en'),
       Language(3, '🇫🇷', 'FR', 'fr'),
       Language(4, '🇬🇪', 'GE', 'pt'),
       Language(5, '🇩🇪', 'DE', 'de'),

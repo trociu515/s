@@ -1,8 +1,8 @@
 {
-  "getStartedTitle": "Welcome to Give Job !",
-  "getStartedDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  "getStarted": "Get Started",
-  "getStartedLanguage": "Lorem Ipsum is simply",
+  "getStartedTitle": "Welcome to the Give Job !",
+  "getStartedDescription": "An application that will help you organize your work.",
+  "getStartedLanguage": "Please select the language you speak.",
+  "getStarted": "Let's start",
   "loginTitle": "Sign in and continue",
   "loginDescription": "Enter your username and password below to continue to the Give Job.",
   "username": "Username",
