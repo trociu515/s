@@ -7,6 +7,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/groups/manager_groups_details_time_sheets_workdays_accepted_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/colors.dart';
 import 'package:give_job/shared/loader_widget.dart';
 import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
@@ -80,10 +81,10 @@ class _ManagerGroupsDetailsTimeSheetsPageState
           }
           return MaterialApp(
             title: APP_NAME,
-            theme: ThemeData(
-              primarySwatch: Colors.green,
-            ),
+            theme:
+                ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
             home: Scaffold(
+              backgroundColor: DARK,
               appBar: appBar(context, getTranslated(context, 'workTimeSheets')),
               drawer: managerSideBar(context, widget._managerId,
                   widget._managerInfo, widget._authHeader),
@@ -93,15 +94,22 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                   child: Column(
                     children: <Widget>[
                       ListTile(
-                        title: Text(widget._groupName != null
-                            ? utf8.decode(widget._groupName.runes.toList())
-                            : getTranslated(context, 'empty')),
+                        title: Text(
+                          widget._groupName != null
+                              ? utf8.decode(widget._groupName.runes.toList())
+                              : getTranslated(context, 'empty'),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
                         subtitle: Wrap(
                           children: <Widget>[
-                            Text(widget._groupDescription != null
-                                ? utf8.decode(
-                                    widget._groupDescription.runes.toList())
-                                : getTranslated(context, 'empty')),
+                            Text(
+                              widget._groupDescription != null
+                                  ? utf8.decode(
+                                      widget._groupDescription.runes.toList())
+                                  : getTranslated(context, 'empty'),
+                              style: TextStyle(color: Colors.white),
+                            ),
                             SizedBox(
                               height: 50,
                             ),
@@ -112,6 +120,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                   : getTranslated(context, 'empty'),
                               style: TextStyle(
                                 fontSize: 16,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -123,6 +132,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                       ),
                       for (var timeSheet in timeSheets)
                         Card(
+                          color: DARK,
                           child: InkWell(
                             onTap: () {
                               if (timeSheet.status == 'Accepted') {
@@ -165,22 +175,32 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                         ? Color(0xffb5d76d)
                                         : Colors.orange,
                                   ),
-                                  title: Text(timeSheet.year.toString() +
-                                      ' ' +
-                                      MonthUtil.translateMonth(
-                                          context, timeSheet.month)),
+                                  title: Text(
+                                    timeSheet.year.toString() +
+                                        ' ' +
+                                        MonthUtil.translateMonth(
+                                            context, timeSheet.month),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                   subtitle: Wrap(
                                     children: <Widget>[
-                                      Text(getTranslated(
-                                              context, 'hoursWorked') +
-                                          ': ' +
-                                          timeSheet.totalHours.toString() +
-                                          'h'),
-                                      Text(getTranslated(
-                                              context, 'averageRating') +
-                                          ': ' +
-                                          timeSheet.averageEmployeeRating
-                                              .toString()),
+                                      Text(
+                                        getTranslated(context, 'hoursWorked') +
+                                            ': ' +
+                                            timeSheet.totalHours.toString() +
+                                            'h',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        getTranslated(
+                                                context, 'averageRating') +
+                                            ': ' +
+                                            timeSheet.averageEmployeeRating
+                                                .toString(),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ],
                                   ),
                                   trailing: Wrap(
@@ -189,13 +209,15 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                         timeSheet.totalMoneyEarned.toString(),
                                         style: TextStyle(
                                             color: Color(0xffb5d76d),
-                                            fontSize: 20),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Text(
                                         " ZŁ",
                                         style: TextStyle(
                                             color: Color(0xffb5d76d),
-                                            fontSize: 20),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),

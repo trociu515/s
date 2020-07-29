@@ -7,6 +7,7 @@ import 'package:give_job/manager/dto/manager_employee_group_dto.dart';
 import 'package:give_job/manager/groups/manager_groups_details_time_sheets_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/colors.dart';
 import 'package:give_job/shared/constants.dart';
 import 'package:give_job/shared/loader_widget.dart';
 import 'package:give_job/shared/toastr_service.dart';
@@ -63,18 +64,20 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
     }
     return MaterialApp(
       title: APP_NAME,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
+      theme: ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
       home: Scaffold(
+        backgroundColor: DARK,
         appBar: appBar(context, getTranslated(context, 'employees')),
         drawer: managerSideBar(
             context, widget._id, widget._userInfo, widget._authHeader),
         body: Column(
           children: <Widget>[
             TextField(
+              style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(15.0), hintText: 'Filter'),
+                  contentPadding: EdgeInsets.all(15.0),
+                  hintStyle: TextStyle(color: Colors.white),
+                  hintText: 'Filter'),
               onChanged: (string) {
                 setState(() {
                   _filteredEmployees = _employees
@@ -91,6 +94,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                 itemCount: _filteredEmployees.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
+                    color: DARK,
                     child: Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Column(
@@ -98,6 +102,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Card(
+                            color: DARK,
                             child: InkWell(
                               onTap: () {
                                 Navigator.push(
@@ -121,52 +126,75 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                   ListTile(
                                     leading: Text(
                                       '#' + (index + 1).toString(),
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     title: Text(
-                                      utf8.decode(_filteredEmployees[index]
-                                          .employeeInfo
-                                          .runes
-                                          .toList()),
+                                      utf8.decode(
+                                        _filteredEmployees[index]
+                                            .employeeInfo
+                                            .runes
+                                            .toList(),
+                                      ),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     subtitle: Wrap(
                                       children: <Widget>[
-                                        Text(getTranslated(
-                                                this.context, 'moneyPerHour') +
-                                            ': ' +
-                                            _employees[index]
-                                                .moneyPerHour
-                                                .toString()),
-                                        Text(getTranslated(this.context,
-                                                'numberOfHoursWorked') +
-                                            ': ' +
-                                            _employees[index]
-                                                .numberOfHoursWorked
-                                                .toString()),
-                                        Text(getTranslated(this.context,
-                                                'amountOfEarnedMoney') +
-                                            ': ' +
-                                            _employees[index]
-                                                .amountOfEarnedMoney
-                                                .toString()),
-                                        Text(getTranslated(
-                                                this.context, 'groupName') +
-                                            ': ' +
-                                            utf8.decode(_employees[index]
-                                                        .groupName !=
-                                                    null
-                                                ? _employees[index]
-                                                    .groupName
-                                                    .runes
-                                                    .toList()
-                                                : getTranslated(
-                                                    this.context, 'empty'))),
+                                        Text(
+                                          getTranslated(this.context,
+                                                  'moneyPerHour') +
+                                              ': ' +
+                                              _employees[index]
+                                                  .moneyPerHour
+                                                  .toString(),
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          getTranslated(this.context,
+                                                  'numberOfHoursWorked') +
+                                              ': ' +
+                                              _employees[index]
+                                                  .numberOfHoursWorked
+                                                  .toString(),
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          getTranslated(this.context,
+                                                  'amountOfEarnedMoney') +
+                                              ': ' +
+                                              _employees[index]
+                                                  .amountOfEarnedMoney
+                                                  .toString(),
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          getTranslated(
+                                                  this.context, 'groupName') +
+                                              ': ' +
+                                              utf8.decode(
+                                                _employees[index].groupName !=
+                                                        null
+                                                    ? _employees[index]
+                                                        .groupName
+                                                        .runes
+                                                        .toList()
+                                                    : getTranslated(
+                                                        this.context, 'empty'),
+                                              ),
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ],
                                     ),
                                     trailing: Wrap(
                                       children: <Widget>[
                                         Icon(
                                           Icons.edit,
+                                          color: Colors.white,
                                         ),
                                       ],
                                     ),

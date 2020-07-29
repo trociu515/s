@@ -5,6 +5,7 @@ import 'package:give_job/employee/dto/employee_group_dto.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/colors.dart';
 import 'package:give_job/shared/loader_widget.dart';
 import 'package:give_job/shared/toastr_service.dart';
 
@@ -49,10 +50,10 @@ class _EmployeeGroupState extends State<EmployeeGroup> {
           EmployeeGroupDto employee = snapshot.data;
           return MaterialApp(
             title: APP_NAME,
-            theme: ThemeData(
-              primarySwatch: Colors.green,
-            ),
+            theme:
+                ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
             home: Scaffold(
+              backgroundColor: DARK,
               appBar: appBar(context, getTranslated(context, 'group')),
               drawer: employeeSideBar(context, widget._employeeId,
                   widget._employeeInfo, widget._authHeader),
@@ -62,38 +63,73 @@ class _EmployeeGroupState extends State<EmployeeGroup> {
                   child: Column(
                     children: <Widget>[
                       Card(
+                        color: DARK,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             ListTile(
-                              title: Text(getTranslated(context, 'groupId')),
-                              subtitle: Text(employee.groupId != null
-                                  ? employee.groupId.toString()
-                                  : getTranslated(context, 'empty')),
-                            ),
-                            ListTile(
-                              title: Text(getTranslated(context, 'groupName')),
+                              title: Text(
+                                getTranslated(context, 'groupId'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               subtitle: Text(
-                                utf8.decode(employee.groupName != null
-                                    ? employee.groupName.runes.toList()
-                                    : getTranslated(context, 'empty')),
+                                employee.groupId != null
+                                    ? employee.groupId.toString()
+                                    : getTranslated(context, 'empty'),
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
                             ListTile(
                               title: Text(
-                                  getTranslated(context, 'groupDescription')),
-                              subtitle: Text(utf8.decode(
-                                  employee.groupDescription != null
-                                      ? employee.groupDescription.runes.toList()
-                                      : getTranslated(context, 'empty'))),
+                                getTranslated(context, 'groupName'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                utf8.decode(
+                                  employee.groupName != null
+                                      ? employee.groupName.runes.toList()
+                                      : getTranslated(context, 'empty'),
+                                ),
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                             ListTile(
-                              title:
-                                  Text(getTranslated(context, 'groupManager')),
-                              subtitle: Text(utf8.decode(
+                              title: Text(
+                                getTranslated(context, 'groupDescription'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                utf8.decode(
+                                  employee.groupDescription != null
+                                      ? employee.groupDescription.runes.toList()
+                                      : getTranslated(context, 'empty'),
+                                ),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
+                                getTranslated(context, 'groupManager'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                utf8.decode(
                                   employee.groupManager != null
                                       ? employee.groupManager.runes.toList()
-                                      : getTranslated(context, 'empty'))),
+                                      : getTranslated(context, 'empty'),
+                                ),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ],
                         ),

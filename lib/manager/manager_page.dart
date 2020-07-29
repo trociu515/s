@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/colors.dart';
 import 'package:give_job/shared/constants.dart';
 import 'package:give_job/shared/logout.dart';
 
@@ -22,10 +23,9 @@ class _ManagerPageState extends State<ManagerPage> {
     return new WillPopScope(
       child: new MaterialApp(
         title: APP_NAME,
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
+        theme: ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
         home: Scaffold(
+          backgroundColor: DARK,
           appBar: appBar(context, getTranslated(context, 'home')),
           drawer: managerSideBar(
               context, widget._id, widget._userInfo, widget._authHeader),

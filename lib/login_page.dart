@@ -59,7 +59,10 @@ class _LoginPageState extends State<LoginPage> {
         elevation: 0,
         automaticallyImplyLeading: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
           onPressed: () {
             Navigator.of(context).push(
               CupertinoPageRoute<Null>(

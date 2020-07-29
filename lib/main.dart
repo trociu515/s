@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:give_job/get_started_page.dart';
 import 'package:give_job/login_page.dart';
+import 'package:give_job/shared/colors.dart';
 import 'package:give_job/shared/constants.dart';
 import 'package:give_job/shared/own_http_overrides.dart';
 
@@ -78,9 +79,7 @@ class _MyAppState extends State<MyApp> {
     } else {
       return MaterialApp(
         title: APP_NAME,
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
+        theme: ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
         locale: _locale,
         supportedLocales: [
           Locale('be', 'BY'),

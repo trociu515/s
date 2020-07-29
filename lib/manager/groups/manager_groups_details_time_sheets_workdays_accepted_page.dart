@@ -7,6 +7,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/colors.dart';
 import 'package:give_job/shared/loader_widget.dart';
 import 'package:give_job/shared/month_util.dart';
 import 'package:give_job/shared/toastr_service.dart';
@@ -69,10 +70,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
           }
           return MaterialApp(
             title: APP_NAME,
-            theme: ThemeData(
-              primarySwatch: Colors.green,
-            ),
+            theme:
+                ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
             home: Scaffold(
+              backgroundColor: DARK,
               appBar: appBar(context, getTranslated(context, 'workdays')),
               drawer: managerSideBar(context, widget._managerId,
                   widget._managerInfo, widget._authHeader),
@@ -86,6 +87,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                             ? utf8.decode(widget._employeeInfo.runes.toList())
                             : getTranslated(context, 'empty'),
                         style: TextStyle(
+                          color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
@@ -99,26 +101,37 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                               ? Icons.check_circle_outline
                               : Icons.radio_button_unchecked,
                           color: widget.timeSheet.status == 'Accepted'
-                              ? Color(0xffb5d76d)
+                              ? GREEN
                               : Colors.orange,
                         ),
-                        title: Text(widget.timeSheet.year.toString() +
-                            ' ' +
-                            MonthUtil.translateMonth(
-                                context, widget.timeSheet.month) +
-                            '\n' +
-                            utf8.decode(
-                                widget.timeSheet.groupName.runes.toList())),
+                        title: Text(
+                          widget.timeSheet.year.toString() +
+                              ' ' +
+                              MonthUtil.translateMonth(
+                                  context, widget.timeSheet.month) +
+                              '\n' +
+                              utf8.decode(
+                                widget.timeSheet.groupName.runes.toList(),
+                              ),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
                         subtitle: Wrap(
                           children: <Widget>[
-                            Text(getTranslated(context, 'hoursWorked') +
-                                ': ' +
-                                widget.timeSheet.totalHours.toString() +
-                                'h'),
-                            Text(getTranslated(context, 'averageRating') +
-                                ': ' +
-                                widget.timeSheet.averageEmployeeRating
-                                    .toString()),
+                            Text(
+                              getTranslated(context, 'hoursWorked') +
+                                  ': ' +
+                                  widget.timeSheet.totalHours.toString() +
+                                  'h',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              getTranslated(context, 'averageRating') +
+                                  ': ' +
+                                  widget.timeSheet.averageEmployeeRating
+                                      .toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ],
                         ),
                         trailing: Wrap(
@@ -126,12 +139,16 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                             Text(
                               widget.timeSheet.totalMoneyEarned.toString(),
                               style: TextStyle(
-                                  color: Color(0xffb5d76d), fontSize: 20),
+                                  color: GREEN,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
                             Text(
                               " ZŁ",
                               style: TextStyle(
-                                  color: Color(0xffb5d76d), fontSize: 20),
+                                  color: GREEN,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -145,45 +162,101 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                           scrollDirection: Axis.horizontal,
                           child: DataTable(
                             columns: [
-                              DataColumn(label: Text('#')),
                               DataColumn(
-                                  label: Text(getTranslated(context, 'hours'))),
+                                label: Text(
+                                  '#',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                               DataColumn(
-                                  label:
-                                      Text(getTranslated(context, 'rating'))),
+                                label: Text(
+                                  getTranslated(context, 'hours'),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                               DataColumn(
-                                  label: Text(getTranslated(context, 'money'))),
+                                label: Text(
+                                  getTranslated(context, 'rating'),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                               DataColumn(
-                                  label:
-                                      Text(getTranslated(context, 'comment'))),
+                                label: Text(
+                                  getTranslated(context, 'money'),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  getTranslated(context, 'comment'),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ],
                             rows: [
                               for (var workday in workdays)
                                 DataRow(
                                   cells: [
-                                    DataCell(Text(workday.number.toString())),
-                                    DataCell(Text(workday.hours.toString())),
-                                    DataCell(Text(workday.rating.toString())),
-                                    DataCell(Text(workday.money.toString())),
+                                    DataCell(
+                                      Text(
+                                        workday.number.toString(),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Text(
+                                        workday.hours.toString(),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Text(
+                                        workday.rating.toString(),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Text(
+                                        workday.money.toString(),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
                                     DataCell(
                                       Wrap(
                                         children: <Widget>[
-                                          Text(workday.comment != null
-                                              ? workday.comment.length > 10
-                                                  ? utf8
-                                                          .decode(workday
-                                                              .comment.runes
-                                                              .toList())
-                                                          .substring(0, 10) +
-                                                      '...'
-                                                  : utf8.decode(workday
-                                                      .comment.runes
-                                                      .toList())
-                                              : getTranslated(
-                                                  context, 'empty')),
+                                          Text(
+                                            workday.comment != null
+                                                ? workday.comment.length > 10
+                                                    ? utf8
+                                                            .decode(workday
+                                                                .comment.runes
+                                                                .toList())
+                                                            .substring(0, 10) +
+                                                        '...'
+                                                    : utf8.decode(workday
+                                                        .comment.runes
+                                                        .toList())
+                                                : getTranslated(
+                                                    context, 'empty'),
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
                                           workday.comment != null &&
                                                   workday.comment != ''
-                                              ? Icon(Icons.zoom_in)
+                                              ? Icon(
+                                                  Icons.zoom_in,
+                                                  color: Colors.white,
+                                                )
                                               : Text('')
                                         ],
                                       ),
@@ -213,13 +286,22 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(getTranslated(context, 'commentDetails')),
-          content: Text(comment != null
-              ? utf8.decode(comment.runes.toList())
-              : getTranslated(context, 'empty')),
+          title: Text(
+            getTranslated(context, 'commentDetails'),
+            style: TextStyle(color: DARK, fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            comment != null
+                ? utf8.decode(comment.runes.toList())
+                : getTranslated(context, 'empty'),
+            style: TextStyle(color: DARK),
+          ),
           actions: <Widget>[
             FlatButton(
-              child: Text(getTranslated(context, 'close')),
+              child: Text(
+                getTranslated(context, 'close'),
+                style: TextStyle(color: DARK),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
