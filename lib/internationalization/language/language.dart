@@ -6,7 +6,7 @@ class Language {
 
   Language(this.id, this.name, this.flag, this.languageCode);
 
-  static List<Language> languageList() {
+  static List<Language> getLanguages() {
     return <Language>[
       Language(1, '🇧🇾', 'BE', 'be'),
       Language(2, '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'EN', 'en'),

@@ -32,7 +32,7 @@ AppBar appBar(BuildContext context, String title) {
                 onChanged: (Language language) {
                   _changeLanguage(language, context);
                 },
-                items: Language.languageList()
+                items: Language.getLanguages()
                     .map<DropdownMenuItem<Language>>(
                       (lang) => DropdownMenuItem(
                         value: lang,
