@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
             onChanged: (Language language) {
               _changeLanguage(language, context);
             },
-            items: Language.languageList()
+            items: Language.getLanguages()
                 .map<DropdownMenuItem<Language>>(
                   (lang) => DropdownMenuItem(
                     value: lang,

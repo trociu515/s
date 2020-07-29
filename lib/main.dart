@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:give_job/get_started_page.dart';
+import 'package:give_job/login_page.dart';
 import 'package:give_job/shared/constants.dart';
 import 'package:give_job/shared/own_http_overrides.dart';
 
 import 'employee/employee_page.dart';
 import 'internationalization/localization/demo_localization.dart';
 import 'internationalization/localization/localization_constants.dart';
-import 'login_page.dart';
 import 'manager/manager_page.dart';
 
 const SERVER_IP = 'http://10.0.2.2:8080/api';
@@ -52,11 +53,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<Map<String, String>> get authOrEmpty async {
+    var getStartedClick = await storage.read(key: 'getStartedClick');
     var auth = await storage.read(key: 'authorization');
     var role = await storage.read(key: 'role');
     var id = await storage.read(key: 'id');
     var userInfo = await storage.read(key: 'userInfo');
     Map<String, String> map = new Map();
+    map['getStartedClick'] = getStartedClick;
     map['authorization'] = auth;
     map['role'] = role;
     map['id'] = id;
@@ -115,7 +118,11 @@ class _MyAppState extends State<MyApp> {
           builder: (context, snapshot) {
             Map<String, String> data = snapshot.data;
             if (data == null) {
-              return LoginPage();
+              return GetStartedPage();
+            }
+            String getStartedClick = data['getStartedClick'];
+            if (getStartedClick == null) {
+              return GetStartedPage();
             }
             String role = data['role'];
             String id = data['id'];
