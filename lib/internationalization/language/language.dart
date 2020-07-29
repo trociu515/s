@@ -8,19 +8,19 @@ class Language {
 
   static List<Language> getLanguages() {
     return <Language>[
-      Language(1, '🇧🇾', 'BE', 'be'),
-      Language(2, '🇬🇧', 'EN', 'en'),
-      Language(3, '🇫🇷', 'FR', 'fr'),
-      Language(4, '🇬🇪', 'GE', 'pt'),
-      Language(5, '🇩🇪', 'DE', 'de'),
-      Language(6, '🇲🇩', 'RO', 'ro'),
-      Language(7, '🇳🇱', 'NL', 'nl'),
-      Language(8, '🇳🇴', 'NO', 'no'),
-      Language(9, '🇵🇱', 'PL', 'pl'),
-      Language(10, '🇷🇺', 'RU', 'ru'),
-      Language(11, '🇪🇸', 'ES', 'es'),
-      Language(12, '🇸🇪', 'SE', 'ca'),
-      Language(13, '🇺🇦', 'UK', 'uk'),
+      Language(1, '🇧🇾', 'BLR', 'be'),
+      Language(2, '🇬🇧', 'GBR', 'en'),
+      Language(3, '🇫🇷', 'FRA', 'fr'),
+      Language(4, '🇬🇪', 'GEO', 'pt'),
+      Language(5, '🇩🇪', 'DEU', 'de'),
+      Language(6, '🇲🇩', 'ROU', 'ro'),
+      Language(7, '🇳🇱', 'NLD', 'nl'),
+      Language(8, '🇳🇴', 'NOR', 'no'),
+      Language(9, '🇵🇱', 'POL', 'pl'),
+      Language(10, '🇷🇺', 'RUS', 'ru'),
+      Language(11, '🇪🇸', 'ESP', 'es'),
+      Language(12, '🇸🇪', 'SWE', 'ca'),
+      Language(13, '🇺🇦', 'UKR', 'uk'),
     ];
   }
 }
