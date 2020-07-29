@@ -7,6 +7,7 @@ import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/colors.dart';
 import 'package:give_job/shared/constants.dart';
 import 'package:give_job/shared/loader_widget.dart';
 import 'package:give_job/shared/toastr_service.dart';
@@ -56,10 +57,10 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
           }
           return MaterialApp(
             title: APP_NAME,
-            theme: ThemeData(
-              primarySwatch: Colors.green,
-            ),
+            theme:
+                ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
             home: Scaffold(
+              backgroundColor: DARK,
               appBar: appBar(context, getTranslated(context, 'groups')),
               drawer: managerSideBar(context, widget._managerId,
                   widget._managerInfo, widget._authHeader),
@@ -70,6 +71,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                     children: <Widget>[
                       for (int i = 0; i < groups.length; i++)
                         Card(
+                          color: DARK,
                           child: InkWell(
                             onTap: () {
                               Navigator.push(
@@ -92,29 +94,50 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                                 ListTile(
                                   leading: Text(
                                     '#' + (i + 1).toString(),
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  title: Text(utf8.decode(groups[i].name != null
-                                      ? groups[i].name.runes.toList()
-                                      : getTranslated(context, 'empty'))),
+                                  title: Text(
+                                    utf8.decode(
+                                      groups[i].name != null
+                                          ? groups[i].name.runes.toList()
+                                          : getTranslated(context, 'empty'),
+                                    ),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                   subtitle: Wrap(
                                     children: <Widget>[
-                                      Text(getTranslated(
-                                              context, 'numberOfEmployees') +
-                                          ': ' +
-                                          groups[i]
-                                              .numberOfEmployees
-                                              .toString()),
-                                      Text(utf8.decode(groups[i].description !=
-                                              null
-                                          ? groups[i].description.runes.toList()
-                                          : getTranslated(context, 'empty'))),
+                                      Text(
+                                        getTranslated(
+                                                context, 'numberOfEmployees') +
+                                            ': ' +
+                                            groups[i]
+                                                .numberOfEmployees
+                                                .toString(),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        utf8.decode(
+                                          groups[i].description != null
+                                              ? groups[i]
+                                                  .description
+                                                  .runes
+                                                  .toList()
+                                              : getTranslated(context, 'empty'),
+                                        ),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ],
                                   ),
                                   trailing: Wrap(
                                     children: <Widget>[
                                       Icon(
                                         Icons.edit,
+                                        color: Colors.white,
                                       ),
                                     ],
                                   ),

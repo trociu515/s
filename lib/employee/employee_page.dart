@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/colors.dart';
 import 'package:give_job/shared/logout.dart';
 
 import '../shared/constants.dart';
@@ -23,11 +24,13 @@ class _EmployeePageState extends State<EmployeePage> {
     return new WillPopScope(
       child: new MaterialApp(
         title: APP_NAME,
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
+        theme: ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
         home: Scaffold(
-          appBar: appBar(context, getTranslated(context, 'home')),
+          backgroundColor: DARK,
+          appBar: appBar(
+            context,
+            getTranslated(context, 'home'),
+          ),
           drawer: employeeSideBar(
               context, widget._id, widget._userInfo, widget._authHeader),
         ),

@@ -6,6 +6,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/app_bar.dart';
+import 'package:give_job/shared/colors.dart';
 import 'package:give_job/shared/constants.dart';
 import 'package:give_job/shared/loader_widget.dart';
 
@@ -42,10 +43,10 @@ class _ManagerDetailsState extends State<ManagerDetails> {
           ManagerDto manager = snapshot.data;
           return MaterialApp(
             title: APP_NAME,
-            theme: ThemeData(
-              primarySwatch: Colors.green,
-            ),
+            theme:
+                ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
             home: Scaffold(
+              backgroundColor: DARK,
               appBar: appBar(context, getTranslated(context, 'information')),
               drawer: managerSideBar(context, widget._managerId,
                   widget._managerInfo, widget._authHeader),
@@ -55,75 +56,147 @@ class _ManagerDetailsState extends State<ManagerDetails> {
                   child: Column(
                     children: <Widget>[
                       Card(
+                        color: DARK,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             ListTile(
-                              title: Text(getTranslated(context, 'id')),
-                              subtitle: Text(widget._managerId != null
-                                  ? widget._managerId.toString()
-                                  : getTranslated(context, 'empty')),
+                              title: Text(
+                                getTranslated(context, 'id'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                widget._managerId != null
+                                    ? widget._managerId.toString()
+                                    : getTranslated(context, 'empty'),
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                             ListTile(
-                              title: Text(getTranslated(context, 'username')),
+                              title: Text(
+                                getTranslated(context, 'username'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               subtitle: Text(
                                 utf8.decode(manager.username != null
                                     ? manager.username.runes.toList()
                                     : getTranslated(context, 'empty')),
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
                             ListTile(
-                              title: Text(getTranslated(context, 'name')),
-                              subtitle: Text(manager.name != null
-                                  ? utf8.decode(manager.name.runes.toList())
-                                  : getTranslated(context, 'empty')),
+                              title: Text(
+                                getTranslated(context, 'name'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                manager.name != null
+                                    ? utf8.decode(manager.name.runes.toList())
+                                    : getTranslated(context, 'empty'),
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                             ListTile(
-                              title: Text(getTranslated(context, 'surname')),
+                              title: Text(
+                                getTranslated(context, 'surname'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               subtitle: Text(
                                 manager.surname != null
                                     ? utf8
                                         .decode(manager.surname.runes.toList())
                                     : getTranslated(context, 'empty'),
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
                             ListTile(
-                              title: Text(getTranslated(context, 'email')),
-                              subtitle: Text(manager.email != null
-                                  ? manager.email
-                                  : getTranslated(context, 'empty')),
-                            ),
-                            ListTile(
-                              title:
-                                  Text(getTranslated(context, 'phoneNumber')),
-                              subtitle: Text(manager.phoneNumber != null
-                                  ? manager.phoneNumber
-                                  : getTranslated(context, 'empty')),
-                            ),
-                            ListTile(
-                              title:
-                                  Text(getTranslated(context, 'viberNumber')),
-                              subtitle: Text(manager.viberNumber != null
-                                  ? manager.viberNumber
-                                  : getTranslated(context, 'empty')),
-                            ),
-                            ListTile(
                               title: Text(
-                                  getTranslated(context, 'whatsAppNumber')),
-                              subtitle: Text(manager.whatsAppNumber != null
-                                  ? manager.whatsAppNumber
-                                  : getTranslated(context, 'empty')),
-                            ),
-                            ListTile(
-                              title: Text(
-                                  getTranslated(context, 'numberOfGroups')),
-                              subtitle: Text(manager.numberOfGroups.toString()),
-                            ),
-                            ListTile(
-                              title: Text(getTranslated(
-                                  context, 'numberOfEmployeesInGroups')),
+                                getTranslated(context, 'email'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               subtitle: Text(
-                                  manager.numberOfEmployeesInGroups.toString()),
+                                manager.email != null
+                                    ? manager.email
+                                    : getTranslated(context, 'empty'),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
+                                getTranslated(context, 'phoneNumber'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                manager.phoneNumber != null
+                                    ? manager.phoneNumber
+                                    : getTranslated(context, 'empty'),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
+                                getTranslated(context, 'viberNumber'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                manager.viberNumber != null
+                                    ? manager.viberNumber
+                                    : getTranslated(context, 'empty'),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
+                                getTranslated(context, 'whatsAppNumber'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                manager.whatsAppNumber != null
+                                    ? manager.whatsAppNumber
+                                    : getTranslated(context, 'empty'),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
+                                getTranslated(context, 'numberOfGroups'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                manager.numberOfGroups.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
+                                getTranslated(
+                                    context, 'numberOfEmployeesInGroups'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                manager.numberOfEmployeesInGroups.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ],
                         ),
