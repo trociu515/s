@@ -96,6 +96,7 @@ class _MyAppState extends State<MyApp> {
           Locale('ca', 'CA'), // SWEDEN
           Locale('uk', 'UA'),
         ],
+        debugShowMaterialGrid: false,
         localizationsDelegates: [
           DemoLocalization.delegate,
           GlobalMaterialLocalizations.delegate,

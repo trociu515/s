@@ -6,6 +6,7 @@ import 'constants.dart';
 
 MaterialApp loaderWidget(BuildContext context, String title, Drawer drawer) {
   return MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: APP_NAME,
     theme: ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
     home: Scaffold(
