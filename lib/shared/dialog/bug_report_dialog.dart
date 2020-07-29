@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/colors.dart';
+import 'package:give_job/shared/libraries/colors.dart';
 
 Future<void> bugReportDialog(BuildContext context) async {
   return showDialog<void>(

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 
-import 'constants.dart';
+import '../libraries/constants.dart';
 
 class MonthUtil {
   static String translateMonth(BuildContext context, String toTranslate) {

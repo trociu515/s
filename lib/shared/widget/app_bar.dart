@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/language/language.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/colors.dart';
+import 'package:give_job/shared/libraries/colors.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
 void _changeLanguage(Language language, BuildContext context) async {
   Locale _temp = await setLocale(language.languageCode);

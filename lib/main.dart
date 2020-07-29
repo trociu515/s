@@ -5,8 +5,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:give_job/get_started_page.dart';
 import 'package:give_job/login_page.dart';
-import 'package:give_job/shared/colors.dart';
-import 'package:give_job/shared/constants.dart';
+import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/own_http_overrides.dart';
 
 import 'employee/employee_page.dart';

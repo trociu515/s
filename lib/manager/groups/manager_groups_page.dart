@@ -6,11 +6,11 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
-import 'package:give_job/shared/app_bar.dart';
-import 'package:give_job/shared/colors.dart';
-import 'package:give_job/shared/constants.dart';
-import 'package:give_job/shared/loader_widget.dart';
-import 'package:give_job/shared/toastr_service.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/widget/loader_widget.dart';
+import 'package:give_job/shared/service/toastr_service.dart';
 
 import 'manager_groups_details_page.dart';
 

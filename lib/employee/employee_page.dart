@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/app_bar.dart';
-import 'package:give_job/shared/colors.dart';
-import 'package:give_job/shared/logout.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/service/logout_service.dart';
 
-import '../shared/constants.dart';
+import '../shared/libraries/constants.dart';
 
 class EmployeePage extends StatefulWidget {
   final String _id;

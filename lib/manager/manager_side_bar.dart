@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/information/manager_information_page.dart';
 import 'package:give_job/manager/manager_page.dart';
-import 'package:give_job/shared/colors.dart';
+import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
-import 'package:give_job/shared/logout.dart';
+import 'package:give_job/shared/service/logout_service.dart';
 
 import 'employees/manager_employees_page.dart';
 import 'groups/manager_groups_page.dart';

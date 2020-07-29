@@ -6,10 +6,10 @@ import 'package:give_job/employee/employee_page.dart';
 import 'package:give_job/get_started_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/manager_page.dart';
-import 'package:give_job/shared/colors.dart';
-import 'package:give_job/shared/constants.dart';
-import 'package:give_job/shared/toastr_service.dart';
-import 'package:give_job/shared/validator_service.dart';
+import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/service/validator_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../libraries/colors.dart';
+import '../libraries/constants.dart';
 import 'app_bar.dart';
-import 'colors.dart';
-import 'constants.dart';
 
 MaterialApp loaderWidget(BuildContext context, String title, Drawer drawer) {
   return MaterialApp(

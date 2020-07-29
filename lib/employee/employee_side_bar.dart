@@ -6,9 +6,9 @@ import 'package:give_job/employee/group/employee_group.dart';
 import 'package:give_job/employee/information/employee_information_page.dart';
 import 'package:give_job/employee/timesheet/employee_time_sheets_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/colors.dart';
+import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
-import 'package:give_job/shared/logout.dart';
+import 'package:give_job/shared/service/logout_service.dart';
 
 Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
     String authHeader) {

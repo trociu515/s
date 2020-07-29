@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
-import 'package:give_job/shared/app_bar.dart';
-import 'package:give_job/shared/colors.dart';
-import 'package:give_job/shared/constants.dart';
-import 'package:give_job/shared/logout.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/service/logout_service.dart';
 
 class ManagerPage extends StatefulWidget {
   final String _id;

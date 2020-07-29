@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:give_job/employee/dto/employee_group_dto.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/app_bar.dart';
-import 'package:give_job/shared/colors.dart';
-import 'package:give_job/shared/loader_widget.dart';
-import 'package:give_job/shared/toastr_service.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/widget/loader_widget.dart';
+import 'package:give_job/shared/service/toastr_service.dart';
 
-import '../../shared/constants.dart';
+import '../../shared/libraries/constants.dart';
 import '../service/employee_service.dart';
 
 class EmployeeGroup extends StatefulWidget {
