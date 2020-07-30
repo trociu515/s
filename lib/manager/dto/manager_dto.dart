@@ -4,6 +4,7 @@ class ManagerDto {
   final String username;
   final String name;
   final String surname;
+  final String nationality;
   final String email;
   final String phoneNumber;
   final String viberNumber;
@@ -15,6 +16,7 @@ class ManagerDto {
     @required this.username,
     @required this.name,
     @required this.surname,
+    @required this.nationality,
     @required this.email,
     @required this.phoneNumber,
     @required this.viberNumber,
@@ -28,6 +30,7 @@ class ManagerDto {
       username: json['username'] as String,
       name: json['name'] as String,
       surname: json['surname'] as String,
+      nationality: json['nationality'] as String,
       email: json['email'] as String,
       phoneNumber: json['phoneNumber'] as String,
       viberNumber: json['viberNumber'] as String,

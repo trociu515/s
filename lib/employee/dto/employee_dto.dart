@@ -5,10 +5,11 @@ class EmployeeDto {
   final String username;
   final String name;
   final String surname;
+  final String nationality;
   final String dateOfBirth;
   final String fatherName;
   final String motherName;
-  final String expirationDateOfWorkInPoland;
+  final String expirationDateOfWork;
   final String nip;
   final String bankAccountNumber;
   final double moneyPerHour;
@@ -32,10 +33,11 @@ class EmployeeDto {
     @required this.username,
     @required this.name,
     @required this.surname,
+    @required this.nationality,
     @required this.dateOfBirth,
     @required this.fatherName,
     @required this.motherName,
-    @required this.expirationDateOfWorkInPoland,
+    @required this.expirationDateOfWork,
     @required this.nip,
     @required this.bankAccountNumber,
     @required this.moneyPerHour,
@@ -61,11 +63,11 @@ class EmployeeDto {
       username: json['username'] as String,
       name: json['name'] as String,
       surname: json['surname'] as String,
+      nationality: json['nationality'] as String,
       dateOfBirth: json['dateOfBirth'] as String,
       fatherName: json['fatherName'] as String,
       motherName: json['motherName'] as String,
-      expirationDateOfWorkInPoland:
-          json['expirationDateOfWorkInPoland'] as String,
+      expirationDateOfWork: json['expirationDateOfWork'] as String,
       nip: json['nip'] as String,
       bankAccountNumber: json['bankAccountNumber'] as String,
       moneyPerHour: json['moneyPerHour'] as double,

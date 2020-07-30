@@ -100,6 +100,22 @@ class _EmployeeGroupState extends State<EmployeeGroup> {
                             ),
                             ListTile(
                               title: Text(
+                                getTranslated(context, 'groupCountryOfWork'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                utf8.decode(
+                                  employee.groupName != null
+                                      ? employee.groupCountryOfWork.runes.toList()
+                                      : getTranslated(context, 'empty'),
+                                ),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
                                 getTranslated(context, 'groupDescription'),
                                 style: TextStyle(
                                     color: Colors.white,

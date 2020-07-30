@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/loader_widget.dart';
 
 import '../dto/manager_dto.dart';
@@ -114,6 +114,21 @@ class _ManagerDetailsState extends State<ManagerDetails> {
                                 manager.surname != null
                                     ? utf8
                                         .decode(manager.surname.runes.toList())
+                                    : getTranslated(context, 'empty'),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
+                                getTranslated(context, 'nationality'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                manager.surname != null
+                                    ? utf8.decode(
+                                        manager.nationality.runes.toList())
                                     : getTranslated(context, 'empty'),
                                 style: TextStyle(color: Colors.white),
                               ),

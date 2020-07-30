@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/loader_widget.dart';
 
 import '../dto/employee_dto.dart';
@@ -127,6 +127,22 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                             ),
                             ListTile(
                               title: Text(
+                                getTranslated(context, 'nationality'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                utf8.decode(
+                                  employee.nationality != null
+                                      ? employee.nationality.runes.toList()
+                                      : getTranslated(context, 'empty'),
+                                ),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
                                 getTranslated(context, 'dateOfBirth'),
                                 style: TextStyle(
                                     color: Colors.white,
@@ -171,15 +187,14 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                             ),
                             ListTile(
                               title: Text(
-                                getTranslated(
-                                    context, 'expirationDateOfWorkInPoland'),
+                                getTranslated(context, 'expirationDateOfWork'),
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
                               subtitle: Text(
-                                employee.expirationDateOfWorkInPoland != null
-                                    ? employee.expirationDateOfWorkInPoland
+                                employee.expirationDateOfWork != null
+                                    ? employee.expirationDateOfWork
                                     : getTranslated(context, 'empty'),
                                 style: TextStyle(color: Colors.white),
                               ),

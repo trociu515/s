@@ -122,6 +122,15 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       Text(
+                                        getTranslated(
+                                            context, 'groupCountryOfWork') +
+                                            ': ' +
+                                            groups[i]
+                                                .countryOfWork
+                                                .toString(),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
                                         utf8.decode(
                                           groups[i].description != null
                                               ? groups[i]
