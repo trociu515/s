@@ -15,7 +15,7 @@ class Language {
       Language(5, '🇩🇪', 'DEU', 'de'),
       Language(6, '🇲🇩', 'ROU', 'ro'),
       Language(7, '🇳🇱', 'NLD', 'nl'),
-      Language(8, '🇳🇴', 'NOR', 'no'),
+      Language(8, '🇳🇴', 'NOR', 'it'),
       Language(9, '🇵🇱', 'POL', 'pl'),
       Language(10, '🇷🇺', 'RUS', 'ru'),
       Language(11, '🇪🇸', 'ESP', 'es'),

@@ -62,6 +62,7 @@ flutter:
     - lib/internationalization/lang/de.json
     - lib/internationalization/lang/ro.json
     - lib/internationalization/lang/nl.json
+    - lib/internationalization/lang/it.json
     - lib/internationalization/lang/pl.json
     - lib/internationalization/lang/ru.json
     - lib/internationalization/lang/es.json

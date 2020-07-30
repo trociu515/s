@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
           Locale('de', 'DE'),
           Locale('ro', 'RO'),
           Locale('nl', 'NL'),
-          Locale('no', 'NO'),
+          Locale('it', 'IT'), // NORWAY
           Locale('pl', 'PL'),
           Locale('ru', 'RU'),
           Locale('es', 'ES'),
