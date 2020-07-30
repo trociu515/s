@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/information/manager_information_page.dart';
 import 'package:give_job/manager/manager_page.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -62,25 +61,6 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
             ),
             title: Text(
               getTranslated(context, 'home'),
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
-            onTap: () {
-              Navigator.of(context).push(
-                CupertinoPageRoute<Null>(
-                  builder: (BuildContext context) {
-                    return ManagerPage(managerId, userInfo, authHeader);
-                  },
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.person,
-              color: Colors.white,
-            ),
-            title: Text(
-              getTranslated(context, 'information'),
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onTap: () {

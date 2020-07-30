@@ -135,14 +135,14 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  EmployeePage(id, userInfo, authHeader)));
+                              builder: (context) => EmployeeInformationPage(
+                                  id, userInfo, authHeader)));
                     } else if (role == ROLE_MANAGER) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  ManagerPage(id, userInfo, authHeader)));
+                                  ManagerDetails(id, userInfo, authHeader)));
                     }
                     ToastService.showToast(
                         getTranslated(context, 'loginSuccessfully'),
