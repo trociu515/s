@@ -262,7 +262,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                   ),
                                   Tab(
                                     icon: Icon(
-                                      Icons.home,
+                                      Icons.room,
                                       color: WHITE,
                                     ),
                                     child: Text(
