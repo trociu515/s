@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:countup/countup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/group/employee_group.dart';
 import 'package:give_job/employee/service/employee_service.dart';
@@ -175,7 +176,10 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                               ),
                                               Countup(
                                                 begin: 0,
-                                                end: 5,
+                                                end: 9.1,
+                                                prefix: '10/',
+                                                precision: 1,
+                                                separator: ',',
                                                 duration: Duration(seconds: 2),
                                                 style: TextStyle(
                                                   fontSize: 20.0,
