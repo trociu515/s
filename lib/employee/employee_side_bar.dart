@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/group/employee_group.dart';
-import 'package:give_job/employee/employee_page.dart';
+import 'package:give_job/employee/homepage/employee_home_page.dart';
 import 'package:give_job/employee/timesheet/employee_time_sheets_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
@@ -66,7 +66,7 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
               Navigator.of(context).push(
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
-                    return EmployeeInformationPage(
+                    return EmployeeHomePage(
                         employeeId, userInfo, authHeader);
                   },
                 ),

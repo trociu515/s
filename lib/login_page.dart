@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/employee/employee_page.dart';
+import 'package:give_job/employee/homepage/employee_home_page.dart';
 import 'package:give_job/get_started_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/manager_page.dart';
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EmployeeInformationPage(
+                              builder: (context) => EmployeeHomePage(
                                   id, userInfo, authHeader)));
                     } else if (role == ROLE_MANAGER) {
                       Navigator.push(
