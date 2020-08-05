@@ -5,9 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
-import 'package:give_job/employee/group/employee_group.dart';
 import 'package:give_job/employee/service/employee_service.dart';
-import 'package:give_job/employee/timesheet/employee_time_sheets_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -80,7 +78,10 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
-                                    SizedBox(width: MediaQuery.of(context).size.width * 0.25),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.25),
                                     Container(
                                       width: 50,
                                       height: 50,
@@ -99,11 +100,11 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                     Expanded(
                                       child: ListTile(
                                         title: Text(
-                                              utf8.decode(
-                                                  widget._employeeInfo != null
-                                                      ? widget._employeeInfo.runes
-                                                          .toList()
-                                                      : '-'),
+                                          utf8.decode(
+                                              widget._employeeInfo != null
+                                                  ? widget._employeeInfo.runes
+                                                      .toList()
+                                                  : '-'),
                                           style: TextStyle(
                                               fontSize: 22,
                                               color: DARK,
@@ -232,10 +233,780 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                       ],
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
+                        ),
+                      ),
+                      Expanded(
+                        child: DefaultTabController(
+                          child: Column(
+                            children: <Widget>[
+                              TabBar(
+                                tabs: <Widget>[
+                                  Tab(
+                                    icon: Icon(
+                                      Icons.person_pin,
+                                      color: WHITE,
+                                    ),
+                                    child: Text(
+                                      'Info',
+                                      style: TextStyle(
+                                          color: WHITE,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Tab(
+                                    icon: Icon(
+                                      Icons.home,
+                                      color: WHITE,
+                                    ),
+                                    child: Text(
+                                      'Address',
+                                      style: TextStyle(
+                                          color: WHITE,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Tab(
+                                    icon: Icon(
+                                      Icons.phone_in_talk,
+                                      color: WHITE,
+                                    ),
+                                    child: Text(
+                                      'Contact',
+                                      style: TextStyle(
+                                          color: WHITE,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Tab(
+                                    icon: Icon(
+                                      Icons.group,
+                                      color: WHITE,
+                                    ),
+                                    child: Text(
+                                      'Group',
+                                      style: TextStyle(
+                                          color: WHITE,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                child: TabBarView(
+                                  children: <Widget>[
+                                    Container(
+                                      child: SingleChildScrollView(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Card(
+                                                color: DARK,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(
+                                                            context, 'id'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.id != null
+                                                            ? employee.id
+                                                                .toString()
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'username'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        utf8.decode(
+                                                          employee.username !=
+                                                                  null
+                                                              ? employee
+                                                                  .username
+                                                                  .runes
+                                                                  .toList()
+                                                              : getTranslated(
+                                                                  context,
+                                                                  'empty'),
+                                                        ),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(
+                                                            context, 'name'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        utf8.decode(
+                                                          employee.name != null
+                                                              ? employee
+                                                                  .name.runes
+                                                                  .toList()
+                                                              : getTranslated(
+                                                                  context,
+                                                                  'empty'),
+                                                        ),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(
+                                                            context, 'surname'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        utf8.decode(
+                                                          employee.surname !=
+                                                                  null
+                                                              ? employee
+                                                                  .surname.runes
+                                                                  .toList()
+                                                              : getTranslated(
+                                                                  context,
+                                                                  'empty'),
+                                                        ),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'nationality'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        utf8.decode(
+                                                          employee.nationality !=
+                                                                  null
+                                                              ? employee
+                                                                  .nationality
+                                                                  .runes
+                                                                  .toList()
+                                                              : getTranslated(
+                                                                  context,
+                                                                  'empty'),
+                                                        ),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'dateOfBirth'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.dateOfBirth !=
+                                                                null
+                                                            ? employee
+                                                                .dateOfBirth
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'fatherName'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.fatherName !=
+                                                                null
+                                                            ? utf8.decode(
+                                                                employee
+                                                                    .fatherName
+                                                                    .runes
+                                                                    .toList())
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'motherName'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.motherName !=
+                                                                null
+                                                            ? utf8.decode(
+                                                                employee
+                                                                    .motherName
+                                                                    .runes
+                                                                    .toList())
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'expirationDateOfWork'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.expirationDateOfWork !=
+                                                                null
+                                                            ? employee
+                                                                .expirationDateOfWork
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(
+                                                            context, 'nip'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.nip != null
+                                                            ? employee.nip
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'bankAccountNumber'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.bankAccountNumber !=
+                                                                null
+                                                            ? employee
+                                                                .bankAccountNumber
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'moneyPerHour'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.moneyPerHour !=
+                                                                null
+                                                            ? employee
+                                                                .moneyPerHour
+                                                                .toString()
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'drivingLicense'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee
+                                                                    .drivingLicense !=
+                                                                null
+                                                            ? employee
+                                                                .drivingLicense
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'passportNumber'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee
+                                                                    .passportNumber !=
+                                                                null
+                                                            ? employee
+                                                                .passportNumber
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'passportReleaseDate'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.passportReleaseDate !=
+                                                                null
+                                                            ? employee
+                                                                .passportReleaseDate
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'passportExpirationDate'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.passportExpirationDate !=
+                                                                null
+                                                            ? employee
+                                                                .passportExpirationDate
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: SingleChildScrollView(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Card(
+                                                color: DARK,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'locality'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.locality !=
+                                                                null
+                                                            ? utf8.decode(
+                                                                employee
+                                                                    .locality
+                                                                    .runes
+                                                                    .toList())
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(
+                                                            context, 'zipCode'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.zipCode != null
+                                                            ? employee.zipCode
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(
+                                                            context, 'street'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.street != null
+                                                            ? utf8.decode(
+                                                                employee.street
+                                                                    .runes
+                                                                    .toList())
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'houseNumber'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.houseNumber !=
+                                                                null
+                                                            ? employee
+                                                                .houseNumber
+                                                                .toString()
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: SingleChildScrollView(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Card(
+                                                color: DARK,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(
+                                                            context, 'email'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.email != null
+                                                            ? employee.email
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'phoneNumber'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.phoneNumber !=
+                                                                null
+                                                            ? employee
+                                                                .phoneNumber
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'viberNumber'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.viberNumber !=
+                                                                null
+                                                            ? employee
+                                                                .viberNumber
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'whatsAppNumber'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee
+                                                                    .whatsAppNumber !=
+                                                                null
+                                                            ? employee
+                                                                .whatsAppNumber
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: SingleChildScrollView(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Card(
+                                                color: DARK,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(
+                                                            context, 'groupId'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.groupId != null
+                                                            ? employee.groupId
+                                                                .toString()
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        getTranslated(context,
+                                                            'groupName'),
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      subtitle: Text(
+                                                        employee.groupName !=
+                                                                    null &&
+                                                                employee.groupName !=
+                                                                    'Brak'
+                                                            ? utf8.decode(
+                                                                employee
+                                                                    .groupName
+                                                                    .runes
+                                                                    .toList())
+                                                            : getTranslated(
+                                                                context,
+                                                                'empty'),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          length: 4,
                         ),
                       ),
                     ],
@@ -250,16 +1021,5 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
 
   Future<bool> _onWillPop() async {
     return Logout.logout(context) ?? false;
-  }
-
-  Widget _getPage(Tab tab) {
-    switch (tab.text) {
-      case 'Overview':
-        return EmployeeGroup(
-            widget._employeeId, widget._employeeInfo, widget._authHeader);
-      case 'Orders':
-        return EmployeeTimeSheetsPage(
-            widget._employeeId, widget._employeeInfo, widget._authHeader);
-    }
   }
 }
