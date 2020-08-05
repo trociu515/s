@@ -61,7 +61,8 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                       widget._employeeInfo, widget._authHeader),
                   body: Column(
                     children: <Widget>[
-                      Container(height: 225,
+                      Container(
+                        height: 200,
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 begin: Alignment.topCenter,
@@ -72,44 +73,56 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                             ])),
                         child: Container(
                           width: double.infinity,
-                          height: 280.0,
                           child: Center(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Container(
-                                  width: 50,
-                                  height: 50,
-                                  margin: EdgeInsets.only(
-                                    top: 5,
-                                    bottom: 5,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: AssetImage('images/logo.png'),
-                                        fit: BoxFit.fill),
-                                  ),
-                                ),
-                                Text(
-                                  utf8.decode(widget._employeeInfo != null
-                                      ? widget._employeeInfo.runes.toList()
-                                      : '-'),
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      color: DARK,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  getTranslated(context, 'employee') +
-                                      ' #' +
-                                      widget._employeeId,
-                                  style: TextStyle(
-                                      color: DARK, fontWeight: FontWeight.bold),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(width: MediaQuery.of(context).size.width * 0.25),
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      margin: EdgeInsets.only(
+                                        top: 5,
+                                        bottom: 5,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image:
+                                                AssetImage('images/logo.png'),
+                                            fit: BoxFit.fill),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ListTile(
+                                        title: Text(
+                                              utf8.decode(
+                                                  widget._employeeInfo != null
+                                                      ? widget._employeeInfo.runes
+                                                          .toList()
+                                                      : '-'),
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              color: DARK,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: Text(
+                                          getTranslated(context, 'employee') +
+                                              ' #' +
+                                              widget._employeeId,
+                                          style: TextStyle(
+                                              color: DARK,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
-                                  height: 18.0,
+                                  height: 10.0,
                                 ),
                                 Text(
                                   'Statistics for the current month',
@@ -130,7 +143,7 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                   elevation: 5.0,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 5.0, vertical: 5),
+                                        horizontal: 5.0, vertical: 5.0),
                                     child: Row(
                                       children: <Widget>[
                                         Expanded(
