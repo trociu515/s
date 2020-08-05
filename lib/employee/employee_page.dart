@@ -61,7 +61,7 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                       widget._employeeInfo, widget._authHeader),
                   body: Column(
                     children: <Widget>[
-                      Container(
+                      Container(height: 225,
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 begin: Alignment.topCenter,
@@ -72,18 +72,18 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                             ])),
                         child: Container(
                           width: double.infinity,
-                          height: 350.0,
+                          height: 280.0,
                           child: Center(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Container(
-                                  width: 100,
-                                  height: 100,
+                                  width: 50,
+                                  height: 50,
                                   margin: EdgeInsets.only(
-                                    top: 10,
-                                    bottom: 10,
+                                    top: 5,
+                                    bottom: 5,
                                   ),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -109,7 +109,7 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                       color: DARK, fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
-                                  height: 20.0,
+                                  height: 18.0,
                                 ),
                                 Text(
                                   'Statistics for the current month',
@@ -124,13 +124,13 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                         new BorderRadius.circular(30.0),
                                   ),
                                   margin: EdgeInsets.symmetric(
-                                      horizontal: 20.0, vertical: 5.0),
+                                      horizontal: 5.0, vertical: 5.0),
                                   clipBehavior: Clip.antiAlias,
                                   color: DARK,
                                   elevation: 5.0,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0, vertical: 22.0),
+                                        horizontal: 5.0, vertical: 5),
                                     child: Row(
                                       children: <Widget>[
                                         Expanded(
@@ -140,7 +140,7 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                                 "Days",
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 22.0,
+                                                  fontSize: 20,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -153,7 +153,7 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                                 duration: Duration(seconds: 2),
                                                 separator: ',',
                                                 style: TextStyle(
-                                                  fontSize: 20.0,
+                                                  fontSize: 18.0,
                                                   color: Colors.white,
                                                 ),
                                               ),
@@ -167,7 +167,7 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                                 "Rating",
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 22.0,
+                                                  fontSize: 20,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -182,7 +182,7 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                                 separator: ',',
                                                 duration: Duration(seconds: 2),
                                                 style: TextStyle(
-                                                  fontSize: 20.0,
+                                                  fontSize: 18.0,
                                                   color: Colors.white,
                                                 ),
                                               ),
@@ -196,7 +196,7 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                                 "Money",
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 22.0,
+                                                  fontSize: 20,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -209,7 +209,7 @@ class _EmployeeInformationPageState extends State<EmployeeInformationPage> {
                                                 duration: Duration(seconds: 2),
                                                 separator: ',',
                                                 style: TextStyle(
-                                                  fontSize: 20.0,
+                                                  fontSize: 18.0,
                                                   color: Colors.white,
                                                 ),
                                               ),
