@@ -129,7 +129,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                   height: 10.0,
                                 ),
                                 Text(
-                                  'Statistics for the ' + employee.currentDate,
+                                  getTranslated(context, 'statisticsForThe') + employee.currentDate,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -138,7 +138,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                 Card(
                                   shape: new RoundedRectangleBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(30.0),
+                                        new BorderRadius.circular(15.0),
                                   ),
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 5.0, vertical: 5.0),
@@ -154,7 +154,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                           child: Column(
                                             children: <Widget>[
                                               Text(
-                                                "Days",
+                                                getTranslated(context, 'days'),
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20,
@@ -180,7 +180,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                           child: Column(
                                             children: <Widget>[
                                               Text(
-                                                "Rating",
+                                                getTranslated(context, 'rating'),
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20,
@@ -209,7 +209,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                           child: Column(
                                             children: <Widget>[
                                               Text(
-                                                "Money",
+                                                getTranslated(context, 'money'),
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20,
@@ -254,7 +254,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                       color: WHITE,
                                     ),
                                     child: Text(
-                                      'Info',
+                                      getTranslated(context, 'info'),
                                       style: TextStyle(
                                           color: WHITE,
                                           fontWeight: FontWeight.bold),
@@ -266,7 +266,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                       color: WHITE,
                                     ),
                                     child: Text(
-                                      'Address',
+                                      getTranslated(context, 'address'),
                                       style: TextStyle(
                                           color: WHITE,
                                           fontWeight: FontWeight.bold),
@@ -278,7 +278,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                       color: WHITE,
                                     ),
                                     child: Text(
-                                      'Contact',
+                                      getTranslated(context, 'contact'),
                                       style: TextStyle(
                                           color: WHITE,
                                           fontWeight: FontWeight.bold),
@@ -290,7 +290,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                       color: WHITE,
                                     ),
                                     child: Text(
-                                      'Group',
+                                      getTranslated(context, 'group'),
                                       style: TextStyle(
                                           color: WHITE,
                                           fontWeight: FontWeight.bold),
