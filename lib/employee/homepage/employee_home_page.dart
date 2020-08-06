@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:countup/countup.dart';
 import 'package:flutter/cupertino.dart';
@@ -68,10 +67,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                             gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
-                                colors: [
-                              GREEN,
-                              GREEN,
-                            ])),
+                                colors: [WHITE, GREEN])),
                         child: Container(
                           width: double.infinity,
                           child: Center(
@@ -129,7 +125,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                   height: 10.0,
                                 ),
                                 Text(
-                                  getTranslated(context, 'statisticsForThe') + employee.currentDate,
+                                  getTranslated(context, 'statisticsForThe') +
+                                      employee.currentDate,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -166,7 +163,9 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                               ),
                                               Countup(
                                                 begin: 0,
-                                                end: employee.daysWorkedInCurrentMonth.toDouble(),
+                                                end: employee
+                                                    .daysWorkedInCurrentMonth
+                                                    .toDouble(),
                                                 duration: Duration(seconds: 2),
                                                 style: TextStyle(
                                                   fontSize: 18.0,
@@ -180,7 +179,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                           child: Column(
                                             children: <Widget>[
                                               Text(
-                                                getTranslated(context, 'rating'),
+                                                getTranslated(
+                                                    context, 'rating'),
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20,
@@ -192,8 +192,9 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                               ),
                                               Countup(
                                                 begin: 0,
-                                                end: employee.ratingInCurrentMonth,
-                                                prefix: '10/',
+                                                end: employee
+                                                    .ratingInCurrentMonth,
+                                                prefix: '5/',
                                                 precision: 1,
                                                 separator: ',',
                                                 duration: Duration(seconds: 2),
@@ -221,7 +222,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                               ),
                                               Countup(
                                                 begin: 0,
-                                                end: employee.earnedMoneyInCurrentMonth,
+                                                end: employee
+                                                    .earnedMoneyInCurrentMonth,
                                                 duration: Duration(seconds: 2),
                                                 separator: ',',
                                                 style: TextStyle(

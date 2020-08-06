@@ -20,7 +20,11 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(20),
-            color: Theme.of(context).primaryColor,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [WHITE, GREEN])),
             child: Center(
               child: Column(
                 children: <Widget>[
