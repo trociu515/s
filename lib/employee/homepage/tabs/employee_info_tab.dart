@@ -34,21 +34,6 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
                   ),
                   ListTile(
                     title: Text(
-                      getTranslated(context, 'nationality'),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      utf8.decode(
-                        employee.nationality != null
-                            ? employee.nationality.runes.toList()
-                            : getTranslated(context, 'empty'),
-                      ),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(
                       getTranslated(context, 'dateOfBirth'),
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),

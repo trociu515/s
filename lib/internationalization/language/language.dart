@@ -23,4 +23,23 @@ class Language {
       Language(13, '🇺🇦', 'UKR', 'uk'),
     ];
   }
+
+  static String findFlagByNationality(String nationality) {
+    switch (nationality) {
+      case 'BE': return '🇧🇾';
+      case 'EN': return '🇬🇧';
+      case 'FR': return '🇫🇷';
+      case 'GE': return '🇬🇪';
+      case 'DE': return '🇩🇪';
+      case 'RO': return '🇲🇩';
+      case 'NL': return '🇳🇱';
+      case 'NO': return '🇳🇴';
+      case 'PL': return '🇵🇱';
+      case 'RU': return '🇷🇺';
+      case 'ES': return '🇪🇸';
+      case 'SE': return '🇸🇪';
+      case 'UK': return '🇺🇦';
+      default: return '🇬🇧';
+    }
+  }
 }

@@ -10,6 +10,7 @@ import 'package:give_job/employee/homepage/tabs/employee_contact_tab.dart';
 import 'package:give_job/employee/homepage/tabs/employee_group_tab.dart';
 import 'package:give_job/employee/homepage/tabs/employee_info_tab.dart';
 import 'package:give_job/employee/service/employee_service.dart';
+import 'package:give_job/internationalization/language/language.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -112,7 +113,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                         subtitle: Text(
                                           getTranslated(context, 'employee') +
                                               ' #' +
-                                              widget._employeeId,
+                                              widget._employeeId + ' ' + Language.findFlagByNationality(employee.nationality),
                                           style: TextStyle(
                                               color: DARK,
                                               fontWeight: FontWeight.bold),
