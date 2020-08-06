@@ -55,7 +55,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
           children: <Widget>[
             Image.asset(
               'images/logo.png',
-              height: 250,
+              height: 100,
             ),
             SizedBox(
               height: 20,
@@ -103,7 +103,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                     ],
                   ),

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:give_job/employee/employee_page.dart';
+import 'package:give_job/employee/homepage/employee_home_page.dart';
 import 'package:give_job/get_started_page.dart';
 import 'package:give_job/login_page.dart';
 import 'package:give_job/manager/manager_page.dart';
@@ -11,7 +11,7 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/own_http_overrides.dart';
 
-import 'employee/employee_page.dart';
+import 'employee/homepage/employee_home_page.dart';
 import 'internationalization/localization/demo_localization.dart';
 import 'internationalization/localization/localization_constants.dart';
 
@@ -130,7 +130,7 @@ class _MyAppState extends State<MyApp> {
             String userInfo = data['userInfo'];
             String authHeader = data['authorization'];
             if (role == ROLE_EMPLOYEE) {
-              return EmployeeInformationPage(
+              return EmployeeHomePage(
                   id == null ? '' : id,
                   userInfo == null ? '' : userInfo,
                   authHeader == null ? '' : authHeader);

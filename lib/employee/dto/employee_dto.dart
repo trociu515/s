@@ -27,6 +27,13 @@ class EmployeeDto {
   final String whatsAppNumber;
   final int groupId;
   final String groupName;
+  final String groupCountryOfWork;
+  final String groupDescription;
+  final String groupManager;
+  final String currentDate;
+  final num daysWorkedInCurrentMonth;
+  final num ratingInCurrentMonth;
+  final num earnedMoneyInCurrentMonth;
 
   EmployeeDto({
     @required this.id,
@@ -55,6 +62,13 @@ class EmployeeDto {
     @required this.whatsAppNumber,
     @required this.groupId,
     @required this.groupName,
+    @required this.groupCountryOfWork,
+    @required this.groupDescription,
+    @required this.groupManager,
+    @required this.currentDate,
+    @required this.daysWorkedInCurrentMonth,
+    @required this.ratingInCurrentMonth,
+    @required this.earnedMoneyInCurrentMonth,
   });
 
   factory EmployeeDto.fromJson(Map<String, dynamic> json) {
@@ -85,6 +99,13 @@ class EmployeeDto {
       whatsAppNumber: json['whatsAppNumber'] as String,
       groupId: json['groupId'] as int,
       groupName: json['groupName'] as String,
+      groupCountryOfWork: json['groupCountryOfWork'] as String,
+      groupDescription: json['groupDescription'] as String,
+      groupManager: json['groupManager'] as String,
+      currentDate: json['currentDate'] as String,
+      daysWorkedInCurrentMonth: json['daysWorkedInCurrentMonth'] as num,
+      ratingInCurrentMonth: json['ratingInCurrentMonth'] as num,
+      earnedMoneyInCurrentMonth: json['earnedMoneyInCurrentMonth'] as num,
     );
   }
 }
