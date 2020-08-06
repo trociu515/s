@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/homepage/tabs/employee_info_tab.dart';
+import 'package:give_job/employee/homepage/tabs/employee_time_sheets.tab.dart';
 import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/internationalization/language/language.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
@@ -279,9 +280,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                 child: TabBarView(
                                   children: <Widget>[
                                     employeeInfoTab(context, employee),
-                                    Container(
-                                      child: Text('Hell world!'),
-                                    ),
+                                    employeeTimeSheetsTab(
+                                        context, employee.timeSheets)
                                   ],
                                 ),
                               ),

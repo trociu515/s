@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'employee_time_sheet_dto.dart';
+
 class EmployeeDto {
   final String username;
   final String nationality;
@@ -31,6 +33,7 @@ class EmployeeDto {
   final num daysWorkedInCurrentMonth;
   final num ratingInCurrentMonth;
   final num earnedMoneyInCurrentMonth;
+  final List timeSheets;
 
   EmployeeDto({
     @required this.username,
@@ -63,40 +66,43 @@ class EmployeeDto {
     @required this.daysWorkedInCurrentMonth,
     @required this.ratingInCurrentMonth,
     @required this.earnedMoneyInCurrentMonth,
+    @required this.timeSheets,
   });
 
   factory EmployeeDto.fromJson(Map<String, dynamic> json) {
     return EmployeeDto(
-      username: json['username'] as String,
-      nationality: json['nationality'] as String,
-      dateOfBirth: json['dateOfBirth'] as String,
-      fatherName: json['fatherName'] as String,
-      motherName: json['motherName'] as String,
-      expirationDateOfWork: json['expirationDateOfWork'] as String,
-      nip: json['nip'] as String,
-      bankAccountNumber: json['bankAccountNumber'] as String,
-      moneyPerHour: json['moneyPerHour'] as double,
-      drivingLicense: json['drivingLicense'] as String,
-      houseNumber: json['houseNumber'] as int,
-      street: json['street'] as String,
-      zipCode: json['zipCode'] as String,
-      locality: json['locality'] as String,
-      passportNumber: json['passportNumber'] as String,
-      passportReleaseDate: json['passportReleaseDate'] as String,
-      passportExpirationDate: json['passportExpirationDate'] as String,
-      email: json['email'] as String,
-      phoneNumber: json['phoneNumber'] as String,
-      viberNumber: json['viberNumber'] as String,
-      whatsAppNumber: json['whatsAppNumber'] as String,
-      groupId: json['groupId'] as int,
-      groupName: json['groupName'] as String,
-      groupCountryOfWork: json['groupCountryOfWork'] as String,
-      groupDescription: json['groupDescription'] as String,
-      groupManager: json['groupManager'] as String,
-      currentDate: json['currentDate'] as String,
-      daysWorkedInCurrentMonth: json['daysWorkedInCurrentMonth'] as num,
-      ratingInCurrentMonth: json['ratingInCurrentMonth'] as num,
-      earnedMoneyInCurrentMonth: json['earnedMoneyInCurrentMonth'] as num,
-    );
+        username: json['username'] as String,
+        nationality: json['nationality'] as String,
+        dateOfBirth: json['dateOfBirth'] as String,
+        fatherName: json['fatherName'] as String,
+        motherName: json['motherName'] as String,
+        expirationDateOfWork: json['expirationDateOfWork'] as String,
+        nip: json['nip'] as String,
+        bankAccountNumber: json['bankAccountNumber'] as String,
+        moneyPerHour: json['moneyPerHour'] as double,
+        drivingLicense: json['drivingLicense'] as String,
+        houseNumber: json['houseNumber'] as int,
+        street: json['street'] as String,
+        zipCode: json['zipCode'] as String,
+        locality: json['locality'] as String,
+        passportNumber: json['passportNumber'] as String,
+        passportReleaseDate: json['passportReleaseDate'] as String,
+        passportExpirationDate: json['passportExpirationDate'] as String,
+        email: json['email'] as String,
+        phoneNumber: json['phoneNumber'] as String,
+        viberNumber: json['viberNumber'] as String,
+        whatsAppNumber: json['whatsAppNumber'] as String,
+        groupId: json['groupId'] as int,
+        groupName: json['groupName'] as String,
+        groupCountryOfWork: json['groupCountryOfWork'] as String,
+        groupDescription: json['groupDescription'] as String,
+        groupManager: json['groupManager'] as String,
+        currentDate: json['currentDate'] as String,
+        daysWorkedInCurrentMonth: json['daysWorkedInCurrentMonth'] as num,
+        ratingInCurrentMonth: json['ratingInCurrentMonth'] as num,
+        earnedMoneyInCurrentMonth: json['earnedMoneyInCurrentMonth'] as num,
+        timeSheets: json['timeSheets']
+            .map((data) => EmployeeTimeSheetDto.fromJson(data))
+            .toList());
   }
 }

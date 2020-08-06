@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/homepage/employee_home_page.dart';
-import 'package:give_job/employee/timesheet/employee_time_sheets_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -70,29 +69,6 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
                     return EmployeeHomePage(employeeId, userInfo, authHeader);
-                  },
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.assignment,
-              color: Colors.white,
-            ),
-            title: Text(
-              getTranslated(context, 'workTimeSheets'),
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ),
-            onTap: () {
-              Navigator.of(context).push(
-                CupertinoPageRoute<Null>(
-                  builder: (BuildContext context) {
-                    return EmployeeTimeSheetsPage(
-                        employeeId, userInfo, authHeader);
                   },
                 ),
               );
