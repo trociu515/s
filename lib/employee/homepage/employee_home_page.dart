@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:countup/countup.dart';
 import 'package:flutter/cupertino.dart';
@@ -128,7 +129,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                   height: 10.0,
                                 ),
                                 Text(
-                                  'Statistics for the current month',
+                                  'Statistics for the ' + employee.currentDate,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -165,9 +166,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                               ),
                                               Countup(
                                                 begin: 0,
-                                                end: 20,
+                                                end: employee.daysWorkedInCurrentMonth.toDouble(),
                                                 duration: Duration(seconds: 2),
-                                                separator: ',',
                                                 style: TextStyle(
                                                   fontSize: 18.0,
                                                   color: Colors.white,
@@ -192,7 +192,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                               ),
                                               Countup(
                                                 begin: 0,
-                                                end: 9.1,
+                                                end: employee.ratingInCurrentMonth,
                                                 prefix: '10/',
                                                 precision: 1,
                                                 separator: ',',
@@ -221,7 +221,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                               ),
                                               Countup(
                                                 begin: 0,
-                                                end: 3200,
+                                                end: employee.earnedMoneyInCurrentMonth,
                                                 duration: Duration(seconds: 2),
                                                 separator: ',',
                                                 style: TextStyle(

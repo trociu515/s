@@ -44,6 +44,50 @@ Container employeeGroupTab(BuildContext context, EmployeeDto employee) {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
+                  ListTile(
+                    title: Text(
+                      getTranslated(context, 'groupCountryOfWork'),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      employee.groupCountryOfWork != null &&
+                              employee.groupCountryOfWork != 'Brak'
+                          ? utf8.decode(
+                              employee.groupCountryOfWork.runes.toList())
+                          : getTranslated(context, 'empty'),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      getTranslated(context, 'groupDescription'),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      employee.groupDescription != null &&
+                              employee.groupDescription != 'Brak'
+                          ? utf8
+                              .decode(employee.groupDescription.runes.toList())
+                          : getTranslated(context, 'empty'),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      getTranslated(context, 'groupManager'),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      employee.groupManager != null &&
+                              employee.groupManager != 'Brak'
+                          ? utf8.decode(employee.groupManager.runes.toList())
+                          : getTranslated(context, 'empty'),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ],
               ),
             ),
