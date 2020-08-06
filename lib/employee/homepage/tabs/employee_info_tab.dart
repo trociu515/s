@@ -13,7 +13,7 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
         child: Column(
           children: <Widget>[
             Card(
-              color: DARK,
+              color: BRIGHTER_DARK,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[

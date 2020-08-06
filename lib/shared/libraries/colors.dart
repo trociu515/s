@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 const Color GREEN = Color(0xffb5d76d);
 const Color DARK = Color(0xff303030);
+const Color BRIGHTER_DARK = Color(0xff393939);
 const Color WHITE = Color(0xffFFFFFF);
 
 const Map<int, Color> GREEN_RGBO = {
