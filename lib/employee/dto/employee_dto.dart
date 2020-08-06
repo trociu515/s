@@ -29,7 +29,8 @@ class EmployeeDto {
   final String groupCountryOfWork;
   final String groupDescription;
   final String groupManager;
-  final String currentDate;
+  final String currentYear;
+  final String currentMonth;
   final num daysWorkedInCurrentMonth;
   final num ratingInCurrentMonth;
   final num earnedMoneyInCurrentMonth;
@@ -62,7 +63,8 @@ class EmployeeDto {
     @required this.groupCountryOfWork,
     @required this.groupDescription,
     @required this.groupManager,
-    @required this.currentDate,
+    @required this.currentYear,
+    @required this.currentMonth,
     @required this.daysWorkedInCurrentMonth,
     @required this.ratingInCurrentMonth,
     @required this.earnedMoneyInCurrentMonth,
@@ -97,7 +99,8 @@ class EmployeeDto {
         groupCountryOfWork: json['groupCountryOfWork'] as String,
         groupDescription: json['groupDescription'] as String,
         groupManager: json['groupManager'] as String,
-        currentDate: json['currentDate'] as String,
+        currentYear: json['currentYear'] as String,
+        currentMonth: json['currentMonth'] as String,
         daysWorkedInCurrentMonth: json['daysWorkedInCurrentMonth'] as num,
         ratingInCurrentMonth: json['ratingInCurrentMonth'] as num,
         earnedMoneyInCurrentMonth: json['earnedMoneyInCurrentMonth'] as num,

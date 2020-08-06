@@ -128,7 +128,10 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                 ),
                                 Text(
                                   getTranslated(context, 'statisticsForThe') +
-                                      employee.currentDate,
+                                      employee.currentYear +
+                                      ' ' +
+                                      getTranslated(
+                                          context, employee.currentMonth),
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -196,9 +199,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                                 begin: 0,
                                                 end: employee
                                                     .ratingInCurrentMonth,
-                                                prefix: '5/',
                                                 precision: 1,
-                                                separator: ',',
                                                 duration: Duration(seconds: 2),
                                                 style: TextStyle(
                                                   fontSize: 18.0,
@@ -254,17 +255,6 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                 tabs: <Widget>[
                                   Tab(
                                     icon: Icon(
-                                      Icons.person_pin,
-                                      color: WHITE,
-                                    ),
-                                    child: Text(
-                                      getTranslated(context, 'informations'),
-                                      style: TextStyle(
-                                          color: WHITE, fontSize: 18.0),
-                                    ),
-                                  ),
-                                  Tab(
-                                    icon: Icon(
                                       Icons.assignment,
                                       color: WHITE,
                                     ),
@@ -274,14 +264,27 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                           color: WHITE, fontSize: 18.0),
                                     ),
                                   ),
+                                  Tab(
+                                    icon: Icon(
+                                      Icons.person_pin,
+                                      color: WHITE,
+                                    ),
+                                    child: Text(
+                                      getTranslated(context, 'informations'),
+                                      style: TextStyle(
+                                          color: WHITE, fontSize: 18.0),
+                                    ),
+                                  ),
                                 ],
+                                isScrollable: true,
+                                indicatorColor: GREEN,
                               ),
                               Expanded(
                                 child: TabBarView(
                                   children: <Widget>[
-                                    employeeInfoTab(context, employee),
                                     employeeTimeSheetsTab(
-                                        context, employee.timeSheets)
+                                        context, employee.timeSheets),
+                                    employeeInfoTab(context, employee)
                                   ],
                                 ),
                               ),

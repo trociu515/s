@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/dto/employee_dto.dart';
+import 'package:give_job/internationalization/language/language.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 
@@ -81,7 +82,7 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
       : getTranslated(context, 'empty');
   String groupCountryOfWork = employee.groupCountryOfWork != null &&
           employee.groupCountryOfWork != 'Brak'
-      ? utf8.decode(employee.groupCountryOfWork.runes.toList())
+      ? Language.findFlagByNationality(employee.groupCountryOfWork) + ' ' + utf8.decode(employee.groupCountryOfWork.runes.toList())
       : getTranslated(context, 'empty');
   String groupDescription =
       employee.groupDescription != null && employee.groupDescription != 'Brak'
