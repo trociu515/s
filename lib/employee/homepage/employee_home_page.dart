@@ -257,7 +257,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                       color: WHITE,
                                     ),
                                     child: Text(
-                                      getTranslated(context, 'info'),
+                                      getTranslated(context, 'informations'),
                                       style: TextStyle(
                                           color: WHITE,
                                           fontWeight: FontWeight.bold),

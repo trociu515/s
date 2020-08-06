@@ -94,7 +94,7 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
 
   informations = [
     new Information(
-      getTranslated(context, 'info'),
+      getTranslated(context, 'basicInformations'),
       [
         getTranslated(context, 'username') + '//$username',
         getTranslated(context, 'dateOfBirth') + '//$dateOfBirth',
@@ -115,7 +115,7 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
       ),
     ),
     new Information(
-      'Passport',
+      getTranslated(context, 'passport'),
       [
         getTranslated(context, 'passportNumber') + '//$passportNumber',
         getTranslated(context, 'passportReleaseDate') + '//$passportReleaseDate',
