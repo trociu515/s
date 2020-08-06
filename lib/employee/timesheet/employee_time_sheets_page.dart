@@ -5,11 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/service/employee_time_sheet_service.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
-import 'package:give_job/shared/widget/loader_widget.dart';
-import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/util/month_util.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/widget/loader_widget.dart';
 
 import '../../shared/libraries/constants.dart';
 import '../dto/employee_time_sheet_dto.dart';
@@ -62,7 +62,7 @@ class _EmployeeTimeSheetsPageState extends State<EmployeeTimeSheetsPage> {
           return MaterialApp(
             title: APP_NAME,
             theme:
-                ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
+                ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,

@@ -58,7 +58,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
           return MaterialApp(
             title: APP_NAME,
             theme:
-                ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
+                ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
@@ -123,11 +123,9 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                                       ),
                                       Text(
                                         getTranslated(
-                                            context, 'groupCountryOfWork') +
+                                                context, 'groupCountryOfWork') +
                                             ': ' +
-                                            groups[i]
-                                                .countryOfWork
-                                                .toString(),
+                                            groups[i].countryOfWork.toString(),
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       Text(

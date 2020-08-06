@@ -70,7 +70,7 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
           return MaterialApp(
             title: APP_NAME,
             theme:
-                ThemeData(primarySwatch: MaterialColor(0xFFB5D76D, GREEN_RGBO)),
+                ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
