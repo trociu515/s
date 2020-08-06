@@ -19,19 +19,6 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
                 children: <Widget>[
                   ListTile(
                     title: Text(
-                      getTranslated(context, 'id'),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      employee.id != null
-                          ? employee.id.toString()
-                          : getTranslated(context, 'empty'),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(
                       getTranslated(context, 'username'),
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
@@ -40,36 +27,6 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
                       utf8.decode(
                         employee.username != null
                             ? employee.username.runes.toList()
-                            : getTranslated(context, 'empty'),
-                      ),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      getTranslated(context, 'name'),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      utf8.decode(
-                        employee.name != null
-                            ? employee.name.runes.toList()
-                            : getTranslated(context, 'empty'),
-                      ),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      getTranslated(context, 'surname'),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      utf8.decode(
-                        employee.surname != null
-                            ? employee.surname.runes.toList()
                             : getTranslated(context, 'empty'),
                       ),
                       style: TextStyle(color: Colors.white),
