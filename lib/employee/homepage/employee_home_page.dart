@@ -5,9 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
-import 'package:give_job/employee/homepage/tabs/employee_address_tab.dart';
-import 'package:give_job/employee/homepage/tabs/employee_contact_tab.dart';
-import 'package:give_job/employee/homepage/tabs/employee_group_tab.dart';
 import 'package:give_job/employee/homepage/tabs/employee_info_tab.dart';
 import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/internationalization/language/language.dart';
@@ -113,7 +110,10 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                         subtitle: Text(
                                           getTranslated(context, 'employee') +
                                               ' #' +
-                                              widget._employeeId + ' ' + Language.findFlagByNationality(employee.nationality),
+                                              widget._employeeId +
+                                              ' ' +
+                                              Language.findFlagByNationality(
+                                                  employee.nationality),
                                           style: TextStyle(
                                               color: DARK,
                                               fontWeight: FontWeight.bold),
@@ -246,7 +246,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                       ),
                       Expanded(
                         child: DefaultTabController(
-                          length: 4,
+                          length: 2,
                           child: Column(
                             children: <Widget>[
                               TabBar(
@@ -265,35 +265,11 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                   ),
                                   Tab(
                                     icon: Icon(
-                                      Icons.room,
+                                      Icons.assignment,
                                       color: WHITE,
                                     ),
                                     child: Text(
-                                      getTranslated(context, 'address'),
-                                      style: TextStyle(
-                                          color: WHITE,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Tab(
-                                    icon: Icon(
-                                      Icons.phone_in_talk,
-                                      color: WHITE,
-                                    ),
-                                    child: Text(
-                                      getTranslated(context, 'contact'),
-                                      style: TextStyle(
-                                          color: WHITE,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Tab(
-                                    icon: Icon(
-                                      Icons.group,
-                                      color: WHITE,
-                                    ),
-                                    child: Text(
-                                      getTranslated(context, 'group'),
+                                      getTranslated(context, 'workTimeSheets'),
                                       style: TextStyle(
                                           color: WHITE,
                                           fontWeight: FontWeight.bold),
@@ -305,9 +281,9 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                 child: TabBarView(
                                   children: <Widget>[
                                     employeeInfoTab(context, employee),
-                                    employeeAddressTab(context, employee),
-                                    employeeContactTab(context, employee),
-                                    employeeGroupTab(context, employee),
+                                    Container(
+                                      child: Text('Hell world!'),
+                                    ),
                                   ],
                                 ),
                               ),
