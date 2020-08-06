@@ -33,6 +33,8 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
   String drivingLicense = employee.drivingLicense != null
       ? employee.drivingLicense
       : getTranslated(context, 'empty');
+
+  // Passport //
   String passportNumber = employee.passportNumber != null
       ? employee.passportNumber
       : getTranslated(context, 'empty');
@@ -83,12 +85,12 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
       : getTranslated(context, 'empty');
   String groupDescription =
       employee.groupDescription != null && employee.groupDescription != 'Brak'
-          ? utf8.decode(employee.groupDescription.runes.toList())
-          : getTranslated(context, 'empty');
+      ? utf8.decode(employee.groupDescription.runes.toList())
+      : getTranslated(context, 'empty');
   String groupManager =
       employee.groupManager != null && employee.groupManager != 'Brak'
-          ? utf8.decode(employee.groupManager.runes.toList())
-          : getTranslated(context, 'empty');
+      ? utf8.decode(employee.groupManager.runes.toList())
+      : getTranslated(context, 'empty');
 
   informations = [
     new Information(
@@ -109,6 +111,18 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
       ],
       Icon(
         Icons.person_outline,
+        color: WHITE,
+      ),
+    ),
+    new Information(
+      'Passport',
+      [
+        getTranslated(context, 'passportNumber') + '//$passportNumber',
+        getTranslated(context, 'passportReleaseDate') + '//$passportReleaseDate',
+        getTranslated(context, 'passportExpirationDate') + '//$passportExpirationDate',
+      ],
+      Icon(
+        Icons.credit_card,
         color: WHITE,
       ),
     ),
