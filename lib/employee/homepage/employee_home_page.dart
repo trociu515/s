@@ -259,8 +259,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                     child: Text(
                                       getTranslated(context, 'informations'),
                                       style: TextStyle(
-                                          color: WHITE,
-                                          fontWeight: FontWeight.bold),
+                                          color: WHITE, fontSize: 18.0),
                                     ),
                                   ),
                                   Tab(
@@ -271,8 +270,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                     child: Text(
                                       getTranslated(context, 'workTimeSheets'),
                                       style: TextStyle(
-                                          color: WHITE,
-                                          fontWeight: FontWeight.bold),
+                                          color: WHITE, fontSize: 18.0),
                                     ),
                                   ),
                                 ],

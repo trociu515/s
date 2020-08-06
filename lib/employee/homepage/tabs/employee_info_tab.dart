@@ -173,12 +173,12 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
       itemCount: informations.length,
       itemBuilder: (context, i) {
         return ExpansionTile(
+          backgroundColor: BRIGHTER_DARK,
           title: Text(
             informations[i].title,
             style: TextStyle(
                 color: WHITE,
                 fontSize: 20.0,
-                fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic),
           ),
           children: <Widget>[
@@ -186,6 +186,7 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
               children: _buildExpandableContent(informations[i], employee),
             ),
           ],
+          leading: informations[i].icon,
         );
       },
     ),
