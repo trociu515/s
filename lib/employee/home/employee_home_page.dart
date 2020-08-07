@@ -5,16 +5,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
-import 'package:give_job/employee/homepage/tabs/employee_info_tab.dart';
-import 'package:give_job/employee/homepage/tabs/employee_time_sheets.tab.dart';
+import 'package:give_job/employee/home/tabs/employee_info_tab.dart';
+import 'package:give_job/employee/home/tabs/employee_time_sheets.tab.dart';
 import 'package:give_job/employee/service/employee_service.dart';
-import 'package:give_job/internationalization/language/language.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/service/logout_service.dart';
+import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
-import 'package:give_job/shared/widget/loader_widget.dart';
+import 'package:give_job/shared/widget/icons.dart';
+import 'package:give_job/shared/widget/loader.dart';
+import 'package:give_job/shared/widget/texts.dart';
 
 import '../dto/employee_dto.dart';
 
@@ -39,7 +41,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
       builder: (BuildContext context, AsyncSnapshot<EmployeeDto> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return loaderWidget(
+          return loader(
             context,
             getTranslated(context, 'loading'),
             employeeSideBar(context, widget._employeeId, widget._employeeInfo,
@@ -83,10 +85,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                     Container(
                                       width: 50,
                                       height: 50,
-                                      margin: EdgeInsets.only(
-                                        top: 5,
-                                        bottom: 5,
-                                      ),
+                                      margin:
+                                          EdgeInsets.only(top: 5, bottom: 5),
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
@@ -97,51 +97,35 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                     ),
                                     Expanded(
                                       child: ListTile(
-                                        title: Text(
-                                          utf8.decode(
-                                              widget._employeeInfo != null
-                                                  ? widget._employeeInfo.runes
-                                                      .toList()
-                                                  : '-'),
-                                          style: TextStyle(
-                                              fontSize: 22,
-                                              color: DARK,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        subtitle: Text(
+                                        title: text22DarkBold(utf8.decode(
+                                            widget._employeeInfo != null
+                                                ? widget._employeeInfo.runes
+                                                    .toList()
+                                                : '-')),
+                                        subtitle: textDarkBold(
                                           getTranslated(context, 'employee') +
                                               ' #' +
                                               widget._employeeId +
                                               ' ' +
-                                              Language.findFlagByNationality(
-                                                  employee.nationality),
-                                          style: TextStyle(
-                                              color: DARK,
-                                              fontWeight: FontWeight.bold),
+                                              LanguageUtil
+                                                  .findFlagByNationality(
+                                                      employee.nationality),
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  getTranslated(context, 'statisticsForThe') +
-                                      employee.currentYear +
-                                      ' ' +
-                                      getTranslated(
-                                          context, employee.currentMonth),
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: DARK),
-                                ),
+                                SizedBox(height: 10.0),
+                                text18DarkBold(
+                                    getTranslated(context, 'statisticsForThe') +
+                                        employee.currentYear +
+                                        ' ' +
+                                        getTranslated(
+                                            context, employee.currentMonth)),
                                 Card(
                                   shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(15.0),
-                                  ),
+                                      borderRadius:
+                                          new BorderRadius.circular(15.0)),
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 5.0, vertical: 5.0),
                                   clipBehavior: Clip.antiAlias,
@@ -155,17 +139,9 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                         Expanded(
                                           child: Column(
                                             children: <Widget>[
-                                              Text(
-                                                getTranslated(context, 'days'),
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 5.0,
-                                              ),
+                                              text20WhiteBold(getTranslated(
+                                                  context, 'days')),
+                                              SizedBox(height: 5.0),
                                               Countup(
                                                 begin: 0,
                                                 end: employee
@@ -173,9 +149,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                                     .toDouble(),
                                                 duration: Duration(seconds: 2),
                                                 style: TextStyle(
-                                                  fontSize: 18.0,
-                                                  color: Colors.white,
-                                                ),
+                                                    fontSize: 18.0,
+                                                    color: Colors.white),
                                               ),
                                             ],
                                           ),
@@ -183,18 +158,9 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                         Expanded(
                                           child: Column(
                                             children: <Widget>[
-                                              Text(
-                                                getTranslated(
-                                                    context, 'rating'),
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 5.0,
-                                              ),
+                                              text20WhiteBold(getTranslated(
+                                                  context, 'rating')),
+                                              SizedBox(height: 5.0),
                                               Countup(
                                                 begin: 0,
                                                 end: employee
@@ -202,9 +168,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                                 precision: 1,
                                                 duration: Duration(seconds: 2),
                                                 style: TextStyle(
-                                                  fontSize: 18.0,
-                                                  color: Colors.white,
-                                                ),
+                                                    fontSize: 18.0,
+                                                    color: Colors.white),
                                               ),
                                             ],
                                           ),
@@ -212,17 +177,9 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                         Expanded(
                                           child: Column(
                                             children: <Widget>[
-                                              Text(
-                                                getTranslated(context, 'money'),
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 5.0,
-                                              ),
+                                              text20WhiteBold(getTranslated(
+                                                  context, 'money')),
+                                              SizedBox(height: 5.0),
                                               Countup(
                                                 begin: 0,
                                                 end: employee
@@ -230,9 +187,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                                 duration: Duration(seconds: 2),
                                                 separator: ',',
                                                 style: TextStyle(
-                                                  fontSize: 18.0,
-                                                  color: Colors.white,
-                                                ),
+                                                    fontSize: 18,
+                                                    color: Colors.white),
                                               ),
                                             ],
                                           ),
@@ -254,27 +210,13 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                               TabBar(
                                 tabs: <Widget>[
                                   Tab(
-                                    icon: Icon(
-                                      Icons.assignment,
-                                      color: WHITE,
-                                    ),
-                                    child: Text(
-                                      getTranslated(context, 'workTimeSheets'),
-                                      style: TextStyle(
-                                          color: WHITE, fontSize: 18.0),
-                                    ),
-                                  ),
+                                      icon: iconWhite(Icons.assignment),
+                                      child: text18White(getTranslated(
+                                          context, 'workTimeSheets'))),
                                   Tab(
-                                    icon: Icon(
-                                      Icons.person_pin,
-                                      color: WHITE,
-                                    ),
-                                    child: Text(
-                                      getTranslated(context, 'informations'),
-                                      style: TextStyle(
-                                          color: WHITE, fontSize: 18.0),
-                                    ),
-                                  ),
+                                      icon: iconWhite(Icons.person_pin),
+                                      child: text18White(getTranslated(
+                                          context, 'informations'))),
                                 ],
                                 isScrollable: true,
                                 indicatorColor: GREEN,

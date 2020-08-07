@@ -10,7 +10,9 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
-import 'package:give_job/shared/widget/loader_widget.dart';
+import 'package:give_job/shared/widget/icons.dart';
+import 'package:give_job/shared/widget/loader.dart';
+import 'package:give_job/shared/widget/texts.dart';
 
 import 'manager_groups_details_page.dart';
 
@@ -42,7 +44,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
           AsyncSnapshot<List<ManagerGroupDto>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return loaderWidget(
+          return loader(
             context,
             getTranslated(context, 'loading'),
             managerSideBar(context, widget._managerId, widget._managerInfo,
@@ -93,60 +95,35 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 ListTile(
-                                  leading: Text(
-                                    '#' + (i + 1).toString(),
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  title: Text(
-                                    utf8.decode(
-                                      groups[i].name != null
-                                          ? groups[i].name.runes.toList()
-                                          : getTranslated(context, 'empty'),
-                                    ),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  leading:
+                                      text20WhiteBold('#' + (i + 1).toString()),
+                                  title: textWhiteBold(utf8.decode(
+                                    groups[i].name != null
+                                        ? groups[i].name.runes.toList()
+                                        : getTranslated(context, 'empty'),
+                                  )),
                                   subtitle: Wrap(
                                     children: <Widget>[
-                                      Text(
-                                        getTranslated(
-                                                context, 'numberOfEmployees') +
-                                            ': ' +
-                                            groups[i]
-                                                .numberOfEmployees
-                                                .toString(),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      Text(
-                                        getTranslated(
-                                                context, 'groupCountryOfWork') +
-                                            ': ' +
-                                            groups[i].countryOfWork.toString(),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      Text(
-                                        utf8.decode(
-                                          groups[i].description != null
-                                              ? groups[i]
-                                                  .description
-                                                  .runes
-                                                  .toList()
-                                              : getTranslated(context, 'empty'),
-                                        ),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
+                                      textWhite(getTranslated(
+                                              context, 'numberOfEmployees') +
+                                          ': ' +
+                                          groups[i]
+                                              .numberOfEmployees
+                                              .toString()),
+                                      textWhite(getTranslated(
+                                              context, 'groupCountryOfWork') +
+                                          ': ' +
+                                          groups[i].countryOfWork.toString()),
+                                      textWhite(utf8.decode(groups[i]
+                                                  .description !=
+                                              null
+                                          ? groups[i].description.runes.toList()
+                                          : getTranslated(context, 'empty'))),
                                     ],
                                   ),
                                   trailing: Wrap(
                                     children: <Widget>[
-                                      Icon(
-                                        Icons.edit,
-                                        color: Colors.white,
-                                      ),
+                                      iconWhite(Icons.edit),
                                     ],
                                   ),
                                 ),

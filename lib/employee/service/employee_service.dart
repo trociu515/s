@@ -6,11 +6,11 @@ import 'package:give_job/main.dart';
 import 'package:http/http.dart';
 
 class EmployeeService {
-  final String baseEmployeeUrl = SERVER_IP + '/mobile/employees';
+  final String _baseEmployeeUrl = SERVER_IP + '/mobile/employees';
 
   Future<EmployeeDto> findById(String id, String authHeader) async {
     Response res = await get(
-      baseEmployeeUrl + '/${int.parse(id)}',
+      _baseEmployeeUrl + '/${int.parse(id)}',
       headers: {HttpHeaders.authorizationHeader: authHeader},
     );
     if (res.statusCode == 200) {

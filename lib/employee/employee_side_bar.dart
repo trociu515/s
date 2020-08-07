@@ -2,11 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/employee/homepage/employee_home_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/service/logout_service.dart';
+import 'package:give_job/shared/widget/icons.dart';
+import 'package:give_job/shared/widget/texts.dart';
+
+import 'home/employee_home_page.dart';
 
 Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
     String authHeader) {
@@ -41,29 +44,17 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
                           fit: BoxFit.fill),
                     ),
                   ),
-                  Text(
-                    utf8.decode(
-                        userInfo != null ? userInfo.runes.toList() : '-'),
-                    style: TextStyle(
-                        fontSize: 22, color: DARK, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    getTranslated(context, 'employee') + ' #' + employeeId,
-                    style: TextStyle(color: DARK, fontWeight: FontWeight.bold),
-                  ),
+                  text22DarkBold(utf8.decode(
+                      userInfo != null ? userInfo.runes.toList() : '-')),
+                  textDarkBold(
+                      getTranslated(context, 'employee') + ' #' + employeeId),
                 ],
               ),
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.home,
-              color: Colors.white,
-            ),
-            title: Text(
-              getTranslated(context, 'home'),
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
+            leading: iconWhite(Icons.home),
+            title: text18White(getTranslated(context, 'home')),
             onTap: () {
               Navigator.of(context).push(
                 CupertinoPageRoute<Null>(
@@ -75,37 +66,13 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
             },
           ),
           ListTile(
-            leading: Icon(
-              Icons.bug_report,
-              color: Colors.white,
-            ),
-            title: Text(
-              getTranslated(context, 'bugReport'),
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ),
-            onTap: () {
-              bugReportDialog(context);
-            },
-          ),
+              leading: iconWhite(Icons.bug_report),
+              title: text18White(getTranslated(context, 'bugReport')),
+              onTap: () => bugReportDialog(context)),
           ListTile(
-            leading: Icon(
-              Icons.exit_to_app,
-              color: Colors.white,
-            ),
-            title: Text(
-              getTranslated(context, 'signOut'),
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ),
-            onTap: () {
-              Logout.logout(context);
-            },
-          ),
+              leading: iconWhite(Icons.exit_to_app),
+              title: text18White(getTranslated(context, 'signOut')),
+              onTap: () => Logout.logout(context)),
         ],
       ),
     ),

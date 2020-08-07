@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/widget/texts.dart';
 
 Future<void> bugReportDialog(BuildContext context) async {
   return showDialog<void>(
@@ -8,46 +9,26 @@ Future<void> bugReportDialog(BuildContext context) async {
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(
-          getTranslated(context, 'bugReport'),
-          style: TextStyle(color: DARK),
-        ),
+        title: textDark(getTranslated(context, 'bugReport')),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text(
-                getTranslated(context, 'somethingWrongWithApplication'),
-                style: TextStyle(color: DARK),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                getTranslated(context, 'contactWithUsByGivenEmail'),
-                style: TextStyle(color: DARK),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              SelectableText(
-                'givejob.bug@gmail.com',
-                style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                    color: DARK),
-              ),
+              textDark(getTranslated(context, 'somethingWrongWithApplication')),
+              SizedBox(height: 5),
+              textDark(getTranslated(context, 'contactWithUsByGivenEmail')),
+              SizedBox(height: 25),
+              SelectableText('givejob.bug@gmail.com',
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                      color: DARK)),
             ],
           ),
         ),
         actions: <Widget>[
           FlatButton(
-            child: Text(
-              getTranslated(context, 'close'),
-              style: TextStyle(color: DARK),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+            child: textDark(getTranslated(context, 'close')),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ],
       );

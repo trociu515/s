@@ -32,47 +32,20 @@ Future<Locale> setLocale(String languageCode) async {
 Locale _locale(String languageCode) {
   Locale _temp;
   switch (languageCode) {
-    case BELARUSIAN:
-      _temp = Locale(languageCode, 'BY');
-      break;
-    case ENGLISH:
-      _temp = Locale(languageCode, 'EN');
-      break;
-    case FRENCH:
-      _temp = Locale(languageCode, 'FR');
-      break;
-    case GEORGIA:
-      _temp = Locale(languageCode, 'PT');
-      break;
-    case GERMAN:
-      _temp = Locale(languageCode, 'DE');
-      break;
-    case MOLDAVIAN:
-      _temp = Locale(languageCode, 'RO');
-      break;
-    case NETHERLANDS:
-      _temp = Locale(languageCode, 'NL');
-      break;
-    case NORWAY:
-      _temp = Locale(languageCode, 'IT');
-      break;
-    case POLISH:
-      _temp = Locale(languageCode, 'PL');
-      break;
-    case RUSSIAN:
-      _temp = Locale(languageCode, 'RU');
-      break;
-    case SPAIN:
-      _temp = Locale(languageCode, 'ES');
-      break;
-    case SWEDEN:
-      _temp = Locale(languageCode, 'CA');
-      break;
-    case UKRAINIAN:
-      _temp = Locale(languageCode, 'UA');
-      break;
-    default:
-      _temp = Locale(ENGLISH, 'EN');
+    case BELARUSIAN: _temp = Locale(languageCode, 'BY'); break;
+    case ENGLISH: _temp = Locale(languageCode, 'EN'); break;
+    case FRENCH: _temp = Locale(languageCode, 'FR'); break;
+    case GEORGIA: _temp = Locale(languageCode, 'PT'); break;
+    case GERMAN: _temp = Locale(languageCode, 'DE'); break;
+    case MOLDAVIAN: _temp = Locale(languageCode, 'RO'); break;
+    case NETHERLANDS: _temp = Locale(languageCode, 'NL'); break;
+    case NORWAY: _temp = Locale(languageCode, 'IT'); break;
+    case POLISH: _temp = Locale(languageCode, 'PL'); break;
+    case RUSSIAN: _temp = Locale(languageCode, 'RU'); break;
+    case SPAIN: _temp = Locale(languageCode, 'ES'); break;
+    case SWEDEN: _temp = Locale(languageCode, 'CA'); break;
+    case UKRAINIAN: _temp = Locale(languageCode, 'UA'); break;
+    default: _temp = Locale(ENGLISH, 'EN');
   }
   return _temp;
 }

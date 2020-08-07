@@ -11,7 +11,8 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
-import 'package:give_job/shared/widget/loader_widget.dart';
+import 'package:give_job/shared/widget/loader.dart';
+import 'package:give_job/shared/widget/texts.dart';
 
 import '../../shared/libraries/constants.dart';
 import '../manager_side_bar.dart';
@@ -66,7 +67,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
           AsyncSnapshot<List<EmployeeTimeSheetDto>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return loaderWidget(
+          return loader(
             context,
             getTranslated(context, 'loading'),
             managerSideBar(context, widget._managerId, widget._managerInfo,
@@ -96,42 +97,24 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                   child: Column(
                     children: <Widget>[
                       ListTile(
-                        title: Text(
-                          widget._groupName != null
-                              ? utf8.decode(widget._groupName.runes.toList())
-                              : getTranslated(context, 'empty'),
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+                        title: textWhiteBold(widget._groupName != null
+                            ? utf8.decode(widget._groupName.runes.toList())
+                            : getTranslated(context, 'empty')),
                         subtitle: Wrap(
                           children: <Widget>[
-                            Text(
-                              widget._groupDescription != null
-                                  ? utf8.decode(
-                                      widget._groupDescription.runes.toList())
-                                  : getTranslated(context, 'empty'),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            SizedBox(
-                              height: 50,
-                            ),
-                            Text(
-                              widget._employeeInfo != null
-                                  ? utf8.decode(
-                                      widget._employeeInfo.runes.toList())
-                                  : getTranslated(context, 'empty'),
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            textWhite(widget._groupDescription != null
+                                ? utf8.decode(
+                                    widget._groupDescription.runes.toList())
+                                : getTranslated(context, 'empty')),
+                            SizedBox(height: 50),
+                            text16WhiteBold(widget._employeeInfo != null
+                                ? utf8
+                                    .decode(widget._employeeInfo.runes.toList())
+                                : getTranslated(context, 'empty')),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       for (var timeSheet in timeSheets)
                         Card(
                           color: DARK,
@@ -174,53 +157,33 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                         ? Icons.check_circle_outline
                                         : Icons.radio_button_unchecked,
                                     color: timeSheet.status == 'Accepted'
-                                        ? Color(0xffb5d76d)
+                                        ? GREEN
                                         : Colors.orange,
                                   ),
-                                  title: Text(
-                                    timeSheet.year.toString() +
-                                        ' ' +
-                                        MonthUtil.translateMonth(
-                                            context, timeSheet.month),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  title: textWhiteBold(
+                                      timeSheet.year.toString() +
+                                          ' ' +
+                                          MonthUtil.translateMonth(
+                                              context, timeSheet.month)),
                                   subtitle: Wrap(
                                     children: <Widget>[
-                                      Text(
-                                        getTranslated(context, 'hoursWorked') +
-                                            ': ' +
-                                            timeSheet.totalHours.toString() +
-                                            'h',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      Text(
-                                        getTranslated(
-                                                context, 'averageRating') +
-                                            ': ' +
-                                            timeSheet.averageEmployeeRating
-                                                .toString(),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
+                                      textWhite(getTranslated(
+                                              context, 'hoursWorked') +
+                                          ': ' +
+                                          timeSheet.totalHours.toString() +
+                                          'h'),
+                                      textWhite(getTranslated(
+                                              context, 'averageRating') +
+                                          ': ' +
+                                          timeSheet.averageEmployeeRating
+                                              .toString()),
                                     ],
                                   ),
                                   trailing: Wrap(
                                     children: <Widget>[
-                                      Text(
-                                        timeSheet.totalMoneyEarned.toString(),
-                                        style: TextStyle(
-                                            color: Color(0xffb5d76d),
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        " ZŁ",
-                                        style: TextStyle(
-                                            color: Color(0xffb5d76d),
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                      text20GreenBold(timeSheet.totalMoneyEarned
+                                          .toString()),
+                                      text20GreenBold(" ZŁ")
                                     ],
                                   ),
                                 ),

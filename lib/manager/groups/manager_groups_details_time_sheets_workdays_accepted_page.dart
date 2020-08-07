@@ -6,11 +6,13 @@ import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/manager/service/manager_service.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
-import 'package:give_job/shared/widget/loader_widget.dart';
-import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/util/month_util.dart';
+import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/widget/icons.dart';
+import 'package:give_job/shared/widget/loader.dart';
+import 'package:give_job/shared/widget/texts.dart';
 
 import '../../shared/libraries/constants.dart';
 import '../manager_side_bar.dart';
@@ -53,7 +55,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
           (BuildContext context, AsyncSnapshot<List<WorkdayDto>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return loaderWidget(
+          return loader(
             context,
             getTranslated(context, 'loading'),
             managerSideBar(context, widget._managerId, widget._managerInfo,
@@ -83,19 +85,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: <Widget>[
-                      Text(
-                        widget._employeeInfo != null
-                            ? utf8.decode(widget._employeeInfo.runes.toList())
-                            : getTranslated(context, 'empty'),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      text15WhiteBold(widget._employeeInfo != null
+                          ? utf8.decode(widget._employeeInfo.runes.toList())
+                          : getTranslated(context, 'empty')),
+                      SizedBox(height: 10),
                       ListTile(
                         leading: Icon(
                           widget.timeSheet.status == 'Accepted'
@@ -105,138 +98,71 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                               ? GREEN
                               : Colors.orange,
                         ),
-                        title: Text(
-                          widget.timeSheet.year.toString() +
-                              ' ' +
-                              MonthUtil.translateMonth(
-                                  context, widget.timeSheet.month) +
-                              '\n' +
-                              utf8.decode(
-                                widget.timeSheet.groupName.runes.toList(),
-                              ),
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+                        title: textWhiteBold(widget.timeSheet.year.toString() +
+                            ' ' +
+                            MonthUtil.translateMonth(
+                                context, widget.timeSheet.month) +
+                            '\n' +
+                            utf8.decode(
+                              widget.timeSheet.groupName.runes.toList(),
+                            )),
                         subtitle: Wrap(
                           children: <Widget>[
-                            Text(
-                              getTranslated(context, 'hoursWorked') +
-                                  ': ' +
-                                  widget.timeSheet.totalHours.toString() +
-                                  'h',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              getTranslated(context, 'averageRating') +
-                                  ': ' +
-                                  widget.timeSheet.averageEmployeeRating
-                                      .toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
+                            textWhite(getTranslated(context, 'hoursWorked') +
+                                ': ' +
+                                widget.timeSheet.totalHours.toString() +
+                                'h'),
+                            textWhite(getTranslated(context, 'averageRating') +
+                                ': ' +
+                                widget.timeSheet.averageEmployeeRating
+                                    .toString()),
                           ],
                         ),
                         trailing: Wrap(
                           children: <Widget>[
-                            Text(
-                              widget.timeSheet.totalMoneyEarned.toString(),
-                              style: TextStyle(
-                                  color: GREEN,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              " ZŁ",
-                              style: TextStyle(
-                                  color: GREEN,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            text20GreenBold(
+                                widget.timeSheet.totalMoneyEarned.toString()),
+                            text20GreenBold(" ZŁ"),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: DataTable(
                             columns: [
+                              DataColumn(label: textWhiteBold('#')),
                               DataColumn(
-                                label: Text(
-                                  '#',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'hours'))),
                               DataColumn(
-                                label: Text(
-                                  getTranslated(context, 'hours'),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'rating'))),
                               DataColumn(
-                                label: Text(
-                                  getTranslated(context, 'rating'),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'money'))),
                               DataColumn(
-                                label: Text(
-                                  getTranslated(context, 'money'),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  getTranslated(context, 'comment'),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'comment'))),
                             ],
                             rows: [
                               for (var workday in workdays)
                                 DataRow(
                                   cells: [
                                     DataCell(
-                                      Text(
-                                        workday.number.toString(),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
+                                        textWhite(workday.number.toString())),
                                     DataCell(
-                                      Text(
-                                        workday.hours.toString(),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
+                                        textWhite(workday.hours.toString())),
                                     DataCell(
-                                      Text(
-                                        workday.rating.toString(),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
+                                        textWhite(workday.rating.toString())),
                                     DataCell(
-                                      Text(
-                                        workday.money.toString(),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
+                                        textWhite(workday.money.toString())),
                                     DataCell(
-                                      Wrap(
-                                        children: <Widget>[
-                                          Text(
-                                            workday.comment != null
+                                        Wrap(
+                                          children: <Widget>[
+                                            textWhite(workday.comment != null
                                                 ? workday.comment.length > 10
                                                     ? utf8
                                                             .decode(workday
@@ -248,23 +174,15 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                                                         .comment.runes
                                                         .toList())
                                                 : getTranslated(
-                                                    context, 'empty'),
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          workday.comment != null &&
-                                                  workday.comment != ''
-                                              ? Icon(
-                                                  Icons.zoom_in,
-                                                  color: Colors.white,
-                                                )
-                                              : Text('')
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        _showCommentDetails(workday.comment);
-                                      },
-                                    ),
+                                                    context, 'empty')),
+                                            workday.comment != null &&
+                                                    workday.comment != ''
+                                                ? iconWhite(Icons.zoom_in)
+                                                : Text('')
+                                          ],
+                                        ),
+                                        onTap: () => _showCommentDetails(
+                                            workday.comment)),
                                   ],
                                 ),
                             ],
@@ -287,26 +205,14 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            getTranslated(context, 'commentDetails'),
-            style: TextStyle(color: DARK, fontWeight: FontWeight.bold),
-          ),
-          content: Text(
-            comment != null
-                ? utf8.decode(comment.runes.toList())
-                : getTranslated(context, 'empty'),
-            style: TextStyle(color: DARK),
-          ),
+          title: textDarkBold(getTranslated(context, 'commentDetails')),
+          content: textDark(comment != null
+              ? utf8.decode(comment.runes.toList())
+              : getTranslated(context, 'empty')),
           actions: <Widget>[
             FlatButton(
-              child: Text(
-                getTranslated(context, 'close'),
-                style: TextStyle(color: DARK),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+                child: textDark(getTranslated(context, 'close')),
+                onPressed: () => Navigator.of(context).pop()),
           ],
         );
       },

@@ -1,10 +1,6 @@
-class Language {
-  final int id;
-  final String name;
-  final String flag;
-  final String languageCode;
+import 'package:give_job/internationalization/model/language.dart';
 
-  Language(this.id, this.name, this.flag, this.languageCode);
+class LanguageUtil {
 
   static List<Language> getLanguages() {
     return <Language>[

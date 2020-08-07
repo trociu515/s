@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:give_job/internationalization/language/language.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/internationalization/model/language.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/util/language_util.dart';
 
 import '../../main.dart';
 
@@ -38,7 +39,7 @@ AppBar appBar(BuildContext context, String title) {
                     onChanged: (Language language) {
                       _changeLanguage(language, context);
                     },
-                    items: Language.getLanguages()
+                    items: LanguageUtil.getLanguages()
                         .map<DropdownMenuItem<Language>>(
                           (lang) => DropdownMenuItem(
                             value: lang,

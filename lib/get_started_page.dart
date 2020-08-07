@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/internationalization/language/language.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/login_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/util/language_util.dart';
+
+import 'internationalization/model/language.dart';
 
 class GetStartedPage extends StatefulWidget {
   @override
@@ -12,7 +14,7 @@ class GetStartedPage extends StatefulWidget {
 }
 
 class _GetStartedPageState extends State<GetStartedPage> {
-  List<Language> _languages = Language.getLanguages();
+  List<Language> _languages = LanguageUtil.getLanguages();
   List<DropdownMenuItem<Language>> _dropdownMenuItems;
   Language _selectedLanguage;
 
@@ -45,6 +47,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
       Locale _temp = await setLocale(language.languageCode);
       MyApp.setLocale(context, _temp);
     }
+
     return Scaffold(
       backgroundColor: DARK,
       body: Container(

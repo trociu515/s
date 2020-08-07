@@ -4,7 +4,7 @@ import '../libraries/colors.dart';
 import '../libraries/constants.dart';
 import 'app_bar.dart';
 
-MaterialApp loaderWidget(BuildContext context, String title, Drawer drawer) {
+MaterialApp loader(BuildContext context, String title, Drawer drawer) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: APP_NAME,
