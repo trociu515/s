@@ -45,7 +45,6 @@ class _GetStartedPageState extends State<GetStartedPage> {
       Locale _temp = await setLocale(language.languageCode);
       MyApp.setLocale(context, _temp);
     }
-
     return Scaffold(
       backgroundColor: DARK,
       body: Container(
@@ -55,7 +54,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
           children: <Widget>[
             Image.asset(
               'images/logo.png',
-              height: 100,
+              height: 125,
             ),
             SizedBox(
               height: 20,
@@ -65,7 +64,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 30),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             Container(
               child: Text(
                 getTranslated(context, 'getStartedDescription'),
@@ -82,7 +81,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                   style: TextStyle(color: Colors.white, fontSize: 17)),
             ),
             SizedBox(
-              height: 15,
+              height: 10,
             ),
             Container(
               child: Center(
@@ -103,7 +102,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 35,
                       ),
                     ],
                   ),
