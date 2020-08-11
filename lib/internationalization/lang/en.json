@@ -11,7 +11,7 @@
   "loginSuccessfully": "Login successfull",
   "wrongUsernameOrPassword": "Wrong username or password",
   "cannotConnectToServer": "Unable to connect to server",
-  "usernameAndPasswordRequired": "Username or password is required",
+  "usernameAndPasswordRequired": "Username and password are required",
   "usernameRequired": "Username is required",
   "passwordRequired": "Password is required",
   "logout": "Logout",

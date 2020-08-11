@@ -11,7 +11,7 @@
   "loginSuccessfully": "Вхід вдалий",
   "wrongUsernameOrPassword": "Неправильне ім'я користувача або пароль",
   "cannotConnectToServer": "Неможливо підключитися до сервера",
-  "usernameAndPasswordRequired": "Ім'я користувача або пароль обов'язкові",
+  "usernameAndPasswordRequired": "Ім'я користувача та пароль обов'язкові",
   "usernameRequired": "Ім'я користувача обов'язкове",
   "passwordRequired": "Пароль необхідний",
   "logout": "Вийти",

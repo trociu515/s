@@ -11,7 +11,7 @@
   "loginSuccessfully": "Vellykket innlogging",
   "wrongUsernameOrPassword": "Feil brukernavn eller passord",
   "cannotConnectToServer": "Kan ikke koble til server",
-  "usernameAndPasswordRequired": "Brukernavn eller passord kreves",
+  "usernameAndPasswordRequired": "Brukernavn og passord kreves",
   "usernameRequired": "Brukernavn kreves",
   "passwordRequired": "Passord er påkrevd",
   "logout": "Logg ut",

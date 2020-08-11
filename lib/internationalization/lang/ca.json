@@ -11,7 +11,7 @@
   "loginSuccessfully": "Inloggning framgångsrik",
   "wrongUsernameOrPassword": "fel användarnamn eller lösenord",
   "cannotConnectToServer": "Det går inte att ansluta till servern",
-  "usernameAndPasswordRequired": "Användarnamn eller lösenord krävs",
+  "usernameAndPasswordRequired": "Användarnamn och lösenord krävs",
   "usernameRequired": "Användarnamn krävs",
   "passwordRequired": "lösenord krävs",
   "logout": "Logga ut",

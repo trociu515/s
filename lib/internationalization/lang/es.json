@@ -11,7 +11,7 @@
   "loginSuccessfully": "Inicio de sesión exitoso",
   "wrongUsernameOrPassword": "Nombre de usuario o contraseña incorrectos",
   "cannotConnectToServer": "No se puede conectar al servidor",
-  "usernameAndPasswordRequired": "Se requiere nombre de usuario o contraseña",
+  "usernameAndPasswordRequired": "Se requiere nombre de usuario y contraseña",
   "usernameRequired": "Se requiere nombre de usuario",
   "passwordRequired": "se requiere contraseña",
   "logout": "Cerrar sesión",

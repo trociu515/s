@@ -11,7 +11,7 @@
   "loginSuccessfully": "Login succesvol",
   "wrongUsernameOrPassword": "verkeerde gebruikersnaam of wachtwoord",
   "cannotConnectToServer": "Kan geen verbinding maken met de server",
-  "usernameAndPasswordRequired": "Gebruikersnaam of wachtwoord is vereist",
+  "usernameAndPasswordRequired": "Gebruikersnaam en wachtwoord zijn vereist",
   "usernameRequired": "gebruikersnaam is vereist",
   "passwordRequired": "Een wachtwoord is verplicht",
   "logout": "Uitloggen",

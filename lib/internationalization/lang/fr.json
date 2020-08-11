@@ -11,7 +11,7 @@
   "loginSuccessfully": "Connexion réussie",
   "wrongUsernameOrPassword": "Nom d'utilisateur ou mot de passe incorrect",
   "cannotConnectToServer": "Incapable de se connecter au serveur",
-  "usernameAndPasswordRequired": "Nom d'utilisateur ou mot de passe requis",
+  "usernameAndPasswordRequired": "Le nom d'utilisateur et le mot de passe sont requis",
   "usernameRequired": "Nom d'utilisateur est nécessaire",
   "passwordRequired": "Mot de passe requis",
   "logout": "Se déconnecter",

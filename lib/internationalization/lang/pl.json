@@ -11,7 +11,7 @@
   "loginSuccessfully": "Zalogowano pomyślnie!",
   "wrongUsernameOrPassword": "Błędna nazwa użytkownika lub hasło",
   "cannotConnectToServer": "Nie można połączyć się z serwerem",
-  "usernameAndPasswordRequired": "Nazwa użytkownika oraz hasło jest wymagane",
+  "usernameAndPasswordRequired": "Nazwa użytkownika oraz hasło są wymagane",
   "usernameRequired": "Nazwa użytkownika jest wymagana",
   "passwordRequired": "Hasło jest wymagane",
   "logout": "Wylogowywanie",

@@ -11,7 +11,7 @@
   "loginSuccessfully": "Logare reușită",
   "wrongUsernameOrPassword": "Nume utilizator sau parolă greșită",
   "cannotConnectToServer": "Imposibil de conectat la server",
-  "usernameAndPasswordRequired": "Numele de utilizator sau parola este necesar",
+  "usernameAndPasswordRequired": "Numele de utilizator și parola sunt obligatorii",
   "usernameRequired": "Numele de utilizator este necesar",
   "passwordRequired": "Parola este necesara",
   "logout": "Deconectare",
