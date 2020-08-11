@@ -108,7 +108,7 @@
   "hoursCannotBeLowerThan0": "Orele nu pot fi mai mici de 0",
   "hoursCannotBeHigherThan24": "Orele nu pot fi mai mari de 24",
   "ratingCannotBeLowerThan1": "Evaluarea nu poate fi mai mică de 1",
-  "ratingCannotBeHigherThan5": "Evaluarea nu poate fi mai mare de 5",
+  "ratingCannotBeHigherThan10": "Evaluarea nu poate fi mai mare de 10",
   "commentLengthCannotBeHigherThan510": "Lungimea comentariilor nu poate fi mai mare de 510",
   "employees": "Angajați",
   "managerDoesNotHaveEmployeesInGroups": "Managerul nu are angajați în grupuri",

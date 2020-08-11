@@ -575,10 +575,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             controller: ratingController,
             autofocus: true,
             keyboardType: TextInputType.number,
-            maxLength: 1,
+            maxLength: 2,
             decoration: InputDecoration(
               labelStyle: TextStyle(color: DARK),
-              labelText: getTranslated(context, 'newRating') + ' (1-5)',
+              labelText: getTranslated(context, 'newRating') + ' (1-10)',
             ),
           );
           return AlertDialog(

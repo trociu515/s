@@ -108,7 +108,7 @@
   "hoursCannotBeLowerThan0": "Öppettiderna kan inte vara lägre än 0",
   "hoursCannotBeHigherThan24": "Timmarna kan inte vara högre än 24",
   "ratingCannotBeLowerThan1": "Betyg kan inte vara lägre än 1",
-  "ratingCannotBeHigherThan5": "Betyget kan inte vara högre än 5",
+  "ratingCannotBeHigherThan10": "Betyget kan inte vara högre än 10",
   "commentLengthCannotBeHigherThan510": "Kommentarlängden kan inte vara högre än 510",
   "employees": "anställda",
   "managerDoesNotHaveEmployeesInGroups": "Chefen har inte anställda i grupper",

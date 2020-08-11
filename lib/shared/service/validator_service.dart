@@ -30,8 +30,8 @@ class ValidatorService {
     String invalidMessage;
     if (rating < 1) {
       invalidMessage = getTranslated(context, 'ratingCannotBeLowerThan1');
-    } else if (rating > 5) {
-      invalidMessage = getTranslated(context, 'ratingCannotBeHigherThan5');
+    } else if (rating > 10) {
+      invalidMessage = getTranslated(context, 'ratingCannotBeHigherThan10');
     }
     return invalidMessage;
   }

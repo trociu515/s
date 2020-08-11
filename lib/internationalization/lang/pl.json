@@ -108,7 +108,7 @@
   "hoursCannotBeLowerThan0": "Godziny nie mogą być niższe niż 0",
   "hoursCannotBeHigherThan24": "Godziny nie mogą być większe niż 24",
   "ratingCannotBeLowerThan1": "Ocena nie może być niższa niż 1",
-  "ratingCannotBeHigherThan5": "Ocena nie może być wyższa niż 5",
+  "ratingCannotBeHigherThan10": "Ocena nie może być wyższa niż 10",
   "commentLengthCannotBeHigherThan510": "Długość komentarza nie może być większa niż 510",
   "employees": "Pracownicy",
   "managerDoesNotHaveEmployeesInGroups": "Menedżer nie posiada pracowników w grupach",

@@ -108,7 +108,7 @@
   "hoursCannotBeLowerThan0": "Les heures ne peuvent pas être inférieures à 0",
   "hoursCannotBeHigherThan24": "Les heures ne peuvent pas dépasser 24 heures",
   "ratingCannotBeLowerThan1": "La note ne peut pas être inférieure à 1",
-  "ratingCannotBeHigherThan5": "La note ne peut pas être supérieure à 5",
+  "ratingCannotBeHigherThan10": "La note ne peut pas être supérieure à 10",
   "commentLengthCannotBeHigherThan510": "La longueur du commentaire ne peut pas être supérieure à 510",
   "employees": "Des employés",
   "managerDoesNotHaveEmployeesInGroups": "Le gestionnaire n'a pas d'employés dans les groupes",

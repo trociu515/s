@@ -108,7 +108,7 @@
   "hoursCannotBeLowerThan0": "საათები 0-ზე დაბალი არ შეიძლება",
   "hoursCannotBeHigherThan24": "საათები არ შეიძლება იყოს 24-ზე მეტი",
   "ratingCannotBeLowerThan1": "შეფასება არ შეიძლება იყოს 1-ზე დაბალი",
-  "ratingCannotBeHigherThan5": "შეფასება არ შეიძლება იყოს 5-ზე მეტი",
+  "ratingCannotBeHigherThan10": "შეფასება არ შეიძლება იყოს 10-ზე მეტი",
   "commentLengthCannotBeHigherThan510": "შეფასება არ შეიძლება იყოს 5-ზე მეტი",
   "employees": "თანამშრომლები",
   "managerDoesNotHaveEmployeesInGroups": "მენეჯერს არ ჰყავს თანამშრომლები ჯგუფებში",

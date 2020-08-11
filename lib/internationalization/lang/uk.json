@@ -108,7 +108,7 @@
   "hoursCannotBeLowerThan0": "Години не можуть бути меншими за 0",
   "hoursCannotBeHigherThan24": "Години не можуть перевищувати 24",
   "ratingCannotBeLowerThan1": "Рейтинг не може бути нижчим за 1",
-  "ratingCannotBeHigherThan5": "Рейтинг не може бути вище 5",
+  "ratingCannotBeHigherThan10": "Рейтинг не може бути вище 10",
   "commentLengthCannotBeHigherThan510": "Довжина коментарів не може перевищувати 510",
   "employees": "Співробітники",
   "managerDoesNotHaveEmployeesInGroups": "Менеджер не має працівників у групах",
