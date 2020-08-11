@@ -89,6 +89,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                 drawer: managerSideBar(context, widget._managerId,
                     widget._managerInfo, widget._authHeader),
                 body: RefreshIndicator(
+                  color: DARK,
+                  backgroundColor: WHITE,
                   key: refreshIndicatorState,
                   onRefresh: _refresh,
                   child: SingleChildScrollView(
@@ -288,6 +290,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
           drawer: managerSideBar(context, widget._managerId,
               widget._managerInfo, widget._authHeader),
           body: RefreshIndicator(
+            color: DARK,
+            backgroundColor: WHITE,
             key: refreshIndicatorState,
             onRefresh: _refresh,
             child: SingleChildScrollView(
