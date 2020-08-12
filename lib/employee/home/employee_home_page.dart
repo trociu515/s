@@ -63,174 +63,153 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                   body: Column(
                     children: <Widget>[
                       Container(
-                        height: 200,
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                                 colors: [WHITE, GREEN])),
-                        child: Container(
-                          width: double.infinity,
-                          child: Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.25),
-                                    Container(
-                                      width: 50,
-                                      height: 50,
-                                      margin:
-                                          EdgeInsets.only(top: 5, bottom: 5),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            image:
-                                                AssetImage('images/logo.png'),
-                                            fit: BoxFit.fill),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: ListTile(
-                                        title: text22DarkBold(utf8.decode(
-                                            widget._employeeInfo != null
-                                                ? widget._employeeInfo.runes
-                                                    .toList()
-                                                : '-')),
-                                        subtitle: textDarkBold(
-                                          getTranslated(context, 'employee') +
-                                              ' #' +
-                                              widget._employeeId +
-                                              ' ' +
-                                              LanguageUtil
-                                                  .findFlagByNationality(
-                                                      employee.nationality),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10.0),
-                                text18DarkBold(
-                                    getTranslated(context, 'statisticsForThe') +
-                                        employee.currentYear +
-                                        ' ' +
-                                        getTranslated(
-                                            context, employee.currentMonth)),
-                                Card(
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(15.0)),
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 5.0, vertical: 5.0),
-                                  clipBehavior: Clip.antiAlias,
-                                  color: DARK,
-                                  elevation: 5.0,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 5.0, vertical: 5.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              text20WhiteBold(getTranslated(
-                                                  context, 'days')),
-                                              SizedBox(height: 5.0),
-                                              Countup(
-                                                begin: 0,
-                                                end: employee
-                                                    .daysWorkedInCurrentMonth
-                                                    .toDouble(),
-                                                duration: Duration(seconds: 2),
-                                                style: TextStyle(
-                                                    fontSize: 18.0,
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              text20WhiteBold(getTranslated(
-                                                  context, 'rating')),
-                                              SizedBox(height: 5.0),
-                                              Countup(
-                                                begin: 0,
-                                                end: employee
-                                                    .ratingInCurrentMonth,
-                                                precision: 1,
-                                                duration: Duration(seconds: 2),
-                                                style: TextStyle(
-                                                    fontSize: 18.0,
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              text20WhiteBold(getTranslated(
-                                                  context, 'money')),
-                                              SizedBox(height: 5.0),
-                                              Countup(
-                                                begin: 0,
-                                                end: employee
-                                                    .earnedMoneyInCurrentMonth,
-                                                duration: Duration(seconds: 2),
-                                                separator: ',',
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                        width: double.infinity,
+                        height: 175,
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25),
+                                  Container(
+                                    width: 50,
+                                    height: 50,
+                                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          image: AssetImage('images/logo.png'),
+                                          fit: BoxFit.fill),
                                     ),
                                   ),
+                                  Expanded(
+                                    child: ListTile(
+                                      title: text22DarkBold(utf8.decode(
+                                          widget._employeeInfo != null
+                                              ? widget._employeeInfo.runes
+                                                  .toList()
+                                              : '-')),
+                                      subtitle: textDarkBold(
+                                        getTranslated(context, 'employee') +
+                                            ' #' +
+                                            widget._employeeId +
+                                            ' ' +
+                                            LanguageUtil.findFlagByNationality(
+                                                employee.nationality),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 1.0),
+                              text18DarkBold(
+                                  getTranslated(context, 'statisticsForThe') +
+                                      employee.currentYear +
+                                      ' ' +
+                                      getTranslated(
+                                          context, employee.currentMonth)),
+                              Card(
+                                child: Container(
+                                  padding: const EdgeInsets.all(5.0),
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [GREEN, WHITE, WHITE, WHITE, WHITE, GREEN])),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Column(
+                                          children: <Widget>[
+                                            text20DarkBold(
+                                                getTranslated(context, 'days')),
+                                            SizedBox(height: 5.0),
+                                            Countup(
+                                              begin: 0,
+                                              end: employee
+                                                  .daysWorkedInCurrentMonth
+                                                  .toDouble(),
+                                              duration: Duration(seconds: 2),
+                                              style: TextStyle(
+                                                  fontSize: 18.0, color: DARK),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          children: <Widget>[
+                                            text20DarkBold(getTranslated(
+                                                context, 'rating')),
+                                            SizedBox(height: 5.0),
+                                            Countup(
+                                              begin: 0,
+                                              end:
+                                                  employee.ratingInCurrentMonth,
+                                              precision: 1,
+                                              duration: Duration(seconds: 2),
+                                              style: TextStyle(
+                                                  fontSize: 18.0, color: DARK),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          children: <Widget>[
+                                            text20DarkBold(getTranslated(
+                                                context, 'money')),
+                                            SizedBox(height: 5.0),
+                                            Countup(
+                                              begin: 0,
+                                              end: employee
+                                                  .earnedMoneyInCurrentMonth,
+                                              duration: Duration(seconds: 2),
+                                              separator: ',',
+                                              style: TextStyle(
+                                                  fontSize: 18, color: DARK),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       Expanded(
                         child: DefaultTabController(
                           length: 2,
-                          child: Column(
-                            children: <Widget>[
-                              TabBar(
-                                tabs: <Widget>[
-                                  Tab(
-                                      icon: iconWhite(Icons.assignment),
-                                      child: text18White(getTranslated(
-                                          context, 'workTimeSheets'))),
-                                  Tab(
-                                      icon: iconWhite(Icons.person_pin),
-                                      child: text18White(getTranslated(
-                                          context, 'informations'))),
-                                ],
-                                isScrollable: true,
-                                indicatorColor: GREEN,
-                              ),
-                              Expanded(
-                                child: TabBarView(
-                                  children: <Widget>[
-                                    employeeTimeSheetsTab(
-                                        context, employee.timeSheets),
-                                    employeeInfoTab(context, employee)
-                                  ],
-                                ),
-                              ),
-                            ],
+                          child: Scaffold(
+                            body: TabBarView(
+                              children: <Widget>[
+                                employeeTimeSheetsTab(
+                                    context, employee.timeSheets),
+                                employeeInfoTab(context, employee)
+                              ],
+                            ),
+                            bottomNavigationBar: TabBar(
+                              tabs: <Widget>[
+                                Tab(icon: iconWhite(Icons.assignment), text: getTranslated(context, 'workTimeSheets')),
+                                Tab(icon: iconWhite(Icons.person_pin), text: getTranslated(context, 'informations')),
+                              ],
+                              labelColor: WHITE,
+                              unselectedLabelColor: Colors.white30,
+                              indicatorColor: GREEN,
+                            ),
+                            backgroundColor: DARK,
                           ),
                         ),
                       ),
