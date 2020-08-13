@@ -124,7 +124,14 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                       gradient: LinearGradient(
                                           begin: Alignment.topCenter,
                                           end: Alignment.bottomCenter,
-                                          colors: [GREEN, WHITE, WHITE, WHITE, WHITE, GREEN])),
+                                          colors: [
+                                        GREEN,
+                                        WHITE,
+                                        WHITE,
+                                        WHITE,
+                                        WHITE,
+                                        GREEN
+                                      ])),
                                   child: Row(
                                     children: <Widget>[
                                       Expanded(
@@ -149,6 +156,29 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                         child: Column(
                                           children: <Widget>[
                                             text20DarkBold(getTranslated(
+                                                context, 'money')),
+                                            text14DarkBold(
+                                                employee.moneyCurrency != null
+                                                    ? '(' +
+                                                        employee.moneyCurrency +
+                                                        ')'
+                                                    : ''),
+                                            Countup(
+                                              begin: 0,
+                                              end: employee
+                                                  .earnedMoneyInCurrentMonth,
+                                              duration: Duration(seconds: 2),
+                                              separator: ',',
+                                              style: TextStyle(
+                                                  fontSize: 18, color: DARK),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          children: <Widget>[
+                                            text20DarkBold(getTranslated(
                                                 context, 'rating')),
                                             SizedBox(height: 5.0),
                                             Countup(
@@ -159,24 +189,6 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                               duration: Duration(seconds: 2),
                                               style: TextStyle(
                                                   fontSize: 18.0, color: DARK),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          children: <Widget>[
-                                            text20DarkBold(getTranslated(
-                                                context, 'money')),
-                                            SizedBox(height: 5.0),
-                                            Countup(
-                                              begin: 0,
-                                              end: employee
-                                                  .earnedMoneyInCurrentMonth,
-                                              duration: Duration(seconds: 2),
-                                              separator: ',',
-                                              style: TextStyle(
-                                                  fontSize: 18, color: DARK),
                                             ),
                                           ],
                                         ),
@@ -202,8 +214,14 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                             ),
                             bottomNavigationBar: TabBar(
                               tabs: <Widget>[
-                                Tab(icon: iconWhite(Icons.assignment), text: getTranslated(context, 'workTimeSheets')),
-                                Tab(icon: iconWhite(Icons.person_pin), text: getTranslated(context, 'informations')),
+                                Tab(
+                                    icon: iconWhite(Icons.assignment),
+                                    text: getTranslated(
+                                        context, 'workTimeSheets')),
+                                Tab(
+                                    icon: iconWhite(Icons.person_pin),
+                                    text:
+                                        getTranslated(context, 'informations')),
                               ],
                               labelColor: WHITE,
                               unselectedLabelColor: Colors.white30,

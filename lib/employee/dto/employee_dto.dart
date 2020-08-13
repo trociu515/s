@@ -34,6 +34,7 @@ class EmployeeDto {
   final num daysWorkedInCurrentMonth;
   final num ratingInCurrentMonth;
   final num earnedMoneyInCurrentMonth;
+  final String moneyCurrency;
   final List timeSheets;
 
   EmployeeDto({
@@ -68,6 +69,7 @@ class EmployeeDto {
     @required this.daysWorkedInCurrentMonth,
     @required this.ratingInCurrentMonth,
     @required this.earnedMoneyInCurrentMonth,
+    @required this.moneyCurrency,
     @required this.timeSheets,
   });
 
@@ -104,6 +106,7 @@ class EmployeeDto {
         daysWorkedInCurrentMonth: json['daysWorkedInCurrentMonth'] as num,
         ratingInCurrentMonth: json['ratingInCurrentMonth'] as num,
         earnedMoneyInCurrentMonth: json['earnedMoneyInCurrentMonth'] as num,
+        moneyCurrency: json['moneyCurrency'] as String,
         timeSheets: json['timeSheets']
             .map((data) => EmployeeTimeSheetDto.fromJson(data))
             .toList());

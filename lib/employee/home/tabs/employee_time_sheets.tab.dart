@@ -54,7 +54,7 @@ Container employeeTimeSheetsTab(BuildContext context, List timeSheets) {
                         children: <Widget>[
                           text20GreenBold(
                               timeSheet.totalMoneyEarned.toString()),
-                          text20GreenBold(" ZŁ")
+                          text20GreenBold(" " + timeSheet.groupCountryCurrency.toString())
                         ],
                       ),
                     ),

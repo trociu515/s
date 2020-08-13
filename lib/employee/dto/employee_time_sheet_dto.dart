@@ -5,6 +5,7 @@ class EmployeeTimeSheetDto {
   final int year;
   final String month;
   final String groupName;
+  final String groupCountryCurrency;
   final String status;
   final int totalHours;
   final double averageEmployeeRating;
@@ -15,6 +16,7 @@ class EmployeeTimeSheetDto {
     @required this.year,
     @required this.month,
     @required this.groupName,
+    @required this.groupCountryCurrency,
     @required this.status,
     @required this.totalHours,
     @required this.averageEmployeeRating,
@@ -27,6 +29,7 @@ class EmployeeTimeSheetDto {
       year: json['year'] as int,
       month: json['month'] as String,
       groupName: json['groupName'] as String,
+      groupCountryCurrency: json['groupCountryCurrency'] as String,
       status: json['status'] as String,
       totalHours: json['totalHours'] as int,
       averageEmployeeRating: json['averageEmployeeRating'] as double,
