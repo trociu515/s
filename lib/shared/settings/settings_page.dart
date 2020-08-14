@@ -67,13 +67,14 @@ class _SettingsPageState extends State<SettingsPage> {
           children: <Widget>[
             _titleContainer(getTranslated(context, 'account')),
             Container(
-                margin: EdgeInsets.only(left: 15, top: 10),
+                margin: EdgeInsets.only(left: 15),
                 child: InkWell(
+                    onTap: () => print('To be implemented'),
                     child: _subtitleInkWellContainer(
                         getTranslated(context, 'changePassword')))),
             _titleContainer(getTranslated(context, 'other')),
             Container(
-              margin: EdgeInsets.only(left: 15, top: 10),
+              margin: EdgeInsets.only(left: 15),
               child: Theme(
                 data: Theme.of(context).copyWith(canvasColor: DARK),
                 child: Container(
@@ -95,50 +96,25 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
                 margin: EdgeInsets.only(left: 15, top: 10),
                 child: InkWell(
-                    child: _subtitleInkWellContainer(
-                        getTranslated(context, 'theme')))),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 10),
-                child: InkWell(
                     onTap: () => bugReportDialog(context),
                     child: _subtitleInkWellContainer(
                         getTranslated(context, 'bugReport')))),
             Container(
-                margin: EdgeInsets.only(left: 15),
-                padding: EdgeInsets.only(left: 10),
+                margin: EdgeInsets.only(left: 25),
                 alignment: Alignment.centerLeft,
                 height: 30,
-                child: text10White(
+                child: text13White(
                     getTranslated(context, 'version') + ': 1.0.8+9')),
             _titleContainer(getTranslated(context, 'followUs')),
-            _socialMediaInkWell(
-              context,
-              'https://www.givejob.pl',
-              'GiveJob',
-              'images/logo.png',
-            ),
             SizedBox(height: 5.0),
+            _socialMediaInkWell(context, 'https://www.givejob.pl', 'GiveJob',
+                'images/logo.png'),
+            _socialMediaInkWell(context, 'https://www.facebook.com/givejobb',
+                'Facebook', 'images/facebook-logo.png'),
+            _socialMediaInkWell(context, 'https://www.instagram.com/give_job',
+                'Instagram', 'images/instagram-logo.png'),
             _socialMediaInkWell(
-              context,
-              'https://www.facebook.com/givejobb',
-              'Facebook',
-              'images/facebook-logo.png',
-            ),
-            SizedBox(height: 5.0),
-            _socialMediaInkWell(
-              context,
-              'https://www.instagram.com/give_job',
-              'Instagram',
-              'images/instagram-logo.png',
-            ),
-            SizedBox(height: 5.0),
-            _socialMediaInkWell(
-              context,
-              null,
-              'Linkedin',
-              'images/linkedin-logo.png',
-            ),
-            SizedBox(height: 5.0),
+                context, null, 'Linkedin', 'images/linkedin-logo.png'),
           ],
         ),
       ),
@@ -148,8 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
 Container _titleContainer(String text) {
   return Container(
-    margin: EdgeInsets.only(left: 15, top: 15),
-    decoration: BoxDecoration(border: Border.all(color: BRIGHTER_DARK)),
+    margin: EdgeInsets.only(left: 15, top: 7.5),
     padding: EdgeInsets.only(left: 10),
     alignment: Alignment.centerLeft,
     height: 60,
@@ -171,20 +146,25 @@ InkWell _socialMediaInkWell(
     BuildContext context, String url, String text, String imagePath) {
   return InkWell(
     onTap: () async => _launchURL(context, url),
-    child: ListTile(
-      title: Align(
-        child: text16White(text),
-        alignment: Alignment(-1.05, 0),
-      ),
-      leading: Padding(
-        padding: EdgeInsets.all(5.0),
-        child: Container(
-          child: Image(
-            image: AssetImage(imagePath),
-            fit: BoxFit.fitWidth,
+    child: Column(
+      children: <Widget>[
+        ListTile(
+          title: Align(
+            child: text16White(text),
+            alignment: Alignment(-1.05, 0),
+          ),
+          leading: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Container(
+              child: Image(
+                image: AssetImage(imagePath),
+                fit: BoxFit.fitWidth,
+              ),
+            ),
           ),
         ),
-      ),
+        SizedBox(height: 5.0),
+      ],
     ),
   );
 }
