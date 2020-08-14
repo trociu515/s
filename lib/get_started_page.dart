@@ -5,6 +5,8 @@ import 'package:give_job/login_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/util/language_util.dart';
+import 'package:give_job/shared/widget/icons.dart';
+import 'package:give_job/shared/widget/texts.dart';
 
 import 'internationalization/model/language.dart';
 
@@ -55,25 +57,16 @@ class _GetStartedPageState extends State<GetStartedPage> {
           children: <Widget>[
             Image.asset('images/logo.png', height: 125),
             SizedBox(height: 20),
-            Text(
-              getTranslated(context, 'getStartedTitle'),
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 30),
-            ),
+            textCenter30White(getTranslated(context, 'getStartedTitle')),
+            textCenter30White('Give Job !'),
             SizedBox(height: 30),
             Container(
-              child: Text(
-                getTranslated(context, 'getStartedDescription'),
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 19),
-              ),
-            ),
+                child: textCenter19White(
+                    getTranslated(context, 'getStartedDescription'))),
             SizedBox(height: 30),
             Center(
-              child: Text(getTranslated(context, 'getStartedLanguage'),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 19)),
-            ),
+                child: textCenter19White(
+                    getTranslated(context, 'getStartedLanguage'))),
             SizedBox(height: 5),
             Container(
               child: Center(
@@ -96,50 +89,49 @@ class _GetStartedPageState extends State<GetStartedPage> {
               ),
             ),
             MaterialButton(
-                elevation: 0,
-                height: 50,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
-                onPressed: () {
-                  storage.write(key: 'getStartedClick', value: 'click');
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (BuildContext context,
-                          Animation<double> animation,
-                          Animation<double> secondaryAnimation) {
-                        return LoginPage();
-                      },
-                      transitionsBuilder: (BuildContext context,
-                          Animation<double> animation,
-                          Animation<double> secondaryAnimation,
-                          Widget child) {
-                        return SlideTransition(
-                          position: new Tween<Offset>(
-                            begin: const Offset(-1.0, 0.0),
-                            end: Offset.zero,
-                          ).animate(animation),
-                          child: new SlideTransition(
-                              position: new Tween<Offset>(
-                                begin: Offset.zero,
-                                end: const Offset(-1.0, 0.0),
-                              ).animate(secondaryAnimation),
-                              child: child),
-                        );
-                      },
-                    ),
-                  );
-                },
-                color: GREEN,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(getTranslated(context, 'getStarted'),
-                        style: TextStyle(color: Colors.white, fontSize: 20)),
-                    Icon(Icons.arrow_forward_ios)
-                  ],
-                ),
-                textColor: Colors.white),
+              elevation: 0,
+              height: 50,
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+              onPressed: () {
+                storage.write(key: 'getStartedClick', value: 'click');
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation) {
+                      return LoginPage();
+                    },
+                    transitionsBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                        Widget child) {
+                      return SlideTransition(
+                        position: new Tween<Offset>(
+                          begin: const Offset(-1.0, 0.0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: new SlideTransition(
+                            position: new Tween<Offset>(
+                              begin: Offset.zero,
+                              end: const Offset(-1.0, 0.0),
+                            ).animate(secondaryAnimation),
+                            child: child),
+                      );
+                    },
+                  ),
+                );
+              },
+              color: GREEN,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  text20White(getTranslated(context, 'getStarted')),
+                  iconWhite(Icons.arrow_forward_ios)
+                ],
+              ),
+            ),
             SizedBox(height: 30),
           ],
         ),

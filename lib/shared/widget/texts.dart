@@ -29,7 +29,9 @@ Text text20WhiteItalic(String text) { return Text(text, style: TextStyle(fontSiz
 /*TEXT WHITE CENTER*/
 /////////////////////
 Text textCenter14White(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: WHITE)); }
+Text textCenter19White(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 19, color: WHITE)); }
 Text textCenter28White(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 28, color: WHITE)); }
+Text textCenter30White(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 30, color: WHITE)); }
 
 
 /////////////////////
