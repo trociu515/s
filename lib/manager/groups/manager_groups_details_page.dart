@@ -16,8 +16,8 @@ import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 class ManagerGroupsDetailsPage extends StatefulWidget {
-  final String _managerId;
-  final String _managerInfo;
+  final String _userId;
+  final String _userInfo;
   final String _authHeader;
 
   final int _groupId;
@@ -25,8 +25,8 @@ class ManagerGroupsDetailsPage extends StatefulWidget {
   final String _groupDescription;
 
   ManagerGroupsDetailsPage(
-    this._managerId,
-    this._managerInfo,
+    this._userId,
+    this._userInfo,
     this._authHeader,
     this._groupId,
     this._groupName,
@@ -59,8 +59,8 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
           return loader(
             context,
             getTranslated(context, 'loading'),
-            managerSideBar(context, widget._managerId, widget._managerInfo,
-                widget._authHeader),
+            managerSideBar(
+                context, widget._userId, widget._userInfo, widget._authHeader),
           );
         } else {
           List<ManagerGroupDetailsDto> employees = snapshot.data;
@@ -77,9 +77,13 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
             home: Scaffold(
               backgroundColor: DARK,
               appBar: appBar(
-                  context, getTranslated(context, 'employeesOfTheGroup')),
-              drawer: managerSideBar(context, widget._managerId,
-                  widget._managerInfo, widget._authHeader),
+                  context,
+                  widget._userId,
+                  widget._userInfo,
+                  widget._authHeader,
+                  getTranslated(context, 'employeesOfTheGroup')),
+              drawer: managerSideBar(context, widget._userId, widget._userInfo,
+                  widget._authHeader),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -107,8 +111,8 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
                                     return ManagerGroupsDetailsTimeSheetsPage(
-                                        widget._managerId,
-                                        widget._managerInfo,
+                                        widget._userId,
+                                        widget._userInfo,
                                         widget._authHeader,
                                         widget._groupId,
                                         widget._groupName,

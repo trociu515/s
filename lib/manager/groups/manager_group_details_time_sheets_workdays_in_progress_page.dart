@@ -21,15 +21,15 @@ import '../manager_side_bar.dart';
 
 class ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage
     extends StatefulWidget {
-  final String _managerId;
-  final String _managerInfo;
+  final String _userId;
+  final String _userInfo;
   final String _authHeader;
 
   final String _employeeInfo;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(this._managerId,
-      this._managerInfo, this._authHeader, this._employeeInfo, this.timeSheet);
+  const ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(this._userId,
+      this._userInfo, this._authHeader, this._employeeInfo, this.timeSheet);
 
   @override
   _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState createState() =>
@@ -65,7 +65,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             return loader(
               context,
               getTranslated(context, 'loading'),
-              managerSideBar(context, widget._managerId, widget._managerInfo,
+              managerSideBar(context, widget._userId, widget._userInfo,
                   widget._authHeader),
             );
           } else {
@@ -85,9 +85,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
               debugShowCheckedModeBanner: false,
               home: Scaffold(
                 backgroundColor: DARK,
-                appBar: appBar(context, getTranslated(context, 'workdays')),
-                drawer: managerSideBar(context, widget._managerId,
-                    widget._managerInfo, widget._authHeader),
+                appBar: appBar(context, getTranslated(context, 'workdays'),
+                    widget._userId, widget._userInfo, widget._authHeader),
+                drawer: managerSideBar(context, widget._userId,
+                    widget._userInfo, widget._authHeader),
                 body: RefreshIndicator(
                   color: DARK,
                   backgroundColor: WHITE,
@@ -286,9 +287,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: DARK,
-          appBar: appBar(context, getTranslated(context, 'workdays')),
-          drawer: managerSideBar(context, widget._managerId,
-              widget._managerInfo, widget._authHeader),
+          appBar: appBar(context, widget._userId, widget._userInfo,
+              widget._authHeader, getTranslated(context, 'workdays')),
+          drawer: managerSideBar(
+              context, widget._userId, widget._userInfo, widget._authHeader),
           body: RefreshIndicator(
             color: DARK,
             backgroundColor: WHITE,

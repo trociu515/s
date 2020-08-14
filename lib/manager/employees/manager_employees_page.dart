@@ -17,11 +17,11 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../manager_side_bar.dart';
 
 class ManagerEmployeesPage extends StatefulWidget {
-  final String _id;
+  final String _userId;
   final String _userInfo;
   final String _authHeader;
 
-  ManagerEmployeesPage(this._id, this._userInfo, this._authHeader);
+  ManagerEmployeesPage(this._userId, this._userInfo, this._authHeader);
 
   @override
   _ManagerEmployeesPageState createState() => _ManagerEmployeesPageState();
@@ -39,7 +39,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
     super.initState();
     _loading = true;
     _managerService
-        .findGroupEmployeesByGroupManagerId(widget._id, widget._authHeader)
+        .findGroupEmployeesByGroupManagerId(widget._userId, widget._authHeader)
         .then((res) {
       setState(() {
         _employees = res;
@@ -61,7 +61,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
         context,
         getTranslated(context, 'loading'),
         managerSideBar(
-            context, widget._id, widget._userInfo, widget._authHeader),
+            context, widget._userId, widget._userInfo, widget._authHeader),
       );
     }
     return MaterialApp(
@@ -70,9 +70,9 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: appBar(context, getTranslated(context, 'employees')),
+        appBar: appBar(context,widget._userId, widget._userInfo, widget._authHeader, getTranslated(context, 'employees')),
         drawer: managerSideBar(
-            context, widget._id, widget._userInfo, widget._authHeader),
+            context, widget._userId, widget._userInfo, widget._authHeader),
         body: Column(
           children: <Widget>[
             TextField(
@@ -112,7 +112,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                   CupertinoPageRoute<Null>(
                                     builder: (BuildContext context) {
                                       return ManagerGroupsDetailsTimeSheetsPage(
-                                          widget._id,
+                                          widget._userId,
                                           widget._userInfo,
                                           widget._authHeader,
                                           _employees[index].groupId,

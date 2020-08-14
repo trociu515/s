@@ -15,11 +15,11 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../main.dart';
 
 class SettingsPage extends StatefulWidget {
-  final String _id;
+  final String _userId;
   final String _userInfo;
   final String _authHeader;
 
-  SettingsPage(this._id, this._userInfo, this._authHeader);
+  SettingsPage(this._userId, this._userInfo, this._authHeader);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -59,9 +59,10 @@ class _SettingsPageState extends State<SettingsPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: appBar(context, getTranslated(context, 'settings')),
+        appBar: appBar(context, widget._userId, widget._userInfo,
+            widget._authHeader, getTranslated(context, 'settings')),
         drawer: employeeSideBar(
-            context, widget._id, widget._userInfo, widget._authHeader),
+            context, widget._userId, widget._userInfo, widget._authHeader),
         body: ListView(
           children: <Widget>[
             _titleContainer(getTranslated(context, 'account')),

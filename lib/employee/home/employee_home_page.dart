@@ -21,11 +21,11 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../dto/employee_dto.dart';
 
 class EmployeeHomePage extends StatefulWidget {
-  final String _employeeId;
-  final String _employeeInfo;
+  final String _userId;
+  final String _userInfo;
   final String _authHeader;
 
-  EmployeeHomePage(this._employeeId, this._employeeInfo, this._authHeader);
+  EmployeeHomePage(this._userId, this._userInfo, this._authHeader);
 
   @override
   _EmployeeHomePageState createState() => _EmployeeHomePageState();
@@ -37,15 +37,15 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<EmployeeDto>(
-      future: _employeeService.findById(widget._employeeId, widget._authHeader),
+      future: _employeeService.findById(widget._userId, widget._authHeader),
       builder: (BuildContext context, AsyncSnapshot<EmployeeDto> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
           return loader(
             context,
             getTranslated(context, 'loading'),
-            employeeSideBar(context, widget._employeeId, widget._employeeInfo,
-                widget._authHeader),
+            employeeSideBar(
+                context, widget._userId, widget._userInfo, widget._authHeader),
           );
         } else {
           EmployeeDto employee = snapshot.data;
@@ -57,9 +57,10 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                 debugShowCheckedModeBanner: false,
                 home: Scaffold(
                   backgroundColor: DARK,
-                  appBar: appBar(context, getTranslated(context, 'home')),
-                  drawer: employeeSideBar(context, widget._employeeId,
-                      widget._employeeInfo, widget._authHeader),
+                  appBar: appBar(context, widget._userId, widget._userInfo,
+                      widget._authHeader, getTranslated(context, 'home')),
+                  drawer: employeeSideBar(context, widget._userId,
+                      widget._userInfo, widget._authHeader),
                   body: Column(
                     children: <Widget>[
                       Container(
@@ -94,14 +95,13 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                   Expanded(
                                     child: ListTile(
                                       title: text22DarkBold(utf8.decode(
-                                          widget._employeeInfo != null
-                                              ? widget._employeeInfo.runes
-                                                  .toList()
+                                          widget._userInfo != null
+                                              ? widget._userInfo.runes.toList()
                                               : '-')),
                                       subtitle: textDarkBold(
                                         getTranslated(context, 'employee') +
                                             ' #' +
-                                            widget._employeeId +
+                                            widget._userId +
                                             ' ' +
                                             LanguageUtil.findFlagByNationality(
                                                 employee.nationality),

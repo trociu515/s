@@ -1,17 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/internationalization/model/language.dart';
 import 'package:give_job/shared/libraries/colors.dart';
-import 'package:give_job/shared/util/language_util.dart';
+import 'package:give_job/shared/settings/settings_page.dart';
 
-import '../../main.dart';
-
-void _changeLanguage(Language language, BuildContext context) async {
-  Locale _temp = await setLocale(language.languageCode);
-  MyApp.setLocale(context, _temp);
-}
-
-AppBar appBar(BuildContext context, String title) {
+AppBar appBar(BuildContext context, String userId, String userInfo,
+    String authHeader, String title) {
   return AppBar(
     title: Text(
       title,
@@ -27,32 +20,17 @@ AppBar appBar(BuildContext context, String title) {
                 data: Theme.of(context).copyWith(
                   canvasColor: DARK,
                 ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                    underline: SizedBox(),
-                    hint: Container(
-                      alignment: Alignment.centerRight,
-                      width: 75,
-                      child: Icon(Icons.language),
-                    ),
-                    onChanged: (Language language) {
-                      _changeLanguage(language, context);
-                    },
-                    items: LanguageUtil.getLanguages()
-                        .map<DropdownMenuItem<Language>>(
-                          (lang) => DropdownMenuItem(
-                            value: lang,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Text(lang.flag),
-                                Text(lang.name),
-                              ],
-                            ),
-                          ),
-                        )
-                        .toList(),
+                child: InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            SettingsPage(userId, userInfo, authHeader)),
+                  ),
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    width: 75,
+                    child: Icon(Icons.settings),
                   ),
                 ),
               ),

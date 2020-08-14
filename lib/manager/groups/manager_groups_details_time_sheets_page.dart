@@ -19,8 +19,8 @@ import '../manager_side_bar.dart';
 import 'manager_group_details_time_sheets_workdays_in_progress_page.dart';
 
 class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
-  final String _managerId;
-  final String _managerInfo;
+  final String _userId;
+  final String _userInfo;
   final String _authHeader;
 
   final int _groupId;
@@ -30,8 +30,8 @@ class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
   final String _employeeInfo;
 
   const ManagerGroupsDetailsTimeSheetsPage(
-    this._managerId,
-    this._managerInfo,
+    this._userId,
+    this._userInfo,
     this._authHeader,
     this._groupId,
     this._groupName,
@@ -70,8 +70,8 @@ class _ManagerGroupsDetailsTimeSheetsPageState
           return loader(
             context,
             getTranslated(context, 'loading'),
-            managerSideBar(context, widget._managerId, widget._managerInfo,
-                widget._authHeader),
+            managerSideBar(
+                context, widget._userId, widget._userInfo, widget._authHeader),
           );
         } else {
           List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
@@ -88,9 +88,10 @@ class _ManagerGroupsDetailsTimeSheetsPageState
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
-              appBar: appBar(context, getTranslated(context, 'workTimeSheets')),
-              drawer: managerSideBar(context, widget._managerId,
-                  widget._managerInfo, widget._authHeader),
+              appBar: appBar(context, widget._userId, widget._userInfo,
+                  widget._authHeader, getTranslated(context, 'workTimeSheets')),
+              drawer: managerSideBar(context, widget._userId, widget._userInfo,
+                  widget._authHeader),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -125,8 +126,8 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                   CupertinoPageRoute<Null>(
                                     builder: (BuildContext context) {
                                       return ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
-                                          widget._managerId,
-                                          widget._managerInfo,
+                                          widget._userId,
+                                          widget._userInfo,
                                           widget._authHeader,
                                           widget._employeeInfo,
                                           timeSheet);
@@ -138,8 +139,8 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                   CupertinoPageRoute<Null>(
                                     builder: (BuildContext context) {
                                       return ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
-                                          widget._managerId,
-                                          widget._managerInfo,
+                                          widget._userId,
+                                          widget._userInfo,
                                           widget._authHeader,
                                           widget._employeeInfo,
                                           timeSheet);
