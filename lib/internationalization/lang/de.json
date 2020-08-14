@@ -114,5 +114,6 @@
   "managerDoesNotHaveEmployeesInGroups": "Der Manager hat keine Mitarbeiter in Gruppen",
   "bugReport": "Fehlerbericht",
   "somethingWrongWithApplication": "Stimmt etwas mit der Bewerbung nicht?",
-  "contactWithUsByGivenEmail": "Kontaktieren Sie uns per E-Mail!"
+  "contactWithUsByGivenEmail": "Kontaktieren Sie uns per E-Mail!",
+  "rate": "Rate"
 }

@@ -114,5 +114,6 @@
   "managerDoesNotHaveEmployeesInGroups": "Chefen har inte anställda i grupper",
   "bugReport": "Buggrapport",
   "somethingWrongWithApplication": "Något fel med ansökan?",
-  "contactWithUsByGivenEmail": "Kontakt med oss via givet e-post!"
+  "contactWithUsByGivenEmail": "Kontakt med oss via givet e-post!",
+  "rate": "Rate"
 }

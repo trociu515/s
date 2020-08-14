@@ -114,5 +114,6 @@
   "managerDoesNotHaveEmployeesInGroups": "Менеджер не имеет сотрудников в группах",
   "bugReport": "Отчет об ошибке",
   "somethingWrongWithApplication": "Что-то не так с приложением?",
-  "contactWithUsByGivenEmail": "Свяжитесь с нами по электронной почте!"
+  "contactWithUsByGivenEmail": "Свяжитесь с нами по электронной почте!",
+  "rate": "Rate"
 }

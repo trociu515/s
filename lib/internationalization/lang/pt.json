@@ -114,5 +114,6 @@
   "managerDoesNotHaveEmployeesInGroups": "მენეჯერს არ ჰყავს თანამშრომლები ჯგუფებში",
   "bugReport": "შეცდომის შესახებ",
   "somethingWrongWithApplication": "რამე შეცდომაა განაცხადში?",
-  "contactWithUsByGivenEmail": "დაგვიკავშირდით მოცემული ელექტრონული ფოსტით!"
+  "contactWithUsByGivenEmail": "დაგვიკავშირდით მოცემული ელექტრონული ფოსტით!",
+  "rate": "Rate"
 }

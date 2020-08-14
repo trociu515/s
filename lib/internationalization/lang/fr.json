@@ -114,5 +114,6 @@
   "managerDoesNotHaveEmployeesInGroups": "Le gestionnaire n'a pas d'employés dans les groupes",
   "bugReport": "Rapport d'erreur",
   "somethingWrongWithApplication": "Quelque chose ne va pas avec l'application?",
-  "contactWithUsByGivenEmail": "Contactez-nous par e-mail donné!"
+  "contactWithUsByGivenEmail": "Contactez-nous par e-mail donné!",
+  "rate": "Rate"
 }

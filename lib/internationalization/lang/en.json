@@ -114,5 +114,6 @@
   "managerDoesNotHaveEmployeesInGroups": "Manager does not have employees in groups",
   "bugReport": "Bug report",
   "somethingWrongWithApplication": "Something wrong with application?",
-  "contactWithUsByGivenEmail": "Contact with us by given email!"
+  "contactWithUsByGivenEmail": "Contact with us by given email!",
+  "rate": "Rate"
 }

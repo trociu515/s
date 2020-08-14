@@ -114,5 +114,6 @@
   "managerDoesNotHaveEmployeesInGroups": "Manager heeft geen werknemers in groepen",
   "bugReport": "Bug report",
   "somethingWrongWithApplication": "Is er iets mis met de applicatie?",
-  "contactWithUsByGivenEmail": "Neem contact met ons op via e-mail!"
+  "contactWithUsByGivenEmail": "Neem contact met ons op via e-mail!",
+  "rate": "Rate"
 }

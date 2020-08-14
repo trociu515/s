@@ -114,5 +114,6 @@
   "managerDoesNotHaveEmployeesInGroups": "Managerul nu are angajați în grupuri",
   "bugReport": "Raport de erori",
   "somethingWrongWithApplication": "Ceva în neregulă cu aplicarea?",
-  "contactWithUsByGivenEmail": "Contactează-ne prin e-mail!"
+  "contactWithUsByGivenEmail": "Contactează-ne prin e-mail!",
+  "rate": "Rate"
 }

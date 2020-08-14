@@ -114,5 +114,6 @@
   "managerDoesNotHaveEmployeesInGroups": "Менеджер не має працівників у групах",
   "bugReport": "Повідомлення про помилку",
   "somethingWrongWithApplication": "Щось не так у застосуванні?",
-  "contactWithUsByGivenEmail": "Звертайтесь до нас за вказаною електронною поштою!"
+  "contactWithUsByGivenEmail": "Звертайтесь до нас за вказаною електронною поштою!",
+  "rate": "Rate"
 }
