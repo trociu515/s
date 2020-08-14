@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
-import 'package:give_job/main.dart';
 import 'package:give_job/manager/dto/manager_dto.dart';
 import 'package:give_job/manager/dto/manager_employee_group_dto.dart';
 import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
+import 'package:give_job/shared/libraries/constants.dart';
 import 'package:http/http.dart';
 
 class ManagerService {

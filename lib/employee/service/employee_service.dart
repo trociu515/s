@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:give_job/employee/dto/employee_dto.dart';
-import 'package:give_job/main.dart';
+import 'package:give_job/shared/libraries/constants.dart';
 import 'package:http/http.dart';
 
 class EmployeeService {

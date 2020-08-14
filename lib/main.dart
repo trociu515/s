@@ -14,7 +14,6 @@ import 'employee/home/employee_home_page.dart';
 import 'internationalization/localization/demo_localization.dart';
 import 'internationalization/localization/localization_constants.dart';
 
-const SERVER_IP = 'http://10.0.2.2:8080/api';
 final storage = new FlutterSecureStorage();
 final GlobalKey<RefreshIndicatorState> refreshIndicatorState =
     new GlobalKey<RefreshIndicatorState>();
