@@ -217,7 +217,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                 Tab(
                                     icon: iconWhite(Icons.assignment),
                                     text: getTranslated(
-                                        context, 'workTimeSheets')),
+                                        context, 'timesheets')),
                                 Tab(
                                     icon: iconWhite(Icons.person_pin),
                                     text:

@@ -89,7 +89,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
             home: Scaffold(
               backgroundColor: DARK,
               appBar: appBar(context, widget._userId, widget._userInfo,
-                  widget._authHeader, getTranslated(context, 'workTimeSheets')),
+                  widget._authHeader, getTranslated(context, 'timesheets')),
               drawer: managerSideBar(context, widget._userId, widget._userInfo,
                   widget._authHeader),
               body: SingleChildScrollView(
