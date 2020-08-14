@@ -2,13 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/internationalization/model/language.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../main.dart';
 
 class SettingsPage extends StatefulWidget {
   final String _id;
@@ -22,8 +26,33 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  List<Language> _languages = LanguageUtil.getLanguages();
+  List<DropdownMenuItem<Language>> _dropdownMenuItems;
+
+  @override
+  void initState() {
+    _dropdownMenuItems = buildDropdownMenuItems(_languages);
+    super.initState();
+  }
+
+  List<DropdownMenuItem<Language>> buildDropdownMenuItems(List languages) {
+    List<DropdownMenuItem<Language>> items = List();
+    for (Language language in languages) {
+      items.add(
+        DropdownMenuItem(
+            value: language, child: Text(language.name + ' ' + language.flag)),
+      );
+    }
+    return items;
+  }
+
   @override
   Widget build(BuildContext context) {
+    void _changeLanguage(Language language, BuildContext context) async {
+      Locale _temp = await setLocale(language.languageCode);
+      MyApp.setLocale(context, _temp);
+    }
+
     return MaterialApp(
       title: APP_NAME,
       theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
@@ -43,10 +72,25 @@ class _SettingsPageState extends State<SettingsPage> {
                         getTranslated(context, 'changePassword')))),
             _titleContainer(getTranslated(context, 'other')),
             Container(
-                margin: EdgeInsets.only(left: 15, top: 10),
-                child: InkWell(
-                    child: _subtitleInkWellContainer(
-                        getTranslated(context, 'language')))),
+              margin: EdgeInsets.only(left: 15, top: 10),
+              child: Theme(
+                data: Theme.of(context).copyWith(canvasColor: DARK),
+                child: Container(
+                  decoration:
+                      BoxDecoration(border: Border.all(color: BRIGHTER_DARK)),
+                  padding: EdgeInsets.only(left: 10),
+                  alignment: Alignment.centerLeft,
+                  height: 30,
+                  child: (DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                          style: TextStyle(color: Colors.white, fontSize: 22),
+                          hint: text16White(getTranslated(context, 'language')),
+                          items: _dropdownMenuItems,
+                          onChanged: (Language language) =>
+                              (_changeLanguage(language, context))))),
+                ),
+              ),
+            ),
             Container(
                 margin: EdgeInsets.only(left: 15, top: 10),
                 child: InkWell(
