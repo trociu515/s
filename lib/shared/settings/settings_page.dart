@@ -69,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
                 margin: EdgeInsets.only(left: 15),
                 child: InkWell(
-                    onTap: () => print('To be implemented'),
+                    onTap: () => _changePasswordDialog(context),
                     child: _subtitleInkWellContainer(
                         getTranslated(context, 'changePassword')))),
             _titleContainer(getTranslated(context, 'other')),
@@ -174,4 +174,65 @@ _launchURL(BuildContext context, String url) async {
       ? await launch(url)
       : ToastService.showToast(
           getTranslated(context, 'couldNotLaunch'), Colors.red);
+}
+
+Future<void> _changePasswordDialog(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      final newPasswordController = new TextEditingController();
+      TextFormField newPasswordField = TextFormField(
+        controller: newPasswordController,
+        obscureText: true,
+        autofocus: true,
+        keyboardType: TextInputType.text,
+        maxLength: 60,
+        style: TextStyle(color: WHITE),
+        decoration: InputDecoration(
+          counterStyle: TextStyle(color: WHITE),
+          labelStyle: TextStyle(color: WHITE),
+          labelText: getTranslated(context, 'newPassword'),
+        ),
+      );
+      final reNewPasswordController = new TextEditingController();
+      TextFormField reNewPasswordField = TextFormField(
+        controller: reNewPasswordController,
+        obscureText: true,
+        keyboardType: TextInputType.text,
+        maxLength: 60,
+        style: TextStyle(color: WHITE),
+        decoration: InputDecoration(
+          counterStyle: TextStyle(color: WHITE),
+          labelStyle: TextStyle(color: WHITE),
+          labelText: getTranslated(context, 'retypeNewPassword'),
+        ),
+      );
+      return AlertDialog(
+        backgroundColor: DARK,
+        title: textWhite(getTranslated(context, 'changePassword')),
+        content: Container(
+          height: 165,
+          child: Column(
+            children: <Widget>[
+              Container(child: newPasswordField),
+              Container(child: reNewPasswordField),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: textWhite(getTranslated(context, 'save')),
+            onPressed: () {
+              /* TO BE IMPLEMENTED */
+            },
+          ),
+          FlatButton(
+            child: textWhite(getTranslated(context, 'close')),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      );
+    },
+  );
 }

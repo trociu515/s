@@ -123,5 +123,8 @@
   "language": "Language",
   "version": "Version",
   "followUs": "FOLLOW US",
-  "couldNotLaunch": "Could not launch"
+  "couldNotLaunch": "Could not launch",
+  "newPassword": "New password",
+  "retypeNewPassword": "Retype new password",
+  "save": "Save"
 }
