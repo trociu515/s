@@ -115,5 +115,14 @@
   "bugReport": "Отчет об ошибке",
   "somethingWrongWithApplication": "Что-то не так с приложением?",
   "contactWithUsByGivenEmail": "Свяжитесь с нами по электронной почте!",
-  "rate": "Rate"
+  "rate": "Rate",
+  "settings": "Settings",
+  "account": "ACCOUNT",
+  "changePassword": "Change password",
+  "other": "OTHER",
+  "language": "Language",
+  "theme": "Theme",
+  "version": "Version",
+  "followUs": "FOLLOW US",
+  "couldNotLaunch": "Could not launch"
 }

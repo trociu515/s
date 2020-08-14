@@ -32,6 +32,7 @@ dependencies:
   progress_dialog: ^1.2.4
   countup: ^0.1.0
   open_appstore: ^1.0.2
+  url_launcher: ^5.4.2
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,10 @@ flutter:
     - lib/internationalization/lang/ca.json
     - lib/internationalization/lang/uk.json
     - images/logo.png
+    - images/facebook-logo.png
+    - images/instagram-logo.png
+    - images/linkedin-logo.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

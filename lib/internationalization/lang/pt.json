@@ -115,5 +115,14 @@
   "bugReport": "შეცდომის შესახებ",
   "somethingWrongWithApplication": "რამე შეცდომაა განაცხადში?",
   "contactWithUsByGivenEmail": "დაგვიკავშირდით მოცემული ელექტრონული ფოსტით!",
-  "rate": "Rate"
+  "rate": "Rate",
+  "settings": "Settings",
+  "account": "ACCOUNT",
+  "changePassword": "Change password",
+  "other": "OTHER",
+  "language": "Language",
+  "theme": "Theme",
+  "version": "Version",
+  "followUs": "FOLLOW US",
+  "couldNotLaunch": "Could not launch"
 }

@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/dialog/bug_report_dialog.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/service/logout_service.dart';
+import 'package:give_job/shared/settings/settings_page.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:open_appstore/open_appstore.dart';
@@ -74,9 +74,17 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
               onTap: () => OpenAppstore.launch(
                   androidAppId: ANDROID_APP_ID, iOSAppId: IOS_APP_ID)),
           ListTile(
-              leading: iconWhite(Icons.bug_report),
-              title: text18White(getTranslated(context, 'bugReport')),
-              onTap: () => bugReportDialog(context)),
+              leading: iconWhite(Icons.settings),
+              title: text18White(getTranslated(context, 'settings')),
+              onTap: () {
+                Navigator.of(context).push(
+                  CupertinoPageRoute<Null>(
+                    builder: (BuildContext context) {
+                      return SettingsPage(employeeId, userInfo, authHeader);
+                    },
+                  ),
+                );
+              }),
           ListTile(
               leading: iconWhite(Icons.exit_to_app),
               title: text18White(getTranslated(context, 'signOut')),

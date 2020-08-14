@@ -5,6 +5,8 @@ import 'package:give_job/shared/libraries/colors.dart';
 /*    TEXT WHITE   */
 /////////////////////
 Text textWhite(String text) { return Text(text, style: TextStyle(color: WHITE)); }
+Text text10White(String text) { return Text(text, style: TextStyle(fontSize: 10, color: WHITE)); }
+Text text16White(String text) { return Text(text, style: TextStyle(fontSize: 16, color: WHITE)); }
 Text text17White(String text) { return Text(text, style: TextStyle(fontSize: 18, color: WHITE)); }
 Text text18White(String text) { return Text(text, style: TextStyle(fontSize: 18, color: WHITE)); }
 Text text20White(String text) { return Text(text, style: TextStyle(fontSize: 20, color: WHITE)); }

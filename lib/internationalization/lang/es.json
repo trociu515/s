@@ -115,5 +115,14 @@
   "bugReport": "Informe de error",
   "somethingWrongWithApplication": "Algo mal con la aplicación?",
   "contactWithUsByGivenEmail": "Póngase en contacto con nosotros por correo electrónico!",
-  "rate": "Rate"
+  "rate": "Rate",
+  "settings": "Settings",
+  "account": "ACCOUNT",
+  "changePassword": "Change password",
+  "other": "OTHER",
+  "language": "Language",
+  "theme": "Theme",
+  "version": "Version",
+  "followUs": "FOLLOW US",
+  "couldNotLaunch": "Could not launch"
 }

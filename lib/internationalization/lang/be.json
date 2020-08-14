@@ -115,5 +115,14 @@
   "bugReport": "Справаздача пра памылку",
   "somethingWrongWithApplication": "Штосьці не так з дадаткам?",
   "contactWithUsByGivenEmail": "Звяжыцеся з намі па электроннай пошце!",
-  "rate": "Rate"
+  "rate": "Rate",
+  "settings": "Settings",
+  "account": "ACCOUNT",
+  "changePassword": "Change password",
+  "other": "OTHER",
+  "language": "Language",
+  "theme": "Theme",
+  "version": "Version",
+  "followUs": "FOLLOW US",
+  "couldNotLaunch": "Could not launch"
 }
