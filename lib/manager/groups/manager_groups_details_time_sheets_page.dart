@@ -8,6 +8,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/groups/manager_groups_details_time_sheets_workdays_accepted_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
@@ -19,11 +20,7 @@ import '../manager_side_bar.dart';
 import 'manager_group_details_time_sheets_workdays_in_progress_page.dart';
 
 class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
-  final String _userId;
-  final String _userInfo;
-  final String _username;
-  final String _authHeader;
-
+  final User _user;
   final int _groupId;
   final String _groupName;
   final String _groupDescription;
@@ -31,10 +28,7 @@ class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
   final String _employeeInfo;
 
   const ManagerGroupsDetailsTimeSheetsPage(
-    this._userId,
-    this._userInfo,
-    this._username,
-    this._authHeader,
+    this._user,
     this._groupId,
     this._groupName,
     this._groupDescription,
@@ -58,7 +52,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
           .findEmployeeTimeSheetsByGroupIdAndEmployeeId(
               widget._groupId.toString(),
               widget._employeeId.toString(),
-              widget._authHeader)
+              widget._user.authHeader)
           .catchError((e) {
         ToastService.showToast(
             getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
@@ -72,8 +66,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
           return loader(
             context,
             getTranslated(context, 'loading'),
-            managerSideBar(
-                context, widget._userId, widget._userInfo, widget._username, widget._authHeader),
+            managerSideBar(context, widget._user),
           );
         } else {
           List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
@@ -90,10 +83,9 @@ class _ManagerGroupsDetailsTimeSheetsPageState
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
-              appBar: appBar(context, widget._userId, widget._userInfo, widget._username,
-                  widget._authHeader, getTranslated(context, 'timesheets')),
-              drawer: managerSideBar(context, widget._userId, widget._userInfo, widget._username,
-                  widget._authHeader),
+              appBar: appBar(
+                  context, widget._user, getTranslated(context, 'timesheets')),
+              drawer: managerSideBar(context, widget._user),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -128,10 +120,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                   CupertinoPageRoute<Null>(
                                     builder: (BuildContext context) {
                                       return ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
-                                          widget._userId,
-                                          widget._userInfo,
-                                          widget._username,
-                                          widget._authHeader,
+                                          widget._user,
                                           widget._employeeInfo,
                                           timeSheet);
                                     },
@@ -142,10 +131,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                   CupertinoPageRoute<Null>(
                                     builder: (BuildContext context) {
                                       return ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
-                                          widget._userId,
-                                          widget._userInfo,
-                                          widget._username,
-                                          widget._authHeader,
+                                          widget._user,
                                           widget._employeeInfo,
                                           timeSheet);
                                     },

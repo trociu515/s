@@ -7,6 +7,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/util/month_util.dart';
@@ -21,16 +22,13 @@ import '../manager_side_bar.dart';
 
 class ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage
     extends StatefulWidget {
-  final String _userId;
-  final String _userInfo;
-  final String _username;
-  final String _authHeader;
+  final User _user;
 
   final String _employeeInfo;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(this._userId,
-      this._userInfo, this._username, this._authHeader, this._employeeInfo, this.timeSheet);
+  const ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
+      this._user, this._employeeInfo, this.timeSheet);
 
   @override
   _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState createState() =>
@@ -51,7 +49,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
       return FutureBuilder<List<WorkdayDto>>(
         future: _managerService
             .findWorkdaysByTimeSheetId(
-                widget.timeSheet.id.toString(), widget._authHeader)
+                widget.timeSheet.id.toString(), widget._user.authHeader)
             .catchError((e) {
           ToastService.showToast(
               getTranslated(
@@ -66,8 +64,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             return loader(
               context,
               getTranslated(context, 'loading'),
-              managerSideBar(context, widget._userId, widget._userInfo, widget._username,
-                  widget._authHeader),
+              managerSideBar(context, widget._user),
             );
           } else {
             List<WorkdayDto> workdays = snapshot.data;
@@ -86,10 +83,9 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
               debugShowCheckedModeBanner: false,
               home: Scaffold(
                 backgroundColor: DARK,
-                appBar: appBar(context, getTranslated(context, 'workdays'),
-                    widget._userId, widget._userInfo, widget._username, widget._authHeader),
-                drawer: managerSideBar(context, widget._userId,
-                    widget._userInfo, widget._username, widget._authHeader),
+                appBar: appBar(
+                    context, widget._user, getTranslated(context, 'workdays')),
+                drawer: managerSideBar(context, widget._user),
                 body: RefreshIndicator(
                   color: DARK,
                   backgroundColor: WHITE,
@@ -288,10 +284,9 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: DARK,
-          appBar: appBar(context, widget._userId, widget._userInfo, widget._username,
-              widget._authHeader, getTranslated(context, 'workdays')),
-          drawer: managerSideBar(
-              context, widget._userId, widget._userInfo, widget._username, widget._authHeader),
+          appBar:
+              appBar(context, widget._user, getTranslated(context, 'workdays')),
+          drawer: managerSideBar(context, widget._user),
           body: RefreshIndicator(
             color: DARK,
             backgroundColor: WHITE,
@@ -474,7 +469,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
   Future<Null> _refresh() {
     return _managerService
         .findWorkdaysByTimeSheetId(
-            widget.timeSheet.id.toString(), widget._authHeader)
+            widget.timeSheet.id.toString(), widget._user.authHeader)
         .then((_workdays) {
       setState(() {
         workdays = _workdays;
@@ -561,7 +556,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   }
                   _managerService
                       .updateWorkdaysHours(
-                          selectedIds, hours, widget._authHeader)
+                          selectedIds, hours, widget._user.authHeader)
                       .then((res) {
                     Navigator.of(context).pop();
                     ToastService.showToast(
@@ -616,7 +611,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   }
                   _managerService
                       .updateWorkdaysRating(
-                          selectedIds, hours, widget._authHeader)
+                          selectedIds, hours, widget._user.authHeader)
                       .then((res) {
                     Navigator.of(context).pop();
                     ToastService.showToast(
@@ -666,7 +661,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   }
                   _managerService
                       .updateWorkdaysComment(
-                          selectedIds, comment, widget._authHeader)
+                          selectedIds, comment, widget._user.authHeader)
                       .then((res) {
                     Navigator.of(context).pop();
                     ToastService.showToast(

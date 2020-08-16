@@ -8,6 +8,7 @@ import 'package:give_job/login_page.dart';
 import 'package:give_job/manager/home/manager_home_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/own_http_overrides.dart';
 
 import 'employee/home/employee_home_page.dart';
@@ -57,14 +58,14 @@ class _MyAppState extends State<MyApp> {
     var auth = await storage.read(key: 'authorization');
     var role = await storage.read(key: 'role');
     var id = await storage.read(key: 'id');
-    var userInfo = await storage.read(key: 'userInfo');
+    var info = await storage.read(key: 'info');
     var username = await storage.read(key: 'username');
     Map<String, String> map = new Map();
     map['getStartedClick'] = getStartedClick;
     map['authorization'] = auth;
     map['role'] = role;
     map['id'] = id;
-    map['userInfo'] = userInfo;
+    map['info'] = info;
     map['username'] = username;
     return map.isNotEmpty ? map : null;
   }
@@ -125,23 +126,12 @@ class _MyAppState extends State<MyApp> {
             if (getStartedClick == null) {
               return GetStartedPage();
             }
-            String role = data['role'];
-            String id = data['id'];
-            String userInfo = data['userInfo'];
-            String username = data['username'];
-            String authHeader = data['authorization'];
+            User user = new User().create(data);
+            String role = user.role;
             if (role == ROLE_EMPLOYEE) {
-              return EmployeeHomePage(
-                  id == null ? '' : id,
-                  userInfo == null ? '' : userInfo,
-                  username == null ? '' : username,
-                  authHeader == null ? '' : authHeader);
+              return EmployeeHomePage(user);
             } else if (role == ROLE_MANAGER) {
-              return ManagerDetails(
-                  id == null ? '' : id,
-                  userInfo == null ? '' : userInfo,
-                  username == null ? '' : username,
-                  authHeader == null ? '' : authHeader);
+              return ManagerDetails(user);
             } else {
               return LoginPage();
             }

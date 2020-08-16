@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/settings/settings_page.dart';
 import 'package:give_job/shared/widget/icons.dart';
@@ -13,8 +14,7 @@ import 'package:open_appstore/open_appstore.dart';
 
 import 'home/employee_home_page.dart';
 
-Drawer employeeSideBar(BuildContext context, String userId, String userInfo,
-    String username, String authHeader) {
+Drawer employeeSideBar(BuildContext context, User user) {
   return Drawer(
     child: Container(
       color: DARK,
@@ -47,9 +47,9 @@ Drawer employeeSideBar(BuildContext context, String userId, String userInfo,
                     ),
                   ),
                   text22DarkBold(utf8.decode(
-                      userInfo != null ? userInfo.runes.toList() : '-')),
+                      user.info != null ? user.info.runes.toList() : '-')),
                   textDarkBold(
-                      getTranslated(context, 'employee') + ' #' + userId),
+                      getTranslated(context, 'employee') + ' #' + user.id),
                 ],
               ),
             ),
@@ -61,8 +61,7 @@ Drawer employeeSideBar(BuildContext context, String userId, String userInfo,
               Navigator.of(context).push(
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
-                    return EmployeeHomePage(
-                        userId, userInfo, username, authHeader);
+                    return EmployeeHomePage(user);
                   },
                 ),
               );
@@ -81,7 +80,7 @@ Drawer employeeSideBar(BuildContext context, String userId, String userInfo,
                 Navigator.of(context).push(
                   CupertinoPageRoute<Null>(
                     builder: (BuildContext context) {
-                      return SettingsPage(userId, userInfo, username, authHeader);
+                      return SettingsPage(user);
                     },
                   ),
                 );

@@ -9,6 +9,7 @@ import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/icons.dart';
@@ -16,20 +17,13 @@ import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 class ManagerGroupsDetailsPage extends StatefulWidget {
-  final String _userId;
-  final String _userInfo;
-  final String _username;
-  final String _authHeader;
-
+  final User _user;
   final int _groupId;
   final String _groupName;
   final String _groupDescription;
 
   ManagerGroupsDetailsPage(
-    this._userId,
-    this._userInfo,
-    this._username,
-    this._authHeader,
+    this._user,
     this._groupId,
     this._groupName,
     this._groupDescription,
@@ -48,7 +42,7 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
     return FutureBuilder<List<ManagerGroupDetailsDto>>(
       future: _managerService
           .findEmployeesGroupDetails(
-              widget._groupId.toString(), widget._authHeader)
+              widget._groupId.toString(), widget._user.authHeader)
           .catchError((e) {
         ToastService.showToast(
             getTranslated(context, 'managerDoesNotHaveGroups'), Colors.red);
@@ -61,8 +55,7 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
           return loader(
             context,
             getTranslated(context, 'loading'),
-            managerSideBar(context, widget._userId, widget._userInfo,
-                widget._username, widget._authHeader),
+            managerSideBar(context, widget._user),
           );
         } else {
           List<ManagerGroupDetailsDto> employees = snapshot.data;
@@ -78,15 +71,9 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
-              appBar: appBar(
-                  context,
-                  widget._userId,
-                  widget._userInfo,
-                  widget._username,
-                  widget._authHeader,
+              appBar: appBar(context, widget._user,
                   getTranslated(context, 'employeesOfTheGroup')),
-              drawer: managerSideBar(context, widget._userId, widget._userInfo,
-                  widget._username, widget._authHeader),
+              drawer: managerSideBar(context, widget._user),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -114,10 +101,7 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
                                     return ManagerGroupsDetailsTimeSheetsPage(
-                                        widget._userId,
-                                        widget._userInfo,
-                                        widget._username,
-                                        widget._authHeader,
+                                        widget._user,
                                         widget._groupId,
                                         widget._groupName,
                                         widget._groupDescription,

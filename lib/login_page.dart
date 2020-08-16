@@ -7,6 +7,7 @@ import 'package:give_job/main.dart';
 import 'package:give_job/manager/home/manager_home_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/widget/icons.dart';
@@ -103,25 +104,29 @@ class _LoginPageState extends State<LoginPage> {
                         base64Encode(utf8.encode('$username:$password'));
                     storage.write(key: 'authorization', value: authHeader);
                     Map map = json.decode(res.body);
+                    User user = new User();
                     String role = map['role'];
                     String id = map['id'];
-                    String userInfo = map['userInfo'];
+                    String info = map['info'];
                     storage.write(key: 'role', value: role);
                     storage.write(key: 'id', value: id);
-                    storage.write(key: 'userInfo', value: userInfo);
+                    storage.write(key: 'info', value: info);
                     storage.write(key: 'username', value: username);
+                    user.id = id;
+                    user.role = role;
+                    user.username = username;
+                    user.info = info;
+                    user.authHeader = authHeader;
                     if (role == ROLE_EMPLOYEE) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  EmployeeHomePage(id, userInfo, username, authHeader)));
+                              builder: (context) => EmployeeHomePage(user)));
                     } else if (role == ROLE_MANAGER) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  ManagerDetails(id, userInfo, username, authHeader)));
+                              builder: (context) => ManagerDetails(user)));
                     }
                     ToastService.showToast(
                         getTranslated(context, 'loginSuccessfully'),

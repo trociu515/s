@@ -8,6 +8,7 @@ import 'package:give_job/manager/groups/manager_groups_details_time_sheets_page.
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/icons.dart';
@@ -17,13 +18,9 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../manager_side_bar.dart';
 
 class ManagerEmployeesPage extends StatefulWidget {
-  final String _userId;
-  final String _userInfo;
-  final String _username;
-  final String _authHeader;
+  final User _user;
 
-  ManagerEmployeesPage(
-      this._userId, this._userInfo, this._username, this._authHeader);
+  ManagerEmployeesPage(this._user);
 
   @override
   _ManagerEmployeesPageState createState() => _ManagerEmployeesPageState();
@@ -41,7 +38,8 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
     super.initState();
     _loading = true;
     _managerService
-        .findGroupEmployeesByGroupManagerId(widget._userId, widget._authHeader)
+        .findGroupEmployeesByGroupManagerId(
+            widget._user.id, widget._user.authHeader)
         .then((res) {
       setState(() {
         _employees = res;
@@ -62,8 +60,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
       return loader(
         context,
         getTranslated(context, 'loading'),
-        managerSideBar(context, widget._userId, widget._userInfo,
-            widget._username, widget._authHeader),
+        managerSideBar(context, widget._user),
       );
     }
     return MaterialApp(
@@ -72,15 +69,9 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: appBar(
-            context,
-            widget._userId,
-            widget._userInfo,
-            widget._username,
-            widget._authHeader,
-            getTranslated(context, 'employees')),
-        drawer: managerSideBar(context, widget._userId, widget._userInfo,
-            widget._username, widget._authHeader),
+        appBar:
+            appBar(context, widget._user, getTranslated(context, 'employees')),
+        drawer: managerSideBar(context, widget._user),
         body: Column(
           children: <Widget>[
             TextField(
@@ -120,10 +111,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                   CupertinoPageRoute<Null>(
                                     builder: (BuildContext context) {
                                       return ManagerGroupsDetailsTimeSheetsPage(
-                                          widget._userId,
-                                          widget._userInfo,
-                                          widget._username,
-                                          widget._authHeader,
+                                          widget._user,
                                           _employees[index].groupId,
                                           _employees[index].groupName,
                                           _employees[index].groupDescription,

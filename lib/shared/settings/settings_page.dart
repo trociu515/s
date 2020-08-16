@@ -6,6 +6,7 @@ import 'package:give_job/internationalization/model/language.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/service/user_service.dart';
@@ -18,12 +19,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../main.dart';
 
 class SettingsPage extends StatefulWidget {
-  final String _userId;
-  final String _userInfo;
-  final String _username;
-  final String _authHeader;
+  final User _user;
 
-  SettingsPage(this._userId, this._userInfo, this._username, this._authHeader);
+  SettingsPage(this._user);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -64,15 +62,9 @@ class _SettingsPageState extends State<SettingsPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: appBar(
-            context,
-            widget._userId,
-            widget._userInfo,
-            widget._username,
-            widget._authHeader,
-            getTranslated(context, 'settings')),
-        drawer: employeeSideBar(context, widget._userId, widget._userInfo,
-            widget._username, widget._authHeader),
+        appBar:
+            appBar(context, widget._user, getTranslated(context, 'settings')),
+        drawer: employeeSideBar(context, widget._user),
         body: ListView(
           children: <Widget>[
             _titleContainer(getTranslated(context, 'account')),
@@ -131,10 +123,9 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Future<void> _changePasswordDialog(BuildContext context) async {
+  Future<void> _changePasswordDialog(BuildContext context) {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (BuildContext context) {
         final newPasswordController = new TextEditingController();
         TextFormField newPasswordField = TextFormField(
@@ -201,8 +192,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           child: textWhite('Yes, I want to change my password'),
                           onPressed: () => {
                             _userService
-                                .updatePassword(widget._username, newPassword,
-                                    widget._authHeader)
+                                .updatePassword(widget._user.username,
+                                    newPassword, widget._user.authHeader)
                                 .then((res) {
                               Navigator.of(context).pop();
                               Logout.logoutWithoutConfirm(

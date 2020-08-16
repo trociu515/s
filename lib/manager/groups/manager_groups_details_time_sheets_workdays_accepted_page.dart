@@ -7,6 +7,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
@@ -19,16 +20,13 @@ import '../manager_side_bar.dart';
 
 class ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage
     extends StatefulWidget {
-  final String _userId;
-  final String _userInfo;
-  final String _username;
-  final String _authHeader;
+  final User _user;
 
   final String _employeeInfo;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(this._userId,
-      this._userInfo, this._username, this._authHeader, this._employeeInfo, this.timeSheet);
+  const ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
+      this._user, this._employeeInfo, this.timeSheet);
 
   @override
   _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState createState() =>
@@ -44,7 +42,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
     return FutureBuilder<List<WorkdayDto>>(
       future: _managerService
           .findWorkdaysByTimeSheetId(
-              widget.timeSheet.id.toString(), widget._authHeader)
+              widget.timeSheet.id.toString(), widget._user.authHeader)
           .catchError((e) {
         ToastService.showToast(
             getTranslated(
@@ -59,8 +57,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
           return loader(
             context,
             getTranslated(context, 'loading'),
-            managerSideBar(
-                context, widget._userId, widget._userInfo, widget._username, widget._authHeader),
+            managerSideBar(context, widget._user),
           );
         } else {
           List<WorkdayDto> workdays = snapshot.data;
@@ -78,10 +75,9 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
-              appBar: appBar(context, widget._userId, widget._userInfo, widget._username,
-                  widget._authHeader, getTranslated(context, 'workdays')),
-              drawer: managerSideBar(context, widget._userId, widget._userInfo, widget._username,
-                  widget._authHeader),
+              appBar: appBar(
+                  context, widget._user, getTranslated(context, 'workdays')),
+              drawer: managerSideBar(context, widget._user),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),

@@ -7,6 +7,7 @@ import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/loader.dart';
@@ -15,13 +16,9 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../dto/manager_dto.dart';
 
 class ManagerDetails extends StatefulWidget {
-  final String _userId;
-  final String _userInfo;
-  final String _username;
-  final String _authHeader;
+  final User _user;
 
-  ManagerDetails(
-      this._userId, this._userInfo, this._username, this._authHeader);
+  ManagerDetails(this._user);
 
   @override
   _ManagerDetailsState createState() => _ManagerDetailsState();
@@ -33,15 +30,15 @@ class _ManagerDetailsState extends State<ManagerDetails> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<ManagerDto>(
-      future: _managerService.findById(widget._userId, widget._authHeader),
+      future:
+          _managerService.findById(widget._user.id, widget._user.authHeader),
       builder: (BuildContext context, AsyncSnapshot<ManagerDto> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
           return loader(
             context,
             getTranslated(context, 'loading'),
-            managerSideBar(context, widget._userId, widget._userInfo,
-                widget._username, widget._authHeader),
+            managerSideBar(context, widget._user),
           );
         } else {
           ManagerDto manager = snapshot.data;
@@ -54,14 +51,8 @@ class _ManagerDetailsState extends State<ManagerDetails> {
               home: Scaffold(
                 backgroundColor: DARK,
                 appBar: appBar(
-                    context,
-                    widget._userId,
-                    widget._userInfo,
-                    widget._username,
-                    widget._authHeader,
-                    getTranslated(context, 'home')),
-                drawer: managerSideBar(context, widget._userId,
-                    widget._userInfo, widget._username, widget._authHeader),
+                    context, widget._user, getTranslated(context, 'home')),
+                drawer: managerSideBar(context, widget._user),
                 body: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -75,8 +66,8 @@ class _ManagerDetailsState extends State<ManagerDetails> {
                               ListTile(
                                 title:
                                     textWhiteBold(getTranslated(context, 'id')),
-                                subtitle: textWhite(widget._userId != null
-                                    ? widget._userId.toString()
+                                subtitle: textWhite(widget._user.id != null
+                                    ? widget._user.id.toString()
                                     : getTranslated(context, 'empty')),
                               ),
                               ListTile(

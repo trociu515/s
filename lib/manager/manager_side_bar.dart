@@ -6,6 +6,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/home/manager_home_page.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -13,8 +14,7 @@ import 'package:give_job/shared/widget/texts.dart';
 import 'employees/manager_employees_page.dart';
 import 'groups/manager_groups_page.dart';
 
-Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
-    String username, String authHeader) {
+Drawer managerSideBar(BuildContext context, User user) {
   return Drawer(
     child: Container(
       color: DARK,
@@ -47,9 +47,9 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
                     ),
                   ),
                   text22DarkBold(utf8.decode(
-                      userInfo != null ? userInfo.runes.toList() : '-')),
+                      user.info != null ? user.info.runes.toList() : '-')),
                   textDarkBold(
-                      getTranslated(context, 'manager') + ' #' + managerId),
+                      getTranslated(context, 'manager') + ' #' + user.id),
                 ],
               ),
             ),
@@ -61,8 +61,7 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               Navigator.of(context).push(
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
-                    return ManagerDetails(
-                        managerId, userInfo, username, authHeader);
+                    return ManagerDetails(user);
                   },
                 ),
               );
@@ -75,8 +74,7 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               Navigator.of(context).push(
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
-                    return ManagerGroupsPage(
-                        managerId, userInfo, username, authHeader);
+                    return ManagerGroupsPage(user);
                   },
                 ),
               );
@@ -89,8 +87,7 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               Navigator.of(context).push(
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
-                    return ManagerEmployeesPage(
-                        managerId, userInfo, username, authHeader);
+                    return ManagerEmployeesPage(user);
                   },
                 ),
               );

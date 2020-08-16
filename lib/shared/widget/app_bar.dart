@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/settings/settings_page.dart';
 
-AppBar appBar(BuildContext context, String userId, String userInfo,
-    String username, String authHeader, String title) {
+AppBar appBar(BuildContext context, User user, String title) {
   return AppBar(
     title: Text(
       title,
@@ -23,9 +23,7 @@ AppBar appBar(BuildContext context, String userId, String userInfo,
                 child: InkWell(
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => SettingsPage(
-                            userId, userInfo, username, authHeader)),
+                    MaterialPageRoute(builder: (context) => SettingsPage(user)),
                   ),
                   child: Container(
                     alignment: Alignment.centerRight,
