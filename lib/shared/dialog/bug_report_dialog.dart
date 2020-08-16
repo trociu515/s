@@ -3,10 +3,9 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-Future<void> bugReportDialog(BuildContext context) async {
-  return showDialog<void>(
+bugReportDialog(BuildContext context) {
+  return showDialog(
     context: context,
-    barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: DARK,

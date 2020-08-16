@@ -4,13 +4,11 @@ import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/internationalization/model/language.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
+import 'package:give_job/shared/dialog/change_password_dialog.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
-import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
-import 'package:give_job/shared/service/user_service.dart';
-import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -28,7 +26,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final UserService _userService = new UserService();
   List<Language> _languages = LanguageUtil.getLanguages();
   List<DropdownMenuItem<Language>> _dropdownMenuItems;
 
@@ -71,7 +68,8 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
                 margin: EdgeInsets.only(left: 15),
                 child: InkWell(
-                    onTap: () => _changePasswordDialog(context),
+                    onTap: () => changePasswordDialog(context,
+                        widget._user.username, widget._user.authHeader),
                     child: _subtitleInkWellContainer(
                         getTranslated(context, 'changePassword')))),
             _titleContainer(getTranslated(context, 'other')),
@@ -109,174 +107,65 @@ class _SettingsPageState extends State<SettingsPage> {
                     getTranslated(context, 'version') + ': 1.0.8+9')),
             _titleContainer(getTranslated(context, 'followUs')),
             SizedBox(height: 5.0),
-            _socialMediaInkWell(context, 'https://www.givejob.pl', 'GiveJob',
-                'images/logo.png'),
-            _socialMediaInkWell(context, 'https://www.facebook.com/givejobb',
-                'Facebook', 'images/facebook-logo.png'),
-            _socialMediaInkWell(context, 'https://www.instagram.com/give_job',
-                'Instagram', 'images/instagram-logo.png'),
             _socialMediaInkWell(
-                context, null, 'Linkedin', 'images/linkedin-logo.png'),
+                'https://www.givejob.pl', 'GiveJob', 'images/logo.png'),
+            _socialMediaInkWell('https://www.facebook.com/givejobb', 'Facebook',
+                'images/facebook-logo.png'),
+            _socialMediaInkWell('https://www.instagram.com/give_job',
+                'Instagram', 'images/instagram-logo.png'),
+            _socialMediaInkWell(null, 'Linkedin', 'images/linkedin-logo.png'),
           ],
         ),
       ),
     );
   }
 
-  Future<void> _changePasswordDialog(BuildContext context) {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        final newPasswordController = new TextEditingController();
-        TextFormField newPasswordField = TextFormField(
-          controller: newPasswordController,
-          obscureText: true,
-          autofocus: true,
-          keyboardType: TextInputType.text,
-          maxLength: 60,
-          style: TextStyle(color: WHITE),
-          decoration: InputDecoration(
-            counterStyle: TextStyle(color: WHITE),
-            labelStyle: TextStyle(color: WHITE),
-            labelText: getTranslated(context, 'newPassword'),
-          ),
-        );
-        final reNewPasswordController = new TextEditingController();
-        TextFormField reNewPasswordField = TextFormField(
-          controller: reNewPasswordController,
-          obscureText: true,
-          keyboardType: TextInputType.text,
-          maxLength: 60,
-          style: TextStyle(color: WHITE),
-          decoration: InputDecoration(
-            counterStyle: TextStyle(color: WHITE),
-            labelStyle: TextStyle(color: WHITE),
-            labelText: getTranslated(context, 'retypeNewPassword'),
-          ),
-        );
-        return AlertDialog(
-          backgroundColor: DARK,
-          title: textWhite(getTranslated(context, 'changePassword')),
-          content: Container(
-            height: 165,
-            child: Column(
-              children: <Widget>[
-                Container(child: newPasswordField),
-                Container(child: reNewPasswordField),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: textWhite(getTranslated(context, 'save')),
-              onPressed: () {
-                String newPassword = newPasswordController.text;
-                String reNewPassword = reNewPasswordController.text;
-                String invalidMessage =
-                    ValidatorService.validateUpdatingPassword(
-                        newPassword, reNewPassword, context);
-                if (invalidMessage != null) {
-                  ToastService.showToast(invalidMessage, Colors.red);
-                  return;
-                }
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      backgroundColor: DARK,
-                      title: textWhite(getTranslated(context, 'warning')),
-                      content: textWhite(getTranslated(
-                              context, 'changePasswordWarningFirstContent') +
-                          '\n' +
-                          getTranslated(
-                              context, 'changePasswordWarningFirstContent')),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: textWhite(getTranslated(
-                              context, 'changePasswordAgreeButtonText')),
-                          onPressed: () => {
-                            _userService
-                                .updatePassword(widget._user.username,
-                                    newPassword, widget._user.authHeader)
-                                .then((res) {
-                              Navigator.of(context).pop();
-                              Logout.logoutWithoutConfirm(
-                                  context,
-                                  getTranslated(
-                                      context, 'changePasswordSuccessMsg'));
-                            })
-                          },
-                        ),
-                        FlatButton(
-                            child: textWhite(getTranslated(context, 'no')),
-                            onPressed: () => Navigator.of(context).pop()),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
-            FlatButton(
-              child: textWhite(getTranslated(context, 'close')),
-              onPressed: () => Navigator.of(context).pop(),
-            )
-          ],
-        );
-      },
+  Container _titleContainer(String text) {
+    return Container(
+      margin: EdgeInsets.only(left: 15, top: 7.5),
+      padding: EdgeInsets.only(left: 10),
+      alignment: Alignment.centerLeft,
+      height: 60,
+      child: text20GreenBold(text),
     );
   }
-}
 
-Container _titleContainer(String text) {
-  return Container(
-    margin: EdgeInsets.only(left: 15, top: 7.5),
-    padding: EdgeInsets.only(left: 10),
-    alignment: Alignment.centerLeft,
-    height: 60,
-    child: text20GreenBold(text),
-  );
-}
+  Container _subtitleInkWellContainer(String text) {
+    return Container(
+      decoration: BoxDecoration(border: Border.all(color: BRIGHTER_DARK)),
+      padding: EdgeInsets.only(left: 10),
+      alignment: Alignment.centerLeft,
+      height: 30,
+      child: text16White(text),
+    );
+  }
 
-Container _subtitleInkWellContainer(String text) {
-  return Container(
-    decoration: BoxDecoration(border: Border.all(color: BRIGHTER_DARK)),
-    padding: EdgeInsets.only(left: 10),
-    alignment: Alignment.centerLeft,
-    height: 30,
-    child: text16White(text),
-  );
-}
-
-InkWell _socialMediaInkWell(
-    BuildContext context, String url, String text, String imagePath) {
-  return InkWell(
-    onTap: () async => _launchURL(context, url),
-    child: Column(
-      children: <Widget>[
-        ListTile(
-          title: Align(
-            child: text16White(text),
-            alignment: Alignment(-1.05, 0),
-          ),
-          leading: Padding(
-            padding: EdgeInsets.all(5.0),
-            child: Container(
-              child: Image(
-                image: AssetImage(imagePath),
-                fit: BoxFit.fitWidth,
+  InkWell _socialMediaInkWell(String url, String text, String imagePath) {
+    return InkWell(
+      onTap: () async => _launchURL(url),
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            title:
+                Align(child: text16White(text), alignment: Alignment(-1.05, 0)),
+            leading: Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Container(
+                child:
+                    Image(image: AssetImage(imagePath), fit: BoxFit.fitWidth),
               ),
             ),
           ),
-        ),
-        SizedBox(height: 5.0),
-      ],
-    ),
-  );
-}
+          SizedBox(height: 5.0),
+        ],
+      ),
+    );
+  }
 
-_launchURL(BuildContext context, String url) async {
-  await canLaunch(url)
-      ? await launch(url)
-      : ToastService.showToast(
-          getTranslated(context, 'couldNotLaunch'), Colors.red);
+  _launchURL(String url) async {
+    await canLaunch(url)
+        ? await launch(url)
+        : ToastService.showToast(
+            getTranslated(context, 'couldNotLaunch'), Colors.red);
+  }
 }
