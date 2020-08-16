@@ -13,16 +13,17 @@ class Logout {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: textDark(getTranslated(context, 'logout')),
-          content: textDark(getTranslated(context, 'logoutConfirm')),
+          backgroundColor: DARK,
+          title: textWhite(getTranslated(context, 'logout')),
+          content: textWhite(getTranslated(context, 'logoutConfirm')),
           actions: <Widget>[
             FlatButton(
-              child: textDark(getTranslated(context, 'yes')),
+              child: textWhite(getTranslated(context, 'yes')),
               onPressed: () => logoutWithoutConfirm(
                   context, getTranslated(context, 'logoutSuccessfully')),
             ),
             FlatButton(
-                child: textDark(getTranslated(context, 'no')),
+                child: textWhite(getTranslated(context, 'no')),
                 onPressed: () => Navigator.of(context).pop()),
           ],
         );
