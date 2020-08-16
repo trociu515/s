@@ -115,6 +115,7 @@
   "bugReport": "Повідомлення про помилку",
   "somethingWrongWithApplication": "Щось не так у застосуванні?",
   "contactWithUsByGivenEmail": "Звертайтесь до нас за вказаною електронною поштою!",
+  "noCurrency": "No currency",
   "rate": "Rate",
   "settings": "Settings",
   "account": "ACCOUNT",
@@ -126,5 +127,14 @@
   "couldNotLaunch": "Could not launch",
   "newPassword": "New password",
   "retypeNewPassword": "Retype new password",
-  "save": "Save"
+  "save": "Save",
+  "warning": "Warning",
+  "changePasswordWarningFirstContent": "After changing password, you will have to login again.",
+  "changePasswordWarningSecondContent": "Do you still want to do this?",
+  "changePasswordAgreeButtonText": "Yes, I want to change my password",
+  "changePasswordSuccessMsg": "Password updated successfully!",
+  "newPasswordIsRequired": "Please enter your new password",
+  "newPasswordWrongLength": "Password should contain at least 6 characters",
+  "reNewPasswordIsRequired": "Please retype new password",
+  "passwordsDoNotMatch": "Passwords do not match"
 }

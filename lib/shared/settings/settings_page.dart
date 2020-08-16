@@ -174,7 +174,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 String reNewPassword = reNewPasswordController.text;
                 String invalidMessage =
                     ValidatorService.validateUpdatingPassword(
-                        newPassword, reNewPassword);
+                        newPassword, reNewPassword, context);
                 if (invalidMessage != null) {
                   ToastService.showToast(invalidMessage, Colors.red);
                   return;
@@ -184,12 +184,16 @@ class _SettingsPageState extends State<SettingsPage> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       backgroundColor: DARK,
-                      title: textWhite('Warning'),
-                      content: textWhite(
-                          'After changing the password, you will have to log in again.\nDo you still want to do this?'),
+                      title: textWhite(getTranslated(context, 'warning')),
+                      content: textWhite(getTranslated(
+                              context, 'changePasswordWarningFirstContent') +
+                          '\n' +
+                          getTranslated(
+                              context, 'changePasswordWarningFirstContent')),
                       actions: <Widget>[
                         FlatButton(
-                          child: textWhite('Yes, I want to change my password'),
+                          child: textWhite(getTranslated(
+                              context, 'changePasswordAgreeButtonText')),
                           onPressed: () => {
                             _userService
                                 .updatePassword(widget._user.username,
@@ -197,7 +201,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 .then((res) {
                               Navigator.of(context).pop();
                               Logout.logoutWithoutConfirm(
-                                  context, 'Password updated successfully!');
+                                  context,
+                                  getTranslated(
+                                      context, 'changePasswordSuccessMsg'));
                             })
                           },
                         ),

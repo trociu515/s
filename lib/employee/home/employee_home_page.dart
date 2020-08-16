@@ -160,7 +160,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                                     ? '(' +
                                                         employee.moneyCurrency +
                                                         ')'
-                                                    : ''),
+                                                    : getTranslated(context, 'noCurrency')),
                                             Countup(
                                               begin: 0,
                                               end: employee

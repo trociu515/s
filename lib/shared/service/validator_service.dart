@@ -43,15 +43,15 @@ class ValidatorService {
   }
 
   static String validateUpdatingPassword(
-      String newPassword, String reNewPassword) {
+      String newPassword, String reNewPassword, BuildContext context) {
     if (newPassword == null) {
-      return 'Please enter your new password';
+      return getTranslated(context, 'newPasswordIsRequired');
     } else if (newPassword.length < 6) {
-      return 'Password should contain at least 6 characters';
+      return getTranslated(context, 'newPasswordWrongLength');
     } else if (reNewPassword == null) {
-      return 'Please retype new password';
+      return getTranslated(context, 'reNewPasswordIsRequired');
     } else if (reNewPassword != newPassword) {
-      return 'Passwords do not match';
+      return getTranslated(context, 'passwordsDoNotMatch');
     }
     return null;
   }
