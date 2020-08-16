@@ -21,6 +21,7 @@ import 'manager_group_details_time_sheets_workdays_in_progress_page.dart';
 class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
   final String _userId;
   final String _userInfo;
+  final String _username;
   final String _authHeader;
 
   final int _groupId;
@@ -32,6 +33,7 @@ class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
   const ManagerGroupsDetailsTimeSheetsPage(
     this._userId,
     this._userInfo,
+    this._username,
     this._authHeader,
     this._groupId,
     this._groupName,
@@ -71,7 +73,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
             context,
             getTranslated(context, 'loading'),
             managerSideBar(
-                context, widget._userId, widget._userInfo, widget._authHeader),
+                context, widget._userId, widget._userInfo, widget._username, widget._authHeader),
           );
         } else {
           List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
@@ -88,9 +90,9 @@ class _ManagerGroupsDetailsTimeSheetsPageState
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
-              appBar: appBar(context, widget._userId, widget._userInfo,
+              appBar: appBar(context, widget._userId, widget._userInfo, widget._username,
                   widget._authHeader, getTranslated(context, 'timesheets')),
-              drawer: managerSideBar(context, widget._userId, widget._userInfo,
+              drawer: managerSideBar(context, widget._userId, widget._userInfo, widget._username,
                   widget._authHeader),
               body: SingleChildScrollView(
                 child: Padding(
@@ -128,6 +130,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                       return ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
                                           widget._userId,
                                           widget._userInfo,
+                                          widget._username,
                                           widget._authHeader,
                                           widget._employeeInfo,
                                           timeSheet);
@@ -141,6 +144,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                       return ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
                                           widget._userId,
                                           widget._userInfo,
+                                          widget._username,
                                           widget._authHeader,
                                           widget._employeeInfo,
                                           timeSheet);

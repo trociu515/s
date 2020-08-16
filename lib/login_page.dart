@@ -109,18 +109,19 @@ class _LoginPageState extends State<LoginPage> {
                     storage.write(key: 'role', value: role);
                     storage.write(key: 'id', value: id);
                     storage.write(key: 'userInfo', value: userInfo);
+                    storage.write(key: 'username', value: username);
                     if (role == ROLE_EMPLOYEE) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  EmployeeHomePage(id, userInfo, authHeader)));
+                                  EmployeeHomePage(id, userInfo, username, authHeader)));
                     } else if (role == ROLE_MANAGER) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  ManagerDetails(id, userInfo, authHeader)));
+                                  ManagerDetails(id, userInfo, username, authHeader)));
                     }
                     ToastService.showToast(
                         getTranslated(context, 'loginSuccessfully'),

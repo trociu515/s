@@ -19,9 +19,11 @@ import 'manager_groups_details_page.dart';
 class ManagerGroupsPage extends StatefulWidget {
   final String _userId;
   final String _userInfo;
+  final String _username;
   final String _authHeader;
 
-  ManagerGroupsPage(this._userId, this._userInfo, this._authHeader);
+  ManagerGroupsPage(
+      this._userId, this._userInfo, this._username, this._authHeader);
 
   @override
   _ManagerGroupsPageState createState() => _ManagerGroupsPageState();
@@ -47,8 +49,8 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
           return loader(
             context,
             getTranslated(context, 'loading'),
-            managerSideBar(
-                context, widget._userId, widget._userInfo, widget._authHeader),
+            managerSideBar(context, widget._userId, widget._userInfo,
+                widget._username, widget._authHeader),
           );
         } else {
           List<ManagerGroupDto> groups = snapshot.data;
@@ -64,10 +66,15 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
-              appBar: appBar(context, widget._userId, widget._userInfo,
-                  widget._authHeader, getTranslated(context, 'groups')),
+              appBar: appBar(
+                  context,
+                  widget._userId,
+                  widget._userInfo,
+                  widget._username,
+                  widget._authHeader,
+                  getTranslated(context, 'groups')),
               drawer: managerSideBar(context, widget._userId, widget._userInfo,
-                  widget._authHeader),
+                  widget._username, widget._authHeader),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -84,6 +91,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                                     return ManagerGroupsDetailsPage(
                                         widget._userId,
                                         widget._userInfo,
+                                        widget._username,
                                         widget._authHeader,
                                         groups[i].id,
                                         groups[i].name,

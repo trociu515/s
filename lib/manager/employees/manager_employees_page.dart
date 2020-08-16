@@ -19,9 +19,11 @@ import '../manager_side_bar.dart';
 class ManagerEmployeesPage extends StatefulWidget {
   final String _userId;
   final String _userInfo;
+  final String _username;
   final String _authHeader;
 
-  ManagerEmployeesPage(this._userId, this._userInfo, this._authHeader);
+  ManagerEmployeesPage(
+      this._userId, this._userInfo, this._username, this._authHeader);
 
   @override
   _ManagerEmployeesPageState createState() => _ManagerEmployeesPageState();
@@ -60,8 +62,8 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
       return loader(
         context,
         getTranslated(context, 'loading'),
-        managerSideBar(
-            context, widget._userId, widget._userInfo, widget._authHeader),
+        managerSideBar(context, widget._userId, widget._userInfo,
+            widget._username, widget._authHeader),
       );
     }
     return MaterialApp(
@@ -70,9 +72,15 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: appBar(context,widget._userId, widget._userInfo, widget._authHeader, getTranslated(context, 'employees')),
-        drawer: managerSideBar(
-            context, widget._userId, widget._userInfo, widget._authHeader),
+        appBar: appBar(
+            context,
+            widget._userId,
+            widget._userInfo,
+            widget._username,
+            widget._authHeader,
+            getTranslated(context, 'employees')),
+        drawer: managerSideBar(context, widget._userId, widget._userInfo,
+            widget._username, widget._authHeader),
         body: Column(
           children: <Widget>[
             TextField(
@@ -114,6 +122,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                       return ManagerGroupsDetailsTimeSheetsPage(
                                           widget._userId,
                                           widget._userInfo,
+                                          widget._username,
                                           widget._authHeader,
                                           _employees[index].groupId,
                                           _employees[index].groupName,

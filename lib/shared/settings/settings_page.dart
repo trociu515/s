@@ -6,7 +6,10 @@ import 'package:give_job/internationalization/model/language.dart';
 import 'package:give_job/shared/dialog/bug_report_dialog.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/service/user_service.dart';
+import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -17,15 +20,17 @@ import '../../main.dart';
 class SettingsPage extends StatefulWidget {
   final String _userId;
   final String _userInfo;
+  final String _username;
   final String _authHeader;
 
-  SettingsPage(this._userId, this._userInfo, this._authHeader);
+  SettingsPage(this._userId, this._userInfo, this._username, this._authHeader);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final UserService _userService = new UserService();
   List<Language> _languages = LanguageUtil.getLanguages();
   List<DropdownMenuItem<Language>> _dropdownMenuItems;
 
@@ -59,10 +64,15 @@ class _SettingsPageState extends State<SettingsPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: appBar(context, widget._userId, widget._userInfo,
-            widget._authHeader, getTranslated(context, 'settings')),
-        drawer: employeeSideBar(
-            context, widget._userId, widget._userInfo, widget._authHeader),
+        appBar: appBar(
+            context,
+            widget._userId,
+            widget._userInfo,
+            widget._username,
+            widget._authHeader,
+            getTranslated(context, 'settings')),
+        drawer: employeeSideBar(context, widget._userId, widget._userInfo,
+            widget._username, widget._authHeader),
         body: ListView(
           children: <Widget>[
             _titleContainer(getTranslated(context, 'account')),
@@ -120,6 +130,104 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+
+  Future<void> _changePasswordDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        final newPasswordController = new TextEditingController();
+        TextFormField newPasswordField = TextFormField(
+          controller: newPasswordController,
+          obscureText: true,
+          autofocus: true,
+          keyboardType: TextInputType.text,
+          maxLength: 60,
+          style: TextStyle(color: WHITE),
+          decoration: InputDecoration(
+            counterStyle: TextStyle(color: WHITE),
+            labelStyle: TextStyle(color: WHITE),
+            labelText: getTranslated(context, 'newPassword'),
+          ),
+        );
+        final reNewPasswordController = new TextEditingController();
+        TextFormField reNewPasswordField = TextFormField(
+          controller: reNewPasswordController,
+          obscureText: true,
+          keyboardType: TextInputType.text,
+          maxLength: 60,
+          style: TextStyle(color: WHITE),
+          decoration: InputDecoration(
+            counterStyle: TextStyle(color: WHITE),
+            labelStyle: TextStyle(color: WHITE),
+            labelText: getTranslated(context, 'retypeNewPassword'),
+          ),
+        );
+        return AlertDialog(
+          backgroundColor: DARK,
+          title: textWhite(getTranslated(context, 'changePassword')),
+          content: Container(
+            height: 165,
+            child: Column(
+              children: <Widget>[
+                Container(child: newPasswordField),
+                Container(child: reNewPasswordField),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: textWhite(getTranslated(context, 'save')),
+              onPressed: () {
+                String newPassword = newPasswordController.text;
+                String reNewPassword = reNewPasswordController.text;
+                String invalidMessage =
+                    ValidatorService.validateUpdatingPassword(
+                        newPassword, reNewPassword);
+                if (invalidMessage != null) {
+                  ToastService.showToast(invalidMessage, Colors.red);
+                  return;
+                }
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: DARK,
+                      title: textWhite('Warning'),
+                      content: textWhite(
+                          'After changing the password, you will have to log in again.\nDo you still want to do this?'),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: textWhite('Yes, I want to change my password'),
+                          onPressed: () => {
+                            _userService
+                                .updatePassword(widget._username, newPassword,
+                                    widget._authHeader)
+                                .then((res) {
+                              Navigator.of(context).pop();
+                              Logout.logoutWithoutConfirm(
+                                  context, 'Password updated successfully!');
+                            })
+                          },
+                        ),
+                        FlatButton(
+                            child: textWhite(getTranslated(context, 'no')),
+                            onPressed: () => Navigator.of(context).pop()),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+            FlatButton(
+              child: textWhite(getTranslated(context, 'close')),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        );
+      },
+    );
+  }
 }
 
 Container _titleContainer(String text) {
@@ -174,65 +282,4 @@ _launchURL(BuildContext context, String url) async {
       ? await launch(url)
       : ToastService.showToast(
           getTranslated(context, 'couldNotLaunch'), Colors.red);
-}
-
-Future<void> _changePasswordDialog(BuildContext context) async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      final newPasswordController = new TextEditingController();
-      TextFormField newPasswordField = TextFormField(
-        controller: newPasswordController,
-        obscureText: true,
-        autofocus: true,
-        keyboardType: TextInputType.text,
-        maxLength: 60,
-        style: TextStyle(color: WHITE),
-        decoration: InputDecoration(
-          counterStyle: TextStyle(color: WHITE),
-          labelStyle: TextStyle(color: WHITE),
-          labelText: getTranslated(context, 'newPassword'),
-        ),
-      );
-      final reNewPasswordController = new TextEditingController();
-      TextFormField reNewPasswordField = TextFormField(
-        controller: reNewPasswordController,
-        obscureText: true,
-        keyboardType: TextInputType.text,
-        maxLength: 60,
-        style: TextStyle(color: WHITE),
-        decoration: InputDecoration(
-          counterStyle: TextStyle(color: WHITE),
-          labelStyle: TextStyle(color: WHITE),
-          labelText: getTranslated(context, 'retypeNewPassword'),
-        ),
-      );
-      return AlertDialog(
-        backgroundColor: DARK,
-        title: textWhite(getTranslated(context, 'changePassword')),
-        content: Container(
-          height: 165,
-          child: Column(
-            children: <Widget>[
-              Container(child: newPasswordField),
-              Container(child: reNewPasswordField),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: textWhite(getTranslated(context, 'save')),
-            onPressed: () {
-              /* TO BE IMPLEMENTED */
-            },
-          ),
-          FlatButton(
-            child: textWhite(getTranslated(context, 'close')),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
-      );
-    },
-  );
 }

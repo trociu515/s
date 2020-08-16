@@ -23,9 +23,11 @@ import '../dto/employee_dto.dart';
 class EmployeeHomePage extends StatefulWidget {
   final String _userId;
   final String _userInfo;
+  final String _username;
   final String _authHeader;
 
-  EmployeeHomePage(this._userId, this._userInfo, this._authHeader);
+  EmployeeHomePage(
+      this._userId, this._userInfo, this._username, this._authHeader);
 
   @override
   _EmployeeHomePageState createState() => _EmployeeHomePageState();
@@ -44,8 +46,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
           return loader(
             context,
             getTranslated(context, 'loading'),
-            employeeSideBar(
-                context, widget._userId, widget._userInfo, widget._authHeader),
+            employeeSideBar(context, widget._userId, widget._userInfo,
+                widget._username, widget._authHeader),
           );
         } else {
           EmployeeDto employee = snapshot.data;
@@ -57,10 +59,10 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                 debugShowCheckedModeBanner: false,
                 home: Scaffold(
                   backgroundColor: DARK,
-                  appBar: appBar(context, widget._userId, widget._userInfo,
+                  appBar: appBar(context, widget._userId, widget._userInfo, widget._username,
                       widget._authHeader, getTranslated(context, 'home')),
                   drawer: employeeSideBar(context, widget._userId,
-                      widget._userInfo, widget._authHeader),
+                      widget._userInfo, widget._username, widget._authHeader),
                   body: Column(
                     children: <Widget>[
                       Container(
@@ -216,8 +218,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                               tabs: <Widget>[
                                 Tab(
                                     icon: iconWhite(Icons.assignment),
-                                    text: getTranslated(
-                                        context, 'timesheets')),
+                                    text: getTranslated(context, 'timesheets')),
                                 Tab(
                                     icon: iconWhite(Icons.person_pin),
                                     text:

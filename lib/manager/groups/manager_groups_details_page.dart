@@ -18,6 +18,7 @@ import 'package:give_job/shared/widget/texts.dart';
 class ManagerGroupsDetailsPage extends StatefulWidget {
   final String _userId;
   final String _userInfo;
+  final String _username;
   final String _authHeader;
 
   final int _groupId;
@@ -27,6 +28,7 @@ class ManagerGroupsDetailsPage extends StatefulWidget {
   ManagerGroupsDetailsPage(
     this._userId,
     this._userInfo,
+    this._username,
     this._authHeader,
     this._groupId,
     this._groupName,
@@ -59,8 +61,8 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
           return loader(
             context,
             getTranslated(context, 'loading'),
-            managerSideBar(
-                context, widget._userId, widget._userInfo, widget._authHeader),
+            managerSideBar(context, widget._userId, widget._userInfo,
+                widget._username, widget._authHeader),
           );
         } else {
           List<ManagerGroupDetailsDto> employees = snapshot.data;
@@ -80,10 +82,11 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
                   context,
                   widget._userId,
                   widget._userInfo,
+                  widget._username,
                   widget._authHeader,
                   getTranslated(context, 'employeesOfTheGroup')),
               drawer: managerSideBar(context, widget._userId, widget._userInfo,
-                  widget._authHeader),
+                  widget._username, widget._authHeader),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -113,6 +116,7 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
                                     return ManagerGroupsDetailsTimeSheetsPage(
                                         widget._userId,
                                         widget._userInfo,
+                                        widget._username,
                                         widget._authHeader,
                                         widget._groupId,
                                         widget._groupName,

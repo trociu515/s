@@ -58,12 +58,14 @@ class _MyAppState extends State<MyApp> {
     var role = await storage.read(key: 'role');
     var id = await storage.read(key: 'id');
     var userInfo = await storage.read(key: 'userInfo');
+    var username = await storage.read(key: 'username');
     Map<String, String> map = new Map();
     map['getStartedClick'] = getStartedClick;
     map['authorization'] = auth;
     map['role'] = role;
     map['id'] = id;
     map['userInfo'] = userInfo;
+    map['username'] = username;
     return map.isNotEmpty ? map : null;
   }
 
@@ -126,16 +128,19 @@ class _MyAppState extends State<MyApp> {
             String role = data['role'];
             String id = data['id'];
             String userInfo = data['userInfo'];
+            String username = data['username'];
             String authHeader = data['authorization'];
             if (role == ROLE_EMPLOYEE) {
               return EmployeeHomePage(
                   id == null ? '' : id,
                   userInfo == null ? '' : userInfo,
+                  username == null ? '' : username,
                   authHeader == null ? '' : authHeader);
             } else if (role == ROLE_MANAGER) {
               return ManagerDetails(
                   id == null ? '' : id,
                   userInfo == null ? '' : userInfo,
+                  username == null ? '' : username,
                   authHeader == null ? '' : authHeader);
             } else {
               return LoginPage();

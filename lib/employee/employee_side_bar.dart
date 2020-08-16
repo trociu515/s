@@ -13,8 +13,8 @@ import 'package:open_appstore/open_appstore.dart';
 
 import 'home/employee_home_page.dart';
 
-Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
-    String authHeader) {
+Drawer employeeSideBar(BuildContext context, String userId, String userInfo,
+    String username, String authHeader) {
   return Drawer(
     child: Container(
       color: DARK,
@@ -49,7 +49,7 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
                   text22DarkBold(utf8.decode(
                       userInfo != null ? userInfo.runes.toList() : '-')),
                   textDarkBold(
-                      getTranslated(context, 'employee') + ' #' + employeeId),
+                      getTranslated(context, 'employee') + ' #' + userId),
                 ],
               ),
             ),
@@ -61,7 +61,8 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
               Navigator.of(context).push(
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
-                    return EmployeeHomePage(employeeId, userInfo, authHeader);
+                    return EmployeeHomePage(
+                        userId, userInfo, username, authHeader);
                   },
                 ),
               );
@@ -80,7 +81,7 @@ Drawer employeeSideBar(BuildContext context, String employeeId, String userInfo,
                 Navigator.of(context).push(
                   CupertinoPageRoute<Null>(
                     builder: (BuildContext context) {
-                      return SettingsPage(employeeId, userInfo, authHeader);
+                      return SettingsPage(userId, userInfo, username, authHeader);
                     },
                   ),
                 );

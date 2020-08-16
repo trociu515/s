@@ -18,16 +18,8 @@ class Logout {
           actions: <Widget>[
             FlatButton(
               child: textDark(getTranslated(context, 'yes')),
-              onPressed: () {
-                storage.delete(key: 'authorization');
-                storage.delete(key: 'role');
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                    (e) => false);
-                ToastService.showToast(
-                    getTranslated(context, 'logoutSuccessfully'), GREEN);
-              },
+              onPressed: () => logoutWithoutConfirm(
+                  context, getTranslated(context, 'logoutSuccessfully')),
             ),
             FlatButton(
                 child: textDark(getTranslated(context, 'no')),
@@ -36,5 +28,13 @@ class Logout {
         );
       },
     );
+  }
+
+  static logoutWithoutConfirm(BuildContext context, String msg) {
+    storage.delete(key: 'authorization');
+    storage.delete(key: 'role');
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => LoginPage()), (e) => false);
+    ToastService.showToast(msg, GREEN);
   }
 }

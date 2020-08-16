@@ -11,7 +11,7 @@ MaterialApp loader(BuildContext context, String title, Drawer drawer) {
     theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
     home: Scaffold(
       backgroundColor: DARK,
-      appBar: appBar(context, null, null, null, title),
+      appBar: appBar(context, null, null, null, null, title),
       drawer: drawer,
       body: Center(
         child: CircularProgressIndicator(

@@ -21,13 +21,14 @@ class ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage
     extends StatefulWidget {
   final String _userId;
   final String _userInfo;
+  final String _username;
   final String _authHeader;
 
   final String _employeeInfo;
   final EmployeeTimeSheetDto timeSheet;
 
   const ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(this._userId,
-      this._userInfo, this._authHeader, this._employeeInfo, this.timeSheet);
+      this._userInfo, this._username, this._authHeader, this._employeeInfo, this.timeSheet);
 
   @override
   _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState createState() =>
@@ -59,7 +60,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
             context,
             getTranslated(context, 'loading'),
             managerSideBar(
-                context, widget._userId, widget._userInfo, widget._authHeader),
+                context, widget._userId, widget._userInfo, widget._username, widget._authHeader),
           );
         } else {
           List<WorkdayDto> workdays = snapshot.data;
@@ -77,9 +78,9 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
-              appBar: appBar(context, widget._userId, widget._userInfo,
+              appBar: appBar(context, widget._userId, widget._userInfo, widget._username,
                   widget._authHeader, getTranslated(context, 'workdays')),
-              drawer: managerSideBar(context, widget._userId, widget._userInfo,
+              drawer: managerSideBar(context, widget._userId, widget._userInfo, widget._username,
                   widget._authHeader),
               body: SingleChildScrollView(
                 child: Padding(

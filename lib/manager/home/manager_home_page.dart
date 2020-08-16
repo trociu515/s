@@ -17,9 +17,11 @@ import '../dto/manager_dto.dart';
 class ManagerDetails extends StatefulWidget {
   final String _userId;
   final String _userInfo;
+  final String _username;
   final String _authHeader;
 
-  ManagerDetails(this._userId, this._userInfo, this._authHeader);
+  ManagerDetails(
+      this._userId, this._userInfo, this._username, this._authHeader);
 
   @override
   _ManagerDetailsState createState() => _ManagerDetailsState();
@@ -38,8 +40,8 @@ class _ManagerDetailsState extends State<ManagerDetails> {
           return loader(
             context,
             getTranslated(context, 'loading'),
-            managerSideBar(
-                context, widget._userId, widget._userInfo, widget._authHeader),
+            managerSideBar(context, widget._userId, widget._userInfo,
+                widget._username, widget._authHeader),
           );
         } else {
           ManagerDto manager = snapshot.data;
@@ -51,10 +53,15 @@ class _ManagerDetailsState extends State<ManagerDetails> {
               debugShowCheckedModeBanner: false,
               home: Scaffold(
                 backgroundColor: DARK,
-                appBar: appBar(context, widget._userId, widget._userInfo,
-                    widget._authHeader, getTranslated(context, 'home')),
+                appBar: appBar(
+                    context,
+                    widget._userId,
+                    widget._userInfo,
+                    widget._username,
+                    widget._authHeader,
+                    getTranslated(context, 'home')),
                 drawer: managerSideBar(context, widget._userId,
-                    widget._userInfo, widget._authHeader),
+                    widget._userInfo, widget._username, widget._authHeader),
                 body: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),

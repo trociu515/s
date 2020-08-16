@@ -4,7 +4,7 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/settings/settings_page.dart';
 
 AppBar appBar(BuildContext context, String userId, String userInfo,
-    String authHeader, String title) {
+    String username, String authHeader, String title) {
   return AppBar(
     title: Text(
       title,
@@ -24,8 +24,8 @@ AppBar appBar(BuildContext context, String userId, String userInfo,
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            SettingsPage(userId, userInfo, authHeader)),
+                        builder: (context) => SettingsPage(
+                            userId, userInfo, username, authHeader)),
                   ),
                   child: Container(
                     alignment: Alignment.centerRight,

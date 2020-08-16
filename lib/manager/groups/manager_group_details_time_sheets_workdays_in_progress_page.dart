@@ -23,13 +23,14 @@ class ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage
     extends StatefulWidget {
   final String _userId;
   final String _userInfo;
+  final String _username;
   final String _authHeader;
 
   final String _employeeInfo;
   final EmployeeTimeSheetDto timeSheet;
 
   const ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(this._userId,
-      this._userInfo, this._authHeader, this._employeeInfo, this.timeSheet);
+      this._userInfo, this._username, this._authHeader, this._employeeInfo, this.timeSheet);
 
   @override
   _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState createState() =>
@@ -65,7 +66,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             return loader(
               context,
               getTranslated(context, 'loading'),
-              managerSideBar(context, widget._userId, widget._userInfo,
+              managerSideBar(context, widget._userId, widget._userInfo, widget._username,
                   widget._authHeader),
             );
           } else {
@@ -86,9 +87,9 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
               home: Scaffold(
                 backgroundColor: DARK,
                 appBar: appBar(context, getTranslated(context, 'workdays'),
-                    widget._userId, widget._userInfo, widget._authHeader),
+                    widget._userId, widget._userInfo, widget._username, widget._authHeader),
                 drawer: managerSideBar(context, widget._userId,
-                    widget._userInfo, widget._authHeader),
+                    widget._userInfo, widget._username, widget._authHeader),
                 body: RefreshIndicator(
                   color: DARK,
                   backgroundColor: WHITE,
@@ -287,10 +288,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: DARK,
-          appBar: appBar(context, widget._userId, widget._userInfo,
+          appBar: appBar(context, widget._userId, widget._userInfo, widget._username,
               widget._authHeader, getTranslated(context, 'workdays')),
           drawer: managerSideBar(
-              context, widget._userId, widget._userInfo, widget._authHeader),
+              context, widget._userId, widget._userInfo, widget._username, widget._authHeader),
           body: RefreshIndicator(
             color: DARK,
             backgroundColor: WHITE,

@@ -14,7 +14,7 @@ import 'employees/manager_employees_page.dart';
 import 'groups/manager_groups_page.dart';
 
 Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
-    String authHeader) {
+    String username, String authHeader) {
   return Drawer(
     child: Container(
       color: DARK,
@@ -61,7 +61,8 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               Navigator.of(context).push(
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
-                    return ManagerDetails(managerId, userInfo, authHeader);
+                    return ManagerDetails(
+                        managerId, userInfo, username, authHeader);
                   },
                 ),
               );
@@ -74,7 +75,8 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
               Navigator.of(context).push(
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
-                    return ManagerGroupsPage(managerId, userInfo, authHeader);
+                    return ManagerGroupsPage(
+                        managerId, userInfo, username, authHeader);
                   },
                 ),
               );
@@ -88,7 +90,7 @@ Drawer managerSideBar(BuildContext context, String managerId, String userInfo,
                 CupertinoPageRoute<Null>(
                   builder: (BuildContext context) {
                     return ManagerEmployeesPage(
-                        managerId, userInfo, authHeader);
+                        managerId, userInfo, username, authHeader);
                   },
                 ),
               );
