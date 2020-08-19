@@ -136,5 +136,8 @@
   "newPasswordIsRequired": "Please enter your new password",
   "newPasswordWrongLength": "Password should contain at least 6 characters",
   "reNewPasswordIsRequired": "Please retype new password",
-  "passwordsDoNotMatch": "Passwords do not match"
+  "passwordsDoNotMatch": "Passwords do not match",
+  "createNewAccount": "Create new account",
+  "createNewAccountPopupTitle": "Enter token to proceed registration",
+  "confirm": "Confirm"
 }

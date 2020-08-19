@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:give_job/get_started_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/home/manager_home_page.dart';
@@ -28,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool _passwordVisible = false;
+  String _token;
+  bool _onEditing = true;
 
   @override
   void initState() {
@@ -149,6 +153,12 @@ class _LoginPageState extends State<LoginPage> {
               child: text20White(getTranslated(context, 'login')),
               textColor: Colors.white,
             ),
+            SizedBox(height: 30),
+            InkWell(
+              onTap: () => _showCreateAccountDialog(),
+              child: textCenter20WhiteBoldUnderline(
+                  getTranslated(context, 'createNewAccount')),
+            ),
             SizedBox(height: 100),
             Align(
               alignment: Alignment.bottomCenter,
@@ -216,6 +226,62 @@ class _LoginPageState extends State<LoginPage> {
     var res = await http
         .get('$SERVER_IP/login/mobile', headers: {'authorization': basicAuth});
     return res;
+  }
+
+  _showCreateAccountDialog() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: DARK,
+            title: Column(
+              children: <Widget>[
+                textCenterWhite(getTranslated(context, 'createNewAccount')),
+                SizedBox(height: 5),
+                textCenter14White(
+                    getTranslated(context, 'createNewAccountPopupTitle')),
+              ],
+            ),
+            content: Container(
+              height: 50,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 10),
+                  VerificationCode(
+                    textStyle: TextStyle(fontSize: 20.0, color: WHITE),
+                    keyboardType: TextInputType.number,
+                    autofocus: true,
+                    itemSize: 40,
+                    length: 6,
+                    onCompleted: (String value) {
+                      setState(() {
+                        _token = value;
+                      });
+                    },
+                    onEditing: (bool value) {
+                      setState(() {
+                        _onEditing = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: textWhite(getTranslated(context, 'confirm')),
+                onPressed: () {},
+              ),
+              FlatButton(
+                child: textWhite(getTranslated(context, 'close')),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _token = null;
+                },
+              )
+            ],
+          );
+        });
   }
 
   _buildFooterLogo() {
