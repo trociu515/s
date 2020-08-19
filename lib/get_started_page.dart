@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/login_page.dart';
+import 'package:give_job/shared/login/login_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/util/language_util.dart';

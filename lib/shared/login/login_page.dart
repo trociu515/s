@@ -17,8 +17,8 @@ import 'package:give_job/shared/widget/texts.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 
-import 'employee/home/employee_home_page.dart';
-import 'internationalization/localization/localization_constants.dart';
+import '../../employee/home/employee_home_page.dart';
+import '../../internationalization/localization/localization_constants.dart';
 
 class LoginPage extends StatefulWidget {
   @override

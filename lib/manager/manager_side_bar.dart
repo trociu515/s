@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/home/manager_home_page.dart';
-import 'package:give_job/shared/dialog/bug_report_dialog.dart';
+import 'package:give_job/shared/settings/bug_report_dialog.dart';
 import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/model/user.dart';
