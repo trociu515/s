@@ -11,6 +11,7 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/service/token_service.dart';
 import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -26,6 +27,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TokenService _tokenService = TokenService();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -270,7 +272,15 @@ class _LoginPageState extends State<LoginPage> {
             actions: <Widget>[
               FlatButton(
                 child: textWhite(getTranslated(context, 'confirm')),
-                onPressed: () {},
+                onPressed: () {
+                  _tokenService.isCorrect(_token).then((res) {
+                    if (!res) {
+                      _tokenAlertDialog(false);
+                      return;
+                    }
+                    _tokenAlertDialog(true);
+                  });
+                },
               ),
               FlatButton(
                 child: textWhite(getTranslated(context, 'close')),
@@ -282,6 +292,57 @@ class _LoginPageState extends State<LoginPage> {
             ],
           );
         });
+  }
+
+  _tokenAlertDialog(bool isCorrect) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: DARK,
+          title: isCorrect
+              ? textGreen(getTranslated(context, 'success'))
+              : textWhite(getTranslated(context, 'failure')),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                textWhite(isCorrect
+                    ? getTranslated(context, 'tokenIsCorrect') +
+                        '\n\n' +
+                        getTranslated(context, 'redirectToRegistration')
+                    : getTranslated(context, 'tokenIsIncorrect')),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            MaterialButton(
+              elevation: 0,
+              height: 50,
+              minWidth: double.maxFinite,
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+              color: GREEN,
+              child: isCorrect
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        text20White(getTranslated(context, 'continue')),
+                        iconWhite(Icons.arrow_forward_ios)
+                      ],
+                    )
+                  : text20WhiteBold(getTranslated(context, 'close')),
+              onPressed: () {
+                if (!isCorrect) {
+                  Navigator.of(context).pop();
+                  return;
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   _buildFooterLogo() {

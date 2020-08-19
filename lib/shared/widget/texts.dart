@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 
 /////////////////////
@@ -60,6 +61,12 @@ Text text22DarkBold(String text) { return Text(text, style: TextStyle(fontSize: 
 
 
 /////////////////////
+/*    TEXT GREEN   */
+/////////////////////
+Text textGreen(String text) { return Text(text, style: TextStyle(color: GREEN)); }
+
+
+/////////////////////
 /* TEXT GREEN BOLD */
 /////////////////////
-Text text20GreenBold(String text) {return Text(text, style: TextStyle(fontSize: 20, color: GREEN, fontWeight: FontWeight.bold)); }
+Text text20GreenBold(String text) { return Text(text, style: TextStyle(fontSize: 20, color: GREEN, fontWeight: FontWeight.bold)); }
