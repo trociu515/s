@@ -4,7 +4,7 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-import '../login/login_page.dart';
+import '../../unauthenticated/login_page.dart';
 import '../../main.dart';
 
 class Logout {

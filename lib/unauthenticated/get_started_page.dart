@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/shared/login/login_page.dart';
+import 'package:give_job/unauthenticated/login_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-import 'internationalization/model/language.dart';
+import '../internationalization/model/language.dart';
 
 class GetStartedPage extends StatefulWidget {
   @override

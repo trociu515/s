@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
-import 'package:give_job/get_started_page.dart';
+import 'package:give_job/unauthenticated/get_started_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/home/manager_home_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -18,8 +18,8 @@ import 'package:give_job/shared/widget/texts.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 
-import '../../employee/home/employee_home_page.dart';
-import '../../internationalization/localization/localization_constants.dart';
+import '../employee/home/employee_home_page.dart';
+import '../internationalization/localization/localization_constants.dart';
 
 class LoginPage extends StatefulWidget {
   @override
