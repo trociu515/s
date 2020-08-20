@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
-import 'package:give_job/unauthenticated/get_started_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/home/manager_home_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -15,6 +14,8 @@ import 'package:give_job/shared/service/token_service.dart';
 import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:give_job/unauthenticated/get_started_page.dart';
+import 'package:give_job/unauthenticated/registration_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 
@@ -337,6 +338,33 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.of(context).pop();
                   return;
                 }
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation) {
+                      return RegistrationPage(_token);
+                    },
+                    transitionsBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                        Widget child) {
+                      return SlideTransition(
+                        position: new Tween<Offset>(
+                          begin: const Offset(-1.0, 0.0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: new SlideTransition(
+                            position: new Tween<Offset>(
+                              begin: Offset.zero,
+                              end: const Offset(-1.0, 0.0),
+                            ).animate(secondaryAnimation),
+                            child: child),
+                      );
+                    },
+                  ),
+                );
               },
             ),
           ],
