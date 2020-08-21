@@ -5,6 +5,7 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:give_job/unauthenticated/login_page.dart';
+import 'package:give_job/unauthenticated/register/registration_form.dart';
 
 class RegistrationPage extends StatefulWidget {
   final String _tokenId;
@@ -34,6 +35,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
             onPressed: () => _exitDialog(),
           ),
         ),
+        body: Padding(
+            padding: EdgeInsets.all(25.0),
+            child: Center(child: registrationForm())),
       ),
     );
   }

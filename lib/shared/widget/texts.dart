@@ -64,6 +64,19 @@ Text text22DarkBold(String text) { return Text(text, style: TextStyle(fontSize: 
 /*    TEXT GREEN   */
 /////////////////////
 Text textGreen(String text) { return Text(text, style: TextStyle(color: GREEN)); }
+Text text16Green(String text) { return Text(text, style: TextStyle(fontSize: 14, color: GREEN)); }
+
+
+/////////////////////////////////
+/* TEXT CENTER GREEN UNDERLINE */
+/////////////////////////////////
+Text text25GreenUnderline(String text) { return Text(text, style: TextStyle(fontSize: 20, color: GREEN, decoration: TextDecoration.underline)); }
+
+
+////////////////////////////
+/* TEXT CENTER GREEN BOLD */
+////////////////////////////
+Text textCenter28GreenBold(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 28, color: GREEN, fontWeight: FontWeight.bold)); }
 
 
 /////////////////////
