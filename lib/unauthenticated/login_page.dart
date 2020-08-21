@@ -15,7 +15,7 @@ import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:give_job/unauthenticated/get_started_page.dart';
-import 'package:give_job/unauthenticated/register/registration_page.dart';
+import 'package:give_job/unauthenticated/registration_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 
