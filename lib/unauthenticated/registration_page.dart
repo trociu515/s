@@ -64,8 +64,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 'Through the information in this section you will be able to log into the application. Please remember them.'),
                           ),
                           SizedBox(height: 20),
-                          _buildRequiredTextField(true, 'Username',
-                              'Username is required', Icons.person),
+                          _buildRequiredTextField(
+                              'Username', 'Username is required', Icons.person),
                           _buildPasswordTextField(),
                           _buildRePasswordTextField(),
                           SizedBox(height: 15),
@@ -80,24 +80,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 'This section contains very basic informations about you like for example name or surname.'),
                           ),
                           SizedBox(height: 20),
-                          _buildRequiredTextField(true, 'Name',
-                              'Name is required', Icons.person_outline),
-                          _buildRequiredTextField(true, 'Surname',
-                              'Surname is required', Icons.person_outline),
-                          RaisedButton(
-                            onPressed: () {},
-                            child: textWhite('Date of birth'),
-                          ),
                           _buildRequiredTextField(
-                              true,
+                              'Name', 'Name is required', Icons.person_outline),
+                          _buildRequiredTextField('Surname',
+                              'Surname is required', Icons.person_outline),
+                          _buildRequiredTextField(
                               'Father\'s name',
                               'Father\'s name is required',
                               Icons.directions_walk),
                           _buildRequiredTextField(
-                              true,
                               'Mother\'s name',
                               'Mother\'s name is required',
                               Icons.pregnant_woman),
+                          _buildDateOfBirthField(),
                           SizedBox(height: 30),
                           MaterialButton(
                             elevation: 0,
@@ -128,11 +123,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _buildRequiredTextField(
-      bool autofocus, String labelText, String errorText, IconData icon) {
+      String labelText, String errorText, IconData icon) {
     return Column(
       children: <Widget>[
         TextFormField(
-          autofocus: autofocus,
           autocorrect: true,
           cursorColor: WHITE,
           maxLength: 26,
@@ -212,6 +206,59 @@ class _RegistrationPageState extends State<RegistrationPage> {
         SizedBox(height: 10),
       ],
     );
+  }
+
+  Widget _buildDateOfBirthField() {
+    String validate(value) {
+      if (_date.toString().substring(0, 10) ==
+          DateTime.now().toString().substring(0, 10)) {
+        return 'Date of birth is required';
+      }
+      return null;
+    }
+
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          readOnly: true,
+          onTap: () {
+            setState(() {
+              selectDate(context);
+            });
+          },
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: WHITE, width: 2)),
+            border: OutlineInputBorder(),
+            hintText: _date.toString().substring(0, 10) ==
+                    DateTime.now().toString().substring(0, 10)
+                ? 'Date of birth'
+                : _date.toString().substring(0, 10) + ' (Date of birth)',
+            hintStyle: TextStyle(color: WHITE),
+            icon: iconWhite(Icons.date_range),
+            labelStyle: TextStyle(color: WHITE),
+          ),
+          validator: (value) => validate(value),
+        ),
+        SizedBox(height: 20),
+      ],
+    );
+  }
+
+  DateTime _date = DateTime.now();
+
+  Future<Null> selectDate(BuildContext context) async {
+    DateTime _datePicker = await showDatePicker(
+        context: context,
+        initialDate: _date,
+        firstDate: DateTime(1950),
+        lastDate: DateTime(2030),
+        initialDatePickerMode: DatePickerMode.year);
+    if (_datePicker != null && _datePicker != _date) {
+      setState(() {
+        _date = _datePicker;
+      });
+    }
   }
 
   void _resetAndOpenPage() {
