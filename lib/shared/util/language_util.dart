@@ -35,6 +35,7 @@ class LanguageUtil {
       case 'ES': return '🇪🇸';
       case 'SE': return '🇸🇪';
       case 'UK': return '🇺🇦';
+      case 'OTHER': return '🏳️';
       default: return '🇬🇧';
     }
   }

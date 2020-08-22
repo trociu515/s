@@ -1,8 +1,10 @@
+import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:give_job/unauthenticated/login_page.dart';
@@ -19,6 +21,15 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = new TextEditingController();
+  String _myActivity;
+  String _myActivityResult;
+
+  @override
+  void initState() {
+    super.initState();
+    _myActivity = '';
+    _myActivityResult = '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +104,90 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               'Mother\'s name is required',
                               Icons.pregnant_woman),
                           _buildDateOfBirthField(),
+                          Theme(
+                            data:
+                                ThemeData(hintColor: DARK, splashColor: GREEN),
+                            child: Container(
+                              color: Colors.white,
+                              child: DropDownFormField(
+                                titleText: 'Nationality',
+                                hintText: 'Please choose your nationality',
+                                value: _myActivity,
+                                onSaved: (value) {
+                                  setState(() {
+                                    _myActivity = value;
+                                  });
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    _myActivity = value;
+                                  });
+                                },
+                                dataSource: [
+                                  {
+                                    'display': 'Беларус ' + LanguageUtil.findFlagByNationality('BE'),
+                                    'value': 'BE',
+                                  },
+                                  {
+                                    'display': 'English ' + LanguageUtil.findFlagByNationality('EN'),
+                                    'value': 'EN',
+                                  },
+                                  {
+                                    'display': 'Français ' + LanguageUtil.findFlagByNationality('FR'),
+                                    'value': 'FR',
+                                  },
+                                  {
+                                    'display': 'ქართული ' + LanguageUtil.findFlagByNationality('GE'),
+                                    'value': 'GE',
+                                  },
+                                  {
+                                    'display': 'Deutsche ' + LanguageUtil.findFlagByNationality('DE'),
+                                    'value': 'DE',
+                                  },
+                                  {
+                                    'display': 'Română ' + LanguageUtil.findFlagByNationality('RO'),
+                                    'value': 'RO',
+                                  },
+                                  {
+                                    'display': 'Nederlands ' + LanguageUtil.findFlagByNationality('NL'),
+                                    'value': 'NL',
+                                  },
+                                  {
+                                    'display': 'Norsk ' + LanguageUtil.findFlagByNationality('NO'),
+                                    'value': 'NO',
+                                  },
+                                  {
+                                    'display': 'Polska ' + LanguageUtil.findFlagByNationality('PL'),
+                                    'value': 'PL',
+                                  },
+                                  {
+                                    'display': 'русский ' + LanguageUtil.findFlagByNationality('RU'),
+                                    'value': 'RU',
+                                  },
+                                  {
+                                    'display': 'Español ' + LanguageUtil.findFlagByNationality('ES'),
+                                    'value': 'ES',
+                                  },
+                                  {
+                                    'display': 'Svenska ' + LanguageUtil.findFlagByNationality('SE'),
+                                    'value': 'SE',
+                                  },
+                                  {
+                                    'display': 'Українська ' + LanguageUtil.findFlagByNationality('UK'),
+                                    'value': 'UK',
+                                  },
+                                  {
+                                    'display': 'Other ' + LanguageUtil.findFlagByNationality('OTHER'),
+                                    'value': 'OTHER',
+                                  },
+                                ],
+                                textField: 'display',
+                                valueField: 'value',
+                                required: true,
+                                autovalidate: true,
+                              ),
+                            ),
+                          ),
                           SizedBox(height: 30),
                           MaterialButton(
                             elevation: 0,
@@ -137,7 +232,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               counterStyle: TextStyle(color: WHITE),
               border: OutlineInputBorder(),
               labelText: labelText,
-              icon: iconWhite(icon),
+              prefixIcon: iconWhite(icon),
               labelStyle: TextStyle(color: WHITE)),
           validator: RequiredValidator(errorText: errorText),
         ),
@@ -162,7 +257,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               counterStyle: TextStyle(color: WHITE),
               border: OutlineInputBorder(),
               labelText: 'Password',
-              icon: iconWhite(Icons.lock),
+              prefixIcon: iconWhite(Icons.lock),
               labelStyle: TextStyle(color: WHITE)),
           validator: MultiValidator([
             RequiredValidator(errorText: 'Password is required'),
@@ -199,7 +294,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               counterStyle: TextStyle(color: WHITE),
               border: OutlineInputBorder(),
               labelText: 'Retyped password',
-              icon: iconWhite(Icons.lock),
+              prefixIcon: iconWhite(Icons.lock),
               labelStyle: TextStyle(color: WHITE)),
           validator: (value) => validate(value),
         ),
@@ -235,7 +330,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ? 'Date of birth'
                 : _date.toString().substring(0, 10) + ' (Date of birth)',
             hintStyle: TextStyle(color: WHITE),
-            icon: iconWhite(Icons.date_range),
+            prefixIcon: iconWhite(Icons.date_range),
             labelStyle: TextStyle(color: WHITE),
           ),
           validator: (value) => validate(value),
