@@ -104,90 +104,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               'Mother\'s name is required',
                               Icons.pregnant_woman),
                           _buildDateOfBirthField(),
-                          Theme(
-                            data:
-                                ThemeData(hintColor: DARK, splashColor: GREEN),
-                            child: Container(
-                              color: Colors.white,
-                              child: DropDownFormField(
-                                titleText: 'Nationality',
-                                hintText: 'Please choose your nationality',
-                                value: _myActivity,
-                                onSaved: (value) {
-                                  setState(() {
-                                    _myActivity = value;
-                                  });
-                                },
-                                onChanged: (value) {
-                                  setState(() {
-                                    _myActivity = value;
-                                  });
-                                },
-                                dataSource: [
-                                  {
-                                    'display': 'Беларус ' + LanguageUtil.findFlagByNationality('BE'),
-                                    'value': 'BE',
-                                  },
-                                  {
-                                    'display': 'English ' + LanguageUtil.findFlagByNationality('EN'),
-                                    'value': 'EN',
-                                  },
-                                  {
-                                    'display': 'Français ' + LanguageUtil.findFlagByNationality('FR'),
-                                    'value': 'FR',
-                                  },
-                                  {
-                                    'display': 'ქართული ' + LanguageUtil.findFlagByNationality('GE'),
-                                    'value': 'GE',
-                                  },
-                                  {
-                                    'display': 'Deutsche ' + LanguageUtil.findFlagByNationality('DE'),
-                                    'value': 'DE',
-                                  },
-                                  {
-                                    'display': 'Română ' + LanguageUtil.findFlagByNationality('RO'),
-                                    'value': 'RO',
-                                  },
-                                  {
-                                    'display': 'Nederlands ' + LanguageUtil.findFlagByNationality('NL'),
-                                    'value': 'NL',
-                                  },
-                                  {
-                                    'display': 'Norsk ' + LanguageUtil.findFlagByNationality('NO'),
-                                    'value': 'NO',
-                                  },
-                                  {
-                                    'display': 'Polska ' + LanguageUtil.findFlagByNationality('PL'),
-                                    'value': 'PL',
-                                  },
-                                  {
-                                    'display': 'русский ' + LanguageUtil.findFlagByNationality('RU'),
-                                    'value': 'RU',
-                                  },
-                                  {
-                                    'display': 'Español ' + LanguageUtil.findFlagByNationality('ES'),
-                                    'value': 'ES',
-                                  },
-                                  {
-                                    'display': 'Svenska ' + LanguageUtil.findFlagByNationality('SE'),
-                                    'value': 'SE',
-                                  },
-                                  {
-                                    'display': 'Українська ' + LanguageUtil.findFlagByNationality('UK'),
-                                    'value': 'UK',
-                                  },
-                                  {
-                                    'display': 'Other ' + LanguageUtil.findFlagByNationality('OTHER'),
-                                    'value': 'OTHER',
-                                  },
-                                ],
-                                textField: 'display',
-                                valueField: 'value',
-                                required: true,
-                                autovalidate: true,
-                              ),
-                            ),
-                          ),
+                          _buildNationalityDropdown(),
                           SizedBox(height: 30),
                           MaterialButton(
                             elevation: 0,
@@ -354,6 +271,111 @@ class _RegistrationPageState extends State<RegistrationPage> {
         _date = _datePicker;
       });
     }
+  }
+
+  Widget _buildNationalityDropdown() {
+    return Theme(
+      data: ThemeData(hintColor: DARK, splashColor: GREEN),
+      child: Column(
+        children: <Widget>[
+          Container(
+            color: Colors.white,
+            child: DropDownFormField(
+              titleText: 'Nationality',
+              hintText: 'Please choose your nationality',
+              value: _myActivity,
+              onSaved: (value) {
+                setState(() {
+                  _myActivity = value;
+                });
+              },
+              onChanged: (value) {
+                setState(() {
+                  _myActivity = value;
+                });
+              },
+              dataSource: [
+                {
+                  'display':
+                      'Беларус ' + LanguageUtil.findFlagByNationality('BE'),
+                  'value': 'BE',
+                },
+                {
+                  'display':
+                      'English ' + LanguageUtil.findFlagByNationality('EN'),
+                  'value': 'EN',
+                },
+                {
+                  'display':
+                      'Français ' + LanguageUtil.findFlagByNationality('FR'),
+                  'value': 'FR',
+                },
+                {
+                  'display':
+                      'ქართული ' + LanguageUtil.findFlagByNationality('GE'),
+                  'value': 'GE',
+                },
+                {
+                  'display':
+                      'Deutsche ' + LanguageUtil.findFlagByNationality('DE'),
+                  'value': 'DE',
+                },
+                {
+                  'display':
+                      'Română ' + LanguageUtil.findFlagByNationality('RO'),
+                  'value': 'RO',
+                },
+                {
+                  'display':
+                      'Nederlands ' + LanguageUtil.findFlagByNationality('NL'),
+                  'value': 'NL',
+                },
+                {
+                  'display':
+                      'Norsk ' + LanguageUtil.findFlagByNationality('NO'),
+                  'value': 'NO',
+                },
+                {
+                  'display':
+                      'Polska ' + LanguageUtil.findFlagByNationality('PL'),
+                  'value': 'PL',
+                },
+                {
+                  'display':
+                      'русский ' + LanguageUtil.findFlagByNationality('RU'),
+                  'value': 'RU',
+                },
+                {
+                  'display':
+                      'Español ' + LanguageUtil.findFlagByNationality('ES'),
+                  'value': 'ES',
+                },
+                {
+                  'display':
+                      'Svenska ' + LanguageUtil.findFlagByNationality('SE'),
+                  'value': 'SE',
+                },
+                {
+                  'display':
+                      'Українська ' + LanguageUtil.findFlagByNationality('UK'),
+                  'value': 'UK',
+                },
+                {
+                  'display':
+                      'Other ' + LanguageUtil.findFlagByNationality('OTHER'),
+                  'value': 'OTHER',
+                },
+              ],
+              textField: 'display',
+              valueField: 'value',
+              required: true,
+              autovalidate: true,
+            ),
+          ),
+          SizedBox(height: 20),
+        ],
+      ),
+    );
   }
 
   void _resetAndOpenPage() {
