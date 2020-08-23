@@ -1,6 +1,7 @@
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -21,14 +22,15 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = new TextEditingController();
+  final TextEditingController _phoneController = new TextEditingController();
+  final TextEditingController _viberController = new TextEditingController();
+  final TextEditingController _whatsAppController = new TextEditingController();
   String _myActivity;
-  String _myActivityResult;
 
   @override
   void initState() {
     super.initState();
     _myActivity = '';
-    _myActivityResult = '';
   }
 
   @override
@@ -107,6 +109,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               Icons.pregnant_woman),
                           _buildDateOfBirthField(),
                           _buildNationalityDropdown(),
+                          SizedBox(height: 15),
                           Align(
                             alignment: Alignment.topLeft,
                             child: text25GreenUnderline('ADDRESS SECTION'),
@@ -142,6 +145,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             'House number is required',
                             Icons.home,
                           ),
+                          SizedBox(height: 15),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: text25GreenUnderline('CONTACT SECTION'),
+                          ),
+                          SizedBox(height: 5),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: text13White(
+                                'To be in touch, please provide one of the three forms of contact.'),
+                          ),
+                          SizedBox(height: 20),
+                          _buildContactNumField(
+                              _phoneController, 'Phone number', Icons.phone),
+                          _buildContactNumField(_viberController,
+                              'Viber number', Icons.phone_in_talk),
+                          _buildContactNumField(_whatsAppController,
+                              'Whats app number', Icons.perm_phone_msg),
                           SizedBox(height: 30),
                           MaterialButton(
                             elevation: 0,
@@ -189,6 +210,45 @@ class _RegistrationPageState extends State<RegistrationPage> {
               prefixIcon: iconWhite(icon),
               labelStyle: TextStyle(color: WHITE)),
           validator: RequiredValidator(errorText: errorText),
+        ),
+        SizedBox(height: 10),
+      ],
+    );
+  }
+
+  Widget _buildContactNumField(
+      TextEditingController controller, String labelText, IconData icon) {
+    String validate(String value) {
+      String phone = _phoneController.text;
+      String viber = _viberController.text;
+      String whatsApp = _whatsAppController.text;
+      if (phone.isNotEmpty || viber.isNotEmpty || whatsApp.isNotEmpty) {
+        return null;
+      }
+      return 'Please provide one of the three forms of contact.';
+    }
+
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          autocorrect: true,
+          cursorColor: WHITE,
+          maxLength: 15,
+          controller: controller,
+          style: TextStyle(color: WHITE),
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            WhitelistingTextInputFormatter.digitsOnly
+          ],
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: WHITE, width: 2)),
+              counterStyle: TextStyle(color: WHITE),
+              border: OutlineInputBorder(),
+              labelText: labelText,
+              prefixIcon: iconWhite(icon),
+              labelStyle: TextStyle(color: WHITE)),
+          validator: (value) => validate(value),
         ),
         SizedBox(height: 10),
       ],
