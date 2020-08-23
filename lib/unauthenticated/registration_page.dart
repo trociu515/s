@@ -75,8 +75,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 'Through the information in this section you will be able to log into the application. Please remember them.'),
                           ),
                           SizedBox(height: 20),
-                          _buildRequiredTextField(
-                              'Username', 'Username is required', Icons.person),
+                          _buildRequiredTextField(26, 'Username',
+                              'Username is required', Icons.person),
                           _buildPasswordTextField(),
                           _buildRePasswordTextField(),
                           SizedBox(height: 15),
@@ -91,20 +91,57 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 'This section contains very basic informations about you like for example name or surname.'),
                           ),
                           SizedBox(height: 20),
-                          _buildRequiredTextField(
-                              'Name', 'Name is required', Icons.person_outline),
-                          _buildRequiredTextField('Surname',
+                          _buildRequiredTextField(26, 'Name',
+                              'Name is required', Icons.person_outline),
+                          _buildRequiredTextField(26, 'Surname',
                               'Surname is required', Icons.person_outline),
                           _buildRequiredTextField(
+                              26,
                               'Father\'s name',
                               'Father\'s name is required',
                               Icons.directions_walk),
                           _buildRequiredTextField(
+                              26,
                               'Mother\'s name',
                               'Mother\'s name is required',
                               Icons.pregnant_woman),
                           _buildDateOfBirthField(),
                           _buildNationalityDropdown(),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: text25GreenUnderline('ADDRESS SECTION'),
+                          ),
+                          SizedBox(height: 5),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: text13White(
+                                'This section contains information about your home address.'),
+                          ),
+                          SizedBox(height: 20),
+                          _buildRequiredTextField(
+                            100,
+                            'Locality',
+                            'Locality is required',
+                            Icons.location_city,
+                          ),
+                          _buildRequiredTextField(
+                            12,
+                            'Zip code',
+                            'Accommodation is required',
+                            Icons.local_post_office,
+                          ),
+                          _buildRequiredTextField(
+                            100,
+                            'Street',
+                            'Street is required',
+                            Icons.directions,
+                          ),
+                          _buildRequiredTextField(
+                            4,
+                            'House number',
+                            'House number is required',
+                            Icons.home,
+                          ),
                           SizedBox(height: 30),
                           MaterialButton(
                             elevation: 0,
@@ -135,13 +172,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _buildRequiredTextField(
-      String labelText, String errorText, IconData icon) {
+      int maxLength, String labelText, String errorText, IconData icon) {
     return Column(
       children: <Widget>[
         TextFormField(
           autocorrect: true,
           cursorColor: WHITE,
-          maxLength: 26,
+          maxLength: maxLength,
           style: TextStyle(color: WHITE),
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
