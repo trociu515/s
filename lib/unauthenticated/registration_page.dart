@@ -21,6 +21,8 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool _passwordVisible = false;
+  bool _rePasswordVisible = false;
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController _phoneController = new TextEditingController();
   final TextEditingController _viberController = new TextEditingController();
@@ -34,6 +36,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   void initState() {
     super.initState();
+    _passwordVisible = false;
+    _rePasswordVisible = false;
     _myActivity = '';
   }
 
@@ -394,7 +398,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       children: <Widget>[
         TextFormField(
           autocorrect: true,
-          obscureText: true,
+          obscureText: !_passwordVisible,
           cursorColor: WHITE,
           maxLength: 60,
           controller: _passwordController,
@@ -406,6 +410,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
               border: OutlineInputBorder(),
               labelText: 'Password',
               prefixIcon: iconWhite(Icons.lock),
+              suffixIcon: IconButton(
+                icon: iconWhite(
+                    _passwordVisible ? Icons.visibility : Icons.visibility_off),
+                onPressed: () => setState(
+                  () => _passwordVisible = !_passwordVisible,
+                ),
+              ),
               labelStyle: TextStyle(color: WHITE)),
           validator: MultiValidator([
             RequiredValidator(errorText: 'Password is required'),
@@ -432,7 +443,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       children: <Widget>[
         TextFormField(
           autocorrect: true,
-          obscureText: true,
+          obscureText: !_rePasswordVisible,
           cursorColor: WHITE,
           maxLength: 60,
           style: TextStyle(color: WHITE),
@@ -443,6 +454,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
               border: OutlineInputBorder(),
               labelText: 'Retyped password',
               prefixIcon: iconWhite(Icons.lock),
+              suffixIcon: IconButton(
+                icon: iconWhite(_rePasswordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off),
+                onPressed: () => setState(
+                  () => _rePasswordVisible = !_rePasswordVisible,
+                ),
+              ),
               labelStyle: TextStyle(color: WHITE)),
           validator: (value) => validate(value),
         ),
