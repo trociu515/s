@@ -25,6 +25,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _phoneController = new TextEditingController();
   final TextEditingController _viberController = new TextEditingController();
   final TextEditingController _whatsAppController = new TextEditingController();
+  DateTime _dateOfBirth = DateTime.now();
+  DateTime _passportReleaseDate = DateTime.now();
+  DateTime _passportExpirationDate = DateTime.now();
   String _myActivity;
 
   @override
@@ -217,6 +220,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
           'Passport number',
           Icons.card_travel,
         ),
+        _buildPassportDate(_passportReleaseDate, 'Passport release date'),
+        _buildPassportDate(_passportExpirationDate, 'Passport expiration date'),
       ],
     );
   }
@@ -403,11 +408,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  DateTime _date = DateTime.now();
-
   Widget _buildDateOfBirthField() {
     String validate(value) {
-      if (_date.toString().substring(0, 10) ==
+      if (_dateOfBirth.toString().substring(0, 10) ==
           DateTime.now().toString().substring(0, 10)) {
         return 'Date of birth is required';
       }
@@ -420,17 +423,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
           readOnly: true,
           onTap: () {
             setState(() {
-              selectDateOfBirth(context);
+              selectDate(context, _dateOfBirth);
             });
           },
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: WHITE, width: 2)),
             border: OutlineInputBorder(),
-            hintText: _date.toString().substring(0, 10) ==
+            hintText: _dateOfBirth.toString().substring(0, 10) ==
                     DateTime.now().toString().substring(0, 10)
                 ? 'Date of birth'
-                : _date.toString().substring(0, 10) + ' (Date of birth)',
+                : _dateOfBirth.toString().substring(0, 10) + ' (Date of birth)',
             hintStyle: TextStyle(color: WHITE),
             prefixIcon: iconWhite(Icons.date_range),
             labelStyle: TextStyle(color: WHITE),
@@ -442,16 +445,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Future<Null> selectDateOfBirth(BuildContext context) async {
+  Future<Null> selectDate(BuildContext context, DateTime date) async {
     DateTime _datePicker = await showDatePicker(
         context: context,
-        initialDate: _date,
+        initialDate: date,
         firstDate: DateTime(1950),
         lastDate: DateTime(2050),
         initialDatePickerMode: DatePickerMode.year);
-    if (_datePicker != null && _datePicker != _date) {
+    if (_datePicker != null && _datePicker != date) {
       setState(() {
-        _date = _datePicker;
+        date = _datePicker;
       });
     }
   }
@@ -558,6 +561,34 @@ class _RegistrationPageState extends State<RegistrationPage> {
           SizedBox(height: 20),
         ],
       ),
+    );
+  }
+
+  Widget _buildPassportDate(DateTime date, String dateName) {
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          readOnly: true,
+          onTap: () {
+            setState(() {
+              selectDate(context, date);
+            });
+          },
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: WHITE, width: 2)),
+            border: OutlineInputBorder(),
+            hintText: date.toString().substring(0, 10) ==
+                    DateTime.now().toString().substring(0, 10)
+                ? dateName
+                : date.toString().substring(0, 10) + ' (' + dateName + ')',
+            hintStyle: TextStyle(color: WHITE),
+            prefixIcon: iconWhite(Icons.date_range),
+            labelStyle: TextStyle(color: WHITE),
+          ),
+        ),
+        SizedBox(height: 20),
+      ],
     );
   }
 
