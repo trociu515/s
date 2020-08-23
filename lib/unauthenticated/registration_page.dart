@@ -66,154 +66,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text25GreenUnderline('LOGIN SECTION'),
-                          ),
-                          SizedBox(height: 5),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text13White(
-                                'Through the information in this section you will be able to log into the application. Please remember them.'),
-                          ),
-                          SizedBox(height: 20),
-                          _buildRequiredTextField(
-                            26,
-                            'Username',
-                            'Username is required',
-                            Icons.person,
-                          ),
-                          _buildPasswordTextField(),
-                          _buildRePasswordTextField(),
-                          SizedBox(height: 15),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text25GreenUnderline('BASIC SECTION'),
-                          ),
-                          SizedBox(height: 5),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text13White(
-                                'This section contains very basic informations about you like for example name or surname.'),
-                          ),
-                          SizedBox(height: 20),
-                          _buildRequiredTextField(
-                            26,
-                            'Name',
-                            'Name is required',
-                            Icons.person_outline,
-                          ),
-                          _buildRequiredTextField(
-                            26,
-                            'Surname',
-                            'Surname is required',
-                            Icons.person_outline,
-                          ),
-                          _buildRequiredTextField(
-                            26,
-                            'Father\'s name',
-                            'Father\'s name is required',
-                            Icons.directions_walk,
-                          ),
-                          _buildRequiredTextField(
-                            26,
-                            'Mother\'s name',
-                            'Mother\'s name is required',
-                            Icons.pregnant_woman,
-                          ),
-                          _buildDateOfBirthField(),
-                          _buildNationalityDropdown(),
-                          SizedBox(height: 15),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text25GreenUnderline('ADDRESS SECTION'),
-                          ),
-                          SizedBox(height: 5),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text13White(
-                                'This section contains information about your home address.'),
-                          ),
-                          SizedBox(height: 20),
-                          _buildRequiredTextField(
-                            100,
-                            'Locality',
-                            'Locality is required',
-                            Icons.location_city,
-                          ),
-                          _buildRequiredTextField(
-                            12,
-                            'Zip code',
-                            'Accommodation is required',
-                            Icons.local_post_office,
-                          ),
-                          _buildRequiredTextField(
-                            100,
-                            'Street',
-                            'Street is required',
-                            Icons.directions,
-                          ),
-                          _buildRequiredTextField(
-                            4,
-                            'House number',
-                            'House number is required',
-                            Icons.home,
-                          ),
-                          SizedBox(height: 15),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text25GreenUnderline('CONTACT SECTION'),
-                          ),
-                          SizedBox(height: 5),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text13White(
-                                'To be in touch, please provide one of the three forms of contact.'),
-                          ),
-                          SizedBox(height: 20),
-                          _buildContactNumField(
-                            _phoneController,
-                            'Phone number',
-                            Icons.phone,
-                          ),
-                          _buildContactNumField(
-                            _viberController,
-                            'Viber number',
-                            Icons.phone_in_talk,
-                          ),
-                          _buildContactNumField(
-                            _whatsAppController,
-                            'Whats app number',
-                            Icons.perm_phone_msg,
-                          ),
-                          SizedBox(height: 15),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text25GreenUnderline('PASSPORT SECTION'),
-                          ),
-                          SizedBox(height: 5),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: text13White(
-                                'This section is optional, so it means you don\'t need to fill in the given fields'),
-                          ),
-                          SizedBox(height: 20),
-                          _buildNotRequiredNumField(
-                            'Passport number',
-                            Icons.card_travel,
-                          ),
-                          SizedBox(height: 30),
-                          MaterialButton(
-                            elevation: 0,
-                            minWidth: double.maxFinite,
-                            height: 50,
-                            shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30.0)),
-                            onPressed: () => {if (!_isValid()) {}},
-                            color: GREEN,
-                            child: text20White('Register'),
-                            textColor: Colors.white,
-                          ),
+                          _buildLoginSection(),
+                          _buildBasicSection(),
+                          _buildAddressSection(),
+                          _buildContactSection(),
+                          _buildPassportSection(),
+                          _buildRegisterButton(),
                         ],
                       ),
                     ),
@@ -229,6 +87,169 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   bool _isValid() {
     return formKey.currentState.validate();
+  }
+
+  Widget _buildLoginSection() {
+    return Column(
+      children: <Widget>[
+        _buildSectioHeader(
+          'LOGIN SECTION',
+          'Through the information in this section you will be able to log into the application. Please remember them.',
+        ),
+        _buildRequiredTextField(
+          26,
+          'Username',
+          'Username is required',
+          Icons.person,
+        ),
+        _buildPasswordTextField(),
+        _buildRePasswordTextField(),
+      ],
+    );
+  }
+
+  Widget _buildBasicSection() {
+    return Column(
+      children: <Widget>[
+        _buildSectioHeader(
+          'BASIC SECTION',
+          'This section contains very basic informations about you like for example name or surname.',
+        ),
+        _buildRequiredTextField(
+          26,
+          'Name',
+          'Name is required',
+          Icons.person_outline,
+        ),
+        _buildRequiredTextField(
+          26,
+          'Surname',
+          'Surname is required',
+          Icons.person_outline,
+        ),
+        _buildRequiredTextField(
+          26,
+          'Father\'s name',
+          'Father\'s name is required',
+          Icons.directions_walk,
+        ),
+        _buildRequiredTextField(
+          26,
+          'Mother\'s name',
+          'Mother\'s name is required',
+          Icons.pregnant_woman,
+        ),
+        _buildDateOfBirthField(),
+        _buildNationalityDropdown(),
+      ],
+    );
+  }
+
+  Widget _buildAddressSection() {
+    return Column(
+      children: <Widget>[
+        _buildSectioHeader(
+          'ADDRESS SECTION',
+          'This section contains information about your home address.',
+        ),
+        _buildRequiredTextField(
+          100,
+          'Locality',
+          'Locality is required',
+          Icons.location_city,
+        ),
+        _buildRequiredTextField(
+          12,
+          'Zip code',
+          'Accommodation is required',
+          Icons.local_post_office,
+        ),
+        _buildRequiredTextField(
+          100,
+          'Street',
+          'Street is required',
+          Icons.directions,
+        ),
+        _buildRequiredTextField(
+          4,
+          'House number',
+          'House number is required',
+          Icons.home,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildContactSection() {
+    return Column(
+      children: <Widget>[
+        _buildSectioHeader(
+          'CONTACT SECTION',
+          'To be in touch, please provide one of the three forms of contact.',
+        ),
+        _buildContactNumField(
+          _phoneController,
+          'Phone number',
+          Icons.phone,
+        ),
+        _buildContactNumField(
+          _viberController,
+          'Viber number',
+          Icons.phone_in_talk,
+        ),
+        _buildContactNumField(
+          _whatsAppController,
+          'Whats app number',
+          Icons.perm_phone_msg,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPassportSection() {
+    return Column(
+      children: <Widget>[
+        _buildSectioHeader(
+          'PASSPORT SECTION',
+          'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.',
+        ),
+        _buildNotRequiredNumField(
+          'Passport number',
+          Icons.card_travel,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSectioHeader(String title, String subtitle) {
+    return Column(
+      children: <Widget>[
+        SizedBox(height: 15),
+        Align(alignment: Alignment.topLeft, child: text25GreenUnderline(title)),
+        SizedBox(height: 5),
+        Align(alignment: Alignment.topLeft, child: text13White(subtitle)),
+        SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Widget _buildRegisterButton() {
+    return Column(
+      children: <Widget>[
+        SizedBox(height: 30),
+        MaterialButton(
+          elevation: 0,
+          minWidth: double.maxFinite,
+          height: 50,
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
+          onPressed: () => {if (!_isValid()) {}},
+          color: GREEN,
+          child: text20White('Register'),
+          textColor: Colors.white,
+        ),
+      ],
+    );
   }
 
   Widget _buildRequiredTextField(
