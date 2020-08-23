@@ -50,7 +50,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.all(25.0),
+          padding: EdgeInsets.fromLTRB(25, 0, 25, 25),
           child: Center(
             child: Form(
               autovalidate: true,
