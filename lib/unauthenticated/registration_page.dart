@@ -77,8 +77,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 'Through the information in this section you will be able to log into the application. Please remember them.'),
                           ),
                           SizedBox(height: 20),
-                          _buildRequiredTextField(26, 'Username',
-                              'Username is required', Icons.person),
+                          _buildRequiredTextField(
+                            26,
+                            'Username',
+                            'Username is required',
+                            Icons.person,
+                          ),
                           _buildPasswordTextField(),
                           _buildRePasswordTextField(),
                           SizedBox(height: 15),
@@ -93,20 +97,30 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 'This section contains very basic informations about you like for example name or surname.'),
                           ),
                           SizedBox(height: 20),
-                          _buildRequiredTextField(26, 'Name',
-                              'Name is required', Icons.person_outline),
-                          _buildRequiredTextField(26, 'Surname',
-                              'Surname is required', Icons.person_outline),
                           _buildRequiredTextField(
-                              26,
-                              'Father\'s name',
-                              'Father\'s name is required',
-                              Icons.directions_walk),
+                            26,
+                            'Name',
+                            'Name is required',
+                            Icons.person_outline,
+                          ),
                           _buildRequiredTextField(
-                              26,
-                              'Mother\'s name',
-                              'Mother\'s name is required',
-                              Icons.pregnant_woman),
+                            26,
+                            'Surname',
+                            'Surname is required',
+                            Icons.person_outline,
+                          ),
+                          _buildRequiredTextField(
+                            26,
+                            'Father\'s name',
+                            'Father\'s name is required',
+                            Icons.directions_walk,
+                          ),
+                          _buildRequiredTextField(
+                            26,
+                            'Mother\'s name',
+                            'Mother\'s name is required',
+                            Icons.pregnant_woman,
+                          ),
                           _buildDateOfBirthField(),
                           _buildNationalityDropdown(),
                           SizedBox(height: 15),
@@ -158,11 +172,36 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           ),
                           SizedBox(height: 20),
                           _buildContactNumField(
-                              _phoneController, 'Phone number', Icons.phone),
-                          _buildContactNumField(_viberController,
-                              'Viber number', Icons.phone_in_talk),
-                          _buildContactNumField(_whatsAppController,
-                              'Whats app number', Icons.perm_phone_msg),
+                            _phoneController,
+                            'Phone number',
+                            Icons.phone,
+                          ),
+                          _buildContactNumField(
+                            _viberController,
+                            'Viber number',
+                            Icons.phone_in_talk,
+                          ),
+                          _buildContactNumField(
+                            _whatsAppController,
+                            'Whats app number',
+                            Icons.perm_phone_msg,
+                          ),
+                          SizedBox(height: 15),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: text25GreenUnderline('PASSPORT SECTION'),
+                          ),
+                          SizedBox(height: 5),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: text13White(
+                                'This section is optional, so it means you don\'t need to fill in the given fields'),
+                          ),
+                          SizedBox(height: 20),
+                          _buildNotRequiredNumField(
+                            'Passport number',
+                            Icons.card_travel,
+                          ),
                           SizedBox(height: 30),
                           MaterialButton(
                             elevation: 0,
@@ -255,6 +294,32 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
+  Widget _buildNotRequiredNumField(String labelText, IconData icon) {
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          autocorrect: true,
+          cursorColor: WHITE,
+          maxLength: 9,
+          style: TextStyle(color: WHITE),
+          inputFormatters: <TextInputFormatter>[
+            WhitelistingTextInputFormatter.digitsOnly
+          ],
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: WHITE, width: 2)),
+              counterStyle: TextStyle(color: WHITE),
+              border: OutlineInputBorder(),
+              labelText: labelText,
+              prefixIcon: iconWhite(icon),
+              labelStyle: TextStyle(color: WHITE)),
+        ),
+        SizedBox(height: 10),
+      ],
+    );
+  }
+
   Widget _buildPasswordTextField() {
     return Column(
       children: <Widget>[
@@ -317,6 +382,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
+  DateTime _date = DateTime.now();
+
   Widget _buildDateOfBirthField() {
     String validate(value) {
       if (_date.toString().substring(0, 10) ==
@@ -332,7 +399,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           readOnly: true,
           onTap: () {
             setState(() {
-              selectDate(context);
+              selectDateOfBirth(context);
             });
           },
           decoration: InputDecoration(
@@ -354,14 +421,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  DateTime _date = DateTime.now();
-
-  Future<Null> selectDate(BuildContext context) async {
+  Future<Null> selectDateOfBirth(BuildContext context) async {
     DateTime _datePicker = await showDatePicker(
         context: context,
         initialDate: _date,
         firstDate: DateTime(1950),
-        lastDate: DateTime(2030),
+        lastDate: DateTime(2050),
         initialDatePickerMode: DatePickerMode.year);
     if (_datePicker != null && _datePicker != _date) {
       setState(() {
