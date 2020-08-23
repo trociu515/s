@@ -28,6 +28,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   DateTime _dateOfBirth = DateTime.now();
   DateTime _passportReleaseDate = DateTime.now();
   DateTime _passportExpirationDate = DateTime.now();
+  DateTime _expirationDateOfWork = DateTime.now();
   String _myActivity;
 
   @override
@@ -74,6 +75,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _buildAddressSection(),
                           _buildContactSection(),
                           _buildPassportSection(),
+                          _buildOtherSection(),
                           _buildRegisterButton(),
                         ],
                       ),
@@ -95,7 +97,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildLoginSection() {
     return Column(
       children: <Widget>[
-        _buildSectioHeader(
+        _buildSectionHeader(
           'LOGIN SECTION',
           'Through the information in this section you will be able to log into the application. Please remember them.',
         ),
@@ -114,7 +116,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildBasicSection() {
     return Column(
       children: <Widget>[
-        _buildSectioHeader(
+        _buildSectionHeader(
           'BASIC SECTION',
           'This section contains very basic informations about you like for example name or surname.',
         ),
@@ -151,7 +153,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildAddressSection() {
     return Column(
       children: <Widget>[
-        _buildSectioHeader(
+        _buildSectionHeader(
           'ADDRESS SECTION',
           'This section contains information about your home address.',
         ),
@@ -186,7 +188,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildContactSection() {
     return Column(
       children: <Widget>[
-        _buildSectioHeader(
+        _buildSectionHeader(
           'CONTACT SECTION',
           'To be in touch, please provide one of the three forms of contact.',
         ),
@@ -212,7 +214,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildPassportSection() {
     return Column(
       children: <Widget>[
-        _buildSectioHeader(
+        _buildSectionHeader(
           'PASSPORT SECTION',
           'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.',
         ),
@@ -220,13 +222,31 @@ class _RegistrationPageState extends State<RegistrationPage> {
           'Passport number',
           Icons.card_travel,
         ),
-        _buildPassportDate(_passportReleaseDate, 'Passport release date'),
-        _buildPassportDate(_passportExpirationDate, 'Passport expiration date'),
+        _buildNotRequiredDate(_passportReleaseDate, 'Passport release date'),
+        _buildNotRequiredDate(
+            _passportExpirationDate, 'Passport expiration date'),
       ],
     );
   }
 
-  Widget _buildSectioHeader(String title, String subtitle) {
+  Widget _buildOtherSection() {
+    return Column(
+      children: <Widget>[
+        _buildSectionHeader(
+          'OTHER SECTION',
+          'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.',
+        ),
+        _buildEmailField(),
+        _buildNotRequiredDate(_expirationDateOfWork, 'Expiration date of work'),
+        _buildNotRequiredNumField('NIP', Icons.language),
+        _buildNotRequiredTextField(
+            28, 'Bank account number', Icons.monetization_on),
+        _buildNotRequiredTextField(30, 'Driving licenses', Icons.drive_eta),
+      ],
+    );
+  }
+
+  Widget _buildSectionHeader(String title, String subtitle) {
     return Column(
       children: <Widget>[
         SizedBox(height: 15),
@@ -275,6 +295,29 @@ class _RegistrationPageState extends State<RegistrationPage> {
               prefixIcon: iconWhite(icon),
               labelStyle: TextStyle(color: WHITE)),
           validator: RequiredValidator(errorText: errorText),
+        ),
+        SizedBox(height: 10),
+      ],
+    );
+  }
+
+  Widget _buildNotRequiredTextField(
+      int maxLength, String labelText, IconData icon) {
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          autocorrect: true,
+          cursorColor: WHITE,
+          maxLength: maxLength,
+          style: TextStyle(color: WHITE),
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: WHITE, width: 2)),
+              counterStyle: TextStyle(color: WHITE),
+              border: OutlineInputBorder(),
+              labelText: labelText,
+              prefixIcon: iconWhite(icon),
+              labelStyle: TextStyle(color: WHITE)),
         ),
         SizedBox(height: 10),
       ],
@@ -564,7 +607,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Widget _buildPassportDate(DateTime date, String dateName) {
+  Widget _buildNotRequiredDate(DateTime date, String dateName) {
     return Column(
       children: <Widget>[
         TextFormField(
@@ -588,6 +631,29 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ),
         SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Widget _buildEmailField() {
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          autocorrect: true,
+          cursorColor: WHITE,
+          maxLength: 255,
+          style: TextStyle(color: WHITE),
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: WHITE, width: 2)),
+              counterStyle: TextStyle(color: WHITE),
+              border: OutlineInputBorder(),
+              labelText: 'Email',
+              prefixIcon: iconWhite(Icons.alternate_email),
+              labelStyle: TextStyle(color: WHITE)),
+          validator: EmailValidator(errorText: 'Wrong email address format'),
+        ),
+        SizedBox(height: 10),
       ],
     );
   }
