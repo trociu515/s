@@ -101,16 +101,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildLoginSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader(
-          'LOGIN SECTION',
-          'Through the information in this section you will be able to log into the application. Please remember them.',
-        ),
+        _buildSectionHeader('LOGIN SECTION',
+            'Through the information in this section you will be able to log into the application. Please remember them.'),
         _buildRequiredTextField(
-          26,
-          'Username',
-          'Username is required',
-          Icons.person,
-        ),
+            26, 'Username', 'Username is required', Icons.person),
         _buildPasswordTextField(),
         _buildRePasswordTextField(),
       ],
@@ -120,34 +114,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildBasicSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader(
-          'BASIC SECTION',
-          'This section contains very basic informations about you like for example name or surname.',
-        ),
+        _buildSectionHeader('BASIC SECTION',
+            'This section contains very basic informations about you like for example name or surname.'),
         _buildRequiredTextField(
-          26,
-          'Name',
-          'Name is required',
-          Icons.person_outline,
-        ),
+            26, 'Name', 'Name is required', Icons.person_outline),
         _buildRequiredTextField(
-          26,
-          'Surname',
-          'Surname is required',
-          Icons.person_outline,
-        ),
-        _buildRequiredTextField(
-          26,
-          'Father\'s name',
-          'Father\'s name is required',
-          Icons.directions_walk,
-        ),
-        _buildRequiredTextField(
-          26,
-          'Mother\'s name',
-          'Mother\'s name is required',
-          Icons.pregnant_woman,
-        ),
+            26, 'Surname', 'Surname is required', Icons.person_outline),
+        _buildRequiredTextField(26, 'Father\'s name',
+            'Father\'s name is required', Icons.directions_walk),
+        _buildRequiredTextField(26, 'Mother\'s name',
+            'Mother\'s name is required', Icons.pregnant_woman),
         _buildDateOfBirthField(),
         _buildNationalityDropdown(),
       ],
@@ -157,34 +133,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildAddressSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader(
-          'ADDRESS SECTION',
-          'This section contains information about your home address.',
-        ),
+        _buildSectionHeader('ADDRESS SECTION',
+            'This section contains information about your home address.'),
         _buildRequiredTextField(
-          100,
-          'Locality',
-          'Locality is required',
-          Icons.location_city,
-        ),
+            100, 'Locality', 'Locality is required', Icons.location_city),
+        _buildRequiredTextField(12, 'Zip code', 'Accommodation is required',
+            Icons.local_post_office),
         _buildRequiredTextField(
-          12,
-          'Zip code',
-          'Accommodation is required',
-          Icons.local_post_office,
-        ),
+            100, 'Street', 'Street is required', Icons.directions),
         _buildRequiredTextField(
-          100,
-          'Street',
-          'Street is required',
-          Icons.directions,
-        ),
-        _buildRequiredTextField(
-          4,
-          'House number',
-          'House number is required',
-          Icons.home,
-        ),
+            4, 'House number', 'House number is required', Icons.home),
       ],
     );
   }
@@ -192,25 +150,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildContactSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader(
-          'CONTACT SECTION',
-          'To be in touch, please provide one of the three forms of contact.',
-        ),
+        _buildSectionHeader('CONTACT SECTION',
+            'To be in touch, please provide one of the three forms of contact.'),
+        _buildContactNumField(_phoneController, 'Phone number', Icons.phone),
         _buildContactNumField(
-          _phoneController,
-          'Phone number',
-          Icons.phone,
-        ),
+            _viberController, 'Viber number', Icons.phone_in_talk),
         _buildContactNumField(
-          _viberController,
-          'Viber number',
-          Icons.phone_in_talk,
-        ),
-        _buildContactNumField(
-          _whatsAppController,
-          'Whats app number',
-          Icons.perm_phone_msg,
-        ),
+            _whatsAppController, 'Whats app number', Icons.perm_phone_msg),
       ],
     );
   }
@@ -218,14 +164,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildPassportSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader(
-          'PASSPORT SECTION',
-          'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.',
-        ),
-        _buildNotRequiredNumField(
-          'Passport number',
-          Icons.card_travel,
-        ),
+        _buildSectionHeader('PASSPORT SECTION',
+            'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.'),
+        _buildNotRequiredNumField('Passport number', Icons.card_travel),
         _buildNotRequiredDate(_passportReleaseDate, 'Passport release date'),
         _buildNotRequiredDate(
             _passportExpirationDate, 'Passport expiration date'),
@@ -236,10 +177,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildOtherSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader(
-          'OTHER SECTION',
-          'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.',
-        ),
+        _buildSectionHeader('OTHER SECTION',
+            'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.'),
         _buildEmailField(),
         _buildNotRequiredDate(_expirationDateOfWork, 'Expiration date of work'),
         _buildNotRequiredNumField('NIP', Icons.language),
@@ -546,72 +485,72 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 {
                   'display':
                       'Беларус ' + LanguageUtil.findFlagByNationality('BE'),
-                  'value': 'BE',
+                  'value': 'BE'
                 },
                 {
                   'display':
                       'English ' + LanguageUtil.findFlagByNationality('EN'),
-                  'value': 'EN',
+                  'value': 'EN'
                 },
                 {
                   'display':
                       'Français ' + LanguageUtil.findFlagByNationality('FR'),
-                  'value': 'FR',
+                  'value': 'FR'
                 },
                 {
                   'display':
                       'ქართული ' + LanguageUtil.findFlagByNationality('GE'),
-                  'value': 'GE',
+                  'value': 'GE'
                 },
                 {
                   'display':
                       'Deutsche ' + LanguageUtil.findFlagByNationality('DE'),
-                  'value': 'DE',
+                  'value': 'DE'
                 },
                 {
                   'display':
                       'Română ' + LanguageUtil.findFlagByNationality('RO'),
-                  'value': 'RO',
+                  'value': 'RO'
                 },
                 {
                   'display':
                       'Nederlands ' + LanguageUtil.findFlagByNationality('NL'),
-                  'value': 'NL',
+                  'value': 'NL'
                 },
                 {
                   'display':
                       'Norsk ' + LanguageUtil.findFlagByNationality('NO'),
-                  'value': 'NO',
+                  'value': 'NO'
                 },
                 {
                   'display':
                       'Polska ' + LanguageUtil.findFlagByNationality('PL'),
-                  'value': 'PL',
+                  'value': 'PL'
                 },
                 {
                   'display':
                       'русский ' + LanguageUtil.findFlagByNationality('RU'),
-                  'value': 'RU',
+                  'value': 'RU'
                 },
                 {
                   'display':
                       'Español ' + LanguageUtil.findFlagByNationality('ES'),
-                  'value': 'ES',
+                  'value': 'ES'
                 },
                 {
                   'display':
                       'Svenska ' + LanguageUtil.findFlagByNationality('SE'),
-                  'value': 'SE',
+                  'value': 'SE'
                 },
                 {
                   'display':
                       'Українська ' + LanguageUtil.findFlagByNationality('UK'),
-                  'value': 'UK',
+                  'value': 'UK'
                 },
                 {
                   'display':
                       'Other ' + LanguageUtil.findFlagByNationality('OTHER'),
-                  'value': 'OTHER',
+                  'value': 'OTHER'
                 },
               ],
               textField: 'display',
