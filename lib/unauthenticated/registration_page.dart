@@ -167,9 +167,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
         _buildSectionHeader('PASSPORT SECTION',
             'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.'),
         _buildNotRequiredNumField('Passport number', Icons.card_travel),
-        _buildNotRequiredDate(_passportReleaseDate, 'Passport release date'),
-        _buildNotRequiredDate(
-            _passportExpirationDate, 'Passport expiration date'),
+        _buildPassportReleaseDateField(),
+        _buildPassportExpirationDateField(),
       ],
     );
   }
@@ -180,7 +179,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         _buildSectionHeader('OTHER SECTION',
             'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.'),
         _buildEmailField(),
-        _buildNotRequiredDate(_expirationDateOfWork, 'Expiration date of work'),
+        _buildExpirationDateOfWorkField(),
         _buildNotRequiredNumField('NIP', Icons.language),
         _buildNotRequiredTextField(
             28, 'Bank account number', Icons.monetization_on),
@@ -424,7 +423,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           readOnly: true,
           onTap: () {
             setState(() {
-              selectDate(context, _dateOfBirth);
+              selectDateOfBirth(context);
             });
           },
           decoration: InputDecoration(
@@ -446,16 +445,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Future<Null> selectDate(BuildContext context, DateTime date) async {
+  Future<Null> selectDateOfBirth(BuildContext context) async {
     DateTime _datePicker = await showDatePicker(
         context: context,
-        initialDate: date,
+        initialDate: _dateOfBirth,
         firstDate: DateTime(1950),
         lastDate: DateTime(2050),
         initialDatePickerMode: DatePickerMode.year);
-    if (_datePicker != null && _datePicker != date) {
+    if (_datePicker != null && _datePicker != _dateOfBirth) {
       setState(() {
-        date = _datePicker;
+        _dateOfBirth = _datePicker;
       });
     }
   }
@@ -565,24 +564,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Widget _buildNotRequiredDate(DateTime date, String dateName) {
+  Widget _buildPassportReleaseDateField() {
     return Column(
       children: <Widget>[
         TextFormField(
           readOnly: true,
           onTap: () {
             setState(() {
-              selectDate(context, date);
+              selectPassportReleaseDate(context);
             });
           },
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: WHITE, width: 2)),
             border: OutlineInputBorder(),
-            hintText: date.toString().substring(0, 10) ==
+            hintText: _passportReleaseDate.toString().substring(0, 10) ==
                     DateTime.now().toString().substring(0, 10)
-                ? dateName
-                : date.toString().substring(0, 10) + ' (' + dateName + ')',
+                ? 'Passport release date'
+                : _passportReleaseDate.toString().substring(0, 10) +
+                    ' (' +
+                    'Passport release date' +
+                    ')',
             hintStyle: TextStyle(color: WHITE),
             prefixIcon: iconWhite(Icons.date_range),
             labelStyle: TextStyle(color: WHITE),
@@ -591,6 +593,65 @@ class _RegistrationPageState extends State<RegistrationPage> {
         SizedBox(height: 20),
       ],
     );
+  }
+
+  Future<Null> selectPassportReleaseDate(BuildContext context) async {
+    DateTime _datePicker = await showDatePicker(
+        context: context,
+        initialDate: _passportReleaseDate,
+        firstDate: DateTime(1950),
+        lastDate: DateTime(2050),
+        initialDatePickerMode: DatePickerMode.year);
+    if (_datePicker != null && _datePicker != _passportReleaseDate) {
+      setState(() {
+        _passportReleaseDate = _datePicker;
+      });
+    }
+  }
+
+  Widget _buildPassportExpirationDateField() {
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          readOnly: true,
+          onTap: () {
+            setState(() {
+              selectPassportExpirationDate(context);
+            });
+          },
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: WHITE, width: 2)),
+            border: OutlineInputBorder(),
+            hintText: _passportExpirationDate.toString().substring(0, 10) ==
+                    DateTime.now().toString().substring(0, 10)
+                ? 'Passport expiration date'
+                : _passportExpirationDate.toString().substring(0, 10) +
+                    ' (' +
+                    'Passport expiration date' +
+                    ')',
+            hintStyle: TextStyle(color: WHITE),
+            prefixIcon: iconWhite(Icons.date_range),
+            labelStyle: TextStyle(color: WHITE),
+          ),
+        ),
+        SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Future<Null> selectPassportExpirationDate(BuildContext context) async {
+    DateTime _datePicker = await showDatePicker(
+        context: context,
+        initialDate: _passportExpirationDate,
+        firstDate: DateTime(1950),
+        lastDate: DateTime(2050),
+        initialDatePickerMode: DatePickerMode.year);
+    if (_datePicker != null && _datePicker != _passportExpirationDate) {
+      setState(() {
+        _passportExpirationDate = _datePicker;
+      });
+    }
   }
 
   Widget _buildEmailField() {
@@ -614,6 +675,51 @@ class _RegistrationPageState extends State<RegistrationPage> {
         SizedBox(height: 10),
       ],
     );
+  }
+
+  Widget _buildExpirationDateOfWorkField() {
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          readOnly: true,
+          onTap: () {
+            setState(() {
+              selectExpirationDateOfWork(context);
+            });
+          },
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: WHITE, width: 2)),
+            border: OutlineInputBorder(),
+            hintText: _expirationDateOfWork.toString().substring(0, 10) ==
+                    DateTime.now().toString().substring(0, 10)
+                ? 'Expiration date of work'
+                : _expirationDateOfWork.toString().substring(0, 10) +
+                    ' (' +
+                    'Expiration date of work' +
+                    ')',
+            hintStyle: TextStyle(color: WHITE),
+            prefixIcon: iconWhite(Icons.date_range),
+            labelStyle: TextStyle(color: WHITE),
+          ),
+        ),
+        SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Future<Null> selectExpirationDateOfWork(BuildContext context) async {
+    DateTime _datePicker = await showDatePicker(
+        context: context,
+        initialDate: _expirationDateOfWork,
+        firstDate: DateTime(1950),
+        lastDate: DateTime(2050),
+        initialDatePickerMode: DatePickerMode.year);
+    if (_datePicker != null && _datePicker != _expirationDateOfWork) {
+      setState(() {
+        _expirationDateOfWork = _datePicker;
+      });
+    }
   }
 
   void _resetAndOpenPage() {
