@@ -8,7 +8,9 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:give_job/unauthenticated/dto/create_employee_dto.dart';
 import 'package:give_job/unauthenticated/login_page.dart';
+import 'package:give_job/unauthenticated/service/unauthenticated_service.dart';
 
 class RegistrationPage extends StatefulWidget {
   final String _tokenId;
@@ -20,25 +22,47 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  CreateEmployeeDto dto;
+  UnauthenticatedService _unauthenticatedService = new UnauthenticatedService();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
   bool _rePasswordVisible = false;
+  final TextEditingController _usernameController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
+  final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _surnameController = new TextEditingController();
+  final TextEditingController _fatherNameController =
+      new TextEditingController();
+  final TextEditingController _motherNameController =
+      new TextEditingController();
+  final TextEditingController _localityController = new TextEditingController();
+  final TextEditingController _zipCodeController = new TextEditingController();
+  final TextEditingController _streetController = new TextEditingController();
+  final TextEditingController _houseNumberController =
+      new TextEditingController();
   final TextEditingController _phoneController = new TextEditingController();
   final TextEditingController _viberController = new TextEditingController();
   final TextEditingController _whatsAppController = new TextEditingController();
+  final TextEditingController _passportNumberController =
+      new TextEditingController();
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _nipController = new TextEditingController();
+  final TextEditingController _bankAccountNumberController =
+      new TextEditingController();
+  final TextEditingController _drivingLicenseController =
+      new TextEditingController();
   DateTime _dateOfBirth = DateTime.now();
   DateTime _passportReleaseDate = DateTime.now();
   DateTime _passportExpirationDate = DateTime.now();
   DateTime _expirationDateOfWork = DateTime.now();
-  String _myActivity;
+  String _nationality;
 
   @override
   void initState() {
     super.initState();
     _passwordVisible = false;
     _rePasswordVisible = false;
-    _myActivity = '';
+    _nationality = '';
   }
 
   @override
@@ -103,8 +127,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
       children: <Widget>[
         _buildSectionHeader('LOGIN SECTION',
             'Through the information in this section you will be able to log into the application. Please remember them.'),
-        _buildRequiredTextField(
-            26, 'Username', 'Username is required', Icons.person),
+        _buildRequiredTextField(_usernameController, 26, 'Username',
+            'Username is required', Icons.person),
         _buildPasswordTextField(),
         _buildRePasswordTextField(),
       ],
@@ -116,13 +140,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
       children: <Widget>[
         _buildSectionHeader('BASIC SECTION',
             'This section contains very basic informations about you like for example name or surname.'),
-        _buildRequiredTextField(
-            26, 'Name', 'Name is required', Icons.person_outline),
-        _buildRequiredTextField(
-            26, 'Surname', 'Surname is required', Icons.person_outline),
-        _buildRequiredTextField(26, 'Father\'s name',
+        _buildRequiredTextField(_nameController, 26, 'Name', 'Name is required',
+            Icons.person_outline),
+        _buildRequiredTextField(_surnameController, 26, 'Surname',
+            'Surname is required', Icons.person_outline),
+        _buildRequiredTextField(_fatherNameController, 26, 'Father\'s name',
             'Father\'s name is required', Icons.directions_walk),
-        _buildRequiredTextField(26, 'Mother\'s name',
+        _buildRequiredTextField(_motherNameController, 26, 'Mother\'s name',
             'Mother\'s name is required', Icons.pregnant_woman),
         _buildDateOfBirthField(),
         _buildNationalityDropdown(),
@@ -135,14 +159,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
       children: <Widget>[
         _buildSectionHeader('ADDRESS SECTION',
             'This section contains information about your home address.'),
-        _buildRequiredTextField(
-            100, 'Locality', 'Locality is required', Icons.location_city),
-        _buildRequiredTextField(12, 'Zip code', 'Accommodation is required',
-            Icons.local_post_office),
-        _buildRequiredTextField(
-            100, 'Street', 'Street is required', Icons.directions),
-        _buildRequiredTextField(
-            4, 'House number', 'House number is required', Icons.home),
+        _buildRequiredTextField(_localityController, 100, 'Locality',
+            'Locality is required', Icons.location_city),
+        _buildRequiredTextField(_zipCodeController, 12, 'Zip code',
+            'Accommodation is required', Icons.local_post_office),
+        _buildRequiredTextField(_streetController, 100, 'Street',
+            'Street is required', Icons.directions),
+        _buildRequiredNumField(_houseNumberController, 4, 'House number',
+            'House number is required', Icons.home),
       ],
     );
   }
@@ -166,7 +190,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
       children: <Widget>[
         _buildSectionHeader('PASSPORT SECTION',
             'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.'),
-        _buildNotRequiredNumField('Passport number', Icons.card_travel),
+        _buildNotRequiredNumField(
+            _passportNumberController, 'Passport number', Icons.card_travel),
         _buildPassportReleaseDateField(),
         _buildPassportExpirationDateField(),
       ],
@@ -180,10 +205,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
             'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.'),
         _buildEmailField(),
         _buildExpirationDateOfWorkField(),
-        _buildNotRequiredNumField('NIP', Icons.language),
+        _buildNotRequiredNumField(_nipController, 'NIP', Icons.language),
+        _buildNotRequiredTextField(_bankAccountNumberController, 28,
+            'Bank account number', Icons.monetization_on),
         _buildNotRequiredTextField(
-            28, 'Bank account number', Icons.monetization_on),
-        _buildNotRequiredTextField(30, 'Driving licenses', Icons.drive_eta),
+            _drivingLicenseController, 30, 'Driving licenses', Icons.drive_eta),
       ],
     );
   }
@@ -200,30 +226,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Widget _buildRegisterButton() {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 30),
-        MaterialButton(
-          elevation: 0,
-          minWidth: double.maxFinite,
-          height: 50,
-          shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(30.0)),
-          onPressed: () => {if (!_isValid()) {}},
-          color: GREEN,
-          child: text20White('Register'),
-          textColor: Colors.white,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRequiredTextField(
+  Widget _buildRequiredTextField(TextEditingController controller,
       int maxLength, String labelText, String errorText, IconData icon) {
     return Column(
       children: <Widget>[
         TextFormField(
+          controller: controller,
           autocorrect: true,
           cursorColor: WHITE,
           maxLength: maxLength,
@@ -243,7 +251,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Widget _buildNotRequiredTextField(
+  Widget _buildNotRequiredTextField(TextEditingController controller,
       int maxLength, String labelText, IconData icon) {
     return Column(
       children: <Widget>[
@@ -251,6 +259,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           autocorrect: true,
           cursorColor: WHITE,
           maxLength: maxLength,
+          controller: controller,
           style: TextStyle(color: WHITE),
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
@@ -305,13 +314,44 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Widget _buildNotRequiredNumField(String labelText, IconData icon) {
+  Widget _buildRequiredNumField(TextEditingController controller, int maxLength,
+      String labelText, String errorText, IconData icon) {
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          autocorrect: true,
+          cursorColor: WHITE,
+          maxLength: maxLength,
+          controller: controller,
+          style: TextStyle(color: WHITE),
+          inputFormatters: <TextInputFormatter>[
+            WhitelistingTextInputFormatter.digitsOnly
+          ],
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: WHITE, width: 2)),
+              counterStyle: TextStyle(color: WHITE),
+              border: OutlineInputBorder(),
+              labelText: labelText,
+              prefixIcon: iconWhite(icon),
+              labelStyle: TextStyle(color: WHITE)),
+          validator: RequiredValidator(errorText: errorText),
+        ),
+        SizedBox(height: 10),
+      ],
+    );
+  }
+
+  Widget _buildNotRequiredNumField(
+      TextEditingController controller, String labelText, IconData icon) {
     return Column(
       children: <Widget>[
         TextFormField(
           autocorrect: true,
           cursorColor: WHITE,
           maxLength: 9,
+          controller: controller,
           style: TextStyle(color: WHITE),
           inputFormatters: <TextInputFormatter>[
             WhitelistingTextInputFormatter.digitsOnly
@@ -469,15 +509,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
             child: DropDownFormField(
               titleText: 'Nationality',
               hintText: 'Please choose your nationality',
-              value: _myActivity,
+              value: _nationality,
               onSaved: (value) {
                 setState(() {
-                  _myActivity = value;
+                  _nationality = value;
                 });
               },
               onChanged: (value) {
                 setState(() {
-                  _myActivity = value;
+                  _nationality = value;
                 });
               },
               dataSource: [
@@ -661,6 +701,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           autocorrect: true,
           cursorColor: WHITE,
           maxLength: 255,
+          controller: _emailController,
           style: TextStyle(color: WHITE),
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
@@ -720,6 +761,154 @@ class _RegistrationPageState extends State<RegistrationPage> {
         _expirationDateOfWork = _datePicker;
       });
     }
+  }
+
+  Widget _buildRegisterButton() {
+    return Column(
+      children: <Widget>[
+        SizedBox(height: 30),
+        MaterialButton(
+          elevation: 0,
+          minWidth: double.maxFinite,
+          height: 50,
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
+          onPressed: () => {
+            if (!_isValid())
+              {
+                _errorDialog('Please correct invalid fields.'),
+              }
+            else
+              {
+                dto = new CreateEmployeeDto(
+                    username: _usernameController.text,
+                    password: _passwordController.text,
+                    name: _nameController.text,
+                    surname: _surnameController.text,
+                    fatherName: _fatherNameController.text,
+                    motherName: _motherNameController.text,
+                    dateOfBirth: _dateOfBirth.toString().substring(0, 10),
+                    nationality: _nationality,
+                    locality: _localityController.text,
+                    zipCode: _zipCodeController.text,
+                    street: _streetController.text,
+                    houseNumber: _houseNumberController.text,
+                    phoneNumber: _phoneController.text,
+                    viberNumber: _viberController.text,
+                    whatsAppNumber: _whatsAppController.text,
+                    passportNumber: _passportNumberController.text,
+                    passportReleaseDate:
+                        _passportReleaseDate.toString().substring(0, 10),
+                    passportExpirationDate:
+                        _passportExpirationDate.toString().substring(0, 10),
+                    email: _emailController.text,
+                    expirationDateOfWork:
+                        _expirationDateOfWork.toString().substring(0, 10),
+                    nip: _nipController.text,
+                    bankAccountNumber: _bankAccountNumberController.text,
+                    drivingLicense: _drivingLicenseController.text,
+                    tokenId: widget._tokenId),
+                _unauthenticatedService.registerEmployee(dto).then((res) {
+                  _successDialog();
+                }).catchError((onError) {
+                  String s = onError.toString();
+                  if (s.contains('USERNAME_UNIQUE')) {
+                    _errorDialog(
+                        'Username already exists.\nPlease choose other username.');
+                  } else if (s.contains('TOKEN_INCORRECT') ||
+                      s.contains('TOKEN_NULL_OR_EMPTY')) {
+                    _errorDialogWithNavigate(
+                        'Given token is incorrect.\nAsk administrator what went wrong.');
+                  } else {
+                    _errorDialog('Something went wrong');
+                  }
+                }),
+              }
+          },
+          color: GREEN,
+          child: text20White('Register'),
+          textColor: Colors.white,
+        ),
+      ],
+    );
+  }
+
+  _errorDialog(String content) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: DARK,
+          title: textGreen('Error'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                textWhite(content),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: textWhite(getTranslated(context, 'close')),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _successDialog() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: DARK,
+          title: textGreen(getTranslated(context, 'success')),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                textWhite(
+                    'Registration went successfully. The account will be active after administrator verification.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: textWhite('Go to login page'),
+              onPressed: () => _resetAndOpenPage(),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _errorDialogWithNavigate(String errorMsg) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: DARK,
+          title: textGreen('Error'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                textWhite(errorMsg),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: textWhite('Close'),
+              onPressed: () => _resetAndOpenPage(),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _resetAndOpenPage() {
