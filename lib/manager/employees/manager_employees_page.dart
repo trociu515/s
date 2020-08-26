@@ -10,11 +10,11 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
+import '../manager_app_bar.dart';
 import '../manager_side_bar.dart';
 
 class ManagerEmployeesPage extends StatefulWidget {
@@ -58,8 +58,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
   Widget build(BuildContext context) {
     if (_loading) {
       return loader(
-        context,
-        getTranslated(context, 'loading'),
+        managerAppBar(context, null, getTranslated(context, 'loading')),
         managerSideBar(context, widget._user),
       );
     }
@@ -69,8 +68,8 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar:
-            appBar(context, widget._user, getTranslated(context, 'employees')),
+        appBar: managerAppBar(
+            context, widget._user, getTranslated(context, 'employees')),
         drawer: managerSideBar(context, widget._user),
         body: Column(
           children: <Widget>[

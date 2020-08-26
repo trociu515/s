@@ -18,6 +18,7 @@ import 'package:give_job/shared/widget/texts.dart';
 
 import '../../main.dart';
 import '../../shared/libraries/constants.dart';
+import '../manager_app_bar.dart';
 import '../manager_side_bar.dart';
 
 class ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage
@@ -62,8 +63,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
           if (snapshot.connectionState == ConnectionState.waiting ||
               snapshot.data == null) {
             return loader(
-              context,
-              getTranslated(context, 'loading'),
+              managerAppBar(context, null, getTranslated(context, 'loading')),
               managerSideBar(context, widget._user),
             );
           } else {
@@ -83,7 +83,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
               debugShowCheckedModeBanner: false,
               home: Scaffold(
                 backgroundColor: DARK,
-                appBar: appBar(
+                appBar: managerAppBar(
                     context, widget._user, getTranslated(context, 'workdays')),
                 drawer: managerSideBar(context, widget._user),
                 body: RefreshIndicator(

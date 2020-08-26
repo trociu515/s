@@ -10,12 +10,12 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/month_util.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 import '../../shared/libraries/constants.dart';
+import '../manager_app_bar.dart';
 import '../manager_side_bar.dart';
 
 class ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage
@@ -55,8 +55,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
           return loader(
-            context,
-            getTranslated(context, 'loading'),
+            managerAppBar(context, null, getTranslated(context, 'loading')),
             managerSideBar(context, widget._user),
           );
         } else {
@@ -75,7 +74,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
-              appBar: appBar(
+              appBar: managerAppBar(
                   context, widget._user, getTranslated(context, 'workdays')),
               drawer: managerSideBar(context, widget._user),
               body: SingleChildScrollView(

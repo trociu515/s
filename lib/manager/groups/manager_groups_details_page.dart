@@ -11,10 +11,11 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
+
+import '../manager_app_bar.dart';
 
 class ManagerGroupsDetailsPage extends StatefulWidget {
   final User _user;
@@ -53,8 +54,7 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
           return loader(
-            context,
-            getTranslated(context, 'loading'),
+            managerAppBar(context, null, getTranslated(context, 'loading')),
             managerSideBar(context, widget._user),
           );
         } else {
@@ -71,7 +71,7 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               backgroundColor: DARK,
-              appBar: appBar(context, widget._user,
+              appBar: managerAppBar(context, widget._user,
                   getTranslated(context, 'employeesOfTheGroup')),
               drawer: managerSideBar(context, widget._user),
               body: SingleChildScrollView(

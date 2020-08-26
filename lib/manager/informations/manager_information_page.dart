@@ -38,8 +38,7 @@ class _ManagerInformationPageState extends State<ManagerInformationPage> {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
           return loader(
-            context,
-            getTranslated(context, 'loading'),
+            managerAppBar(context, null, getTranslated(context, 'loading')),
             managerSideBar(context, widget._user),
           );
         } else {

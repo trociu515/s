@@ -9,6 +9,7 @@ import 'package:give_job/employee/home/tabs/employee_info_tab.dart';
 import 'package:give_job/employee/home/tabs/employee_time_sheets.tab.dart';
 import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/manager_app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
@@ -42,8 +43,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
           return loader(
-            context,
-            getTranslated(context, 'loading'),
+            managerAppBar(context, null, getTranslated(context, 'loading')),
             employeeSideBar(context, widget._user),
           );
         } else {
@@ -145,7 +145,8 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                                     ? '(' +
                                                         employee.moneyCurrency +
                                                         ')'
-                                                    : getTranslated(context, 'noCurrency')),
+                                                    : getTranslated(
+                                                        context, 'noCurrency')),
                                             Countup(
                                               begin: 0,
                                               end: employee
