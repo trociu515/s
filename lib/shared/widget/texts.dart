@@ -32,6 +32,7 @@ Text text20WhiteItalic(String text) { return Text(text, style: TextStyle(fontSiz
 /*TEXT CENTER WHITE BOLD UNDERLINE*/
 ////////////////////////////////////
 Text textCenter20WhiteBoldUnderline(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 20, color: WHITE, decoration: TextDecoration.underline, fontWeight: FontWeight.bold)); }
+Text textWhiteBoldUnderline(String text) { return Text(text, style: TextStyle(color: WHITE, decoration: TextDecoration.underline, fontWeight: FontWeight.bold)); }
 
 
 /////////////////////

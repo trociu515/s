@@ -104,7 +104,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           Navigator.of(context).push(
                             CupertinoPageRoute<Null>(
                               builder: (BuildContext context) {
-                                return DocumentsPage(widget._user);
+                                return DocumentsPage(widget._user, null);
                               },
                             ),
                           ),

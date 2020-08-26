@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/settings/documents_page.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -56,6 +57,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   DateTime _passportExpirationDate = DateTime.now();
   DateTime _expirationDateOfWork = DateTime.now();
   String _nationality;
+  bool _regulationsCheckbox = false;
+  bool _privacyPolicyCheckbox = false;
 
   @override
   void initState() {
@@ -104,6 +107,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _buildContactSection(),
                           _buildPassportSection(),
                           _buildOtherSection(),
+                          _buildDocumentsSection(),
                           _buildRegisterButton(),
                         ],
                       ),
@@ -210,6 +214,64 @@ class _RegistrationPageState extends State<RegistrationPage> {
             'Bank account number', Icons.monetization_on),
         _buildNotRequiredTextField(
             _drivingLicenseController, 30, 'Driving licenses', Icons.drive_eta),
+      ],
+    );
+  }
+
+  Widget _buildDocumentsSection() {
+    return Column(
+      children: <Widget>[
+        _buildSectionHeader('TERMS OF USE',
+            'Accept regulations and privacy policy to complete registration.'),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              CupertinoPageRoute<Null>(
+                builder: (BuildContext context) {
+                  return DocumentsPage(null, widget._tokenId);
+                },
+              ),
+            );
+          },
+          child: Column(
+            children: <Widget>[
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: textWhite(
+                      'To view the documents, click on the link below.')),
+              SizedBox(height: 1),
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: textWhiteBoldUnderline('See documents'))
+            ],
+          ),
+        ),
+        ListTileTheme(
+          contentPadding: EdgeInsets.all(0),
+          child: CheckboxListTile(
+            title: textWhite('I accept the regulations'),
+            value: _regulationsCheckbox,
+            onChanged: (value) {
+              setState(() {
+                _regulationsCheckbox = value;
+              });
+            },
+            controlAffinity: ListTileControlAffinity.leading,
+          ),
+        ),
+        ListTileTheme(
+          contentPadding: EdgeInsets.all(0),
+          child: CheckboxListTile(
+            title: textWhite('I accept the privacy policy'),
+            value: _privacyPolicyCheckbox,
+            onChanged: (value) {
+              setState(() {
+                _privacyPolicyCheckbox = value;
+              });
+            },
+            controlAffinity: ListTileControlAffinity.leading,
+          ),
+        )
       ],
     );
   }
