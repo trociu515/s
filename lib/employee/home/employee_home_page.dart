@@ -62,11 +62,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                   body: Column(
                     children: <Widget>[
                       Container(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [WHITE, GREEN])),
+                        color: GREEN,
                         width: double.infinity,
                         height: 175,
                         child: Center(
@@ -118,18 +114,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                               Card(
                                 child: Container(
                                   padding: const EdgeInsets.all(5.0),
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                        GREEN,
-                                        WHITE,
-                                        WHITE,
-                                        WHITE,
-                                        WHITE,
-                                        GREEN
-                                      ])),
+                                  color: WHITE,
                                   child: Row(
                                     children: <Widget>[
                                       Expanded(
