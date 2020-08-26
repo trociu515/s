@@ -13,7 +13,7 @@ class EmployeeDto {
   final String bankAccountNumber;
   final double moneyPerHour;
   final String drivingLicense;
-  final int houseNumber;
+  final String houseNumber;
   final String street;
   final String zipCode;
   final String locality;
@@ -85,7 +85,7 @@ class EmployeeDto {
         bankAccountNumber: json['bankAccountNumber'] as String,
         moneyPerHour: json['moneyPerHour'] as double,
         drivingLicense: json['drivingLicense'] as String,
-        houseNumber: json['houseNumber'] as int,
+        houseNumber: json['houseNumber'] as String,
         street: json['street'] as String,
         zipCode: json['zipCode'] as String,
         locality: json['locality'] as String,

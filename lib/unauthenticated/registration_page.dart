@@ -165,7 +165,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             'Accommodation is required', Icons.local_post_office),
         _buildRequiredTextField(_streetController, 100, 'Street',
             'Street is required', Icons.directions),
-        _buildRequiredNumField(_houseNumberController, 4, 'House number',
+        _buildRequiredTextField(_houseNumberController, 8, 'House number',
             'House number is required', Icons.home),
       ],
     );
@@ -308,35 +308,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
               prefixIcon: iconWhite(icon),
               labelStyle: TextStyle(color: WHITE)),
           validator: (value) => validate(value),
-        ),
-        SizedBox(height: 10),
-      ],
-    );
-  }
-
-  Widget _buildRequiredNumField(TextEditingController controller, int maxLength,
-      String labelText, String errorText, IconData icon) {
-    return Column(
-      children: <Widget>[
-        TextFormField(
-          autocorrect: true,
-          cursorColor: WHITE,
-          maxLength: maxLength,
-          controller: controller,
-          style: TextStyle(color: WHITE),
-          inputFormatters: <TextInputFormatter>[
-            WhitelistingTextInputFormatter.digitsOnly
-          ],
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: WHITE, width: 2)),
-              counterStyle: TextStyle(color: WHITE),
-              border: OutlineInputBorder(),
-              labelText: labelText,
-              prefixIcon: iconWhite(icon),
-              labelStyle: TextStyle(color: WHITE)),
-          validator: RequiredValidator(errorText: errorText),
         ),
         SizedBox(height: 10),
       ],
