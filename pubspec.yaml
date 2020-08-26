@@ -36,6 +36,7 @@ dependencies:
   flutter_verification_code: ^0.2.0
   form_field_validator: ^1.0.1
   dropdown_formfield: ^0.1.2
+  flutter_plugin_pdf_viewer: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +79,8 @@ flutter:
     - images/facebook-logo.png
     - images/instagram-logo.png
     - images/linkedin-logo.png
+    - docs/regulations.pdf
+    - docs/privacy_policy.pdf
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

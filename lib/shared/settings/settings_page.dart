@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/internationalization/model/language.dart';
-import 'package:give_job/shared/settings/bug_report_dialog.dart';
-import 'package:give_job/shared/settings/change_password_dialog.dart';
+import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/settings/bug_report_dialog.dart';
+import 'package:give_job/shared/settings/change_password_dialog.dart';
+import 'package:give_job/shared/settings/documents_page.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -61,7 +63,9 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: DARK,
         appBar:
             appBar(context, widget._user, getTranslated(context, 'settings')),
-        drawer: employeeSideBar(context, widget._user),
+        drawer: widget._user.role == ROLE_EMPLOYEE
+            ? employeeSideBar(context, widget._user)
+            : managerSideBar(context, widget._user),
         body: ListView(
           children: <Widget>[
             _titleContainer(getTranslated(context, 'account')),
@@ -93,6 +97,19 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
+            Container(
+                margin: EdgeInsets.only(left: 15, top: 10),
+                child: InkWell(
+                    onTap: () => {
+                          Navigator.of(context).push(
+                            CupertinoPageRoute<Null>(
+                              builder: (BuildContext context) {
+                                return DocumentsPage(widget._user);
+                              },
+                            ),
+                          ),
+                        },
+                    child: _subtitleInkWellContainer('Terms of use'))),
             Container(
                 margin: EdgeInsets.only(left: 15, top: 10),
                 child: InkWell(
