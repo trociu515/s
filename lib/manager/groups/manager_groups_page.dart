@@ -9,6 +9,7 @@ import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
+import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
@@ -31,109 +32,120 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ManagerGroupDto>>(
-      future: _managerService
-          .findGroupsManager(widget._user.id, widget._user.authHeader)
-          .catchError((e) {
-        ToastService.showToast(
-            getTranslated(context, 'managerDoesNotHaveGroups'), Colors.red);
-        Navigator.pop(context);
-      }),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<ManagerGroupDto>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting ||
-            snapshot.data == null) {
-          return loader(
-            managerAppBar(context, null, getTranslated(context, 'loading')),
-            managerSideBar(context, widget._user),
-          );
-        } else {
-          List<ManagerGroupDto> groups = snapshot.data;
-          if (groups.isEmpty) {
-            ToastService.showToast(
-                getTranslated(context, 'managerDoesNotHaveGroups'), Colors.red);
-            Navigator.pop(context);
-          }
-          return MaterialApp(
-            title: APP_NAME,
-            theme:
-                ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
-            debugShowCheckedModeBanner: false,
-            home: Scaffold(
-              backgroundColor: DARK,
-              appBar: managerAppBar(
-                  context, widget._user, getTranslated(context, 'groups')),
-              drawer: managerSideBar(context, widget._user),
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: <Widget>[
-                      for (int i = 0; i < groups.length; i++)
-                        Card(
-                          color: DARK,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                CupertinoPageRoute<Null>(
-                                  builder: (BuildContext context) {
-                                    return ManagerGroupsDetailsPage(
-                                        widget._user,
-                                        groups[i].id,
-                                        groups[i].name,
-                                        groups[i].description);
-                                  },
-                                ),
-                              );
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                ListTile(
-                                  leading:
-                                      text20WhiteBold('#' + (i + 1).toString()),
-                                  title: textWhiteBold(utf8.decode(
-                                    groups[i].name != null
-                                        ? groups[i].name.runes.toList()
-                                        : getTranslated(context, 'empty'),
-                                  )),
-                                  subtitle: Wrap(
-                                    children: <Widget>[
-                                      textWhite(getTranslated(
-                                              context, 'numberOfEmployees') +
-                                          ': ' +
-                                          groups[i]
-                                              .numberOfEmployees
-                                              .toString()),
-                                      textWhite(getTranslated(
-                                              context, 'groupCountryOfWork') +
-                                          ': ' +
-                                          groups[i].countryOfWork.toString()),
-                                      textWhite(utf8.decode(groups[i]
-                                                  .description !=
-                                              null
-                                          ? groups[i].description.runes.toList()
-                                          : getTranslated(context, 'empty'))),
-                                    ],
+    return WillPopScope(
+      child: FutureBuilder<List<ManagerGroupDto>>(
+        future: _managerService
+            .findGroupsManager(widget._user.id, widget._user.authHeader)
+            .catchError((e) {
+          ToastService.showToast(
+              getTranslated(context, 'managerDoesNotHaveGroups'), Colors.red);
+          Navigator.pop(context);
+        }),
+        builder: (BuildContext context,
+            AsyncSnapshot<List<ManagerGroupDto>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.data == null) {
+            return loader(
+              managerAppBar(context, null, getTranslated(context, 'loading')),
+              managerSideBar(context, widget._user),
+            );
+          } else {
+            List<ManagerGroupDto> groups = snapshot.data;
+            if (groups.isEmpty) {
+              ToastService.showToast(
+                  getTranslated(context, 'managerDoesNotHaveGroups'),
+                  Colors.red);
+              Navigator.pop(context);
+            }
+            return MaterialApp(
+              title: APP_NAME,
+              theme: ThemeData(
+                  primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
+              debugShowCheckedModeBanner: false,
+              home: Scaffold(
+                backgroundColor: DARK,
+                appBar: managerAppBar(
+                    context, widget._user, getTranslated(context, 'groups')),
+                drawer: managerSideBar(context, widget._user),
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      children: <Widget>[
+                        for (int i = 0; i < groups.length; i++)
+                          Card(
+                            color: DARK,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  CupertinoPageRoute<Null>(
+                                    builder: (BuildContext context) {
+                                      return ManagerGroupsDetailsPage(
+                                          widget._user,
+                                          groups[i].id,
+                                          groups[i].name,
+                                          groups[i].description);
+                                    },
                                   ),
-                                  trailing: Wrap(
-                                    children: <Widget>[
-                                      iconWhite(Icons.edit),
-                                    ],
+                                );
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: text20WhiteBold(
+                                        '#' + (i + 1).toString()),
+                                    title: textWhiteBold(utf8.decode(
+                                      groups[i].name != null
+                                          ? groups[i].name.runes.toList()
+                                          : getTranslated(context, 'empty'),
+                                    )),
+                                    subtitle: Wrap(
+                                      children: <Widget>[
+                                        textWhite(getTranslated(
+                                                context, 'numberOfEmployees') +
+                                            ': ' +
+                                            groups[i]
+                                                .numberOfEmployees
+                                                .toString()),
+                                        textWhite(getTranslated(
+                                                context, 'groupCountryOfWork') +
+                                            ': ' +
+                                            groups[i].countryOfWork.toString()),
+                                        textWhite(utf8.decode(groups[i]
+                                                    .description !=
+                                                null
+                                            ? groups[i]
+                                                .description
+                                                .runes
+                                                .toList()
+                                            : getTranslated(context, 'empty'))),
+                                      ],
+                                    ),
+                                    trailing: Wrap(
+                                      children: <Widget>[
+                                        iconWhite(Icons.edit),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        }
-      },
+            );
+          }
+        },
+      ),
+      onWillPop: _onWillPop,
     );
+  }
+
+  Future<bool> _onWillPop() async {
+    return Logout.logout(context) ?? false;
   }
 }
