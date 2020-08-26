@@ -11,7 +11,7 @@ import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
-import 'package:give_job/shared/widget/icons.dart';
+import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
@@ -74,7 +74,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                       children: <Widget>[
                         for (int i = 0; i < groups.length; i++)
                           Card(
-                            color: DARK,
+                            color: BRIGHTER_DARK,
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context).push(
@@ -93,38 +93,56 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   ListTile(
-                                    leading: text20WhiteBold(
-                                        '#' + (i + 1).toString()),
-                                    title: textWhiteBold(utf8.decode(
-                                      groups[i].name != null
-                                          ? groups[i].name.runes.toList()
-                                          : getTranslated(context, 'empty'),
-                                    )),
-                                    subtitle: Wrap(
-                                      children: <Widget>[
-                                        textWhite(getTranslated(
-                                                context, 'numberOfEmployees') +
-                                            ': ' +
-                                            groups[i]
-                                                .numberOfEmployees
-                                                .toString()),
-                                        textWhite(getTranslated(
-                                                context, 'groupCountryOfWork') +
-                                            ': ' +
-                                            groups[i].countryOfWork.toString()),
-                                        textWhite(utf8.decode(groups[i]
-                                                    .description !=
-                                                null
-                                            ? groups[i]
-                                                .description
-                                                .runes
-                                                .toList()
-                                            : getTranslated(context, 'empty'))),
-                                      ],
+                                    leading: Tab(
+                                      icon: Container(
+                                        child: Image(
+                                          image: AssetImage(
+                                            'images/group-img.png',
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
-                                    trailing: Wrap(
+                                    title: text18WhiteBold(
+                                      utf8.decode(
+                                        groups[i].name != null
+                                            ? groups[i].name.runes.toList()
+                                            : getTranslated(context, 'empty'),
+                                      ),
+                                    ),
+                                    subtitle: Column(
                                       children: <Widget>[
-                                        iconWhite(Icons.edit),
+                                        Align(
+                                            child: textWhite(utf8.decode(
+                                                groups[i].description != null
+                                                    ? groups[i]
+                                                        .description
+                                                        .runes
+                                                        .toList()
+                                                    : getTranslated(
+                                                        context, 'empty'))),
+                                            alignment: Alignment.topLeft),
+                                        SizedBox(height: 5),
+                                        Align(
+                                            child: textWhite(getTranslated(
+                                                    context,
+                                                    'numberOfEmployees') +
+                                                ': ' +
+                                                groups[i]
+                                                    .numberOfEmployees
+                                                    .toString()),
+                                            alignment: Alignment.topLeft),
+                                        Align(
+                                            child: textWhite(getTranslated(
+                                                    context,
+                                                    'groupCountryOfWork') +
+                                                ': ' +
+                                                LanguageUtil
+                                                    .findFlagByNationality(
+                                                        groups[i]
+                                                            .countryOfWork
+                                                            .toString())),
+                                            alignment: Alignment.topLeft),
                                       ],
                                     ),
                                   ),

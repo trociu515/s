@@ -80,6 +80,7 @@ flutter:
     - images/facebook-logo.png
     - images/instagram-logo.png
     - images/linkedin-logo.png
+    - images/group-img.png
     - docs/regulations.pdf
     - docs/privacy_policy.pdf
 

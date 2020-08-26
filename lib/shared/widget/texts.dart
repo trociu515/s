@@ -19,6 +19,7 @@ Text text20White(String text) { return Text(text, style: TextStyle(fontSize: 20,
 Text textWhiteBold(String text) { return Text(text, style: TextStyle(color: WHITE, fontWeight: FontWeight.bold)); }
 Text text15WhiteBold(String text) { return Text(text, style: TextStyle(fontSize: 15, color: WHITE, fontWeight: FontWeight.bold)); }
 Text text16WhiteBold(String text) { return Text(text, style: TextStyle(fontSize: 16, color: WHITE, fontWeight: FontWeight.bold)); }
+Text text18WhiteBold(String text) { return Text(text, style: TextStyle(fontSize: 18, color: WHITE, fontWeight: FontWeight.bold)); }
 Text text20WhiteBold(String text) { return Text(text, style: TextStyle(fontSize: 20, color: WHITE, fontWeight: FontWeight.bold)); }
 
 
