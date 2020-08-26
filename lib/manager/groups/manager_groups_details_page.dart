@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/groups/manager_groups_details_employees_page.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/util/language_util.dart';
+import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 import '../manager_app_bar.dart';
@@ -101,6 +103,132 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
                             alignment: Alignment.topLeft),
                       ],
                     ),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          color: BRIGHTER_DARK,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                CupertinoPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return ManagerGroupsDetailsEmployeesPage(
+                                      widget._user,
+                                      widget._groupId,
+                                      widget._groupName,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: Column(
+                              children: <Widget>[
+                                icon50Green(Icons.person_outline),
+                                text20WhiteBold('Employee'),
+                                textWhite('Fill hours, rating etc.'),
+                                SizedBox(height: 10)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Material(
+                          color: BRIGHTER_DARK,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Column(
+                              children: <Widget>[
+                                icon50Green(Icons.people_outline),
+                                text20WhiteBold('All employees'),
+                                textWhite('Fill hours, rating etc.'),
+                                SizedBox(height: 10)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          color: BRIGHTER_DARK,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Column(
+                              children: <Widget>[
+                                icon50Green(Icons.event_note),
+                                text20WhiteBold('Plan'),
+                                textWhite('Plan day for one employee'),
+                                SizedBox(height: 10)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Material(
+                          color: BRIGHTER_DARK,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Column(
+                              children: <Widget>[
+                                icon50Green(Icons.equalizer),
+                                text20WhiteBold('Plan for all'),
+                                textWhite('Plan day for employees'),
+                                SizedBox(height: 10)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          color: BRIGHTER_DARK,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Column(
+                              children: <Widget>[
+                                icon50Green(Icons.chat),
+                                text20WhiteBold('Chat'),
+                                textWhite('Chat with your group'),
+                                SizedBox(height: 10)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Material(
+                          color: BRIGHTER_DARK,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Column(
+                              children: <Widget>[
+                                icon50Green(Icons.error_outline),
+                                text20WhiteBold('Message'),
+                                textWhite('Send message to all group'),
+                                SizedBox(height: 10)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
