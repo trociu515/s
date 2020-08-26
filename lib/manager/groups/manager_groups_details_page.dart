@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/groups/manager_groups_details_employees_page.dart';
+import 'package:give_job/manager/employees/manager_employees_page.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -115,11 +115,8 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
                               Navigator.of(context).push(
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
-                                    return ManagerGroupsDetailsEmployeesPage(
-                                      widget._user,
-                                      widget._groupId,
-                                      widget._groupName,
-                                    );
+                                    return ManagerEmployeesPage(widget._user,
+                                        widget._groupId, widget._groupName);
                                   },
                                 ),
                               );

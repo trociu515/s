@@ -84,7 +84,13 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
               home: Scaffold(
                 backgroundColor: DARK,
                 appBar: managerAppBar(
-                    context, widget._user, getTranslated(context, 'workdays')),
+                    context,
+                    widget._user,
+                    getTranslated(context, 'workdays') +
+                        ' - ' +
+                        utf8.decode(widget.timeSheet.groupName != null
+                            ? widget.timeSheet.groupName.runes.toList()
+                            : '-')),
                 drawer: managerSideBar(context, widget._user),
                 body: RefreshIndicator(
                   color: DARK,
@@ -96,7 +102,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
                         children: <Widget>[
-                          text15WhiteBold(widget._employeeInfo != null
+                          text20WhiteBold(widget._employeeInfo != null
                               ? utf8.decode(widget._employeeInfo.runes.toList())
                               : getTranslated(context, 'empty')),
                           SizedBox(height: 10),
@@ -113,11 +119,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                 widget.timeSheet.year.toString() +
                                     ' ' +
                                     MonthUtil.translateMonth(
-                                        context, widget.timeSheet.month) +
-                                    '\n' +
-                                    utf8.decode(
-                                      widget.timeSheet.groupName.runes.toList(),
-                                    )),
+                                        context, widget.timeSheet.month)),
                             subtitle: Wrap(
                               children: <Widget>[
                                 textWhite(
@@ -284,8 +286,14 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: DARK,
-          appBar:
-              appBar(context, widget._user, getTranslated(context, 'workdays')),
+          appBar: appBar(
+              context,
+              widget._user,
+              getTranslated(context, 'workdays') +
+                  ' - ' +
+                  utf8.decode(widget.timeSheet.groupName != null
+                      ? widget.timeSheet.groupName.runes.toList()
+                      : '-')),
           drawer: managerSideBar(context, widget._user),
           body: RefreshIndicator(
             color: DARK,
@@ -297,7 +305,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: <Widget>[
-                    text15WhiteBold(widget._employeeInfo != null
+                    text20WhiteBold(widget._employeeInfo != null
                         ? utf8.decode(widget._employeeInfo.runes.toList())
                         : getTranslated(context, 'empty')),
                     SizedBox(height: 10),
@@ -313,10 +321,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       title: textWhiteBold(widget.timeSheet.year.toString() +
                           ' ' +
                           MonthUtil.translateMonth(
-                              context, widget.timeSheet.month) +
-                          '\n' +
-                          utf8.decode(
-                              widget.timeSheet.groupName.runes.toList())),
+                              context, widget.timeSheet.month)),
                       subtitle: Wrap(
                         children: <Widget>[
                           textWhite(getTranslated(context, 'hoursWorked') +

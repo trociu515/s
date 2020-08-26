@@ -75,14 +75,20 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
             home: Scaffold(
               backgroundColor: DARK,
               appBar: managerAppBar(
-                  context, widget._user, getTranslated(context, 'workdays')),
+                  context,
+                  widget._user,
+                  getTranslated(context, 'workdays') +
+                      ' - ' +
+                      utf8.decode(widget.timeSheet.groupName != null
+                          ? widget.timeSheet.groupName.runes.toList()
+                          : '-')),
               drawer: managerSideBar(context, widget._user),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: <Widget>[
-                      text15WhiteBold(widget._employeeInfo != null
+                      text20WhiteBold(widget._employeeInfo != null
                           ? utf8.decode(widget._employeeInfo.runes.toList())
                           : getTranslated(context, 'empty')),
                       SizedBox(height: 10),
@@ -98,11 +104,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                         title: textWhiteBold(widget.timeSheet.year.toString() +
                             ' ' +
                             MonthUtil.translateMonth(
-                                context, widget.timeSheet.month) +
-                            '\n' +
-                            utf8.decode(
-                              widget.timeSheet.groupName.runes.toList(),
-                            )),
+                                context, widget.timeSheet.month)),
                         subtitle: Wrap(
                           children: <Widget>[
                             textWhite(getTranslated(context, 'hoursWorked') +

@@ -83,31 +83,22 @@ class _ManagerGroupsDetailsTimeSheetsPageState
             home: Scaffold(
               backgroundColor: DARK,
               appBar: managerAppBar(
-                  context, widget._user, getTranslated(context, 'timesheets')),
+                  context,
+                  widget._user,
+                  getTranslated(context, 'timesheets') +
+                      ' - ' +
+                      utf8.decode(widget._groupName != null
+                          ? widget._groupName.runes.toList()
+                          : '-')),
               drawer: managerSideBar(context, widget._user),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: <Widget>[
-                      ListTile(
-                        title: textWhiteBold(widget._groupName != null
-                            ? utf8.decode(widget._groupName.runes.toList())
-                            : getTranslated(context, 'empty')),
-                        subtitle: Wrap(
-                          children: <Widget>[
-                            textWhite(widget._groupDescription != null
-                                ? utf8.decode(
-                                    widget._groupDescription.runes.toList())
-                                : getTranslated(context, 'empty')),
-                            SizedBox(height: 50),
-                            text16WhiteBold(widget._employeeInfo != null
-                                ? utf8
-                                    .decode(widget._employeeInfo.runes.toList())
-                                : getTranslated(context, 'empty')),
-                          ],
-                        ),
-                      ),
+                      text20WhiteBold(widget._employeeInfo != null
+                          ? utf8.decode(widget._employeeInfo.runes.toList())
+                          : getTranslated(context, 'empty')),
                       SizedBox(height: 10),
                       for (var timeSheet in timeSheets)
                         Card(

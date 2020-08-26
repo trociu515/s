@@ -19,8 +19,10 @@ import '../manager_side_bar.dart';
 
 class ManagerEmployeesPage extends StatefulWidget {
   final User _user;
+  final int _groupId;
+  final String _groupName;
 
-  ManagerEmployeesPage(this._user);
+  ManagerEmployeesPage(this._user, this._groupId, this._groupName);
 
   @override
   _ManagerEmployeesPageState createState() => _ManagerEmployeesPageState();
@@ -69,7 +71,13 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
       home: Scaffold(
         backgroundColor: DARK,
         appBar: managerAppBar(
-            context, widget._user, getTranslated(context, 'employees')),
+            context,
+            widget._user,
+            getTranslated(context, 'employees') +
+                ' - ' +
+                utf8.decode(widget._groupName != null
+                    ? widget._groupName.runes.toList()
+                    : '-')),
         drawer: managerSideBar(context, widget._user),
         body: Column(
           children: <Widget>[
@@ -111,9 +119,9 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                     builder: (BuildContext context) {
                                       return ManagerGroupsDetailsTimeSheetsPage(
                                           widget._user,
-                                          _employees[index].groupId,
-                                          _employees[index].groupName,
-                                          _employees[index].groupDescription,
+                                          widget._groupId,
+                                          widget._groupName,
+                                          null,
                                           _employees[index].employeeId,
                                           _employees[index].employeeInfo);
                                     },
@@ -150,20 +158,6 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                             _employees[index]
                                                 .amountOfEarnedMoney
                                                 .toString()),
-                                        textWhite(
-                                          getTranslated(
-                                                  this.context, 'groupName') +
-                                              ': ' +
-                                              utf8.decode(_employees[index]
-                                                          .groupName !=
-                                                      null
-                                                  ? _employees[index]
-                                                      .groupName
-                                                      .runes
-                                                      .toList()
-                                                  : getTranslated(
-                                                      this.context, 'empty')),
-                                        ),
                                       ],
                                     ),
                                     trailing: Wrap(
