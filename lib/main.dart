@@ -131,7 +131,7 @@ class _MyAppState extends State<MyApp> {
             if (role == ROLE_EMPLOYEE) {
               return EmployeeHomePage(user);
             } else if (role == ROLE_MANAGER) {
-              return ManagerDetails(user);
+              return ManagerHomePage(user);
             } else {
               return LoginPage();
             }

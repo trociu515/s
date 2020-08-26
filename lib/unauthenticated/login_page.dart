@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ManagerDetails(user)));
+                              builder: (context) => ManagerHomePage(user)));
                     }
                     ToastService.showToast(
                         getTranslated(context, 'loginSuccessfully'),
