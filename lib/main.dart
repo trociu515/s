@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:give_job/unauthenticated/get_started_page.dart';
-import 'package:give_job/unauthenticated/login_page.dart';
-import 'package:give_job/manager/home/manager_home_page.dart';
+import 'package:give_job/manager/groups/manager_groups_details_page.dart';
+import 'package:give_job/manager/groups/manager_groups_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/own_http_overrides.dart';
+import 'package:give_job/unauthenticated/get_started_page.dart';
+import 'package:give_job/unauthenticated/login_page.dart';
 
 import 'employee/home/employee_home_page.dart';
 import 'internationalization/localization/demo_localization.dart';
@@ -60,6 +61,11 @@ class _MyAppState extends State<MyApp> {
     var id = await storage.read(key: 'id');
     var info = await storage.read(key: 'info');
     var username = await storage.read(key: 'username');
+    var containsMoreThanOneGroup =
+        await storage.read(key: 'containsMoreThanOneGroup');
+    var groupId = await storage.read(key: 'groupId');
+    var groupName = await storage.read(key: 'groupName');
+    var groupDescription = await storage.read(key: 'groupDescription');
     Map<String, String> map = new Map();
     map['getStartedClick'] = getStartedClick;
     map['authorization'] = auth;
@@ -67,6 +73,10 @@ class _MyAppState extends State<MyApp> {
     map['id'] = id;
     map['info'] = info;
     map['username'] = username;
+    map['containsMoreThanOneGroup'] = containsMoreThanOneGroup;
+    map['groupId'] = groupId;
+    map['groupName'] = groupName;
+    map['groupDescription'] = groupDescription;
     return map.isNotEmpty ? map : null;
   }
 
@@ -131,7 +141,7 @@ class _MyAppState extends State<MyApp> {
             if (role == ROLE_EMPLOYEE) {
               return EmployeeHomePage(user);
             } else if (role == ROLE_MANAGER) {
-              return ManagerHomePage(user);
+              return _chooseManagerPage(data, user);
             } else {
               return LoginPage();
             }
@@ -139,5 +149,17 @@ class _MyAppState extends State<MyApp> {
         ),
       );
     }
+  }
+
+  Widget _chooseManagerPage(Map<String, String> data, User user) {
+    String containsMoreThanOneGroup = data['containsMoreThanOneGroup'];
+    if (containsMoreThanOneGroup == 'true' ||
+        containsMoreThanOneGroup == null) {
+      return ManagerGroupsPage(user);
+    }
+    int groupId = data['groupId'] as int;
+    String groupName = data['groupName'];
+    String groupDescription = data['groupDescription'];
+    return ManagerGroupsDetailsPage(user, groupId, groupName, groupDescription);
   }
 }

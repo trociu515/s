@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:give_job/main.dart';
-import 'package:give_job/manager/home/manager_home_page.dart';
+import 'package:give_job/manager/groups/manager_groups_details_page.dart';
+import 'package:give_job/manager/groups/manager_groups_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
@@ -130,10 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                           MaterialPageRoute(
                               builder: (context) => EmployeeHomePage(user)));
                     } else if (role == ROLE_MANAGER) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ManagerHomePage(user)));
+                      _chooseManagerPage(map, user);
                     }
                     ToastService.showToast(
                         getTranslated(context, 'loginSuccessfully'),
@@ -232,6 +230,23 @@ class _LoginPageState extends State<LoginPage> {
     var res = await http
         .get('$SERVER_IP/login/mobile', headers: {'authorization': basicAuth});
     return res;
+  }
+
+  void _chooseManagerPage(Map data, User user) {
+    String containsMoreThanOneGroup = data['containsMoreThanOneGroup'];
+    if (containsMoreThanOneGroup == null ||
+        containsMoreThanOneGroup == 'true') {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => ManagerGroupsPage(user)));
+    }
+    int groupId = data['groupId'] as int;
+    String groupName = data['groupName'];
+    String groupDescription = data['groupDescription'];
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ManagerGroupsDetailsPage(
+                user, groupId, groupName, groupDescription)));
   }
 
   _showCreateAccountDialog() {
