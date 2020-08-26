@@ -242,11 +242,18 @@ class _LoginPageState extends State<LoginPage> {
     int groupId = int.parse(data['groupId']);
     String groupName = data['groupName'];
     String groupDescription = data['groupDescription'];
+    String numberOfEmployees = data['numberOfEmployees'];
+    String countryOfWork = data['countryOfWork'];
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => ManagerGroupsDetailsPage(
-                user, groupId, groupName, groupDescription)));
+                user,
+                groupId,
+                groupName,
+                groupDescription,
+                numberOfEmployees,
+                countryOfWork)));
   }
 
   _showCreateAccountDialog() {

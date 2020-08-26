@@ -84,7 +84,11 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                                           widget._user,
                                           groups[i].id,
                                           groups[i].name,
-                                          groups[i].description);
+                                          groups[i].description,
+                                          groups[i]
+                                              .numberOfEmployees
+                                              .toString(),
+                                          groups[i].countryOfWork);
                                     },
                                   ),
                                 );

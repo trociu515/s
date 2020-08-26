@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:give_job/manager/groups/manager_groups_details_page.dart';
 import 'package:give_job/manager/groups/manager_groups_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -15,6 +14,7 @@ import 'package:give_job/unauthenticated/login_page.dart';
 import 'employee/home/employee_home_page.dart';
 import 'internationalization/localization/demo_localization.dart';
 import 'internationalization/localization/localization_constants.dart';
+import 'manager/groups/manager_groups_details_page.dart';
 
 final storage = new FlutterSecureStorage();
 final GlobalKey<RefreshIndicatorState> refreshIndicatorState =
@@ -66,6 +66,8 @@ class _MyAppState extends State<MyApp> {
     var groupId = await storage.read(key: 'groupId');
     var groupName = await storage.read(key: 'groupName');
     var groupDescription = await storage.read(key: 'groupDescription');
+    var numberOfEmployees = await storage.read(key: 'numberOfEmployees');
+    var countryOfWork = await storage.read(key: 'countryOfWork');
     Map<String, String> map = new Map();
     map['getStartedClick'] = getStartedClick;
     map['authorization'] = auth;
@@ -77,6 +79,8 @@ class _MyAppState extends State<MyApp> {
     map['groupId'] = groupId;
     map['groupName'] = groupName;
     map['groupDescription'] = groupDescription;
+    map['numberOfEmployees'] = numberOfEmployees;
+    map['countryOfWork'] = countryOfWork;
     return map.isNotEmpty ? map : null;
   }
 
@@ -160,6 +164,9 @@ class _MyAppState extends State<MyApp> {
     int groupId = data['groupId'] as int;
     String groupName = data['groupName'];
     String groupDescription = data['groupDescription'];
-    return ManagerGroupsDetailsPage(user, groupId, groupName, groupDescription);
+    String numberOfEmployees = data['numberOfEmployees'];
+    String countryOfWork = data['countryOfWork'];
+    return ManagerGroupsDetailsPage(user, groupId, groupName, groupDescription,
+        numberOfEmployees, countryOfWork);
   }
 }
