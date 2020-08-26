@@ -69,26 +69,29 @@ Drawer employeeSideBar(BuildContext context, User user) {
           ),
           Divider(color: WHITE),
           ListTile(
-              leading: iconWhite(Icons.star),
-              title: text18White(getTranslated(context, 'rate')),
-              onTap: () => OpenAppstore.launch(
-                  androidAppId: ANDROID_APP_ID, iOSAppId: IOS_APP_ID)),
+            leading: iconWhite(Icons.star),
+            title: text18White(getTranslated(context, 'rate')),
+            onTap: () => OpenAppstore.launch(
+                androidAppId: ANDROID_APP_ID, iOSAppId: IOS_APP_ID),
+          ),
           ListTile(
-              leading: iconWhite(Icons.settings),
-              title: text18White(getTranslated(context, 'settings')),
-              onTap: () {
-                Navigator.of(context).push(
-                  CupertinoPageRoute<Null>(
-                    builder: (BuildContext context) {
-                      return SettingsPage(user);
-                    },
-                  ),
-                );
-              }),
+            leading: iconWhite(Icons.settings),
+            title: text18White(getTranslated(context, 'settings')),
+            onTap: () {
+              Navigator.of(context).push(
+                CupertinoPageRoute<Null>(
+                  builder: (BuildContext context) {
+                    return SettingsPage(user);
+                  },
+                ),
+              );
+            },
+          ),
           ListTile(
-              leading: iconWhite(Icons.exit_to_app),
-              title: text18White(getTranslated(context, 'signOut')),
-              onTap: () => Logout.logout(context)),
+            leading: iconWhite(Icons.exit_to_app),
+            title: text18White(getTranslated(context, 'signOut')),
+            onTap: () => Logout.logout(context),
+          ),
         ],
       ),
     ),
