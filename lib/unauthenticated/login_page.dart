@@ -138,6 +138,9 @@ class _LoginPageState extends State<LoginPage> {
                     ToastService.showToast(
                         getTranslated(context, 'loginSuccessfully'),
                         Color(0xffb5d76d));
+                  } else if (res.statusCode == 401) {
+                    progressDialog.hide();
+                    ToastService.showToast('User is not verified', Colors.red);
                   } else {
                     progressDialog.hide();
                     ToastService.showToast(
