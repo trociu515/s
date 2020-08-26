@@ -250,6 +250,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
           contentPadding: EdgeInsets.all(0),
           child: CheckboxListTile(
             title: textWhite('I accept the regulations'),
+            subtitle: !_regulationsCheckbox
+                ? text13Red('Confirmation of the regulations is required.')
+                : null,
             value: _regulationsCheckbox,
             onChanged: (value) {
               setState(() {
@@ -263,6 +266,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
           contentPadding: EdgeInsets.all(0),
           child: CheckboxListTile(
             title: textWhite('I accept the privacy policy'),
+            subtitle: !_privacyPolicyCheckbox
+                ? text13Red('Confirmation of the privacy policy is required.')
+                : null,
             value: _privacyPolicyCheckbox,
             onChanged: (value) {
               setState(() {
@@ -807,7 +813,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(30.0)),
           onPressed: () => {
-            if (!_isValid())
+            if (!_isValid() || !_regulationsCheckbox || !_privacyPolicyCheckbox)
               {
                 _errorDialog('Please correct invalid fields.'),
               }
