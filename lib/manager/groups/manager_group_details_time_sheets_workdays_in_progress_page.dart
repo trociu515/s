@@ -539,6 +539,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: DARK,
           title: textWhiteBold(getTranslated(context, 'commentDetails')),
           content: textWhite(comment != null
               ? utf8.decode(comment.runes.toList())
