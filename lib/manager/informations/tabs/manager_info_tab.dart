@@ -69,7 +69,7 @@ Container managerInfoTab(BuildContext context, ManagerDto manager) {
       itemCount: informations.length,
       itemBuilder: (context, i) {
         return ExpansionTile(
-          initiallyExpanded: true,
+          initiallyExpanded: i == 0 ? true : false,
           backgroundColor: BRIGHTER_DARK,
           title: text20WhiteItalic(informations[i].title),
           children: <Widget>[
