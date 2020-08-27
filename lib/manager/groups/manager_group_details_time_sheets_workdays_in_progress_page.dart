@@ -171,47 +171,6 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                             ),
                           ),
                           SizedBox(height: 10),
-                          Column(
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  MaterialButton(
-                                      elevation: 0,
-                                      shape: new RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(30.0)),
-                                      color: GREEN,
-                                      child: textDarkBold(
-                                          getTranslated(context, 'hours')),
-                                      onPressed: () =>
-                                          _showDialog('HOURS', selectedIds)),
-                                  MaterialButton(
-                                      elevation: 0,
-                                      shape: new RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(30.0)),
-                                      color: GREEN,
-                                      child: textDarkBold(
-                                          getTranslated(context, 'rating')),
-                                      onPressed: () =>
-                                          _showDialog('RATING', selectedIds)),
-                                  MaterialButton(
-                                      elevation: 0,
-                                      shape: new RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(30.0)),
-                                      color: GREEN,
-                                      child: textDarkBold(
-                                          getTranslated(context, 'comment')),
-                                      onPressed: () =>
-                                          _showDialog('COMMENT', selectedIds)),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
                           SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: SingleChildScrollView(
@@ -298,6 +257,39 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                         ],
                       ),
                     ),
+                  ),
+                ),
+                bottomNavigationBar: Container(
+                  height: 40,
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(width: 1),
+                      Expanded(
+                        child: MaterialButton(
+                          color: GREEN,
+                          child: textDarkBold(getTranslated(context, 'hours')),
+                          onPressed: () => _showDialog('HOURS', selectedIds),
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: MaterialButton(
+                          color: GREEN,
+                          child: textDarkBold(getTranslated(context, 'rating')),
+                          onPressed: () => _showDialog('RATING', selectedIds),
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: MaterialButton(
+                          color: GREEN,
+                          child:
+                              textDarkBold(getTranslated(context, 'comment')),
+                          onPressed: () => _showDialog('COMMENT', selectedIds),
+                        ),
+                      ),
+                      SizedBox(width: 1),
+                    ],
                   ),
                 ),
               ),
@@ -389,46 +381,6 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       ),
                     ),
                     SizedBox(height: 10),
-                    Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            MaterialButton(
-                                elevation: 0,
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0)),
-                                color: GREEN,
-                                child: textDarkBold(
-                                    getTranslated(context, 'hours')),
-                                onPressed: () =>
-                                    _showDialog('HOURS', selectedIds)),
-                            MaterialButton(
-                                elevation: 0,
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0)),
-                                color: GREEN,
-                                child: textDarkBold(
-                                    getTranslated(context, 'rating')),
-                                onPressed: () =>
-                                    _showDialog('RATING', selectedIds)),
-                            MaterialButton(
-                                elevation: 0,
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0)),
-                                color: GREEN,
-                                child: textDarkBold(
-                                    getTranslated(context, 'comment')),
-                                onPressed: () =>
-                                    _showDialog('COMMENT', selectedIds)),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
                     SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
@@ -512,6 +464,38 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
               ),
             ),
           ),
+          bottomNavigationBar: Container(
+            height: 40,
+            child: Row(
+              children: <Widget>[
+                SizedBox(width: 1),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold(getTranslated(context, 'hours')),
+                    onPressed: () => _showDialog('HOURS', selectedIds),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold(getTranslated(context, 'rating')),
+                    onPressed: () => _showDialog('RATING', selectedIds),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold(getTranslated(context, 'comment')),
+                    onPressed: () => _showDialog('COMMENT', selectedIds),
+                  ),
+                ),
+                SizedBox(width: 1),
+              ],
+            ),
+          ),
         ),
       );
     }
@@ -567,6 +551,26 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        if (selectedIds.isEmpty) {
+          return AlertDialog(
+            backgroundColor: DARK,
+            title: textWhite('Information'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  textWhite(
+                      'You need to select records which you want to update.'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: textWhite('Ok'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          );
+        }
         if (content == 'HOURS') {
           final hoursController = new TextEditingController();
           TextFormField field = TextFormField(
