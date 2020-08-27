@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     ValidatorService.validateLoginCredentials(
                         username, password, context);
                 if (invalidMessage != null) {
-                  ToastService.showToast(invalidMessage, Colors.red);
+                  ToastService.showBottomToast(invalidMessage, Colors.red);
                   return;
                 }
                 progressDialog.show();
@@ -133,22 +133,22 @@ class _LoginPageState extends State<LoginPage> {
                     } else if (role == ROLE_MANAGER) {
                       _chooseManagerPage(map, user);
                     }
-                    ToastService.showToast(
+                    ToastService.showBottomToast(
                         getTranslated(context, 'loginSuccessfully'),
                         Color(0xffb5d76d));
                   } else if (res.statusCode == 401) {
                     progressDialog.hide();
-                    ToastService.showToast('User is not verified', Colors.red);
+                    ToastService.showBottomToast('User is not verified', Colors.red);
                   } else {
                     progressDialog.hide();
-                    ToastService.showToast(
+                    ToastService.showBottomToast(
                         getTranslated(context, 'wrongUsernameOrPassword'),
                         Colors.red);
                   }
                 }, onError: (e) {
                   progressDialog
                       .hide(); // TODO progress dialog doesn't hide when error is catched
-                  ToastService.showToast(
+                  ToastService.showBottomToast(
                       getTranslated(context, 'cannotConnectToServer'),
                       Colors.red);
                 });

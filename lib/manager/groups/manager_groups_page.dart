@@ -37,7 +37,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
         future: _managerService
             .findGroupsManager(widget._user.id, widget._user.authHeader)
             .catchError((e) {
-          ToastService.showToast(
+          ToastService.showBottomToast(
               getTranslated(context, 'managerDoesNotHaveGroups'), Colors.red);
           Navigator.pop(context);
         }),
@@ -52,7 +52,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
           } else {
             List<ManagerGroupDto> groups = snapshot.data;
             if (groups.isEmpty) {
-              ToastService.showToast(
+              ToastService.showBottomToast(
                   getTranslated(context, 'managerDoesNotHaveGroups'),
                   Colors.red);
               Navigator.pop(context);

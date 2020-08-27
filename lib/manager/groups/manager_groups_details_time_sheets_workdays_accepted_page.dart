@@ -51,7 +51,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
           .findWorkdaysByTimeSheetId(
               widget.timeSheet.id.toString(), widget._user.authHeader)
           .catchError((e) {
-        ToastService.showToast(
+        ToastService.showBottomToast(
             getTranslated(
                 context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
             Colors.red);
@@ -68,7 +68,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
         } else {
           List<WorkdayDto> workdays = snapshot.data;
           if (workdays.isEmpty) {
-            ToastService.showToast(
+            ToastService.showBottomToast(
                 getTranslated(
                     context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
                 Colors.red);

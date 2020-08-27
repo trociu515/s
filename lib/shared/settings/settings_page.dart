@@ -185,7 +185,7 @@ class _SettingsPageState extends State<SettingsPage> {
   _launchURL(String url) async {
     await canLaunch(url)
         ? await launch(url)
-        : ToastService.showToast(
+        : ToastService.showBottomToast(
             getTranslated(context, 'couldNotLaunch'), Colors.red);
   }
 }

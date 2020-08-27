@@ -44,7 +44,7 @@ class _ManagerGroupsDetailsEmployeesPageState
           .findEmployeesGroupDetails(
               widget._groupId.toString(), widget._user.authHeader)
           .catchError((e) {
-        ToastService.showToast(
+        ToastService.showBottomToast(
             getTranslated(context, 'managerDoesNotHaveGroups'), Colors.red);
         Navigator.pop(context);
       }),
@@ -59,7 +59,7 @@ class _ManagerGroupsDetailsEmployeesPageState
         } else {
           List<ManagerGroupDetailsDto> employees = snapshot.data;
           if (employees.isEmpty) {
-            ToastService.showToast(
+            ToastService.showBottomToast(
                 getTranslated(context, 'managerDoesNotHaveGroups'), Colors.red);
             Navigator.pop(context);
           }

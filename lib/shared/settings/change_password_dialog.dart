@@ -63,7 +63,7 @@ changePasswordDialog(
               String invalidMessage = ValidatorService.validateUpdatingPassword(
                   newPassword, reNewPassword, context);
               if (invalidMessage != null) {
-                ToastService.showToast(invalidMessage, Colors.red);
+                ToastService.showBottomToast(invalidMessage, Colors.red);
                 return;
               }
               showDialog(

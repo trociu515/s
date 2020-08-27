@@ -50,7 +50,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
         _loading = false;
       });
     }).catchError((e) {
-      ToastService.showToast(
+      ToastService.showBottomToast(
           getTranslated(context, 'managerDoesNotHaveEmployeesInGroups'),
           Colors.red);
       Navigator.pop(context);

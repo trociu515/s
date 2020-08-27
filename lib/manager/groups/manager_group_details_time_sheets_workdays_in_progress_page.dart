@@ -59,7 +59,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             .findWorkdaysByTimeSheetId(
                 widget.timeSheet.id.toString(), widget._user.authHeader)
             .catchError((e) {
-          ToastService.showToast(
+          ToastService.showBottomToast(
               getTranslated(
                   context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
               Colors.red);
@@ -77,7 +77,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             List<WorkdayDto> workdays = snapshot.data;
             this.workdays = workdays;
             if (workdays.isEmpty) {
-              ToastService.showToast(
+              ToastService.showBottomToast(
                   getTranslated(
                       context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
                   Colors.red);
@@ -611,7 +611,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   try {
                     hours = int.parse(hoursController.text);
                   } catch (FormatException) {
-                    ToastService.showToast(
+                    ToastService.showBottomToast(
                         getTranslated(context, 'givenValueIsNotANumber'),
                         Colors.red);
                     return;
@@ -619,7 +619,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   String invalidMessage =
                       ValidatorService.validateUpdatingHours(hours, context);
                   if (invalidMessage != null) {
-                    ToastService.showToast(invalidMessage, Colors.red);
+                    ToastService.showBottomToast(invalidMessage, Colors.red);
                     return;
                   }
                   _managerService
@@ -627,7 +627,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                           selectedIds, hours, widget._user.authHeader)
                       .then((res) {
                     Navigator.of(context).pop();
-                    ToastService.showToast(
+                    ToastService.showCenterToast(
                         getTranslated(context, 'hoursUpdatedSuccessfully'),
                         GREEN);
                     _refresh();
@@ -673,7 +673,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   try {
                     hours = int.parse(ratingController.text);
                   } catch (FormatException) {
-                    ToastService.showToast(
+                    ToastService.showBottomToast(
                         getTranslated(context, 'givenValueIsNotANumber'),
                         Colors.red);
                     return;
@@ -681,7 +681,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   String invalidMessage =
                       ValidatorService.validateUpdatingRating(hours, context);
                   if (invalidMessage != null) {
-                    ToastService.showToast(invalidMessage, Colors.red);
+                    ToastService.showBottomToast(invalidMessage, Colors.red);
                     return;
                   }
                   _managerService
@@ -689,7 +689,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                           selectedIds, hours, widget._user.authHeader)
                       .then((res) {
                     Navigator.of(context).pop();
-                    ToastService.showToast(
+                    ToastService.showCenterToast(
                         getTranslated(context, 'ratingUpdatedSuccessfully'),
                         GREEN);
                     _refresh();
@@ -735,7 +735,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       ValidatorService.validateUpdatingComment(
                           comment, context);
                   if (invalidMessage != null) {
-                    ToastService.showToast(invalidMessage, Colors.red);
+                    ToastService.showBottomToast(invalidMessage, Colors.red);
                     return;
                   }
                   _managerService
@@ -743,7 +743,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                           selectedIds, comment, widget._user.authHeader)
                       .then((res) {
                     Navigator.of(context).pop();
-                    ToastService.showToast(
+                    ToastService.showCenterToast(
                         getTranslated(context, 'commentUpdatedSuccessfully'),
                         GREEN);
                     _refresh();

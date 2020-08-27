@@ -57,7 +57,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
               widget._employeeId.toString(),
               widget._user.authHeader)
           .catchError((e) {
-        ToastService.showToast(
+        ToastService.showBottomToast(
             getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
             Colors.red);
         Navigator.pop(context);
@@ -73,7 +73,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
         } else {
           List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
           if (timeSheets.isEmpty) {
-            ToastService.showToast(
+            ToastService.showBottomToast(
                 getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
                 Colors.red);
             Navigator.pop(context);
