@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/groups/manager_groups_details_time_sheets_workdays_accepted_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/model/user.dart';
@@ -15,12 +14,13 @@ import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-import '../../shared/libraries/constants.dart';
-import '../manager_app_bar.dart';
-import '../manager_side_bar.dart';
-import 'manager_group_details_time_sheets_workdays_in_progress_page.dart';
+import '../../../../shared/libraries/constants.dart';
+import '../../../manager_app_bar.dart';
+import '../../../manager_side_bar.dart';
+import 'manager_employee_time_sheets_workdays_in_progress_page.dart';
+import 'manager_employee_time_sheets_workdays_accepted_page.dart';
 
-class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
+class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
   final User _user;
   final int _groupId;
   final String _groupName;
@@ -29,7 +29,7 @@ class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
   final int _employeeId;
   final String _employeeInfo;
 
-  const ManagerGroupsDetailsTimeSheetsPage(
+  const ManagerEmployeeTimeSheetsPage(
     this._user,
     this._groupId,
     this._groupName,
@@ -40,12 +40,12 @@ class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
   );
 
   @override
-  _ManagerGroupsDetailsTimeSheetsPageState createState() =>
-      _ManagerGroupsDetailsTimeSheetsPageState();
+  _ManagerEmployeeTimeSheetsPageState createState() =>
+      _ManagerEmployeeTimeSheetsPageState();
 }
 
-class _ManagerGroupsDetailsTimeSheetsPageState
-    extends State<ManagerGroupsDetailsTimeSheetsPage> {
+class _ManagerEmployeeTimeSheetsPageState
+    extends State<ManagerEmployeeTimeSheetsPage> {
   final ManagerService _managerService = new ManagerService();
 
   @override
@@ -114,7 +114,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                               Navigator.of(context).push(
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
-                                    return ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
+                                    return ManagerEmployeeTimeSheetsWorkdaysAcceptedPage(
                                         widget._user,
                                         widget._employeeInfo,
                                         widget._employeeNationality,
@@ -127,7 +127,7 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                               Navigator.of(context).push(
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
-                                    return ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
+                                    return ManagerEmployeeTimeSheetsWorkdaysInProgressPage(
                                         widget._user,
                                         widget._employeeInfo,
                                         widget._employeeNationality,

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_group_details_dto.dart';
-import 'package:give_job/manager/groups/manager_groups_details_time_sheets_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -15,21 +14,22 @@ import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-import '../manager_app_bar.dart';
-import '../manager_side_bar.dart';
+import '../../../manager_app_bar.dart';
+import '../../../manager_side_bar.dart';
+import 'manager_employee_time_sheets_page.dart';
 
-class ManagerEmployeesPage extends StatefulWidget {
+class ManagerEmployeePage extends StatefulWidget {
   final User _user;
   final int _groupId;
   final String _groupName;
 
-  ManagerEmployeesPage(this._user, this._groupId, this._groupName);
+  ManagerEmployeePage(this._user, this._groupId, this._groupName);
 
   @override
-  _ManagerEmployeesPageState createState() => _ManagerEmployeesPageState();
+  _ManagerEmployeePageState createState() => _ManagerEmployeePageState();
 }
 
-class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
+class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
   final ManagerService _managerService = new ManagerService();
 
   List<ManagerGroupDetailsDto> _employees = new List();
@@ -83,7 +83,8 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
         body: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 10),
+              padding:
+                  EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 10),
               child: TextFormField(
                 autofocus: false,
                 autocorrect: true,
@@ -127,7 +128,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                               Navigator.of(this.context).push(
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
-                                    return ManagerGroupsDetailsTimeSheetsPage(
+                                    return ManagerEmployeeTimeSheetsPage(
                                         widget._user,
                                         widget._groupId,
                                         widget._groupName,

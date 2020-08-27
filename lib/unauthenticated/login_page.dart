@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:give_job/main.dart';
-import 'package:give_job/manager/groups/manager_groups_details_page.dart';
+import 'package:give_job/manager/groups/group/manager_group_details_page.dart';
 import 'package:give_job/manager/groups/manager_groups_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -247,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ManagerGroupsDetailsPage(
+            builder: (context) => ManagerGroupDetailsPage(
                 user,
                 groupId,
                 groupName,

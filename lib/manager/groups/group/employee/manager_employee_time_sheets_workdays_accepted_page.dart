@@ -16,12 +16,11 @@ import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
-import '../../shared/libraries/constants.dart';
-import '../manager_app_bar.dart';
-import '../manager_side_bar.dart';
+import '../../../../shared/libraries/constants.dart';
+import '../../../manager_app_bar.dart';
+import '../../../manager_side_bar.dart';
 
-class ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage
-    extends StatefulWidget {
+class ManagerEmployeeTimeSheetsWorkdaysAcceptedPage extends StatefulWidget {
   final User _user;
 
   final String _employeeInfo;
@@ -29,7 +28,7 @@ class ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage
   final String _currency;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
+  const ManagerEmployeeTimeSheetsWorkdaysAcceptedPage(
       this._user,
       this._employeeInfo,
       this._employeeNationality,
@@ -37,12 +36,12 @@ class ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage
       this.timeSheet);
 
   @override
-  _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState createState() =>
-      _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState();
+  _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState createState() =>
+      _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState();
 }
 
-class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
-    extends State<ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage> {
+class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
+    extends State<ManagerEmployeeTimeSheetsWorkdaysAcceptedPage> {
   final ManagerService _managerService = new ManagerService();
 
   @override

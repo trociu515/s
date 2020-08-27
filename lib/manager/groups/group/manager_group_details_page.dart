@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/employees/manager_employees_page.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -12,10 +11,11 @@ import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-import '../manager_app_bar.dart';
-import 'manager_groups_page.dart';
+import '../../manager_app_bar.dart';
+import '../manager_groups_page.dart';
+import 'employee/manager_employee_page.dart';
 
-class ManagerGroupsDetailsPage extends StatefulWidget {
+class ManagerGroupDetailsPage extends StatefulWidget {
   final User _user;
   final int _groupId;
   final String _groupName;
@@ -23,7 +23,7 @@ class ManagerGroupsDetailsPage extends StatefulWidget {
   final String _numberOfEmployees;
   final String _countryOfWork;
 
-  ManagerGroupsDetailsPage(
+  ManagerGroupDetailsPage(
     this._user,
     this._groupId,
     this._groupName,
@@ -33,11 +33,11 @@ class ManagerGroupsDetailsPage extends StatefulWidget {
   );
 
   @override
-  _ManagerGroupsDetailsPageState createState() =>
-      _ManagerGroupsDetailsPageState();
+  _ManagerGroupDetailsPageState createState() =>
+      _ManagerGroupDetailsPageState();
 }
 
-class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
+class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -115,7 +115,7 @@ class _ManagerGroupsDetailsPageState extends State<ManagerGroupsDetailsPage> {
                               Navigator.of(context).push(
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
-                                    return ManagerEmployeesPage(widget._user,
+                                    return ManagerEmployeePage(widget._user,
                                         widget._groupId, widget._groupName);
                                   },
                                 ),

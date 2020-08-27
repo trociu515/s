@@ -18,13 +18,12 @@ import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
-import '../../main.dart';
-import '../../shared/libraries/constants.dart';
-import '../manager_app_bar.dart';
-import '../manager_side_bar.dart';
+import '../../../../main.dart';
+import '../../../../shared/libraries/constants.dart';
+import '../../../manager_app_bar.dart';
+import '../../../manager_side_bar.dart';
 
-class ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage
-    extends StatefulWidget {
+class ManagerEmployeeTimeSheetsWorkdaysInProgressPage extends StatefulWidget {
   final User _user;
 
   final String _employeeInfo;
@@ -32,20 +31,19 @@ class ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage
   final String _currency;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
-      this._user,
+  const ManagerEmployeeTimeSheetsWorkdaysInProgressPage(this._user,
       this._employeeInfo,
       this._employeeNationality,
       this._currency,
       this.timeSheet);
 
   @override
-  _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState createState() =>
-      _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState();
+  _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState createState() =>
+      _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState();
 }
 
-class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
-    extends State<ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage> {
+class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
+    extends State<ManagerEmployeeTimeSheetsWorkdaysInProgressPage> {
   final ManagerService _managerService = new ManagerService();
   final TextEditingController _hoursController = new TextEditingController();
   final TextEditingController _ratingController = new TextEditingController();
@@ -67,7 +65,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
       return FutureBuilder<List<WorkdayDto>>(
         future: _managerService
             .findWorkdaysByTimeSheetId(
-                widget.timeSheet.id.toString(), widget._user.authHeader)
+            widget.timeSheet.id.toString(), widget._user.authHeader)
             .catchError((e) {
           ToastService.showBottomToast(
               getTranslated(
@@ -140,12 +138,12 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: textWhiteBold(widget._employeeInfo !=
-                                            null
+                                        null
                                         ? utf8.decode(widget._employeeInfo.runes
-                                                .toList()) +
-                                            ' ' +
-                                            LanguageUtil.findFlagByNationality(
-                                                widget._employeeNationality)
+                                        .toList()) +
+                                        ' ' +
+                                        LanguageUtil.findFlagByNationality(
+                                            widget._employeeNationality)
                                         : getTranslated(context, 'empty')),
                                   ),
                                   Row(
@@ -153,11 +151,11 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                       Align(
                                         alignment: Alignment.topLeft,
                                         child: textWhite(getTranslated(
-                                                context, 'hoursWorked') +
+                                            context, 'hoursWorked') +
                                             ': '),
                                       ),
                                       textGreenBold(widget.timeSheet.totalHours
-                                              .toString() +
+                                          .toString() +
                                           'h'),
                                     ],
                                   ),
@@ -166,7 +164,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                       Align(
                                         alignment: Alignment.topLeft,
                                         child: textWhite(getTranslated(
-                                                context, 'averageRating') +
+                                            context, 'averageRating') +
                                             ': '),
                                       ),
                                       textGreenBold(widget
@@ -230,9 +228,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                 rows: this
                                     .workdays
                                     .map(
-                                      (workday) => DataRow(
+                                      (workday) =>
+                                      DataRow(
                                         selected:
-                                            selectedIds.contains(workday.id),
+                                        selectedIds.contains(workday.id),
                                         onSelectChanged: (bool selected) {
                                           onSelectedRow(selected, workday.id);
                                         },
@@ -249,34 +248,35 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                             Wrap(
                                               children: <Widget>[
                                                 textWhite(workday.comment !=
-                                                        null
+                                                    null
                                                     ? workday.comment.length >
-                                                            10
-                                                        ? utf8
-                                                                .decode(workday
-                                                                    .comment
-                                                                    .runes
-                                                                    .toList())
-                                                                .substring(
-                                                                    0, 10) +
-                                                            '...'
-                                                        : utf8.decode(workday
-                                                            .comment.runes
-                                                            .toList())
+                                                    10
+                                                    ? utf8
+                                                    .decode(workday
+                                                    .comment
+                                                    .runes
+                                                    .toList())
+                                                    .substring(
+                                                    0, 10) +
+                                                    '...'
+                                                    : utf8.decode(workday
+                                                    .comment.runes
+                                                    .toList())
                                                     : getTranslated(
-                                                        context, 'empty')),
+                                                    context, 'empty')),
                                                 workday.comment != null &&
-                                                        workday.comment != ''
+                                                    workday.comment != ''
                                                     ? iconWhite(Icons.zoom_in)
                                                     : Text('')
                                               ],
                                             ),
-                                            onTap: () => _showCommentDetails(
-                                                workday.comment),
+                                            onTap: () =>
+                                                _showCommentDetails(
+                                                    workday.comment),
                                           ),
                                         ],
                                       ),
-                                    )
+                                )
                                     .toList(),
                               ),
                             ),
@@ -295,7 +295,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                         child: MaterialButton(
                           color: GREEN,
                           child: textDarkBold(getTranslated(context, 'hours')),
-                          onPressed: () => {
+                          onPressed: () =>
+                          {
                             _hoursController.clear(),
                             _showUpdateHoursDialog(selectedIds)
                           },
@@ -306,7 +307,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                         child: MaterialButton(
                           color: GREEN,
                           child: textDarkBold(getTranslated(context, 'rating')),
-                          onPressed: () => {
+                          onPressed: () =>
+                          {
                             _ratingController.clear(),
                             _showUpdateRatingDialog(selectedIds)
                           },
@@ -317,8 +319,9 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                         child: MaterialButton(
                           color: GREEN,
                           child:
-                              textDarkBold(getTranslated(context, 'comment')),
-                          onPressed: () => {
+                          textDarkBold(getTranslated(context, 'comment')),
+                          onPressed: () =>
+                          {
                             _commentController.clear(),
                             _showUpdateCommentDialog(selectedIds)
                           },
@@ -380,10 +383,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                               alignment: Alignment.topLeft,
                               child: textWhiteBold(widget._employeeInfo != null
                                   ? utf8.decode(
-                                          widget._employeeInfo.runes.toList()) +
-                                      ' ' +
-                                      LanguageUtil.findFlagByNationality(
-                                          widget._employeeNationality)
+                                  widget._employeeInfo.runes.toList()) +
+                                  ' ' +
+                                  LanguageUtil.findFlagByNationality(
+                                      widget._employeeNationality)
                                   : getTranslated(context, 'empty')),
                             ),
                             Row(
@@ -467,7 +470,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                           rows: this
                               .workdays
                               .map(
-                                (workday) => DataRow(
+                                (workday) =>
+                                DataRow(
                                   selected: selectedIds.contains(workday.id),
                                   onSelectChanged: (bool selected) {
                                     onSelectedRow(selected, workday.id);
@@ -486,19 +490,19 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                         children: <Widget>[
                                           textWhite(workday.comment != null
                                               ? workday.comment.length > 10
-                                                  ? utf8
-                                                          .decode(workday
-                                                              .comment.runes
-                                                              .toList())
-                                                          .substring(0, 10) +
-                                                      '...'
-                                                  : utf8.decode(workday
-                                                      .comment.runes
-                                                      .toList())
+                                              ? utf8
+                                              .decode(workday
+                                              .comment.runes
+                                              .toList())
+                                              .substring(0, 10) +
+                                              '...'
+                                              : utf8.decode(workday
+                                              .comment.runes
+                                              .toList())
                                               : getTranslated(
-                                                  context, 'empty')),
+                                              context, 'empty')),
                                           workday.comment != null &&
-                                                  workday.comment != ''
+                                              workday.comment != ''
                                               ? iconWhite(Icons.zoom_in)
                                               : Text('')
                                         ],
@@ -508,7 +512,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                                     ),
                                   ],
                                 ),
-                              )
+                          )
                               .toList(),
                         ),
                       ),
@@ -527,7 +531,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   child: MaterialButton(
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'hours')),
-                    onPressed: () => {
+                    onPressed: () =>
+                    {
                       _hoursController.clear(),
                       _showUpdateHoursDialog(selectedIds)
                     },
@@ -538,7 +543,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   child: MaterialButton(
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'rating')),
-                    onPressed: () => {
+                    onPressed: () =>
+                    {
                       _ratingController.clear(),
                       _showUpdateRatingDialog(selectedIds)
                     },
@@ -549,7 +555,8 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   child: MaterialButton(
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'comment')),
-                    onPressed: () => {
+                    onPressed: () =>
+                    {
                       _commentController.clear(),
                       _showUpdateCommentDialog(selectedIds)
                     },
@@ -567,7 +574,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
   Future<Null> _refresh() {
     return _managerService
         .findWorkdaysByTimeSheetId(
-            widget.timeSheet.id.toString(), widget._user.authHeader)
+        widget.timeSheet.id.toString(), widget._user.authHeader)
         .then((_workdays) {
       setState(() {
         workdays = _workdays;
@@ -681,74 +688,74 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
         backgroundColor: DARK,
         child: selectedIds.isNotEmpty
             ? Column(
-                children: <Widget>[
-                  text20GreenBold('HOURS'),
-                  SizedBox(height: 5),
-                  Container(
-                    width: 125,
-                    child: TextFormField(
-                      autofocus: true,
-                      controller: _hoursController,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        WhitelistingTextInputFormatter.digitsOnly
-                      ],
-                      maxLength: 2,
-                      cursorColor: WHITE,
-                      textAlignVertical: TextAlignVertical.center,
-                      style: TextStyle(color: WHITE),
-                      decoration: InputDecoration(
-                        counterStyle: TextStyle(color: WHITE),
-                        labelStyle: TextStyle(color: WHITE),
-                        labelText:
-                            getTranslated(context, 'newHours') + ' (0-24)',
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  MaterialButton(
-                    elevation: 0,
-                    height: 50,
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    child: textWhiteBold(getTranslated(context, 'update')),
-                    color: GREEN,
-                    onPressed: () {
-                      int hours;
-                      try {
-                        hours = int.parse(_hoursController.text);
-                      } catch (FormatException) {
-                        ToastService.showBottomToast(
-                            getTranslated(context, 'givenValueIsNotANumber'),
-                            Colors.red);
-                        return;
-                      }
-                      String invalidMessage =
-                          ValidatorService.validateUpdatingHours(
-                              hours, context);
-                      if (invalidMessage != null) {
-                        ToastService.showBottomToast(
-                            invalidMessage, Colors.red);
-                        return;
-                      }
-                      _managerService
-                          .updateWorkdaysHours(
-                              selectedIds, hours, widget._user.authHeader)
-                          .then(
-                        (res) {
-                          Navigator.of(context).pop();
-                          selectedIds.clear();
-                          ToastService.showCenterToast(
-                              getTranslated(
-                                  context, 'hoursUpdatedSuccessfully'),
-                              GREEN);
-                          _refresh();
-                        },
-                      );
-                    },
-                  ),
+          children: <Widget>[
+            text20GreenBold('HOURS'),
+            SizedBox(height: 5),
+            Container(
+              width: 125,
+              child: TextFormField(
+                autofocus: true,
+                controller: _hoursController,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  WhitelistingTextInputFormatter.digitsOnly
                 ],
-              )
+                maxLength: 2,
+                cursorColor: WHITE,
+                textAlignVertical: TextAlignVertical.center,
+                style: TextStyle(color: WHITE),
+                decoration: InputDecoration(
+                  counterStyle: TextStyle(color: WHITE),
+                  labelStyle: TextStyle(color: WHITE),
+                  labelText:
+                  getTranslated(context, 'newHours') + ' (0-24)',
+                ),
+              ),
+            ),
+            SizedBox(height: 5),
+            MaterialButton(
+              elevation: 0,
+              height: 50,
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+              child: textWhiteBold(getTranslated(context, 'update')),
+              color: GREEN,
+              onPressed: () {
+                int hours;
+                try {
+                  hours = int.parse(_hoursController.text);
+                } catch (FormatException) {
+                  ToastService.showBottomToast(
+                      getTranslated(context, 'givenValueIsNotANumber'),
+                      Colors.red);
+                  return;
+                }
+                String invalidMessage =
+                ValidatorService.validateUpdatingHours(
+                    hours, context);
+                if (invalidMessage != null) {
+                  ToastService.showBottomToast(
+                      invalidMessage, Colors.red);
+                  return;
+                }
+                _managerService
+                    .updateWorkdaysHours(
+                    selectedIds, hours, widget._user.authHeader)
+                    .then(
+                      (res) {
+                    Navigator.of(context).pop();
+                    selectedIds.clear();
+                    ToastService.showCenterToast(
+                        getTranslated(
+                            context, 'hoursUpdatedSuccessfully'),
+                        GREEN);
+                    _refresh();
+                  },
+                );
+              },
+            ),
+          ],
+        )
             : _buildHint());
   }
 
@@ -758,71 +765,71 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
         backgroundColor: DARK,
         child: selectedIds.isNotEmpty
             ? Column(
-                children: <Widget>[
-                  text20GreenBold('RATING'),
-                  SizedBox(height: 5),
-                  Container(
-                    width: 125,
-                    child: TextFormField(
-                      autofocus: true,
-                      controller: _ratingController,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        WhitelistingTextInputFormatter.digitsOnly
-                      ],
-                      maxLength: 2,
-                      cursorColor: WHITE,
-                      textAlignVertical: TextAlignVertical.center,
-                      style: TextStyle(color: WHITE),
-                      decoration: InputDecoration(
-                        counterStyle: TextStyle(color: WHITE),
-                        labelStyle: TextStyle(color: WHITE),
-                        labelText:
-                            getTranslated(context, 'newRating') + ' (1-10)',
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  MaterialButton(
-                    elevation: 0,
-                    height: 50,
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    child: textWhiteBold(getTranslated(context, 'update')),
-                    color: GREEN,
-                    onPressed: () {
-                      int hours;
-                      try {
-                        hours = int.parse(_ratingController.text);
-                      } catch (FormatException) {
-                        ToastService.showBottomToast(
-                            getTranslated(context, 'givenValueIsNotANumber'),
-                            Colors.red);
-                        return;
-                      }
-                      String invalidMessage =
-                          ValidatorService.validateUpdatingRating(
-                              hours, context);
-                      if (invalidMessage != null) {
-                        ToastService.showBottomToast(
-                            invalidMessage, Colors.red);
-                        return;
-                      }
-                      _managerService
-                          .updateWorkdaysRating(
-                              selectedIds, hours, widget._user.authHeader)
-                          .then((res) {
-                        Navigator.of(context).pop();
-                        selectedIds.clear();
-                        ToastService.showCenterToast(
-                            getTranslated(context, 'ratingUpdatedSuccessfully'),
-                            GREEN);
-                        _refresh();
-                      });
-                    },
-                  ),
+          children: <Widget>[
+            text20GreenBold('RATING'),
+            SizedBox(height: 5),
+            Container(
+              width: 125,
+              child: TextFormField(
+                autofocus: true,
+                controller: _ratingController,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  WhitelistingTextInputFormatter.digitsOnly
                 ],
-              )
+                maxLength: 2,
+                cursorColor: WHITE,
+                textAlignVertical: TextAlignVertical.center,
+                style: TextStyle(color: WHITE),
+                decoration: InputDecoration(
+                  counterStyle: TextStyle(color: WHITE),
+                  labelStyle: TextStyle(color: WHITE),
+                  labelText:
+                  getTranslated(context, 'newRating') + ' (1-10)',
+                ),
+              ),
+            ),
+            SizedBox(height: 5),
+            MaterialButton(
+              elevation: 0,
+              height: 50,
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+              child: textWhiteBold(getTranslated(context, 'update')),
+              color: GREEN,
+              onPressed: () {
+                int hours;
+                try {
+                  hours = int.parse(_ratingController.text);
+                } catch (FormatException) {
+                  ToastService.showBottomToast(
+                      getTranslated(context, 'givenValueIsNotANumber'),
+                      Colors.red);
+                  return;
+                }
+                String invalidMessage =
+                ValidatorService.validateUpdatingRating(
+                    hours, context);
+                if (invalidMessage != null) {
+                  ToastService.showBottomToast(
+                      invalidMessage, Colors.red);
+                  return;
+                }
+                _managerService
+                    .updateWorkdaysRating(
+                    selectedIds, hours, widget._user.authHeader)
+                    .then((res) {
+                  Navigator.of(context).pop();
+                  selectedIds.clear();
+                  ToastService.showCenterToast(
+                      getTranslated(context, 'ratingUpdatedSuccessfully'),
+                      GREEN);
+                  _refresh();
+                });
+              },
+            ),
+          ],
+        )
             : _buildHint());
   }
 
@@ -832,59 +839,59 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
         backgroundColor: DARK,
         child: selectedIds.isNotEmpty
             ? Column(
-                children: <Widget>[
-                  text20GreenBold('COMMENT'),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20),
-                    child: TextFormField(
-                      autofocus: true,
-                      controller: _commentController,
-                      keyboardType: TextInputType.multiline,
-                      maxLength: 510,
-                      maxLines: 3,
-                      cursorColor: WHITE,
-                      textAlignVertical: TextAlignVertical.center,
-                      style: TextStyle(color: WHITE),
-                      decoration: InputDecoration(
-                        counterStyle: TextStyle(color: WHITE),
-                        labelStyle: TextStyle(color: WHITE),
-                        labelText: getTranslated(context, 'newComment'),
-                      ),
-                    ),
-                  ),
-                  MaterialButton(
-                    elevation: 0,
-                    height: 50,
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    child: textWhiteBold(getTranslated(context, 'update')),
-                    color: GREEN,
-                    onPressed: () {
-                      String comment = _commentController.text;
-                      String invalidMessage =
-                          ValidatorService.validateUpdatingComment(
-                              comment, context);
-                      if (invalidMessage != null) {
-                        ToastService.showBottomToast(
-                            invalidMessage, Colors.red);
-                        return;
-                      }
-                      _managerService
-                          .updateWorkdaysComment(
-                              selectedIds, comment, widget._user.authHeader)
-                          .then((res) {
-                        Navigator.of(context).pop();
-                        selectedIds.clear();
-                        ToastService.showCenterToast(
-                            getTranslated(
-                                context, 'commentUpdatedSuccessfully'),
-                            GREEN);
-                        _refresh();
-                      });
-                    },
-                  ),
-                ],
-              )
+          children: <Widget>[
+            text20GreenBold('COMMENT'),
+            Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: TextFormField(
+                autofocus: true,
+                controller: _commentController,
+                keyboardType: TextInputType.multiline,
+                maxLength: 510,
+                maxLines: 3,
+                cursorColor: WHITE,
+                textAlignVertical: TextAlignVertical.center,
+                style: TextStyle(color: WHITE),
+                decoration: InputDecoration(
+                  counterStyle: TextStyle(color: WHITE),
+                  labelStyle: TextStyle(color: WHITE),
+                  labelText: getTranslated(context, 'newComment'),
+                ),
+              ),
+            ),
+            MaterialButton(
+              elevation: 0,
+              height: 50,
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+              child: textWhiteBold(getTranslated(context, 'update')),
+              color: GREEN,
+              onPressed: () {
+                String comment = _commentController.text;
+                String invalidMessage =
+                ValidatorService.validateUpdatingComment(
+                    comment, context);
+                if (invalidMessage != null) {
+                  ToastService.showBottomToast(
+                      invalidMessage, Colors.red);
+                  return;
+                }
+                _managerService
+                    .updateWorkdaysComment(
+                    selectedIds, comment, widget._user.authHeader)
+                    .then((res) {
+                  Navigator.of(context).pop();
+                  selectedIds.clear();
+                  ToastService.showCenterToast(
+                      getTranslated(
+                          context, 'commentUpdatedSuccessfully'),
+                      GREEN);
+                  _refresh();
+                });
+              },
+            ),
+          ],
+        )
             : _buildHint());
   }
 

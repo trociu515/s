@@ -14,7 +14,7 @@ import 'package:give_job/unauthenticated/login_page.dart';
 import 'employee/home/employee_home_page.dart';
 import 'internationalization/localization/demo_localization.dart';
 import 'internationalization/localization/localization_constants.dart';
-import 'manager/groups/manager_groups_details_page.dart';
+import 'manager/groups/group/manager_group_details_page.dart';
 
 final storage = new FlutterSecureStorage();
 final GlobalKey<RefreshIndicatorState> refreshIndicatorState =
@@ -166,7 +166,7 @@ class _MyAppState extends State<MyApp> {
     String groupDescription = data['groupDescription'];
     String numberOfEmployees = data['numberOfEmployees'];
     String countryOfWork = data['countryOfWork'];
-    return ManagerGroupsDetailsPage(user, groupId, groupName, groupDescription,
+    return ManagerGroupDetailsPage(user, groupId, groupName, groupDescription,
         numberOfEmployees, countryOfWork);
   }
 }
