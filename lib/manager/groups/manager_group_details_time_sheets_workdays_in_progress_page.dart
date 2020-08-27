@@ -648,6 +648,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                           .then(
                         (res) {
                           Navigator.of(context).pop();
+                          selectedIds.clear();
                           ToastService.showCenterToast(
                               getTranslated(
                                   context, 'hoursUpdatedSuccessfully'),
@@ -723,6 +724,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                               selectedIds, hours, widget._user.authHeader)
                           .then((res) {
                         Navigator.of(context).pop();
+                        selectedIds.clear();
                         ToastService.showCenterToast(
                             getTranslated(context, 'ratingUpdatedSuccessfully'),
                             GREEN);
@@ -783,6 +785,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                               selectedIds, comment, widget._user.authHeader)
                           .then((res) {
                         Navigator.of(context).pop();
+                        selectedIds.clear();
                         ToastService.showCenterToast(
                             getTranslated(
                                 context, 'commentUpdatedSuccessfully'),
