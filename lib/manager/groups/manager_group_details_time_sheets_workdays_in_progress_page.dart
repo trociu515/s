@@ -176,82 +176,85 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                             scrollDirection: Axis.vertical,
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                sortAscending: sort,
-                                sortColumnIndex: 0,
-                                columns: [
-                                  DataColumn(
-                                      label: textWhiteBold('No.'),
-                                      onSort: (columnIndex, ascending) {
-                                        setState(() {
-                                          sort = !sort;
-                                        });
-                                        onSortColum(columnIndex, ascending);
-                                      }),
-                                  DataColumn(
-                                      label: textWhiteBold(
-                                          getTranslated(context, 'hours'))),
-                                  DataColumn(
-                                      label: textWhiteBold(
-                                          getTranslated(context, 'rating'))),
-                                  DataColumn(
-                                      label: textWhiteBold(
-                                          getTranslated(context, 'money'))),
-                                  DataColumn(
-                                      label: textWhiteBold(
-                                          getTranslated(context, 'comment'))),
-                                ],
-                                rows: this
-                                    .workdays
-                                    .map(
-                                      (workday) => DataRow(
-                                        selected:
-                                            selectedIds.contains(workday.id),
-                                        onSelectChanged: (bool selected) {
-                                          onSelectedRow(selected, workday.id);
-                                        },
-                                        cells: [
-                                          DataCell(textWhite(
-                                              workday.number.toString())),
-                                          DataCell(textWhite(
-                                              workday.hours.toString())),
-                                          DataCell(textWhite(
-                                              workday.rating.toString())),
-                                          DataCell(textWhite(
-                                              workday.money.toString())),
-                                          DataCell(
-                                            Wrap(
-                                              children: <Widget>[
-                                                textWhite(workday.comment !=
-                                                        null
-                                                    ? workday.comment.length >
-                                                            10
-                                                        ? utf8
-                                                                .decode(workday
-                                                                    .comment
-                                                                    .runes
-                                                                    .toList())
-                                                                .substring(
-                                                                    0, 10) +
-                                                            '...'
-                                                        : utf8.decode(workday
-                                                            .comment.runes
-                                                            .toList())
-                                                    : getTranslated(
-                                                        context, 'empty')),
-                                                workday.comment != null &&
-                                                        workday.comment != ''
-                                                    ? iconWhite(Icons.zoom_in)
-                                                    : Text('')
-                                              ],
+                              child: Theme(
+                                data: Theme.of(context).copyWith(),
+                                child: DataTable(
+                                  sortAscending: sort,
+                                  sortColumnIndex: 0,
+                                  columns: [
+                                    DataColumn(
+                                        label: textWhiteBold('No.'),
+                                        onSort: (columnIndex, ascending) {
+                                          setState(() {
+                                            sort = !sort;
+                                          });
+                                          onSortColum(columnIndex, ascending);
+                                        }),
+                                    DataColumn(
+                                        label: textWhiteBold(
+                                            getTranslated(context, 'hours'))),
+                                    DataColumn(
+                                        label: textWhiteBold(
+                                            getTranslated(context, 'rating'))),
+                                    DataColumn(
+                                        label: textWhiteBold(
+                                            getTranslated(context, 'money'))),
+                                    DataColumn(
+                                        label: textWhiteBold(
+                                            getTranslated(context, 'comment'))),
+                                  ],
+                                  rows: this
+                                      .workdays
+                                      .map(
+                                        (workday) => DataRow(
+                                          selected:
+                                              selectedIds.contains(workday.id),
+                                          onSelectChanged: (bool selected) {
+                                            onSelectedRow(selected, workday.id);
+                                          },
+                                          cells: [
+                                            DataCell(textWhite(
+                                                workday.number.toString())),
+                                            DataCell(textWhite(
+                                                workday.hours.toString())),
+                                            DataCell(textWhite(
+                                                workday.rating.toString())),
+                                            DataCell(textWhite(
+                                                workday.money.toString())),
+                                            DataCell(
+                                              Wrap(
+                                                children: <Widget>[
+                                                  textWhite(workday.comment !=
+                                                          null
+                                                      ? workday.comment.length >
+                                                              10
+                                                          ? utf8
+                                                                  .decode(workday
+                                                                      .comment
+                                                                      .runes
+                                                                      .toList())
+                                                                  .substring(
+                                                                      0, 10) +
+                                                              '...'
+                                                          : utf8.decode(workday
+                                                              .comment.runes
+                                                              .toList())
+                                                      : getTranslated(
+                                                          context, 'empty')),
+                                                  workday.comment != null &&
+                                                          workday.comment != ''
+                                                      ? iconWhite(Icons.zoom_in)
+                                                      : Text('')
+                                                ],
+                                              ),
+                                              onTap: () => _showCommentDetails(
+                                                  workday.comment),
                                             ),
-                                            onTap: () => _showCommentDetails(
-                                                workday.comment),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
+                                          ],
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
                               ),
                             ),
                           ),
@@ -386,77 +389,80 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          sortAscending: sort,
-                          sortColumnIndex: 0,
-                          columns: [
-                            DataColumn(
-                                label: textWhiteBold('No.'),
-                                onSort: (columnIndex, ascending) {
-                                  setState(() {
-                                    sort = !sort;
-                                  });
-                                  onSortColum(columnIndex, ascending);
-                                }),
-                            DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'hours'))),
-                            DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'rating'))),
-                            DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'money'))),
-                            DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'comment'))),
-                          ],
-                          rows: this
-                              .workdays
-                              .map(
-                                (workday) => DataRow(
-                                  selected: selectedIds.contains(workday.id),
-                                  onSelectChanged: (bool selected) {
-                                    onSelectedRow(selected, workday.id);
-                                  },
-                                  cells: [
-                                    DataCell(
-                                        textWhite(workday.number.toString())),
-                                    DataCell(
-                                        textWhite(workday.hours.toString())),
-                                    DataCell(
-                                        textWhite(workday.rating.toString())),
-                                    DataCell(
-                                        textWhite(workday.money.toString())),
-                                    DataCell(
-                                      Wrap(
-                                        children: <Widget>[
-                                          textWhite(workday.comment != null
-                                              ? workday.comment.length > 10
-                                                  ? utf8
-                                                          .decode(workday
-                                                              .comment.runes
-                                                              .toList())
-                                                          .substring(0, 10) +
-                                                      '...'
-                                                  : utf8.decode(workday
-                                                      .comment.runes
-                                                      .toList())
-                                              : getTranslated(
-                                                  context, 'empty')),
-                                          workday.comment != null &&
-                                                  workday.comment != ''
-                                              ? iconWhite(Icons.zoom_in)
-                                              : Text('')
-                                        ],
+                        child: Theme(
+                          data: Theme.of(context).copyWith(),
+                          child: DataTable(
+                            sortAscending: sort,
+                            sortColumnIndex: 0,
+                            columns: [
+                              DataColumn(
+                                  label: textWhiteBold('No.'),
+                                  onSort: (columnIndex, ascending) {
+                                    setState(() {
+                                      sort = !sort;
+                                    });
+                                    onSortColum(columnIndex, ascending);
+                                  }),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'hours'))),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'rating'))),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'money'))),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'comment'))),
+                            ],
+                            rows: this
+                                .workdays
+                                .map(
+                                  (workday) => DataRow(
+                                    selected: selectedIds.contains(workday.id),
+                                    onSelectChanged: (bool selected) {
+                                      onSelectedRow(selected, workday.id);
+                                    },
+                                    cells: [
+                                      DataCell(
+                                          textWhite(workday.number.toString())),
+                                      DataCell(
+                                          textWhite(workday.hours.toString())),
+                                      DataCell(
+                                          textWhite(workday.rating.toString())),
+                                      DataCell(
+                                          textWhite(workday.money.toString())),
+                                      DataCell(
+                                        Wrap(
+                                          children: <Widget>[
+                                            textWhite(workday.comment != null
+                                                ? workday.comment.length > 10
+                                                    ? utf8
+                                                            .decode(workday
+                                                                .comment.runes
+                                                                .toList())
+                                                            .substring(0, 10) +
+                                                        '...'
+                                                    : utf8.decode(workday
+                                                        .comment.runes
+                                                        .toList())
+                                                : getTranslated(
+                                                    context, 'empty')),
+                                            workday.comment != null &&
+                                                    workday.comment != ''
+                                                ? iconWhite(Icons.zoom_in)
+                                                : Text('')
+                                          ],
+                                        ),
+                                        onTap: () => _showCommentDetails(
+                                            workday.comment),
                                       ),
-                                      onTap: () =>
-                                          _showCommentDetails(workday.comment),
-                                    ),
-                                  ],
-                                ),
-                              )
-                              .toList(),
+                                    ],
+                                  ),
+                                )
+                                .toList(),
+                          ),
                         ),
                       ),
                     ),
