@@ -6,9 +6,9 @@ import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
+import 'package:give_job/manager/groups/group/shared/group_logo.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
-import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
@@ -22,16 +22,18 @@ import '../../../../main.dart';
 import '../../../../shared/libraries/constants.dart';
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
+import '../manager_group_details_page.dart';
+import 'model/group_employee_model.dart';
 
 class ManagerEmployeeTimeSheetsWorkdaysInProgressPage extends StatefulWidget {
-  final User _user;
-
+  final GroupEmployeeModel _model;
   final String _employeeInfo;
   final String _employeeNationality;
   final String _currency;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerEmployeeTimeSheetsWorkdaysInProgressPage(this._user,
+  const ManagerEmployeeTimeSheetsWorkdaysInProgressPage(
+      this._model,
       this._employeeInfo,
       this._employeeNationality,
       this._currency,
@@ -49,6 +51,12 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
   final TextEditingController _ratingController = new TextEditingController();
   final TextEditingController _commentController = new TextEditingController();
 
+  GroupEmployeeModel _model;
+  String _employeeInfo;
+  String _employeeNationality;
+  String _currency;
+  EmployeeTimeSheetDto _timeSheet;
+
   Set<int> selectedIds = new Set();
   List<WorkdayDto> workdays = new List();
   bool _sortNo = true;
@@ -61,11 +69,16 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
 
   @override
   Widget build(BuildContext context) {
+    this._model = widget._model;
+    this._employeeInfo = widget._employeeInfo;
+    this._employeeNationality = widget._employeeNationality;
+    this._currency = widget._currency;
+    this._timeSheet = widget.timeSheet;
     if (workdays.isEmpty) {
       return FutureBuilder<List<WorkdayDto>>(
         future: _managerService
             .findWorkdaysByTimeSheetId(
-            widget.timeSheet.id.toString(), widget._user.authHeader)
+                _timeSheet.id.toString(), _model.user.authHeader)
             .catchError((e) {
           ToastService.showBottomToast(
               getTranslated(
@@ -79,7 +92,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
               snapshot.data == null) {
             return loader(
               managerAppBar(context, null, getTranslated(context, 'loading')),
-              managerSideBar(context, widget._user),
+              managerSideBar(context, _model.user),
             );
           } else {
             List<WorkdayDto> workdays = snapshot.data;
@@ -100,13 +113,13 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                 backgroundColor: DARK,
                 appBar: managerAppBar(
                     context,
-                    widget._user,
+                    _model.user,
                     getTranslated(context, 'workdays') +
                         ' - ' +
-                        utf8.decode(widget.timeSheet.groupName != null
-                            ? widget.timeSheet.groupName.runes.toList()
+                        utf8.decode(_timeSheet.groupName != null
+                            ? _timeSheet.groupName.runes.toList()
                             : '-')),
-                drawer: managerSideBar(context, widget._user),
+                drawer: managerSideBar(context, _model.user),
                 body: RefreshIndicator(
                   color: DARK,
                   backgroundColor: WHITE,
@@ -121,29 +134,27 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                             padding: EdgeInsets.only(top: 15, bottom: 5),
                             child: ListTile(
                               leading: Icon(
-                                widget.timeSheet.status == 'Accepted'
+                                _timeSheet.status == 'Accepted'
                                     ? Icons.check_circle_outline
                                     : Icons.radio_button_unchecked,
-                                color: widget.timeSheet.status == 'Accepted'
+                                color: _timeSheet.status == 'Accepted'
                                     ? GREEN
                                     : Colors.orange,
                               ),
-                              title: textWhiteBold(
-                                  widget.timeSheet.year.toString() +
-                                      ' ' +
-                                      MonthUtil.translateMonth(
-                                          context, widget.timeSheet.month)),
+                              title: textWhiteBold(_timeSheet.year.toString() +
+                                  ' ' +
+                                  MonthUtil.translateMonth(
+                                      context, _timeSheet.month)),
                               subtitle: Column(
                                 children: <Widget>[
                                   Align(
                                     alignment: Alignment.topLeft,
-                                    child: textWhiteBold(widget._employeeInfo !=
-                                        null
-                                        ? utf8.decode(widget._employeeInfo.runes
-                                        .toList()) +
-                                        ' ' +
-                                        LanguageUtil.findFlagByNationality(
-                                            widget._employeeNationality)
+                                    child: textWhiteBold(_employeeInfo != null
+                                        ? utf8.decode(
+                                                _employeeInfo.runes.toList()) +
+                                            ' ' +
+                                            LanguageUtil.findFlagByNationality(
+                                                _employeeNationality)
                                         : getTranslated(context, 'empty')),
                                   ),
                                   Row(
@@ -151,12 +162,12 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                       Align(
                                         alignment: Alignment.topLeft,
                                         child: textWhite(getTranslated(
-                                            context, 'hoursWorked') +
+                                                context, 'hoursWorked') +
                                             ': '),
                                       ),
-                                      textGreenBold(widget.timeSheet.totalHours
-                                          .toString() +
-                                          'h'),
+                                      textGreenBold(
+                                          _timeSheet.totalHours.toString() +
+                                              'h'),
                                     ],
                                   ),
                                   Row(
@@ -164,7 +175,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                       Align(
                                         alignment: Alignment.topLeft,
                                         child: textWhite(getTranslated(
-                                            context, 'averageRating') +
+                                                context, 'averageRating') +
                                             ': '),
                                       ),
                                       textGreenBold(widget
@@ -179,7 +190,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                   text20GreenBold(widget
                                       .timeSheet.totalMoneyEarned
                                       .toString()),
-                                  text20GreenBold(' ' + widget._currency)
+                                  text20GreenBold(' ' + _currency)
                                 ],
                               ),
                             ),
@@ -228,10 +239,9 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                 rows: this
                                     .workdays
                                     .map(
-                                      (workday) =>
-                                      DataRow(
+                                      (workday) => DataRow(
                                         selected:
-                                        selectedIds.contains(workday.id),
+                                            selectedIds.contains(workday.id),
                                         onSelectChanged: (bool selected) {
                                           onSelectedRow(selected, workday.id);
                                         },
@@ -248,35 +258,34 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                             Wrap(
                                               children: <Widget>[
                                                 textWhite(workday.comment !=
-                                                    null
+                                                        null
                                                     ? workday.comment.length >
-                                                    10
-                                                    ? utf8
-                                                    .decode(workday
-                                                    .comment
-                                                    .runes
-                                                    .toList())
-                                                    .substring(
-                                                    0, 10) +
-                                                    '...'
-                                                    : utf8.decode(workday
-                                                    .comment.runes
-                                                    .toList())
+                                                            10
+                                                        ? utf8
+                                                                .decode(workday
+                                                                    .comment
+                                                                    .runes
+                                                                    .toList())
+                                                                .substring(
+                                                                    0, 10) +
+                                                            '...'
+                                                        : utf8.decode(workday
+                                                            .comment.runes
+                                                            .toList())
                                                     : getTranslated(
-                                                    context, 'empty')),
+                                                        context, 'empty')),
                                                 workday.comment != null &&
-                                                    workday.comment != ''
+                                                        workday.comment != ''
                                                     ? iconWhite(Icons.zoom_in)
                                                     : Text('')
                                               ],
                                             ),
-                                            onTap: () =>
-                                                _showCommentDetails(
-                                                    workday.comment),
+                                            onTap: () => _showCommentDetails(
+                                                workday.comment),
                                           ),
                                         ],
                                       ),
-                                )
+                                    )
                                     .toList(),
                               ),
                             ),
@@ -295,8 +304,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                         child: MaterialButton(
                           color: GREEN,
                           child: textDarkBold(getTranslated(context, 'hours')),
-                          onPressed: () =>
-                          {
+                          onPressed: () => {
                             _hoursController.clear(),
                             _showUpdateHoursDialog(selectedIds)
                           },
@@ -307,8 +315,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                         child: MaterialButton(
                           color: GREEN,
                           child: textDarkBold(getTranslated(context, 'rating')),
-                          onPressed: () =>
-                          {
+                          onPressed: () => {
                             _ratingController.clear(),
                             _showUpdateRatingDialog(selectedIds)
                           },
@@ -319,9 +326,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                         child: MaterialButton(
                           color: GREEN,
                           child:
-                          textDarkBold(getTranslated(context, 'comment')),
-                          onPressed: () =>
-                          {
+                              textDarkBold(getTranslated(context, 'comment')),
+                          onPressed: () => {
                             _commentController.clear(),
                             _showUpdateCommentDialog(selectedIds)
                           },
@@ -330,6 +336,20 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                       SizedBox(width: 1),
                     ],
                   ),
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.endFloat,
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ManagerGroupDetailsPage(_model),
+                      ),
+                    );
+                  },
+                  tooltip: 'Back to group overview',
+                  child: buildGroupLogo(),
                 ),
               ),
             );
@@ -345,13 +365,13 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
           backgroundColor: DARK,
           appBar: managerAppBar(
               context,
-              widget._user,
+              _model.user,
               getTranslated(context, 'workdays') +
                   ' - ' +
-                  utf8.decode(widget.timeSheet.groupName != null
-                      ? widget.timeSheet.groupName.runes.toList()
+                  utf8.decode(_timeSheet.groupName != null
+                      ? _timeSheet.groupName.runes.toList()
                       : '-')),
-          drawer: managerSideBar(context, widget._user),
+          drawer: managerSideBar(context, _model.user),
           body: RefreshIndicator(
             color: DARK,
             backgroundColor: WHITE,
@@ -366,27 +386,26 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                       padding: EdgeInsets.only(top: 15, bottom: 5),
                       child: ListTile(
                         leading: Icon(
-                          widget.timeSheet.status == 'Accepted'
+                          _timeSheet.status == 'Accepted'
                               ? Icons.check_circle_outline
                               : Icons.radio_button_unchecked,
-                          color: widget.timeSheet.status == 'Accepted'
+                          color: _timeSheet.status == 'Accepted'
                               ? GREEN
                               : Colors.orange,
                         ),
-                        title: textWhiteBold(widget.timeSheet.year.toString() +
+                        title: textWhiteBold(_timeSheet.year.toString() +
                             ' ' +
                             MonthUtil.translateMonth(
-                                context, widget.timeSheet.month)),
+                                context, _timeSheet.month)),
                         subtitle: Column(
                           children: <Widget>[
                             Align(
                               alignment: Alignment.topLeft,
-                              child: textWhiteBold(widget._employeeInfo != null
-                                  ? utf8.decode(
-                                  widget._employeeInfo.runes.toList()) +
-                                  ' ' +
-                                  LanguageUtil.findFlagByNationality(
-                                      widget._employeeNationality)
+                              child: textWhiteBold(_employeeInfo != null
+                                  ? utf8.decode(_employeeInfo.runes.toList()) +
+                                      ' ' +
+                                      LanguageUtil.findFlagByNationality(
+                                          _employeeNationality)
                                   : getTranslated(context, 'empty')),
                             ),
                             Row(
@@ -398,8 +417,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                           ': '),
                                 ),
                                 textGreenBold(
-                                    widget.timeSheet.totalHours.toString() +
-                                        'h'),
+                                    _timeSheet.totalHours.toString() + 'h'),
                               ],
                             ),
                             Row(
@@ -420,8 +438,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                         trailing: Wrap(
                           children: <Widget>[
                             text20GreenBold(
-                                widget.timeSheet.totalMoneyEarned.toString()),
-                            text20GreenBold(' ' + widget._currency)
+                                _timeSheet.totalMoneyEarned.toString()),
+                            text20GreenBold(' ' + _currency)
                           ],
                         ),
                       ),
@@ -470,8 +488,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                           rows: this
                               .workdays
                               .map(
-                                (workday) =>
-                                DataRow(
+                                (workday) => DataRow(
                                   selected: selectedIds.contains(workday.id),
                                   onSelectChanged: (bool selected) {
                                     onSelectedRow(selected, workday.id);
@@ -490,19 +507,19 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                         children: <Widget>[
                                           textWhite(workday.comment != null
                                               ? workday.comment.length > 10
-                                              ? utf8
-                                              .decode(workday
-                                              .comment.runes
-                                              .toList())
-                                              .substring(0, 10) +
-                                              '...'
-                                              : utf8.decode(workday
-                                              .comment.runes
-                                              .toList())
+                                                  ? utf8
+                                                          .decode(workday
+                                                              .comment.runes
+                                                              .toList())
+                                                          .substring(0, 10) +
+                                                      '...'
+                                                  : utf8.decode(workday
+                                                      .comment.runes
+                                                      .toList())
                                               : getTranslated(
-                                              context, 'empty')),
+                                                  context, 'empty')),
                                           workday.comment != null &&
-                                              workday.comment != ''
+                                                  workday.comment != ''
                                               ? iconWhite(Icons.zoom_in)
                                               : Text('')
                                         ],
@@ -512,7 +529,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                     ),
                                   ],
                                 ),
-                          )
+                              )
                               .toList(),
                         ),
                       ),
@@ -531,8 +548,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                   child: MaterialButton(
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'hours')),
-                    onPressed: () =>
-                    {
+                    onPressed: () => {
                       _hoursController.clear(),
                       _showUpdateHoursDialog(selectedIds)
                     },
@@ -543,8 +559,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                   child: MaterialButton(
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'rating')),
-                    onPressed: () =>
-                    {
+                    onPressed: () => {
                       _ratingController.clear(),
                       _showUpdateRatingDialog(selectedIds)
                     },
@@ -555,8 +570,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                   child: MaterialButton(
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'comment')),
-                    onPressed: () =>
-                    {
+                    onPressed: () => {
                       _commentController.clear(),
                       _showUpdateCommentDialog(selectedIds)
                     },
@@ -566,6 +580,19 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
               ],
             ),
           ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ManagerGroupDetailsPage(_model),
+                ),
+              );
+            },
+            tooltip: 'Back to group overview',
+            child: buildGroupLogo(),
+          ),
         ),
       );
     }
@@ -574,7 +601,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
   Future<Null> _refresh() {
     return _managerService
         .findWorkdaysByTimeSheetId(
-        widget.timeSheet.id.toString(), widget._user.authHeader)
+            _timeSheet.id.toString(), _model.user.authHeader)
         .then((_workdays) {
       setState(() {
         workdays = _workdays;
@@ -688,74 +715,74 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
         backgroundColor: DARK,
         child: selectedIds.isNotEmpty
             ? Column(
-          children: <Widget>[
-            text20GreenBold('HOURS'),
-            SizedBox(height: 5),
-            Container(
-              width: 125,
-              child: TextFormField(
-                autofocus: true,
-                controller: _hoursController,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter.digitsOnly
+                children: <Widget>[
+                  text20GreenBold('HOURS'),
+                  SizedBox(height: 5),
+                  Container(
+                    width: 125,
+                    child: TextFormField(
+                      autofocus: true,
+                      controller: _hoursController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      maxLength: 2,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        counterStyle: TextStyle(color: WHITE),
+                        labelStyle: TextStyle(color: WHITE),
+                        labelText:
+                            getTranslated(context, 'newHours') + ' (0-24)',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  MaterialButton(
+                    elevation: 0,
+                    height: 50,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: textWhiteBold(getTranslated(context, 'update')),
+                    color: GREEN,
+                    onPressed: () {
+                      int hours;
+                      try {
+                        hours = int.parse(_hoursController.text);
+                      } catch (FormatException) {
+                        ToastService.showBottomToast(
+                            getTranslated(context, 'givenValueIsNotANumber'),
+                            Colors.red);
+                        return;
+                      }
+                      String invalidMessage =
+                          ValidatorService.validateUpdatingHours(
+                              hours, context);
+                      if (invalidMessage != null) {
+                        ToastService.showBottomToast(
+                            invalidMessage, Colors.red);
+                        return;
+                      }
+                      _managerService
+                          .updateWorkdaysHours(
+                              selectedIds, hours, _model.user.authHeader)
+                          .then(
+                        (res) {
+                          Navigator.of(context).pop();
+                          selectedIds.clear();
+                          ToastService.showCenterToast(
+                              getTranslated(
+                                  context, 'hoursUpdatedSuccessfully'),
+                              GREEN);
+                          _refresh();
+                        },
+                      );
+                    },
+                  ),
                 ],
-                maxLength: 2,
-                cursorColor: WHITE,
-                textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(color: WHITE),
-                decoration: InputDecoration(
-                  counterStyle: TextStyle(color: WHITE),
-                  labelStyle: TextStyle(color: WHITE),
-                  labelText:
-                  getTranslated(context, 'newHours') + ' (0-24)',
-                ),
-              ),
-            ),
-            SizedBox(height: 5),
-            MaterialButton(
-              elevation: 0,
-              height: 50,
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0)),
-              child: textWhiteBold(getTranslated(context, 'update')),
-              color: GREEN,
-              onPressed: () {
-                int hours;
-                try {
-                  hours = int.parse(_hoursController.text);
-                } catch (FormatException) {
-                  ToastService.showBottomToast(
-                      getTranslated(context, 'givenValueIsNotANumber'),
-                      Colors.red);
-                  return;
-                }
-                String invalidMessage =
-                ValidatorService.validateUpdatingHours(
-                    hours, context);
-                if (invalidMessage != null) {
-                  ToastService.showBottomToast(
-                      invalidMessage, Colors.red);
-                  return;
-                }
-                _managerService
-                    .updateWorkdaysHours(
-                    selectedIds, hours, widget._user.authHeader)
-                    .then(
-                      (res) {
-                    Navigator.of(context).pop();
-                    selectedIds.clear();
-                    ToastService.showCenterToast(
-                        getTranslated(
-                            context, 'hoursUpdatedSuccessfully'),
-                        GREEN);
-                    _refresh();
-                  },
-                );
-              },
-            ),
-          ],
-        )
+              )
             : _buildHint());
   }
 
@@ -765,71 +792,71 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
         backgroundColor: DARK,
         child: selectedIds.isNotEmpty
             ? Column(
-          children: <Widget>[
-            text20GreenBold('RATING'),
-            SizedBox(height: 5),
-            Container(
-              width: 125,
-              child: TextFormField(
-                autofocus: true,
-                controller: _ratingController,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter.digitsOnly
+                children: <Widget>[
+                  text20GreenBold('RATING'),
+                  SizedBox(height: 5),
+                  Container(
+                    width: 125,
+                    child: TextFormField(
+                      autofocus: true,
+                      controller: _ratingController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      maxLength: 2,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        counterStyle: TextStyle(color: WHITE),
+                        labelStyle: TextStyle(color: WHITE),
+                        labelText:
+                            getTranslated(context, 'newRating') + ' (1-10)',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  MaterialButton(
+                    elevation: 0,
+                    height: 50,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: textWhiteBold(getTranslated(context, 'update')),
+                    color: GREEN,
+                    onPressed: () {
+                      int hours;
+                      try {
+                        hours = int.parse(_ratingController.text);
+                      } catch (FormatException) {
+                        ToastService.showBottomToast(
+                            getTranslated(context, 'givenValueIsNotANumber'),
+                            Colors.red);
+                        return;
+                      }
+                      String invalidMessage =
+                          ValidatorService.validateUpdatingRating(
+                              hours, context);
+                      if (invalidMessage != null) {
+                        ToastService.showBottomToast(
+                            invalidMessage, Colors.red);
+                        return;
+                      }
+                      _managerService
+                          .updateWorkdaysRating(
+                              selectedIds, hours, _model.user.authHeader)
+                          .then((res) {
+                        Navigator.of(context).pop();
+                        selectedIds.clear();
+                        ToastService.showCenterToast(
+                            getTranslated(context, 'ratingUpdatedSuccessfully'),
+                            GREEN);
+                        _refresh();
+                      });
+                    },
+                  ),
                 ],
-                maxLength: 2,
-                cursorColor: WHITE,
-                textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(color: WHITE),
-                decoration: InputDecoration(
-                  counterStyle: TextStyle(color: WHITE),
-                  labelStyle: TextStyle(color: WHITE),
-                  labelText:
-                  getTranslated(context, 'newRating') + ' (1-10)',
-                ),
-              ),
-            ),
-            SizedBox(height: 5),
-            MaterialButton(
-              elevation: 0,
-              height: 50,
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0)),
-              child: textWhiteBold(getTranslated(context, 'update')),
-              color: GREEN,
-              onPressed: () {
-                int hours;
-                try {
-                  hours = int.parse(_ratingController.text);
-                } catch (FormatException) {
-                  ToastService.showBottomToast(
-                      getTranslated(context, 'givenValueIsNotANumber'),
-                      Colors.red);
-                  return;
-                }
-                String invalidMessage =
-                ValidatorService.validateUpdatingRating(
-                    hours, context);
-                if (invalidMessage != null) {
-                  ToastService.showBottomToast(
-                      invalidMessage, Colors.red);
-                  return;
-                }
-                _managerService
-                    .updateWorkdaysRating(
-                    selectedIds, hours, widget._user.authHeader)
-                    .then((res) {
-                  Navigator.of(context).pop();
-                  selectedIds.clear();
-                  ToastService.showCenterToast(
-                      getTranslated(context, 'ratingUpdatedSuccessfully'),
-                      GREEN);
-                  _refresh();
-                });
-              },
-            ),
-          ],
-        )
+              )
             : _buildHint());
   }
 
@@ -839,59 +866,59 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
         backgroundColor: DARK,
         child: selectedIds.isNotEmpty
             ? Column(
-          children: <Widget>[
-            text20GreenBold('COMMENT'),
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: TextFormField(
-                autofocus: true,
-                controller: _commentController,
-                keyboardType: TextInputType.multiline,
-                maxLength: 510,
-                maxLines: 3,
-                cursorColor: WHITE,
-                textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(color: WHITE),
-                decoration: InputDecoration(
-                  counterStyle: TextStyle(color: WHITE),
-                  labelStyle: TextStyle(color: WHITE),
-                  labelText: getTranslated(context, 'newComment'),
-                ),
-              ),
-            ),
-            MaterialButton(
-              elevation: 0,
-              height: 50,
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0)),
-              child: textWhiteBold(getTranslated(context, 'update')),
-              color: GREEN,
-              onPressed: () {
-                String comment = _commentController.text;
-                String invalidMessage =
-                ValidatorService.validateUpdatingComment(
-                    comment, context);
-                if (invalidMessage != null) {
-                  ToastService.showBottomToast(
-                      invalidMessage, Colors.red);
-                  return;
-                }
-                _managerService
-                    .updateWorkdaysComment(
-                    selectedIds, comment, widget._user.authHeader)
-                    .then((res) {
-                  Navigator.of(context).pop();
-                  selectedIds.clear();
-                  ToastService.showCenterToast(
-                      getTranslated(
-                          context, 'commentUpdatedSuccessfully'),
-                      GREEN);
-                  _refresh();
-                });
-              },
-            ),
-          ],
-        )
+                children: <Widget>[
+                  text20GreenBold('COMMENT'),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: TextFormField(
+                      autofocus: true,
+                      controller: _commentController,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: 510,
+                      maxLines: 3,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        counterStyle: TextStyle(color: WHITE),
+                        labelStyle: TextStyle(color: WHITE),
+                        labelText: getTranslated(context, 'newComment'),
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    elevation: 0,
+                    height: 50,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: textWhiteBold(getTranslated(context, 'update')),
+                    color: GREEN,
+                    onPressed: () {
+                      String comment = _commentController.text;
+                      String invalidMessage =
+                          ValidatorService.validateUpdatingComment(
+                              comment, context);
+                      if (invalidMessage != null) {
+                        ToastService.showBottomToast(
+                            invalidMessage, Colors.red);
+                        return;
+                      }
+                      _managerService
+                          .updateWorkdaysComment(
+                              selectedIds, comment, _model.user.authHeader)
+                          .then((res) {
+                        Navigator.of(context).pop();
+                        selectedIds.clear();
+                        ToastService.showCenterToast(
+                            getTranslated(
+                                context, 'commentUpdatedSuccessfully'),
+                            GREEN);
+                        _refresh();
+                      });
+                    },
+                  ),
+                ],
+              )
             : _buildHint());
   }
 

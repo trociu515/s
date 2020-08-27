@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
+import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -29,13 +30,15 @@ class ManagerGroupsPage extends StatefulWidget {
 
 class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
   final ManagerService _managerService = new ManagerService();
+  User _user;
 
   @override
   Widget build(BuildContext context) {
+    this._user = widget._user;
     return WillPopScope(
       child: FutureBuilder<List<ManagerGroupDto>>(
         future: _managerService
-            .findGroupsManager(widget._user.id, widget._user.authHeader)
+            .findGroupsManager(_user.id, _user.authHeader)
             .catchError((e) {
           ToastService.showBottomToast(
               getTranslated(context, 'managerDoesNotHaveGroups'), Colors.red);
@@ -47,7 +50,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
               snapshot.data == null) {
             return loader(
               managerAppBar(context, null, getTranslated(context, 'loading')),
-              managerSideBar(context, widget._user),
+              managerSideBar(context, _user),
             );
           } else {
             List<ManagerGroupDto> groups = snapshot.data;
@@ -65,8 +68,8 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
               home: Scaffold(
                 backgroundColor: DARK,
                 appBar: managerAppBar(
-                    context, widget._user, getTranslated(context, 'groups')),
-                drawer: managerSideBar(context, widget._user),
+                    context, _user, getTranslated(context, 'groups')),
+                drawer: managerSideBar(context, _user),
                 body: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -81,14 +84,15 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                                   CupertinoPageRoute<Null>(
                                     builder: (BuildContext context) {
                                       return ManagerGroupDetailsPage(
-                                          widget._user,
-                                          groups[i].id,
-                                          groups[i].name,
-                                          groups[i].description,
-                                          groups[i]
-                                              .numberOfEmployees
-                                              .toString(),
-                                          groups[i].countryOfWork);
+                                          new GroupEmployeeModel(
+                                              _user,
+                                              groups[i].id,
+                                              groups[i].name,
+                                              groups[i].description,
+                                              groups[i]
+                                                  .numberOfEmployees
+                                                  .toString(),
+                                              groups[i].countryOfWork));
                                     },
                                   ),
                                 );

@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
+import 'package:give_job/manager/groups/group/shared/group_logo.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
-import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
@@ -17,22 +18,19 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../../../../shared/libraries/constants.dart';
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
-import 'manager_employee_time_sheets_workdays_in_progress_page.dart';
+import '../manager_group_details_page.dart';
 import 'manager_employee_time_sheets_workdays_accepted_page.dart';
+import 'manager_employee_time_sheets_workdays_in_progress_page.dart';
 
 class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
-  final User _user;
-  final int _groupId;
-  final String _groupName;
+  final GroupEmployeeModel _model;
   final String _employeeNationality;
   final String _currency;
   final int _employeeId;
   final String _employeeInfo;
 
   const ManagerEmployeeTimeSheetsPage(
-    this._user,
-    this._groupId,
-    this._groupName,
+    this._model,
     this._employeeNationality,
     this._currency,
     this._employeeId,
@@ -48,14 +46,25 @@ class _ManagerEmployeeTimeSheetsPageState
     extends State<ManagerEmployeeTimeSheetsPage> {
   final ManagerService _managerService = new ManagerService();
 
+  GroupEmployeeModel _model;
+  String _employeeNationality;
+  String _currency;
+  int _employeeId;
+  String _employeeInfo;
+
   @override
   Widget build(BuildContext context) {
+    this._model = widget._model;
+    this._employeeNationality = widget._employeeNationality;
+    this._currency = widget._currency;
+    this._employeeId = widget._employeeId;
+    this._employeeInfo = widget._employeeInfo;
     return FutureBuilder<List<EmployeeTimeSheetDto>>(
       future: _managerService
           .findEmployeeTimeSheetsByGroupIdAndEmployeeId(
-              widget._groupId.toString(),
-              widget._employeeId.toString(),
-              widget._user.authHeader)
+              _model.groupId.toString(),
+              _employeeId.toString(),
+              _model.user.authHeader)
           .catchError((e) {
         ToastService.showBottomToast(
             getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
@@ -68,7 +77,7 @@ class _ManagerEmployeeTimeSheetsPageState
             snapshot.data == null) {
           return loader(
             managerAppBar(context, null, getTranslated(context, 'loading')),
-            managerSideBar(context, widget._user),
+            managerSideBar(context, _model.user),
           );
         } else {
           List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
@@ -87,22 +96,22 @@ class _ManagerEmployeeTimeSheetsPageState
               backgroundColor: DARK,
               appBar: managerAppBar(
                   context,
-                  widget._user,
+                  _model.user,
                   getTranslated(context, 'timesheets') +
                       ' - ' +
-                      utf8.decode(widget._groupName != null
-                          ? widget._groupName.runes.toList()
+                      utf8.decode(_model.groupName != null
+                          ? _model.groupName.runes.toList()
                           : '-')),
-              drawer: managerSideBar(context, widget._user),
+              drawer: managerSideBar(context, _model.user),
               body: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 15),
-                    text20WhiteBold(widget._employeeInfo != null
-                        ? utf8.decode(widget._employeeInfo.runes.toList()) +
+                    text20WhiteBold(_employeeInfo != null
+                        ? utf8.decode(_employeeInfo.runes.toList()) +
                             ' ' +
                             LanguageUtil.findFlagByNationality(
-                                widget._employeeNationality)
+                                _employeeNationality)
                         : getTranslated(context, 'empty')),
                     SizedBox(height: 15),
                     for (var timeSheet in timeSheets)
@@ -115,10 +124,10 @@ class _ManagerEmployeeTimeSheetsPageState
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
                                     return ManagerEmployeeTimeSheetsWorkdaysAcceptedPage(
-                                        widget._user,
-                                        widget._employeeInfo,
-                                        widget._employeeNationality,
-                                        widget._currency,
+                                        _model,
+                                        _employeeInfo,
+                                        _employeeNationality,
+                                        _currency,
                                         timeSheet);
                                   },
                                 ),
@@ -128,10 +137,10 @@ class _ManagerEmployeeTimeSheetsPageState
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
                                     return ManagerEmployeeTimeSheetsWorkdaysInProgressPage(
-                                        widget._user,
-                                        widget._employeeInfo,
-                                        widget._employeeNationality,
-                                        widget._currency,
+                                        _model,
+                                        _employeeInfo,
+                                        _employeeNationality,
+                                        _currency,
                                         timeSheet);
                                   },
                                 ),
@@ -187,7 +196,7 @@ class _ManagerEmployeeTimeSheetsPageState
                                   children: <Widget>[
                                     text20GreenBold(
                                         timeSheet.totalMoneyEarned.toString()),
-                                    text20GreenBold(' ' + widget._currency)
+                                    text20GreenBold(' ' + _currency)
                                   ],
                                 ),
                               ),
@@ -197,6 +206,20 @@ class _ManagerEmployeeTimeSheetsPageState
                       ),
                   ],
                 ),
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endFloat,
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ManagerGroupDetailsPage(_model),
+                    ),
+                  );
+                },
+                tooltip: 'Back to group overview',
+                child: buildGroupLogo(),
               ),
             ),
           );

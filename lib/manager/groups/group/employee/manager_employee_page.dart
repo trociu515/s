@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_group_details_dto.dart';
+import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
+import 'package:give_job/manager/groups/group/manager_group_details_page.dart';
+import 'package:give_job/manager/groups/group/shared/group_logo.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
-import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
@@ -19,11 +21,9 @@ import '../../../manager_side_bar.dart';
 import 'manager_employee_time_sheets_page.dart';
 
 class ManagerEmployeePage extends StatefulWidget {
-  final User _user;
-  final int _groupId;
-  final String _groupName;
+  final GroupEmployeeModel _model;
 
-  ManagerEmployeePage(this._user, this._groupId, this._groupName);
+  ManagerEmployeePage(this._model);
 
   @override
   _ManagerEmployeePageState createState() => _ManagerEmployeePageState();
@@ -32,17 +32,20 @@ class ManagerEmployeePage extends StatefulWidget {
 class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
   final ManagerService _managerService = new ManagerService();
 
+  GroupEmployeeModel _model;
+
   List<ManagerGroupDetailsDto> _employees = new List();
   List<ManagerGroupDetailsDto> _filteredEmployees = new List();
   bool _loading = false;
 
   @override
   void initState() {
+    this._model = widget._model;
     super.initState();
     _loading = true;
     _managerService
         .findEmployeesGroupDetails(
-            widget._groupId.toString(), widget._user.authHeader)
+            _model.groupId.toString(), _model.user.authHeader)
         .then((res) {
       setState(() {
         _employees = res;
@@ -62,7 +65,7 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
     if (_loading) {
       return loader(
         managerAppBar(context, null, getTranslated(context, 'loading')),
-        managerSideBar(context, widget._user),
+        managerSideBar(context, _model.user),
       );
     }
     return MaterialApp(
@@ -73,13 +76,13 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
         backgroundColor: DARK,
         appBar: managerAppBar(
             context,
-            widget._user,
+            _model.user,
             getTranslated(context, 'employees') +
                 ' - ' +
-                utf8.decode(widget._groupName != null
-                    ? widget._groupName.runes.toList()
+                utf8.decode(_model.groupName != null
+                    ? _model.groupName.runes.toList()
                     : '-')),
-        drawer: managerSideBar(context, widget._user),
+        drawer: managerSideBar(context, _model.user),
         body: Column(
           children: <Widget>[
             Container(
@@ -129,9 +132,7 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
                                     return ManagerEmployeeTimeSheetsPage(
-                                        widget._user,
-                                        widget._groupId,
-                                        widget._groupName,
+                                        _model,
                                         _employees[index].employeeNationality,
                                         _employees[index].currency,
                                         _employees[index].employeeId,
@@ -221,6 +222,19 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
               ),
             ),
           ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ManagerGroupDetailsPage(_model),
+              ),
+            );
+          },
+          tooltip: 'Back to group overview',
+          child: buildGroupLogo(),
         ),
       ),
     );

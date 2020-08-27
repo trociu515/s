@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:give_job/main.dart';
+import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/manager_group_details_page.dart';
 import 'package:give_job/manager/groups/manager_groups_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -138,7 +139,8 @@ class _LoginPageState extends State<LoginPage> {
                         Color(0xffb5d76d));
                   } else if (res.statusCode == 401) {
                     progressDialog.hide();
-                    ToastService.showBottomToast('User is not verified', Colors.red);
+                    ToastService.showBottomToast(
+                        'User is not verified', Colors.red);
                   } else {
                     progressDialog.hide();
                     ToastService.showBottomToast(
@@ -244,16 +246,12 @@ class _LoginPageState extends State<LoginPage> {
     String groupDescription = data['groupDescription'];
     String numberOfEmployees = data['numberOfEmployees'];
     String countryOfWork = data['countryOfWork'];
+    GroupEmployeeModel model = new GroupEmployeeModel(user, groupId, groupName,
+        groupDescription, numberOfEmployees, countryOfWork);
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ManagerGroupDetailsPage(
-                user,
-                groupId,
-                groupName,
-                groupDescription,
-                numberOfEmployees,
-                countryOfWork)));
+            builder: (context) => ManagerGroupDetailsPage(model)));
   }
 
   _showCreateAccountDialog() {

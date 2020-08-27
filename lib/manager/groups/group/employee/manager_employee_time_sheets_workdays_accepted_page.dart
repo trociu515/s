@@ -5,9 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
+import 'package:give_job/manager/groups/group/shared/group_logo.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
-import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
@@ -19,17 +19,18 @@ import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 import '../../../../shared/libraries/constants.dart';
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
+import '../manager_group_details_page.dart';
+import 'model/group_employee_model.dart';
 
 class ManagerEmployeeTimeSheetsWorkdaysAcceptedPage extends StatefulWidget {
-  final User _user;
-
+  final GroupEmployeeModel _model;
   final String _employeeInfo;
   final String _employeeNationality;
   final String _currency;
   final EmployeeTimeSheetDto timeSheet;
 
   const ManagerEmployeeTimeSheetsWorkdaysAcceptedPage(
-      this._user,
+      this._model,
       this._employeeInfo,
       this._employeeNationality,
       this._currency,
@@ -44,12 +45,23 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
     extends State<ManagerEmployeeTimeSheetsWorkdaysAcceptedPage> {
   final ManagerService _managerService = new ManagerService();
 
+  GroupEmployeeModel _model;
+  String _employeeInfo;
+  String _employeeNationality;
+  String _currency;
+  EmployeeTimeSheetDto timeSheet;
+
   @override
   Widget build(BuildContext context) {
+    this._model = widget._model;
+    this._employeeInfo = widget._employeeInfo;
+    this._employeeNationality = widget._employeeNationality;
+    this._currency = widget._currency;
+    this.timeSheet = widget.timeSheet;
     return FutureBuilder<List<WorkdayDto>>(
       future: _managerService
           .findWorkdaysByTimeSheetId(
-              widget.timeSheet.id.toString(), widget._user.authHeader)
+              timeSheet.id.toString(), _model.user.authHeader)
           .catchError((e) {
         ToastService.showBottomToast(
             getTranslated(
@@ -63,7 +75,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
             snapshot.data == null) {
           return loader(
             managerAppBar(context, null, getTranslated(context, 'loading')),
-            managerSideBar(context, widget._user),
+            managerSideBar(context, _model.user),
           );
         } else {
           List<WorkdayDto> workdays = snapshot.data;
@@ -83,13 +95,13 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
               backgroundColor: DARK,
               appBar: managerAppBar(
                   context,
-                  widget._user,
+                  _model.user,
                   getTranslated(context, 'workdays') +
                       ' - ' +
-                      utf8.decode(widget.timeSheet.groupName != null
-                          ? widget.timeSheet.groupName.runes.toList()
+                      utf8.decode(timeSheet.groupName != null
+                          ? timeSheet.groupName.runes.toList()
                           : '-')),
-              drawer: managerSideBar(context, widget._user),
+              drawer: managerSideBar(context, _model.user),
               body: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -99,30 +111,28 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
                         padding: EdgeInsets.only(top: 15, bottom: 5),
                         child: ListTile(
                           leading: Icon(
-                            widget.timeSheet.status == 'Accepted'
+                            timeSheet.status == 'Accepted'
                                 ? Icons.check_circle_outline
                                 : Icons.radio_button_unchecked,
-                            color: widget.timeSheet.status == 'Accepted'
+                            color: timeSheet.status == 'Accepted'
                                 ? GREEN
                                 : Colors.orange,
                           ),
-                          title: textWhiteBold(
-                              widget.timeSheet.year.toString() +
-                                  ' ' +
-                                  MonthUtil.translateMonth(
-                                      context, widget.timeSheet.month)),
+                          title: textWhiteBold(timeSheet.year.toString() +
+                              ' ' +
+                              MonthUtil.translateMonth(
+                                  context, timeSheet.month)),
                           subtitle: Column(
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.topLeft,
-                                child: textWhiteBold(
-                                    widget._employeeInfo != null
-                                        ? utf8.decode(widget._employeeInfo.runes
-                                                .toList()) +
-                                            ' ' +
-                                            LanguageUtil.findFlagByNationality(
-                                                widget._employeeNationality)
-                                        : getTranslated(context, 'empty')),
+                                child: textWhiteBold(_employeeInfo != null
+                                    ? utf8.decode(
+                                            _employeeInfo.runes.toList()) +
+                                        ' ' +
+                                        LanguageUtil.findFlagByNationality(
+                                            _employeeNationality)
+                                    : getTranslated(context, 'empty')),
                               ),
                               Row(
                                 children: <Widget>[
@@ -133,8 +143,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
                                             ': '),
                                   ),
                                   textGreenBold(
-                                      widget.timeSheet.totalHours.toString() +
-                                          'h'),
+                                      timeSheet.totalHours.toString() + 'h'),
                                 ],
                               ),
                               Row(
@@ -155,8 +164,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
                           trailing: Wrap(
                             children: <Widget>[
                               text20GreenBold(
-                                  widget.timeSheet.totalMoneyEarned.toString()),
-                              text20GreenBold(' ' + widget._currency),
+                                  timeSheet.totalMoneyEarned.toString()),
+                              text20GreenBold(' ' + _currency),
                             ],
                           ),
                         ),
@@ -224,6 +233,20 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
                     ),
                   ],
                 ),
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endFloat,
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ManagerGroupDetailsPage(_model),
+                    ),
+                  );
+                },
+                tooltip: 'Back to group overview',
+                child: buildGroupLogo(),
               ),
             ),
           );

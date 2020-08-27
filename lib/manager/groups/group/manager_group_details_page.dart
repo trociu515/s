@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
-import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -16,21 +16,9 @@ import '../manager_groups_page.dart';
 import 'employee/manager_employee_page.dart';
 
 class ManagerGroupDetailsPage extends StatefulWidget {
-  final User _user;
-  final int _groupId;
-  final String _groupName;
-  final String _groupDescription;
-  final String _numberOfEmployees;
-  final String _countryOfWork;
+  final GroupEmployeeModel _model;
 
-  ManagerGroupDetailsPage(
-    this._user,
-    this._groupId,
-    this._groupName,
-    this._groupDescription,
-    this._numberOfEmployees,
-    this._countryOfWork,
-  );
+  ManagerGroupDetailsPage(this._model);
 
   @override
   _ManagerGroupDetailsPageState createState() =>
@@ -38,8 +26,11 @@ class ManagerGroupDetailsPage extends StatefulWidget {
 }
 
 class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
+  GroupEmployeeModel _model;
+
   @override
   Widget build(BuildContext context) {
+    this._model = widget._model;
     return WillPopScope(
       child: MaterialApp(
         title: APP_NAME,
@@ -49,13 +40,13 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
           backgroundColor: DARK,
           appBar: managerAppBar(
               context,
-              widget._user,
+              _model.user,
               getTranslated(context, 'group') +
                   ' - ' +
-                  utf8.decode(widget._groupName != null
-                      ? widget._groupName.runes.toList()
+                  utf8.decode(_model.groupName != null
+                      ? _model.groupName.runes.toList()
                       : '-')),
-          drawer: managerSideBar(context, widget._user),
+          drawer: managerSideBar(context, _model.user),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -74,8 +65,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                     ),
                     title: text18WhiteBold(
                       utf8.decode(
-                        widget._groupName != null
-                            ? widget._groupName.runes.toList()
+                        _model.groupName != null
+                            ? _model.groupName.runes.toList()
                             : getTranslated(context, 'empty'),
                       ),
                     ),
@@ -83,8 +74,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                       children: <Widget>[
                         Align(
                             child: textWhite(utf8.decode(
-                                widget._groupDescription != null
-                                    ? widget._groupDescription.runes.toList()
+                                _model.groupDescription != null
+                                    ? _model.groupDescription.runes.toList()
                                     : getTranslated(context, 'empty'))),
                             alignment: Alignment.topLeft),
                         SizedBox(height: 5),
@@ -92,14 +83,14 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: textWhite(
                                 getTranslated(context, 'numberOfEmployees') +
                                     ': ' +
-                                    widget._numberOfEmployees.toString()),
+                                    _model.numberOfEmployees.toString()),
                             alignment: Alignment.topLeft),
                         Align(
                             child: textWhite(
                                 getTranslated(context, 'groupCountryOfWork') +
                                     ': ' +
                                     LanguageUtil.findFlagByNationality(
-                                        widget._countryOfWork.toString())),
+                                        _model.countryOfWork.toString())),
                             alignment: Alignment.topLeft),
                       ],
                     ),
@@ -115,8 +106,7 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                               Navigator.of(context).push(
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
-                                    return ManagerEmployeePage(widget._user,
-                                        widget._groupId, widget._groupName);
+                                    return ManagerEmployeePage(_model);
                                   },
                                 ),
                               );
@@ -241,7 +231,7 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ManagerGroupsPage(widget._user),
+        builder: (context) => ManagerGroupsPage(_model.user),
       ),
     );
     return false;
