@@ -53,7 +53,13 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
 
   Set<int> selectedIds = new Set();
   List<WorkdayDto> workdays = new List();
-  bool sort = true;
+  bool _sortNo = true;
+  bool _sortHours = true;
+  bool _sortRatings = true;
+  bool _sortMoney = true;
+  bool _sortComments = true;
+  bool _sort = true;
+  int _sortColumnIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -188,29 +194,38 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                             child: Theme(
                               data: Theme.of(context).copyWith(),
                               child: DataTable(
-                                sortAscending: sort,
-                                sortColumnIndex: 0,
+                                sortAscending: _sort,
+                                sortColumnIndex: _sortColumnIndex,
                                 columns: [
                                   DataColumn(
-                                      label: textWhiteBold('No.'),
-                                      onSort: (columnIndex, ascending) {
-                                        setState(() {
-                                          sort = !sort;
-                                        });
-                                        onSortColum(columnIndex, ascending);
-                                      }),
+                                    label: textWhiteBold('No.'),
+                                    onSort: (columnIndex, ascending) =>
+                                        _onSortNo(columnIndex, ascending),
+                                  ),
                                   DataColumn(
-                                      label: textWhiteBold(
-                                          getTranslated(context, 'hours'))),
+                                    label: textWhiteBold(
+                                        getTranslated(context, 'hours')),
+                                    onSort: (columnIndex, ascending) =>
+                                        _onSortHours(columnIndex, ascending),
+                                  ),
                                   DataColumn(
-                                      label: textWhiteBold(
-                                          getTranslated(context, 'rating'))),
+                                    label: textWhiteBold(
+                                        getTranslated(context, 'rating')),
+                                    onSort: (columnIndex, ascending) =>
+                                        _onSortRatings(columnIndex, ascending),
+                                  ),
                                   DataColumn(
-                                      label: textWhiteBold(
-                                          getTranslated(context, 'money'))),
+                                    label: textWhiteBold(
+                                        getTranslated(context, 'money')),
+                                    onSort: (columnIndex, ascending) =>
+                                        _onSortMoney(columnIndex, ascending),
+                                  ),
                                   DataColumn(
-                                      label: textWhiteBold(
-                                          getTranslated(context, 'comment'))),
+                                    label: textWhiteBold(
+                                        getTranslated(context, 'comment')),
+                                    onSort: (columnIndex, ascending) =>
+                                        _onSortComments(columnIndex, ascending),
+                                  ),
                                 ],
                                 rows: this
                                     .workdays
@@ -416,29 +431,38 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                       child: Theme(
                         data: Theme.of(context).copyWith(),
                         child: DataTable(
-                          sortAscending: sort,
-                          sortColumnIndex: 0,
+                          sortAscending: _sort,
+                          sortColumnIndex: _sortColumnIndex,
                           columns: [
                             DataColumn(
-                                label: textWhiteBold('No.'),
-                                onSort: (columnIndex, ascending) {
-                                  setState(() {
-                                    sort = !sort;
-                                  });
-                                  onSortColum(columnIndex, ascending);
-                                }),
+                              label: textWhiteBold('No.'),
+                              onSort: (columnIndex, ascending) =>
+                                  _onSortNo(columnIndex, ascending),
+                            ),
                             DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'hours'))),
+                              label: textWhiteBold(
+                                  getTranslated(context, 'hours')),
+                              onSort: (columnIndex, ascending) =>
+                                  _onSortHours(columnIndex, ascending),
+                            ),
                             DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'rating'))),
+                              label: textWhiteBold(
+                                  getTranslated(context, 'rating')),
+                              onSort: (columnIndex, ascending) =>
+                                  _onSortRatings(columnIndex, ascending),
+                            ),
                             DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'money'))),
+                              label: textWhiteBold(
+                                  getTranslated(context, 'money')),
+                              onSort: (columnIndex, ascending) =>
+                                  _onSortMoney(columnIndex, ascending),
+                            ),
                             DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'comment'))),
+                              label: textWhiteBold(
+                                  getTranslated(context, 'comment')),
+                              onSort: (columnIndex, ascending) =>
+                                  _onSortComments(columnIndex, ascending),
+                            ),
                           ],
                           rows: this
                               .workdays
@@ -557,14 +581,79 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
     });
   }
 
-  onSortColum(int columnIndex, bool ascending) {
-    if (columnIndex == 0) {
-      if (ascending) {
-        workdays.sort((a, b) => a.number.compareTo(b.number));
+  void _onSortNo(columnIndex, ascending) {
+    setState(() {
+      if (columnIndex == _sortColumnIndex) {
+        _sort = _sortNo = ascending;
       } else {
-        workdays.sort((a, b) => b.number.compareTo(a.number));
+        _sortColumnIndex = columnIndex;
+        _sort = _sortNo;
       }
-    }
+      workdays.sort((a, b) => a.id.compareTo(b.id));
+      if (!_sort) {
+        workdays = workdays.reversed.toList();
+      }
+    });
+  }
+
+  void _onSortHours(columnIndex, ascending) {
+    setState(() {
+      if (columnIndex == _sortColumnIndex) {
+        _sort = _sortHours = ascending;
+      } else {
+        _sortColumnIndex = columnIndex;
+        _sort = _sortHours;
+      }
+      workdays.sort((a, b) => a.hours.compareTo(b.hours));
+      if (!_sort) {
+        workdays = workdays.reversed.toList();
+      }
+    });
+  }
+
+  void _onSortRatings(columnIndex, ascending) {
+    setState(() {
+      if (columnIndex == _sortColumnIndex) {
+        _sort = _sortRatings = ascending;
+      } else {
+        _sortColumnIndex = columnIndex;
+        _sort = _sortRatings;
+      }
+      workdays.sort((a, b) => a.rating.compareTo(b.rating));
+      if (!_sort) {
+        workdays = workdays.reversed.toList();
+      }
+    });
+  }
+
+  void _onSortMoney(columnIndex, ascending) {
+    setState(() {
+      if (columnIndex == _sortColumnIndex) {
+        _sort = _sortMoney = ascending;
+      } else {
+        _sortColumnIndex = columnIndex;
+        _sort = _sortMoney;
+      }
+      workdays.sort((a, b) => a.money.compareTo(b.money));
+      if (!_sort) {
+        workdays = workdays.reversed.toList();
+      }
+    });
+  }
+
+  void _onSortComments(columnIndex, ascending) {
+    setState(() {
+      if (columnIndex == _sortColumnIndex) {
+        _sort = _sortComments = ascending;
+      } else {
+        _sortColumnIndex = columnIndex;
+        _sort = _sortComments;
+      }
+      workdays.sort((a, b) => a.comment.compareTo(b.comment));
+      if (!_sort) {
+        workdays = workdays.reversed.toList();
+      }
+    });
   }
 
   void _showCommentDetails(String comment) {
