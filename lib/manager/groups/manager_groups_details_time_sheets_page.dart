@@ -10,6 +10,7 @@ import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -23,7 +24,8 @@ class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
   final User _user;
   final int _groupId;
   final String _groupName;
-  final String _groupDescription;
+  final String _employeeNationality;
+  final String _currency;
   final int _employeeId;
   final String _employeeInfo;
 
@@ -31,7 +33,8 @@ class ManagerGroupsDetailsTimeSheetsPage extends StatefulWidget {
     this._user,
     this._groupId,
     this._groupName,
-    this._groupDescription,
+    this._employeeNationality,
+    this._currency,
     this._employeeId,
     this._employeeInfo,
   );
@@ -97,7 +100,10 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                   child: Column(
                     children: <Widget>[
                       text20WhiteBold(widget._employeeInfo != null
-                          ? utf8.decode(widget._employeeInfo.runes.toList())
+                          ? utf8.decode(widget._employeeInfo.runes.toList()) +
+                              ' ' +
+                              LanguageUtil.findFlagByNationality(
+                                  widget._employeeNationality)
                           : getTranslated(context, 'empty')),
                       SizedBox(height: 10),
                       for (var timeSheet in timeSheets)
@@ -112,6 +118,8 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                       return ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
                                           widget._user,
                                           widget._employeeInfo,
+                                          widget._employeeNationality,
+                                          widget._currency,
                                           timeSheet);
                                     },
                                   ),
@@ -123,6 +131,8 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                       return ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
                                           widget._user,
                                           widget._employeeInfo,
+                                          widget._employeeNationality,
+                                          widget._currency,
                                           timeSheet);
                                     },
                                   ),
@@ -146,25 +156,40 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                                           ' ' +
                                           MonthUtil.translateMonth(
                                               context, timeSheet.month)),
-                                  subtitle: Wrap(
+                                  subtitle: Column(
                                     children: <Widget>[
-                                      textWhite(getTranslated(
-                                              context, 'hoursWorked') +
-                                          ': ' +
-                                          timeSheet.totalHours.toString() +
-                                          'h'),
-                                      textWhite(getTranslated(
-                                              context, 'averageRating') +
-                                          ': ' +
-                                          timeSheet.averageEmployeeRating
-                                              .toString()),
+                                      Align(
+                                          child: Row(
+                                            children: <Widget>[
+                                              textWhite(getTranslated(
+                                                      context, 'hoursWorked') +
+                                                  ': '),
+                                              textGreenBold(timeSheet.totalHours
+                                                      .toString() +
+                                                  'h'),
+                                            ],
+                                          ),
+                                          alignment: Alignment.topLeft),
+                                      Align(
+                                        child: Row(
+                                          children: <Widget>[
+                                            textWhite(getTranslated(
+                                                    context, 'averageRating') +
+                                                ': '),
+                                            textGreenBold(timeSheet
+                                                .averageEmployeeRating
+                                                .toString()),
+                                          ],
+                                        ),
+                                        alignment: Alignment.topLeft,
+                                      ),
                                     ],
                                   ),
                                   trailing: Wrap(
                                     children: <Widget>[
                                       text20GreenBold(timeSheet.totalMoneyEarned
                                           .toString()),
-                                      text20GreenBold(" ZŁ")
+                                      text20GreenBold(' ' + widget._currency)
                                     ],
                                   ),
                                 ),

@@ -90,7 +90,8 @@ class _ManagerGroupsDetailsEmployeesPageState
                                         widget._user,
                                         widget._groupId,
                                         widget._groupName,
-                                        null,
+                                        employees[i].employeeNationality,
+                                        employees[i].currency,
                                         employees[i].employeeId,
                                         employees[i].employeeInfo);
                                   },

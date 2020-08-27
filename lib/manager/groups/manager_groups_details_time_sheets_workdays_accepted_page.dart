@@ -9,6 +9,7 @@ import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
@@ -23,10 +24,16 @@ class ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage
   final User _user;
 
   final String _employeeInfo;
+  final String _employeeNationality;
+  final String _currency;
   final EmployeeTimeSheetDto timeSheet;
 
   const ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
-      this._user, this._employeeInfo, this.timeSheet);
+      this._user,
+      this._employeeInfo,
+      this._employeeNationality,
+      this._currency,
+      this.timeSheet);
 
   @override
   _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState createState() =>
@@ -89,7 +96,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                   child: Column(
                     children: <Widget>[
                       text20WhiteBold(widget._employeeInfo != null
-                          ? utf8.decode(widget._employeeInfo.runes.toList())
+                          ? utf8.decode(widget._employeeInfo.runes.toList()) +
+                              ' ' +
+                              LanguageUtil.findFlagByNationality(
+                                  widget._employeeNationality)
                           : getTranslated(context, 'empty')),
                       SizedBox(height: 10),
                       ListTile(
@@ -105,23 +115,41 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
                             ' ' +
                             MonthUtil.translateMonth(
                                 context, widget.timeSheet.month)),
-                        subtitle: Wrap(
+                        subtitle: Column(
                           children: <Widget>[
-                            textWhite(getTranslated(context, 'hoursWorked') +
-                                ': ' +
-                                widget.timeSheet.totalHours.toString() +
-                                'h'),
-                            textWhite(getTranslated(context, 'averageRating') +
-                                ': ' +
-                                widget.timeSheet.averageEmployeeRating
+                            Row(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: textWhite(
+                                      getTranslated(context, 'hoursWorked') +
+                                          ': '),
+                                ),
+                                textGreenBold(
+                                    widget.timeSheet.totalHours.toString() +
+                                        'h'),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: textWhite(
+                                      getTranslated(context, 'averageRating') +
+                                          ': '),
+                                ),
+                                textGreenBold(widget
+                                    .timeSheet.averageEmployeeRating
                                     .toString()),
+                              ],
+                            ),
                           ],
                         ),
                         trailing: Wrap(
                           children: <Widget>[
                             text20GreenBold(
                                 widget.timeSheet.totalMoneyEarned.toString()),
-                            text20GreenBold(" ZŁ"),
+                            text20GreenBold(' ' + widget._currency),
                           ],
                         ),
                       ),

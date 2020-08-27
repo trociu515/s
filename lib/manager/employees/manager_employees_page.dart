@@ -134,7 +134,8 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                           widget._user,
                                           widget._groupId,
                                           widget._groupName,
-                                          null,
+                                          _employees[index].employeeNationality,
+                                          _employees[index].currency,
                                           _employees[index].employeeId,
                                           _employees[index].employeeInfo);
                                     },
