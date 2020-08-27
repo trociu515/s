@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
@@ -533,13 +534,13 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: textDarkBold(getTranslated(context, 'commentDetails')),
-          content: textDark(comment != null
+          title: textWhiteBold(getTranslated(context, 'commentDetails')),
+          content: textWhite(comment != null
               ? utf8.decode(comment.runes.toList())
               : getTranslated(context, 'empty')),
           actions: <Widget>[
             FlatButton(
-                child: textDark(getTranslated(context, 'close')),
+                child: textWhite(getTranslated(context, 'close')),
                 onPressed: () => Navigator.of(context).pop()),
           ],
         );
@@ -577,14 +578,21 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             controller: hoursController,
             autofocus: true,
             keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              WhitelistingTextInputFormatter.digitsOnly
+            ],
             maxLength: 2,
+            cursorColor: WHITE,
+            style: TextStyle(color: WHITE),
             decoration: InputDecoration(
-              labelStyle: TextStyle(color: DARK),
+              counterStyle: TextStyle(color: WHITE),
+              labelStyle: TextStyle(color: WHITE),
               labelText: getTranslated(context, 'newHours') + ' (0-24)',
             ),
           );
           return AlertDialog(
-            title: textDark(getTranslated(context, 'updatingHours')),
+            backgroundColor: DARK,
+            title: textWhite(getTranslated(context, 'updatingHours')),
             content: Row(
               children: <Widget>[
                 Expanded(child: field),
@@ -592,7 +600,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             ),
             actions: <Widget>[
               FlatButton(
-                child: textDark(getTranslated(context, 'update')),
+                child: textWhite(getTranslated(context, 'update')),
                 onPressed: () {
                   int hours;
                   try {
@@ -622,7 +630,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                 },
               ),
               FlatButton(
-                  child: textDark(getTranslated(context, 'close')),
+                  child: textWhite(getTranslated(context, 'close')),
                   onPressed: () => Navigator.of(context).pop())
             ],
           );
@@ -632,14 +640,21 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             controller: ratingController,
             autofocus: true,
             keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              WhitelistingTextInputFormatter.digitsOnly
+            ],
+            style: TextStyle(color: WHITE),
+            cursorColor: WHITE,
             maxLength: 2,
             decoration: InputDecoration(
-              labelStyle: TextStyle(color: DARK),
+              counterStyle: TextStyle(color: WHITE),
+              labelStyle: TextStyle(color: WHITE),
               labelText: getTranslated(context, 'newRating') + ' (1-10)',
             ),
           );
           return AlertDialog(
-            title: Text(getTranslated(context, 'updatingRating')),
+            backgroundColor: DARK,
+            title: textWhiteBold(getTranslated(context, 'updatingRating')),
             content: Row(
               children: <Widget>[
                 Expanded(child: field),
@@ -647,7 +662,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             ),
             actions: <Widget>[
               FlatButton(
-                child: textDark(getTranslated(context, 'update')),
+                child: textWhite(getTranslated(context, 'update')),
                 onPressed: () {
                   int hours;
                   try {
@@ -677,7 +692,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                 },
               ),
               FlatButton(
-                child: textDark(getTranslated(context, 'close')),
+                child: textWhite(getTranslated(context, 'close')),
                 onPressed: () => Navigator.of(context).pop(),
               )
             ],
@@ -690,13 +705,17 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             keyboardType: TextInputType.multiline,
             maxLength: 510,
             maxLines: 10,
+            style: TextStyle(color: WHITE),
+            cursorColor: WHITE,
             decoration: InputDecoration(
-              labelStyle: TextStyle(color: DARK),
+              counterStyle: TextStyle(color: WHITE),
+              labelStyle: TextStyle(color: WHITE),
               labelText: getTranslated(context, 'newComment'),
             ),
           );
           return AlertDialog(
-            title: textDarkBold(getTranslated(context, 'updatingComment')),
+            backgroundColor: DARK,
+            title: textWhiteBold(getTranslated(context, 'updatingComment')),
             content: Row(
               children: <Widget>[
                 Expanded(child: field),
@@ -704,7 +723,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             ),
             actions: <Widget>[
               FlatButton(
-                child: textDark(getTranslated(context, 'update')),
+                child: textWhite(getTranslated(context, 'update')),
                 onPressed: () {
                   String comment = commentController.text;
                   String invalidMessage =
@@ -727,7 +746,7 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                 },
               ),
               FlatButton(
-                child: textDark(getTranslated(context, 'close')),
+                child: textWhite(getTranslated(context, 'close')),
                 onPressed: () => Navigator.of(context).pop(),
               )
             ],
