@@ -11,6 +11,7 @@ import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
+import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
@@ -81,21 +82,33 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
         drawer: managerSideBar(context, widget._user),
         body: Column(
           children: <Widget>[
-            TextField(
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(15.0),
-                  hintStyle: TextStyle(color: Colors.white),
-                  hintText: 'Filter'),
-              onChanged: (string) {
-                setState(() {
-                  _filteredEmployees = _employees
-                      .where((u) => (u.employeeInfo
-                          .toLowerCase()
-                          .contains(string.toLowerCase())))
-                      .toList();
-                });
-              },
+            Container(
+              padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+              child: TextFormField(
+                autofocus: false,
+                autocorrect: true,
+                cursorColor: WHITE,
+                style: TextStyle(color: WHITE),
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: WHITE, width: 2)),
+                    counterStyle: TextStyle(color: WHITE),
+                    border: OutlineInputBorder(),
+                    labelText: 'Search',
+                    prefixIcon: iconWhite(Icons.search),
+                    labelStyle: TextStyle(color: WHITE)),
+                onChanged: (string) {
+                  setState(
+                    () {
+                      _filteredEmployees = _employees
+                          .where((u) => (u.employeeInfo
+                              .toLowerCase()
+                              .contains(string.toLowerCase())))
+                          .toList();
+                    },
+                  );
+                },
+              ),
             ),
             Expanded(
               child: ListView.builder(
