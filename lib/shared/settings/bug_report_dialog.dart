@@ -2,37 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 bugReportDialog(BuildContext context) {
-  return showDialog(
+  slideDialog.showSlideDialog(
     context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: DARK,
-        title: textWhite(getTranslated(context, 'bugReport')),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              textWhite(
-                  getTranslated(context, 'somethingWrongWithApplication')),
-              SizedBox(height: 5),
-              textWhite(getTranslated(context, 'contactWithUsByGivenEmail')),
-              SizedBox(height: 25),
-              SelectableText('givejob.bug@gmail.com',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold,
-                      color: WHITE)),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: textWhite(getTranslated(context, 'close')),
-            onPressed: () => Navigator.of(context).pop(),
+    backgroundColor: DARK,
+    child: Padding(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: <Widget>[
+          text20GreenBold(getTranslated(context, 'bugReport')),
+          SizedBox(height: 10),
+          text20White(getTranslated(context, 'somethingWrongWithApplication')),
+          text20White(getTranslated(context, 'contactWithUsByGivenEmail')),
+          SizedBox(height: 15),
+          SelectableText(
+            'givejob.bug@gmail.com',
+            style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+                color: WHITE),
           ),
         ],
-      );
-    },
+      ),
+    ),
   );
 }
