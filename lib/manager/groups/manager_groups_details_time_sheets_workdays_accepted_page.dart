@@ -14,6 +14,7 @@ import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 import '../../shared/libraries/constants.dart';
 import '../manager_app_bar.dart';
@@ -233,21 +234,21 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPageState
   }
 
   void _showCommentDetails(String comment) {
-    showDialog(
+    slideDialog.showSlideDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: textDarkBold(getTranslated(context, 'commentDetails')),
-          content: textDark(comment != null
-              ? utf8.decode(comment.runes.toList())
-              : getTranslated(context, 'empty')),
-          actions: <Widget>[
-            FlatButton(
-                child: textDark(getTranslated(context, 'close')),
-                onPressed: () => Navigator.of(context).pop()),
+      backgroundColor: DARK,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            text20GreenBold('Comment details'),
+            SizedBox(height: 20),
+            text20White(comment != null
+                ? utf8.decode(comment.runes.toList())
+                : getTranslated(context, 'empty')),
           ],
-        );
-      },
+        ),
+      ),
     );
   }
 }
