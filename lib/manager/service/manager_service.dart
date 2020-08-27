@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/manager/dto/manager_dto.dart';
-import 'package:give_job/manager/dto/manager_employee_group_dto.dart';
 import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
@@ -137,22 +136,5 @@ class ManagerService {
     return res.statusCode == 200
         ? res
         : res.statusCode == 400 ? Future.error(res.body) : null;
-  }
-
-  Future<List<ManagerEmployeeGroupDto>> findGroupEmployeesByGroupManagerId(
-      String groupManagerId, String authHeader) async {
-    Response res = await get(
-      _baseEmployeeUrl + '/groups/${int.parse(groupManagerId)}',
-      headers: {HttpHeaders.authorizationHeader: authHeader},
-    );
-    if (res.statusCode == 200 && res.body != '[]') {
-      return (json.decode(res.body) as List)
-          .map((data) => ManagerEmployeeGroupDto.fromJson(data))
-          .toList();
-    } else if ((res.statusCode == 200 && res.body == '[]') ||
-        res.statusCode == 400) {
-      return Future.error(res.body);
-    }
-    return null;
   }
 }

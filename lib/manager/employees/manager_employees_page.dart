@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/dto/manager_employee_group_dto.dart';
+import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/groups/manager_groups_details_time_sheets_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
-import 'package:give_job/shared/widget/icons.dart';
+import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
@@ -31,8 +31,8 @@ class ManagerEmployeesPage extends StatefulWidget {
 class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
   final ManagerService _managerService = new ManagerService();
 
-  List<ManagerEmployeeGroupDto> _employees = new List();
-  List<ManagerEmployeeGroupDto> _filteredEmployees = new List();
+  List<ManagerGroupDetailsDto> _employees = new List();
+  List<ManagerGroupDetailsDto> _filteredEmployees = new List();
   bool _loading = false;
 
   @override
@@ -40,8 +40,8 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
     super.initState();
     _loading = true;
     _managerService
-        .findGroupEmployeesByGroupManagerId(
-            widget._user.id, widget._user.authHeader)
+        .findEmployeesGroupDetails(
+            widget._groupId.toString(), widget._user.authHeader)
         .then((res) {
       setState(() {
         _employees = res;
@@ -131,38 +131,70 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                               child: Column(
                                 children: <Widget>[
                                   ListTile(
-                                    leading: text20WhiteBold(
-                                        '#' + (index + 1).toString()),
-                                    title: text20WhiteBold(utf8.decode(
-                                        _filteredEmployees[index]
-                                            .employeeInfo
-                                            .runes
-                                            .toList())),
-                                    subtitle: Wrap(
-                                      children: <Widget>[
-                                        textWhite(getTranslated(
-                                                this.context, 'moneyPerHour') +
-                                            ': ' +
-                                            _employees[index]
-                                                .moneyPerHour
-                                                .toString()),
-                                        textWhite(getTranslated(this.context,
-                                                'numberOfHoursWorked') +
-                                            ': ' +
-                                            _employees[index]
-                                                .numberOfHoursWorked
-                                                .toString()),
-                                        textWhite(getTranslated(this.context,
-                                                'amountOfEarnedMoney') +
-                                            ': ' +
-                                            _employees[index]
-                                                .amountOfEarnedMoney
-                                                .toString()),
-                                      ],
+                                    leading: Tab(
+                                      icon: Container(
+                                        child: Image(
+                                          image: AssetImage(
+                                            'images/group-img.png', // TODO replace img
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
-                                    trailing: Wrap(
+                                    title: text20WhiteBold(utf8.decode(
+                                            _filteredEmployees[index]
+                                                .employeeInfo
+                                                .runes
+                                                .toList()) +
+                                        ' ' +
+                                        LanguageUtil.findFlagByNationality(
+                                            _filteredEmployees[index]
+                                                .employeeNationality)),
+                                    subtitle: Column(
                                       children: <Widget>[
-                                        iconWhite(Icons.edit),
+                                        Align(
+                                            child: Row(
+                                              children: <Widget>[
+                                                textWhite(getTranslated(
+                                                        this.context,
+                                                        'moneyPerHour') +
+                                                    ': '),
+                                                textGreenBold(_employees[index]
+                                                        .moneyPerHour
+                                                        .toString() +
+                                                    ' ' +
+                                                    _employees[index].currency),
+                                              ],
+                                            ),
+                                            alignment: Alignment.topLeft),
+                                        Align(
+                                            child: Row(
+                                              children: <Widget>[
+                                                textWhite(getTranslated(
+                                                        this.context,
+                                                        'numberOfHoursWorked') +
+                                                    ': '),
+                                                textGreenBold(_employees[index]
+                                                    .numberOfHoursWorked
+                                                    .toString()),
+                                              ],
+                                            ),
+                                            alignment: Alignment.topLeft),
+                                        Align(
+                                            child: Row(
+                                              children: <Widget>[
+                                                textWhite(getTranslated(
+                                                        this.context,
+                                                        'amountOfEarnedMoney') +
+                                                    ': '),
+                                                textGreenBold(_employees[index]
+                                                        .amountOfEarnedMoney
+                                                        .toString() +
+                                                    ' ' +
+                                                    _employees[index].currency),
+                                              ],
+                                            ),
+                                            alignment: Alignment.topLeft),
                                       ],
                                     ),
                                   ),
