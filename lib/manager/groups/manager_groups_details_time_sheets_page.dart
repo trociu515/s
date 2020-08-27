@@ -95,110 +95,107 @@ class _ManagerGroupsDetailsTimeSheetsPageState
                           : '-')),
               drawer: managerSideBar(context, widget._user),
               body: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: <Widget>[
-                      text20WhiteBold(widget._employeeInfo != null
-                          ? utf8.decode(widget._employeeInfo.runes.toList()) +
-                              ' ' +
-                              LanguageUtil.findFlagByNationality(
-                                  widget._employeeNationality)
-                          : getTranslated(context, 'empty')),
-                      SizedBox(height: 10),
-                      for (var timeSheet in timeSheets)
-                        Card(
-                          color: DARK,
-                          child: InkWell(
-                            onTap: () {
-                              if (timeSheet.status == 'Accepted') {
-                                Navigator.of(context).push(
-                                  CupertinoPageRoute<Null>(
-                                    builder: (BuildContext context) {
-                                      return ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
-                                          widget._user,
-                                          widget._employeeInfo,
-                                          widget._employeeNationality,
-                                          widget._currency,
-                                          timeSheet);
-                                    },
-                                  ),
-                                );
-                              } else {
-                                Navigator.of(context).push(
-                                  CupertinoPageRoute<Null>(
-                                    builder: (BuildContext context) {
-                                      return ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
-                                          widget._user,
-                                          widget._employeeInfo,
-                                          widget._employeeNationality,
-                                          widget._currency,
-                                          timeSheet);
-                                    },
-                                  ),
-                                );
-                              }
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                ListTile(
-                                  leading: Icon(
-                                    timeSheet.status == 'Accepted'
-                                        ? Icons.check_circle_outline
-                                        : Icons.radio_button_unchecked,
-                                    color: timeSheet.status == 'Accepted'
-                                        ? GREEN
-                                        : Colors.orange,
-                                  ),
-                                  title: textWhiteBold(
-                                      timeSheet.year.toString() +
-                                          ' ' +
-                                          MonthUtil.translateMonth(
-                                              context, timeSheet.month)),
-                                  subtitle: Column(
-                                    children: <Widget>[
-                                      Align(
-                                          child: Row(
-                                            children: <Widget>[
-                                              textWhite(getTranslated(
-                                                      context, 'hoursWorked') +
-                                                  ': '),
-                                              textGreenBold(timeSheet.totalHours
-                                                      .toString() +
-                                                  'h'),
-                                            ],
-                                          ),
-                                          alignment: Alignment.topLeft),
-                                      Align(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 15),
+                    text20WhiteBold(widget._employeeInfo != null
+                        ? utf8.decode(widget._employeeInfo.runes.toList()) +
+                            ' ' +
+                            LanguageUtil.findFlagByNationality(
+                                widget._employeeNationality)
+                        : getTranslated(context, 'empty')),
+                    SizedBox(height: 15),
+                    for (var timeSheet in timeSheets)
+                      Card(
+                        color: BRIGHTER_DARK,
+                        child: InkWell(
+                          onTap: () {
+                            if (timeSheet.status == 'Accepted') {
+                              Navigator.of(context).push(
+                                CupertinoPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return ManagerGroupsDetailsTimeSheetsWorkdaysAcceptedPage(
+                                        widget._user,
+                                        widget._employeeInfo,
+                                        widget._employeeNationality,
+                                        widget._currency,
+                                        timeSheet);
+                                  },
+                                ),
+                              );
+                            } else {
+                              Navigator.of(context).push(
+                                CupertinoPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage(
+                                        widget._user,
+                                        widget._employeeInfo,
+                                        widget._employeeNationality,
+                                        widget._currency,
+                                        timeSheet);
+                                  },
+                                ),
+                              );
+                            }
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              ListTile(
+                                leading: Icon(
+                                  timeSheet.status == 'Accepted'
+                                      ? Icons.check_circle_outline
+                                      : Icons.radio_button_unchecked,
+                                  color: timeSheet.status == 'Accepted'
+                                      ? GREEN
+                                      : Colors.orange,
+                                ),
+                                title: textWhiteBold(timeSheet.year.toString() +
+                                    ' ' +
+                                    MonthUtil.translateMonth(
+                                        context, timeSheet.month)),
+                                subtitle: Column(
+                                  children: <Widget>[
+                                    Align(
                                         child: Row(
                                           children: <Widget>[
                                             textWhite(getTranslated(
-                                                    context, 'averageRating') +
+                                                    context, 'hoursWorked') +
                                                 ': '),
-                                            textGreenBold(timeSheet
-                                                .averageEmployeeRating
-                                                .toString()),
+                                            textGreenBold(timeSheet.totalHours
+                                                    .toString() +
+                                                'h'),
                                           ],
                                         ),
-                                        alignment: Alignment.topLeft,
+                                        alignment: Alignment.topLeft),
+                                    Align(
+                                      child: Row(
+                                        children: <Widget>[
+                                          textWhite(getTranslated(
+                                                  context, 'averageRating') +
+                                              ': '),
+                                          textGreenBold(timeSheet
+                                              .averageEmployeeRating
+                                              .toString()),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  trailing: Wrap(
-                                    children: <Widget>[
-                                      text20GreenBold(timeSheet.totalMoneyEarned
-                                          .toString()),
-                                      text20GreenBold(' ' + widget._currency)
-                                    ],
-                                  ),
+                                      alignment: Alignment.topLeft,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                                trailing: Wrap(
+                                  children: <Widget>[
+                                    text20GreenBold(
+                                        timeSheet.totalMoneyEarned.toString()),
+                                    text20GreenBold(' ' + widget._currency)
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                    ],
-                  ),
+                      ),
+                  ],
                 ),
               ),
             ),

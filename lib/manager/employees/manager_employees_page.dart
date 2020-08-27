@@ -83,7 +83,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
         body: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+              padding: EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 10),
               child: TextFormField(
                 autofocus: false,
                 autocorrect: true,
@@ -112,112 +112,108 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
             ),
             Expanded(
               child: ListView.builder(
-                padding: EdgeInsets.all(10.0),
                 itemCount: _filteredEmployees.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                     color: DARK,
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Card(
-                            color: DARK,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(this.context).push(
-                                  CupertinoPageRoute<Null>(
-                                    builder: (BuildContext context) {
-                                      return ManagerGroupsDetailsTimeSheetsPage(
-                                          widget._user,
-                                          widget._groupId,
-                                          widget._groupName,
-                                          _employees[index].employeeNationality,
-                                          _employees[index].currency,
-                                          _employees[index].employeeId,
-                                          _employees[index].employeeInfo);
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Column(
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Tab(
-                                      icon: Container(
-                                        child: Image(
-                                          image: AssetImage(
-                                            'images/group-img.png', // TODO replace img
-                                          ),
-                                          fit: BoxFit.cover,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Card(
+                          color: BRIGHTER_DARK,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(this.context).push(
+                                CupertinoPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return ManagerGroupsDetailsTimeSheetsPage(
+                                        widget._user,
+                                        widget._groupId,
+                                        widget._groupName,
+                                        _employees[index].employeeNationality,
+                                        _employees[index].currency,
+                                        _employees[index].employeeId,
+                                        _employees[index].employeeInfo);
+                                  },
+                                ),
+                              );
+                            },
+                            child: Column(
+                              children: <Widget>[
+                                ListTile(
+                                  leading: Tab(
+                                    icon: Container(
+                                      child: Image(
+                                        image: AssetImage(
+                                          'images/group-img.png', // TODO replace img
                                         ),
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                    title: text20WhiteBold(utf8.decode(
-                                            _filteredEmployees[index]
-                                                .employeeInfo
-                                                .runes
-                                                .toList()) +
-                                        ' ' +
-                                        LanguageUtil.findFlagByNationality(
-                                            _filteredEmployees[index]
-                                                .employeeNationality)),
-                                    subtitle: Column(
-                                      children: <Widget>[
-                                        Align(
-                                            child: Row(
-                                              children: <Widget>[
-                                                textWhite(getTranslated(
-                                                        this.context,
-                                                        'moneyPerHour') +
-                                                    ': '),
-                                                textGreenBold(_employees[index]
-                                                        .moneyPerHour
-                                                        .toString() +
-                                                    ' ' +
-                                                    _employees[index].currency),
-                                              ],
-                                            ),
-                                            alignment: Alignment.topLeft),
-                                        Align(
-                                            child: Row(
-                                              children: <Widget>[
-                                                textWhite(getTranslated(
-                                                        this.context,
-                                                        'numberOfHoursWorked') +
-                                                    ': '),
-                                                textGreenBold(_employees[index]
-                                                    .numberOfHoursWorked
-                                                    .toString()),
-                                              ],
-                                            ),
-                                            alignment: Alignment.topLeft),
-                                        Align(
-                                            child: Row(
-                                              children: <Widget>[
-                                                textWhite(getTranslated(
-                                                        this.context,
-                                                        'amountOfEarnedMoney') +
-                                                    ': '),
-                                                textGreenBold(_employees[index]
-                                                        .amountOfEarnedMoney
-                                                        .toString() +
-                                                    ' ' +
-                                                    _employees[index].currency),
-                                              ],
-                                            ),
-                                            alignment: Alignment.topLeft),
-                                      ],
-                                    ),
                                   ),
-                                ],
-                              ),
+                                  title: text20WhiteBold(utf8.decode(
+                                          _filteredEmployees[index]
+                                              .employeeInfo
+                                              .runes
+                                              .toList()) +
+                                      ' ' +
+                                      LanguageUtil.findFlagByNationality(
+                                          _filteredEmployees[index]
+                                              .employeeNationality)),
+                                  subtitle: Column(
+                                    children: <Widget>[
+                                      Align(
+                                          child: Row(
+                                            children: <Widget>[
+                                              textWhite(getTranslated(
+                                                      this.context,
+                                                      'moneyPerHour') +
+                                                  ': '),
+                                              textGreenBold(_employees[index]
+                                                      .moneyPerHour
+                                                      .toString() +
+                                                  ' ' +
+                                                  _employees[index].currency),
+                                            ],
+                                          ),
+                                          alignment: Alignment.topLeft),
+                                      Align(
+                                          child: Row(
+                                            children: <Widget>[
+                                              textWhite(getTranslated(
+                                                      this.context,
+                                                      'numberOfHoursWorked') +
+                                                  ': '),
+                                              textGreenBold(_employees[index]
+                                                  .numberOfHoursWorked
+                                                  .toString()),
+                                            ],
+                                          ),
+                                          alignment: Alignment.topLeft),
+                                      Align(
+                                          child: Row(
+                                            children: <Widget>[
+                                              textWhite(getTranslated(
+                                                      this.context,
+                                                      'amountOfEarnedMoney') +
+                                                  ': '),
+                                              textGreenBold(_employees[index]
+                                                      .amountOfEarnedMoney
+                                                      .toString() +
+                                                  ' ' +
+                                                  _employees[index].currency),
+                                            ],
+                                          ),
+                                          alignment: Alignment.topLeft),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   );
                 },

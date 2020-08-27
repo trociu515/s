@@ -105,160 +105,165 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   key: refreshIndicatorState,
                   onRefresh: _refresh,
                   child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        children: <Widget>[
-                          text20WhiteBold(widget._employeeInfo != null
-                              ? utf8.decode(
-                                      widget._employeeInfo.runes.toList()) +
-                                  ' ' +
-                                  LanguageUtil.findFlagByNationality(
-                                      widget._employeeNationality)
-                              : getTranslated(context, 'empty')),
-                          SizedBox(height: 10),
-                          ListTile(
-                            leading: Icon(
-                              widget.timeSheet.status == 'Accepted'
-                                  ? Icons.check_circle_outline
-                                  : Icons.radio_button_unchecked,
-                              color: widget.timeSheet.status == 'Accepted'
-                                  ? GREEN
-                                  : Colors.orange,
-                            ),
-                            title: textWhiteBold(
-                                widget.timeSheet.year.toString() +
-                                    ' ' +
-                                    MonthUtil.translateMonth(
-                                        context, widget.timeSheet.month)),
-                            subtitle: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: textWhite(getTranslated(
-                                              context, 'hoursWorked') +
-                                          ': '),
-                                    ),
-                                    textGreenBold(
-                                        widget.timeSheet.totalHours.toString() +
-                                            'h'),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: textWhite(getTranslated(
-                                              context, 'averageRating') +
-                                          ': '),
-                                    ),
-                                    textGreenBold(widget
-                                        .timeSheet.averageEmployeeRating
-                                        .toString()),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            trailing: Wrap(
-                              children: <Widget>[
-                                text20GreenBold(widget
-                                    .timeSheet.totalMoneyEarned
-                                    .toString()),
-                                text20GreenBold(' ' + widget._currency)
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Theme(
-                                data: Theme.of(context).copyWith(),
-                                child: DataTable(
-                                  sortAscending: sort,
-                                  sortColumnIndex: 0,
-                                  columns: [
-                                    DataColumn(
-                                        label: textWhiteBold('No.'),
-                                        onSort: (columnIndex, ascending) {
-                                          setState(() {
-                                            sort = !sort;
-                                          });
-                                          onSortColum(columnIndex, ascending);
-                                        }),
-                                    DataColumn(
-                                        label: textWhiteBold(
-                                            getTranslated(context, 'hours'))),
-                                    DataColumn(
-                                        label: textWhiteBold(
-                                            getTranslated(context, 'rating'))),
-                                    DataColumn(
-                                        label: textWhiteBold(
-                                            getTranslated(context, 'money'))),
-                                    DataColumn(
-                                        label: textWhiteBold(
-                                            getTranslated(context, 'comment'))),
-                                  ],
-                                  rows: this
-                                      .workdays
-                                      .map(
-                                        (workday) => DataRow(
-                                          selected:
-                                              selectedIds.contains(workday.id),
-                                          onSelectChanged: (bool selected) {
-                                            onSelectedRow(selected, workday.id);
-                                          },
-                                          cells: [
-                                            DataCell(textWhite(
-                                                workday.number.toString())),
-                                            DataCell(textWhite(
-                                                workday.hours.toString())),
-                                            DataCell(textWhite(
-                                                workday.rating.toString())),
-                                            DataCell(textWhite(
-                                                workday.money.toString())),
-                                            DataCell(
-                                              Wrap(
-                                                children: <Widget>[
-                                                  textWhite(workday.comment !=
-                                                          null
-                                                      ? workday.comment.length >
-                                                              10
-                                                          ? utf8
-                                                                  .decode(workday
-                                                                      .comment
-                                                                      .runes
-                                                                      .toList())
-                                                                  .substring(
-                                                                      0, 10) +
-                                                              '...'
-                                                          : utf8.decode(workday
-                                                              .comment.runes
-                                                              .toList())
-                                                      : getTranslated(
-                                                          context, 'empty')),
-                                                  workday.comment != null &&
-                                                          workday.comment != ''
-                                                      ? iconWhite(Icons.zoom_in)
-                                                      : Text('')
-                                                ],
-                                              ),
-                                              onTap: () => _showCommentDetails(
-                                                  workday.comment),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          color: BRIGHTER_DARK,
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 15, bottom: 5),
+                            child: ListTile(
+                              leading: Icon(
+                                widget.timeSheet.status == 'Accepted'
+                                    ? Icons.check_circle_outline
+                                    : Icons.radio_button_unchecked,
+                                color: widget.timeSheet.status == 'Accepted'
+                                    ? GREEN
+                                    : Colors.orange,
+                              ),
+                              title: textWhiteBold(
+                                  widget.timeSheet.year.toString() +
+                                      ' ' +
+                                      MonthUtil.translateMonth(
+                                          context, widget.timeSheet.month)),
+                              subtitle: Column(
+                                children: <Widget>[
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: textWhiteBold(widget._employeeInfo !=
+                                            null
+                                        ? utf8.decode(widget._employeeInfo.runes
+                                                .toList()) +
+                                            ' ' +
+                                            LanguageUtil.findFlagByNationality(
+                                                widget._employeeNationality)
+                                        : getTranslated(context, 'empty')),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: textWhite(getTranslated(
+                                                context, 'hoursWorked') +
+                                            ': '),
+                                      ),
+                                      textGreenBold(widget.timeSheet.totalHours
+                                              .toString() +
+                                          'h'),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: textWhite(getTranslated(
+                                                context, 'averageRating') +
+                                            ': '),
+                                      ),
+                                      textGreenBold(widget
+                                          .timeSheet.averageEmployeeRating
+                                          .toString()),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              trailing: Wrap(
+                                children: <Widget>[
+                                  text20GreenBold(widget
+                                      .timeSheet.totalMoneyEarned
+                                      .toString()),
+                                  text20GreenBold(' ' + widget._currency)
+                                ],
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Theme(
+                              data: Theme.of(context).copyWith(),
+                              child: DataTable(
+                                sortAscending: sort,
+                                sortColumnIndex: 0,
+                                columns: [
+                                  DataColumn(
+                                      label: textWhiteBold('No.'),
+                                      onSort: (columnIndex, ascending) {
+                                        setState(() {
+                                          sort = !sort;
+                                        });
+                                        onSortColum(columnIndex, ascending);
+                                      }),
+                                  DataColumn(
+                                      label: textWhiteBold(
+                                          getTranslated(context, 'hours'))),
+                                  DataColumn(
+                                      label: textWhiteBold(
+                                          getTranslated(context, 'rating'))),
+                                  DataColumn(
+                                      label: textWhiteBold(
+                                          getTranslated(context, 'money'))),
+                                  DataColumn(
+                                      label: textWhiteBold(
+                                          getTranslated(context, 'comment'))),
+                                ],
+                                rows: this
+                                    .workdays
+                                    .map(
+                                      (workday) => DataRow(
+                                        selected:
+                                            selectedIds.contains(workday.id),
+                                        onSelectChanged: (bool selected) {
+                                          onSelectedRow(selected, workday.id);
+                                        },
+                                        cells: [
+                                          DataCell(textWhite(
+                                              workday.number.toString())),
+                                          DataCell(textWhite(
+                                              workday.hours.toString())),
+                                          DataCell(textWhite(
+                                              workday.rating.toString())),
+                                          DataCell(textWhite(
+                                              workday.money.toString())),
+                                          DataCell(
+                                            Wrap(
+                                              children: <Widget>[
+                                                textWhite(workday.comment !=
+                                                        null
+                                                    ? workday.comment.length >
+                                                            10
+                                                        ? utf8
+                                                                .decode(workday
+                                                                    .comment
+                                                                    .runes
+                                                                    .toList())
+                                                                .substring(
+                                                                    0, 10) +
+                                                            '...'
+                                                        : utf8.decode(workday
+                                                            .comment.runes
+                                                            .toList())
+                                                    : getTranslated(
+                                                        context, 'empty')),
+                                                workday.comment != null &&
+                                                        workday.comment != ''
+                                                    ? iconWhite(Icons.zoom_in)
+                                                    : Text('')
+                                              ],
+                                            ),
+                                            onTap: () => _showCommentDetails(
+                                                workday.comment),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -322,151 +327,157 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
             key: refreshIndicatorState,
             onRefresh: _refresh,
             child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  children: <Widget>[
-                    text20WhiteBold(widget._employeeInfo != null
-                        ? utf8.decode(widget._employeeInfo.runes.toList()) +
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    color: BRIGHTER_DARK,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 15, bottom: 5),
+                      child: ListTile(
+                        leading: Icon(
+                          widget.timeSheet.status == 'Accepted'
+                              ? Icons.check_circle_outline
+                              : Icons.radio_button_unchecked,
+                          color: widget.timeSheet.status == 'Accepted'
+                              ? GREEN
+                              : Colors.orange,
+                        ),
+                        title: textWhiteBold(widget.timeSheet.year.toString() +
                             ' ' +
-                            LanguageUtil.findFlagByNationality(
-                                widget._employeeNationality)
-                        : getTranslated(context, 'empty')),
-                    SizedBox(height: 10),
-                    ListTile(
-                      leading: Icon(
-                        widget.timeSheet.status == 'Accepted'
-                            ? Icons.check_circle_outline
-                            : Icons.radio_button_unchecked,
-                        color: widget.timeSheet.status == 'Accepted'
-                            ? GREEN
-                            : Colors.orange,
-                      ),
-                      title: textWhiteBold(widget.timeSheet.year.toString() +
-                          ' ' +
-                          MonthUtil.translateMonth(
-                              context, widget.timeSheet.month)),
-                      subtitle: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: textWhite(
-                                    getTranslated(context, 'hoursWorked') +
-                                        ': '),
-                              ),
-                              textGreenBold(
-                                  widget.timeSheet.totalHours.toString() + 'h'),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: textWhite(
-                                    getTranslated(context, 'averageRating') +
-                                        ': '),
-                              ),
-                              textGreenBold(widget
-                                  .timeSheet.averageEmployeeRating
-                                  .toString()),
-                            ],
-                          ),
-                        ],
-                      ),
-                      trailing: Wrap(
-                        children: <Widget>[
-                          text20GreenBold(
-                              widget.timeSheet.totalMoneyEarned.toString()),
-                          text20GreenBold(' ' + widget._currency)
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Theme(
-                          data: Theme.of(context).copyWith(),
-                          child: DataTable(
-                            sortAscending: sort,
-                            sortColumnIndex: 0,
-                            columns: [
-                              DataColumn(
-                                  label: textWhiteBold('No.'),
-                                  onSort: (columnIndex, ascending) {
-                                    setState(() {
-                                      sort = !sort;
-                                    });
-                                    onSortColum(columnIndex, ascending);
-                                  }),
-                              DataColumn(
-                                  label: textWhiteBold(
-                                      getTranslated(context, 'hours'))),
-                              DataColumn(
-                                  label: textWhiteBold(
-                                      getTranslated(context, 'rating'))),
-                              DataColumn(
-                                  label: textWhiteBold(
-                                      getTranslated(context, 'money'))),
-                              DataColumn(
-                                  label: textWhiteBold(
-                                      getTranslated(context, 'comment'))),
-                            ],
-                            rows: this
-                                .workdays
-                                .map(
-                                  (workday) => DataRow(
-                                    selected: selectedIds.contains(workday.id),
-                                    onSelectChanged: (bool selected) {
-                                      onSelectedRow(selected, workday.id);
-                                    },
-                                    cells: [
-                                      DataCell(
-                                          textWhite(workday.number.toString())),
-                                      DataCell(
-                                          textWhite(workday.hours.toString())),
-                                      DataCell(
-                                          textWhite(workday.rating.toString())),
-                                      DataCell(
-                                          textWhite(workday.money.toString())),
-                                      DataCell(
-                                        Wrap(
-                                          children: <Widget>[
-                                            textWhite(workday.comment != null
-                                                ? workday.comment.length > 10
-                                                    ? utf8
-                                                            .decode(workday
-                                                                .comment.runes
-                                                                .toList())
-                                                            .substring(0, 10) +
-                                                        '...'
-                                                    : utf8.decode(workday
-                                                        .comment.runes
-                                                        .toList())
-                                                : getTranslated(
-                                                    context, 'empty')),
-                                            workday.comment != null &&
-                                                    workday.comment != ''
-                                                ? iconWhite(Icons.zoom_in)
-                                                : Text('')
-                                          ],
-                                        ),
-                                        onTap: () => _showCommentDetails(
-                                            workday.comment),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                                .toList(),
-                          ),
+                            MonthUtil.translateMonth(
+                                context, widget.timeSheet.month)),
+                        subtitle: Column(
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: textWhiteBold(widget._employeeInfo != null
+                                  ? utf8.decode(
+                                          widget._employeeInfo.runes.toList()) +
+                                      ' ' +
+                                      LanguageUtil.findFlagByNationality(
+                                          widget._employeeNationality)
+                                  : getTranslated(context, 'empty')),
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: textWhite(
+                                      getTranslated(context, 'hoursWorked') +
+                                          ': '),
+                                ),
+                                textGreenBold(
+                                    widget.timeSheet.totalHours.toString() +
+                                        'h'),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: textWhite(
+                                      getTranslated(context, 'averageRating') +
+                                          ': '),
+                                ),
+                                textGreenBold(widget
+                                    .timeSheet.averageEmployeeRating
+                                    .toString()),
+                              ],
+                            ),
+                          ],
+                        ),
+                        trailing: Wrap(
+                          children: <Widget>[
+                            text20GreenBold(
+                                widget.timeSheet.totalMoneyEarned.toString()),
+                            text20GreenBold(' ' + widget._currency)
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Theme(
+                        data: Theme.of(context).copyWith(),
+                        child: DataTable(
+                          sortAscending: sort,
+                          sortColumnIndex: 0,
+                          columns: [
+                            DataColumn(
+                                label: textWhiteBold('No.'),
+                                onSort: (columnIndex, ascending) {
+                                  setState(() {
+                                    sort = !sort;
+                                  });
+                                  onSortColum(columnIndex, ascending);
+                                }),
+                            DataColumn(
+                                label: textWhiteBold(
+                                    getTranslated(context, 'hours'))),
+                            DataColumn(
+                                label: textWhiteBold(
+                                    getTranslated(context, 'rating'))),
+                            DataColumn(
+                                label: textWhiteBold(
+                                    getTranslated(context, 'money'))),
+                            DataColumn(
+                                label: textWhiteBold(
+                                    getTranslated(context, 'comment'))),
+                          ],
+                          rows: this
+                              .workdays
+                              .map(
+                                (workday) => DataRow(
+                                  selected: selectedIds.contains(workday.id),
+                                  onSelectChanged: (bool selected) {
+                                    onSelectedRow(selected, workday.id);
+                                  },
+                                  cells: [
+                                    DataCell(
+                                        textWhite(workday.number.toString())),
+                                    DataCell(
+                                        textWhite(workday.hours.toString())),
+                                    DataCell(
+                                        textWhite(workday.rating.toString())),
+                                    DataCell(
+                                        textWhite(workday.money.toString())),
+                                    DataCell(
+                                      Wrap(
+                                        children: <Widget>[
+                                          textWhite(workday.comment != null
+                                              ? workday.comment.length > 10
+                                                  ? utf8
+                                                          .decode(workday
+                                                              .comment.runes
+                                                              .toList())
+                                                          .substring(0, 10) +
+                                                      '...'
+                                                  : utf8.decode(workday
+                                                      .comment.runes
+                                                      .toList())
+                                              : getTranslated(
+                                                  context, 'empty')),
+                                          workday.comment != null &&
+                                                  workday.comment != ''
+                                              ? iconWhite(Icons.zoom_in)
+                                              : Text('')
+                                        ],
+                                      ),
+                                      onTap: () =>
+                                          _showCommentDetails(workday.comment),
+                                    ),
+                                  ],
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
