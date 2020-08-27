@@ -16,6 +16,7 @@ import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 import '../../main.dart';
 import '../../shared/libraries/constants.dart';
@@ -46,6 +47,9 @@ class ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage
 class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
     extends State<ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPage> {
   final ManagerService _managerService = new ManagerService();
+  final TextEditingController _hoursController = new TextEditingController();
+  final TextEditingController _ratingController = new TextEditingController();
+  final TextEditingController _commentController = new TextEditingController();
 
   Set<int> selectedIds = new Set();
   List<WorkdayDto> workdays = new List();
@@ -276,7 +280,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                         child: MaterialButton(
                           color: GREEN,
                           child: textDarkBold(getTranslated(context, 'hours')),
-                          onPressed: () => _showDialog('HOURS', selectedIds),
+                          onPressed: () => {
+                            _hoursController.clear(),
+                            _showUpdateHoursDialog(selectedIds)
+                          },
                         ),
                       ),
                       SizedBox(width: 5),
@@ -284,7 +291,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                         child: MaterialButton(
                           color: GREEN,
                           child: textDarkBold(getTranslated(context, 'rating')),
-                          onPressed: () => _showDialog('RATING', selectedIds),
+                          onPressed: () => {
+                            _ratingController.clear(),
+                            _showUpdateRatingDialog(selectedIds)
+                          },
                         ),
                       ),
                       SizedBox(width: 5),
@@ -293,7 +303,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                           color: GREEN,
                           child:
                               textDarkBold(getTranslated(context, 'comment')),
-                          onPressed: () => _showDialog('COMMENT', selectedIds),
+                          onPressed: () => {
+                            _commentController.clear(),
+                            _showUpdateCommentDialog(selectedIds)
+                          },
                         ),
                       ),
                       SizedBox(width: 1),
@@ -490,7 +503,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   child: MaterialButton(
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'hours')),
-                    onPressed: () => _showDialog('HOURS', selectedIds),
+                    onPressed: () => {
+                      _hoursController.clear(),
+                      _showUpdateHoursDialog(selectedIds)
+                    },
                   ),
                 ),
                 SizedBox(width: 5),
@@ -498,7 +514,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   child: MaterialButton(
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'rating')),
-                    onPressed: () => _showDialog('RATING', selectedIds),
+                    onPressed: () => {
+                      _ratingController.clear(),
+                      _showUpdateRatingDialog(selectedIds)
+                    },
                   ),
                 ),
                 SizedBox(width: 5),
@@ -506,7 +525,10 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
                   child: MaterialButton(
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'comment')),
-                    onPressed: () => _showDialog('COMMENT', selectedIds),
+                    onPressed: () => {
+                      _commentController.clear(),
+                      _showUpdateCommentDialog(selectedIds)
+                    },
                   ),
                 ),
                 SizedBox(width: 1),
@@ -546,230 +568,245 @@ class _ManagerGroupsDetailsTimeSheetsWorkdaysInProgressPageState
   }
 
   void _showCommentDetails(String comment) {
-    showDialog(
+    slideDialog.showSlideDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: DARK,
-          title: textWhiteBold(getTranslated(context, 'commentDetails')),
-          content: textWhite(comment != null
-              ? utf8.decode(comment.runes.toList())
-              : getTranslated(context, 'empty')),
-          actions: <Widget>[
-            FlatButton(
-                child: textWhite(getTranslated(context, 'close')),
-                onPressed: () => Navigator.of(context).pop()),
+      backgroundColor: DARK,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            text20GreenBold('Comment details'),
+            SizedBox(height: 20),
+            text20White(comment != null
+                ? utf8.decode(comment.runes.toList())
+                : getTranslated(context, 'empty')),
           ],
-        );
-      },
+        ),
+      ),
     );
   }
 
-  void _showDialog(String content, Set<int> selectedIds) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        if (selectedIds.isEmpty) {
-          return AlertDialog(
-            backgroundColor: DARK,
-            title: textWhite('Information'),
-            content: SingleChildScrollView(
-              child: ListBody(
+  void _showUpdateHoursDialog(Set<int> selectedIds) {
+    slideDialog.showSlideDialog(
+        context: context,
+        backgroundColor: DARK,
+        child: selectedIds.isNotEmpty
+            ? Column(
                 children: <Widget>[
-                  textWhite(
-                      'You need to select records which you want to update.'),
+                  text20GreenBold('HOURS'),
+                  SizedBox(height: 5),
+                  Container(
+                    width: 125,
+                    child: TextFormField(
+                      autofocus: true,
+                      controller: _hoursController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      maxLength: 2,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        counterStyle: TextStyle(color: WHITE),
+                        labelStyle: TextStyle(color: WHITE),
+                        labelText:
+                            getTranslated(context, 'newHours') + ' (0-24)',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  MaterialButton(
+                    elevation: 0,
+                    height: 50,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: textWhiteBold(getTranslated(context, 'update')),
+                    color: GREEN,
+                    onPressed: () {
+                      int hours;
+                      try {
+                        hours = int.parse(_hoursController.text);
+                      } catch (FormatException) {
+                        ToastService.showBottomToast(
+                            getTranslated(context, 'givenValueIsNotANumber'),
+                            Colors.red);
+                        return;
+                      }
+                      String invalidMessage =
+                          ValidatorService.validateUpdatingHours(
+                              hours, context);
+                      if (invalidMessage != null) {
+                        ToastService.showBottomToast(
+                            invalidMessage, Colors.red);
+                        return;
+                      }
+                      _managerService
+                          .updateWorkdaysHours(
+                              selectedIds, hours, widget._user.authHeader)
+                          .then(
+                        (res) {
+                          Navigator.of(context).pop();
+                          ToastService.showCenterToast(
+                              getTranslated(
+                                  context, 'hoursUpdatedSuccessfully'),
+                              GREEN);
+                          _refresh();
+                        },
+                      );
+                    },
+                  ),
                 ],
-              ),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: textWhite('Ok'),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ],
-          );
-        }
-        if (content == 'HOURS') {
-          final hoursController = new TextEditingController();
-          TextFormField field = TextFormField(
-            controller: hoursController,
-            autofocus: true,
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              WhitelistingTextInputFormatter.digitsOnly
-            ],
-            maxLength: 2,
-            cursorColor: WHITE,
-            style: TextStyle(color: WHITE),
-            decoration: InputDecoration(
-              counterStyle: TextStyle(color: WHITE),
-              labelStyle: TextStyle(color: WHITE),
-              labelText: getTranslated(context, 'newHours') + ' (0-24)',
-            ),
-          );
-          return AlertDialog(
-            backgroundColor: DARK,
-            title: textWhite(getTranslated(context, 'updatingHours')),
-            content: Row(
-              children: <Widget>[
-                Expanded(child: field),
-              ],
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: textWhite(getTranslated(context, 'update')),
-                onPressed: () {
-                  int hours;
-                  try {
-                    hours = int.parse(hoursController.text);
-                  } catch (FormatException) {
-                    ToastService.showBottomToast(
-                        getTranslated(context, 'givenValueIsNotANumber'),
-                        Colors.red);
-                    return;
-                  }
-                  String invalidMessage =
-                      ValidatorService.validateUpdatingHours(hours, context);
-                  if (invalidMessage != null) {
-                    ToastService.showBottomToast(invalidMessage, Colors.red);
-                    return;
-                  }
-                  _managerService
-                      .updateWorkdaysHours(
-                          selectedIds, hours, widget._user.authHeader)
-                      .then((res) {
-                    Navigator.of(context).pop();
-                    ToastService.showCenterToast(
-                        getTranslated(context, 'hoursUpdatedSuccessfully'),
-                        GREEN);
-                    _refresh();
-                  });
-                },
-              ),
-              FlatButton(
-                  child: textWhite(getTranslated(context, 'close')),
-                  onPressed: () => Navigator.of(context).pop())
-            ],
-          );
-        } else if (content == 'RATING') {
-          final ratingController = new TextEditingController();
-          TextFormField field = TextFormField(
-            controller: ratingController,
-            autofocus: true,
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              WhitelistingTextInputFormatter.digitsOnly
-            ],
-            style: TextStyle(color: WHITE),
-            cursorColor: WHITE,
-            maxLength: 2,
-            decoration: InputDecoration(
-              counterStyle: TextStyle(color: WHITE),
-              labelStyle: TextStyle(color: WHITE),
-              labelText: getTranslated(context, 'newRating') + ' (1-10)',
-            ),
-          );
-          return AlertDialog(
-            backgroundColor: DARK,
-            title: textWhiteBold(getTranslated(context, 'updatingRating')),
-            content: Row(
-              children: <Widget>[
-                Expanded(child: field),
-              ],
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: textWhite(getTranslated(context, 'update')),
-                onPressed: () {
-                  int hours;
-                  try {
-                    hours = int.parse(ratingController.text);
-                  } catch (FormatException) {
-                    ToastService.showBottomToast(
-                        getTranslated(context, 'givenValueIsNotANumber'),
-                        Colors.red);
-                    return;
-                  }
-                  String invalidMessage =
-                      ValidatorService.validateUpdatingRating(hours, context);
-                  if (invalidMessage != null) {
-                    ToastService.showBottomToast(invalidMessage, Colors.red);
-                    return;
-                  }
-                  _managerService
-                      .updateWorkdaysRating(
-                          selectedIds, hours, widget._user.authHeader)
-                      .then((res) {
-                    Navigator.of(context).pop();
-                    ToastService.showCenterToast(
-                        getTranslated(context, 'ratingUpdatedSuccessfully'),
-                        GREEN);
-                    _refresh();
-                  });
-                },
-              ),
-              FlatButton(
-                child: textWhite(getTranslated(context, 'close')),
-                onPressed: () => Navigator.of(context).pop(),
               )
-            ],
-          );
-        } else {
-          final commentController = new TextEditingController();
-          TextFormField field = TextFormField(
-            controller: commentController,
-            autofocus: true,
-            keyboardType: TextInputType.multiline,
-            maxLength: 510,
-            maxLines: 10,
-            style: TextStyle(color: WHITE),
-            cursorColor: WHITE,
-            decoration: InputDecoration(
-              counterStyle: TextStyle(color: WHITE),
-              labelStyle: TextStyle(color: WHITE),
-              labelText: getTranslated(context, 'newComment'),
-            ),
-          );
-          return AlertDialog(
-            backgroundColor: DARK,
-            title: textWhiteBold(getTranslated(context, 'updatingComment')),
-            content: Row(
-              children: <Widget>[
-                Expanded(child: field),
-              ],
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: textWhite(getTranslated(context, 'update')),
-                onPressed: () {
-                  String comment = commentController.text;
-                  String invalidMessage =
-                      ValidatorService.validateUpdatingComment(
-                          comment, context);
-                  if (invalidMessage != null) {
-                    ToastService.showBottomToast(invalidMessage, Colors.red);
-                    return;
-                  }
-                  _managerService
-                      .updateWorkdaysComment(
-                          selectedIds, comment, widget._user.authHeader)
-                      .then((res) {
-                    Navigator.of(context).pop();
-                    ToastService.showCenterToast(
-                        getTranslated(context, 'commentUpdatedSuccessfully'),
-                        GREEN);
-                    _refresh();
-                  });
-                },
-              ),
-              FlatButton(
-                child: textWhite(getTranslated(context, 'close')),
-                onPressed: () => Navigator.of(context).pop(),
+            : _buildHint());
+  }
+
+  void _showUpdateRatingDialog(Set<int> selectedIds) {
+    slideDialog.showSlideDialog(
+        context: context,
+        backgroundColor: DARK,
+        child: selectedIds.isNotEmpty
+            ? Column(
+                children: <Widget>[
+                  text20GreenBold('RATING'),
+                  SizedBox(height: 5),
+                  Container(
+                    width: 125,
+                    child: TextFormField(
+                      autofocus: true,
+                      controller: _ratingController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      maxLength: 2,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        counterStyle: TextStyle(color: WHITE),
+                        labelStyle: TextStyle(color: WHITE),
+                        labelText:
+                            getTranslated(context, 'newRating') + ' (1-10)',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  MaterialButton(
+                    elevation: 0,
+                    height: 50,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: textWhiteBold(getTranslated(context, 'update')),
+                    color: GREEN,
+                    onPressed: () {
+                      int hours;
+                      try {
+                        hours = int.parse(_ratingController.text);
+                      } catch (FormatException) {
+                        ToastService.showBottomToast(
+                            getTranslated(context, 'givenValueIsNotANumber'),
+                            Colors.red);
+                        return;
+                      }
+                      String invalidMessage =
+                          ValidatorService.validateUpdatingRating(
+                              hours, context);
+                      if (invalidMessage != null) {
+                        ToastService.showBottomToast(
+                            invalidMessage, Colors.red);
+                        return;
+                      }
+                      _managerService
+                          .updateWorkdaysRating(
+                              selectedIds, hours, widget._user.authHeader)
+                          .then((res) {
+                        Navigator.of(context).pop();
+                        ToastService.showCenterToast(
+                            getTranslated(context, 'ratingUpdatedSuccessfully'),
+                            GREEN);
+                        _refresh();
+                      });
+                    },
+                  ),
+                ],
               )
-            ],
-          );
-        }
-      },
+            : _buildHint());
+  }
+
+  void _showUpdateCommentDialog(Set<int> selectedIds) {
+    slideDialog.showSlideDialog(
+        context: context,
+        backgroundColor: DARK,
+        child: selectedIds.isNotEmpty
+            ? Column(
+                children: <Widget>[
+                  text20GreenBold('COMMENT'),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: TextFormField(
+                      autofocus: true,
+                      controller: _commentController,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: 510,
+                      maxLines: 3,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        counterStyle: TextStyle(color: WHITE),
+                        labelStyle: TextStyle(color: WHITE),
+                        labelText: getTranslated(context, 'newComment'),
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    elevation: 0,
+                    height: 50,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: textWhiteBold(getTranslated(context, 'update')),
+                    color: GREEN,
+                    onPressed: () {
+                      String comment = _commentController.text;
+                      String invalidMessage =
+                          ValidatorService.validateUpdatingComment(
+                              comment, context);
+                      if (invalidMessage != null) {
+                        ToastService.showBottomToast(
+                            invalidMessage, Colors.red);
+                        return;
+                      }
+                      _managerService
+                          .updateWorkdaysComment(
+                              selectedIds, comment, widget._user.authHeader)
+                          .then((res) {
+                        Navigator.of(context).pop();
+                        ToastService.showCenterToast(
+                            getTranslated(
+                                context, 'commentUpdatedSuccessfully'),
+                            GREEN);
+                        _refresh();
+                      });
+                    },
+                  ),
+                ],
+              )
+            : _buildHint());
+  }
+
+  Widget _buildHint() {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: <Widget>[
+          text20GreenBold('Hint'),
+          SizedBox(height: 10),
+          text20White('You need to select records '),
+          text20White('which you want to update.'),
+        ],
+      ),
     );
   }
 }
