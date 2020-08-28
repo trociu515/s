@@ -247,6 +247,38 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
             ),
           ],
         ),
+        bottomNavigationBar: Container(
+          height: 40,
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 1),
+              Expanded(
+                child: MaterialButton(
+                  color: GREEN,
+                  child: textDarkBold(getTranslated(context, 'hours')),
+                  onPressed: () => {},
+                ),
+              ),
+              SizedBox(width: 5),
+              Expanded(
+                child: MaterialButton(
+                  color: GREEN,
+                  child: textDarkBold(getTranslated(context, 'rating')),
+                  onPressed: () => {},
+                ),
+              ),
+              SizedBox(width: 5),
+              Expanded(
+                child: MaterialButton(
+                  color: GREEN,
+                  child: textDarkBold(getTranslated(context, 'comment')),
+                  onPressed: () => {},
+                ),
+              ),
+              SizedBox(width: 1),
+            ],
+          ),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: groupFloatingActionButton(context, _model),
       ),
