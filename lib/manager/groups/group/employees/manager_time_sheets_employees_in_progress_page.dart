@@ -16,6 +16,7 @@ import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
@@ -42,7 +43,8 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
   List<ManagerGroupEmployeesTimeSheetDto> _filteredEmployees = new List();
   bool _loading = false;
   bool _isChecked = false;
-  List<bool> checked = new List();
+  List<bool> _checked = new List();
+  List<int> _selectedIds = new List();
 
   @override
   void initState() {
@@ -60,7 +62,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         .then((res) {
       setState(() {
         _employees = res;
-        _employees.forEach((e) => checked.add(false));
+        _employees.forEach((e) => _checked.add(false));
         _filteredEmployees = _employees;
         _loading = false;
       });
@@ -134,8 +136,12 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                   setState(() {
                     _isChecked = value;
                     List<bool> l = new List();
-                    checked.forEach((b) => l.add(value));
-                    checked = l;
+                    _checked.forEach((b) => l.add(value));
+                    _checked = l;
+                    if (value) {
+                      _selectedIds.addAll(_employees.map((e) => e.employeeId));
+                    } else
+                      _selectedIds.clear();
                   });
                 },
                 controlAffinity: ListTileControlAffinity.leading,
@@ -230,10 +236,17 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                               ),
                               activeColor: GREEN,
                               checkColor: WHITE,
-                              value: checked[index],
+                              value: _checked[index],
                               onChanged: (bool value) {
                                 setState(() {
-                                  checked[index] = value;
+                                  _checked[index] = value;
+                                  if (value) {
+                                    _selectedIds
+                                        .add(_employees[index].employeeId);
+                                  } else {
+                                    _selectedIds
+                                        .remove(_employees[index].employeeId);
+                                  }
                                 });
                               },
                             ),
@@ -256,7 +269,12 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                 child: MaterialButton(
                   color: GREEN,
                   child: textDarkBold(getTranslated(context, 'hours')),
-                  onPressed: () => {},
+                  onPressed: () => {
+                    if (_selectedIds.isEmpty)
+                      {_buildHint()}
+                    else
+                      {print('update')}
+                  },
                 ),
               ),
               SizedBox(width: 5),
@@ -264,7 +282,12 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                 child: MaterialButton(
                   color: GREEN,
                   child: textDarkBold(getTranslated(context, 'rating')),
-                  onPressed: () => {},
+                  onPressed: () => {
+                    if (_selectedIds.isEmpty)
+                      {_buildHint()}
+                    else
+                      {print('update')}
+                  },
                 ),
               ),
               SizedBox(width: 5),
@@ -272,7 +295,12 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                 child: MaterialButton(
                   color: GREEN,
                   child: textDarkBold(getTranslated(context, 'comment')),
-                  onPressed: () => {},
+                  onPressed: () => {
+                    if (_selectedIds.isEmpty)
+                      {_buildHint()}
+                    else
+                      {print('update')}
+                  },
                 ),
               ),
               SizedBox(width: 1),
@@ -281,6 +309,24 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: groupFloatingActionButton(context, _model),
+      ),
+    );
+  }
+
+  void _buildHint() {
+    slideDialog.showSlideDialog(
+      context: context,
+      backgroundColor: DARK,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            text20GreenBold('Hint'),
+            SizedBox(height: 10),
+            text20White('You need to select records'),
+            text20White('which you want to update.'),
+          ],
+        ),
       ),
     );
   }
