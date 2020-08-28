@@ -426,7 +426,26 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                       ToastService.showBottomToast(invalidMessage, Colors.red);
                       return;
                     }
-                    // update it
+                    _managerService
+                        .updateEmployeesHours(
+                            hours,
+                            dateFrom,
+                            dateTo,
+                            _selectedIds,
+                            year,
+                            monthNum,
+                            _timeSheet.status,
+                            _model.user.authHeader)
+                        .then(
+                      (res) {
+                        _uncheckAll();
+                        _refresh();
+                        Navigator.of(context).pop();
+                        ToastService.showCenterToast(
+                            getTranslated(context, 'hoursUpdatedSuccessfully'),
+                            GREEN);
+                      },
+                    );
                   },
                 ),
               ],
@@ -435,6 +454,14 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         ),
       );
     }
+  }
+
+  void _uncheckAll() {
+    _selectedIds.clear();
+    _isChecked = false;
+    List<bool> l = new List();
+    _checked.forEach((b) => l.add(false));
+    _checked = l;
   }
 
   void _showHint() {
