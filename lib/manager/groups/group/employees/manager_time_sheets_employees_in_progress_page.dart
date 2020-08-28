@@ -308,7 +308,13 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                   color: GREEN,
                   child: textDarkBold(getTranslated(context, 'rating')),
                   onPressed: () => {
-                    if (_selectedIds.isEmpty) {} else {print('update')}
+                    if (_selectedIds.isNotEmpty)
+                      {
+                        _hoursController.clear(),
+                        _showUpdateRatingDialog(_selectedIds)
+                      }
+                    else
+                      {_showHint()}
                   },
                 ),
               ),
@@ -443,6 +449,131 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                         Navigator.of(context).pop();
                         ToastService.showCenterToast(
                             getTranslated(context, 'hoursUpdatedSuccessfully'),
+                            GREEN);
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void _showUpdateRatingDialog(List<int> selectedIds) async {
+    int year = _timeSheet.year;
+    int monthNum =
+        MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
+    int days = DateUtil().daysInMonth(monthNum, year);
+    final List<DateTime> picked = await DateRagePicker.showDatePicker(
+        context: context,
+        initialFirstDate: new DateTime(year, monthNum, 1),
+        initialLastDate: new DateTime(year, monthNum, days),
+        firstDate: new DateTime(year, monthNum, 1),
+        lastDate: new DateTime(year, monthNum, days));
+    if (picked != null && picked.length == 2) {
+      String dateFrom = DateFormat('yyyy-MM-dd').format(picked[0]);
+      String dateTo = DateFormat('yyyy-MM-dd').format(picked[1]);
+      slideDialog.showSlideDialog(
+        context: context,
+        barrierDismissible: false,
+        backgroundColor: DARK,
+        child: Column(
+          children: <Widget>[
+            text20GreenBold('RATING'),
+            SizedBox(height: 2.5),
+            textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
+            SizedBox(height: 2.5),
+            Container(
+              width: 125,
+              child: TextFormField(
+                autofocus: true,
+                controller: _ratingController,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  WhitelistingTextInputFormatter.digitsOnly
+                ],
+                maxLength: 2,
+                cursorColor: WHITE,
+                textAlignVertical: TextAlignVertical.center,
+                style: TextStyle(color: WHITE),
+                decoration: InputDecoration(
+                  counterStyle: TextStyle(color: WHITE),
+                  labelStyle: TextStyle(color: WHITE),
+                  labelText: getTranslated(context, 'newRating') + ' (1-10)',
+                ),
+              ),
+            ),
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                MaterialButton(
+                  elevation: 0,
+                  height: 40,
+                  minWidth: 40,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      text18White(getTranslated(context, 'close')),
+                      iconWhite(Icons.close)
+                    ],
+                  ),
+                  color: Colors.red,
+                  onPressed: () => Navigator.pop(context),
+                ),
+                SizedBox(width: 15),
+                MaterialButton(
+                  elevation: 0,
+                  height: 40,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      text18White(getTranslated(context, 'update')),
+                      iconWhite(Icons.check)
+                    ],
+                  ),
+                  color: GREEN,
+                  onPressed: () {
+                    int rating;
+                    try {
+                      rating = int.parse(_ratingController.text);
+                    } catch (FormatException) {
+                      ToastService.showBottomToast(
+                          getTranslated(context, 'givenValueIsNotANumber'),
+                          Colors.red);
+                      return;
+                    }
+                    String invalidMessage =
+                        ValidatorService.validateUpdatingRating(
+                            rating, context);
+                    if (invalidMessage != null) {
+                      ToastService.showBottomToast(invalidMessage, Colors.red);
+                      return;
+                    }
+                    _managerService
+                        .updateEmployeesRating(
+                            rating,
+                            dateFrom,
+                            dateTo,
+                            _selectedIds,
+                            year,
+                            monthNum,
+                            _timeSheet.status,
+                            _model.user.authHeader)
+                        .then(
+                      (res) {
+                        _uncheckAll();
+                        _refresh();
+                        Navigator.of(context).pop();
+                        ToastService.showCenterToast(
+                            getTranslated(context, 'ratingUpdatedSuccessfully'),
                             GREEN);
                       },
                     );
