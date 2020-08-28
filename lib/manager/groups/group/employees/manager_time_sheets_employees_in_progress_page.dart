@@ -18,6 +18,7 @@ import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
+import '../../../../main.dart';
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
 
@@ -95,170 +96,182 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                 ' - ' +
                 _timeSheet.status),
         drawer: managerSideBar(context, _model.user),
-        body: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(10),
-              child: TextFormField(
-                autofocus: false,
-                autocorrect: true,
-                cursorColor: WHITE,
-                style: TextStyle(color: WHITE),
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: WHITE, width: 2)),
-                    counterStyle: TextStyle(color: WHITE),
-                    border: OutlineInputBorder(),
-                    labelText: 'Search',
-                    prefixIcon: iconWhite(Icons.search),
-                    labelStyle: TextStyle(color: WHITE)),
-                onChanged: (string) {
-                  setState(
-                    () {
-                      _filteredEmployees = _employees
-                          .where((u) => (u.employeeInfo
-                              .toLowerCase()
-                              .contains(string.toLowerCase())))
-                          .toList();
-                    },
-                  );
-                },
+        body: RefreshIndicator(
+          color: DARK,
+          backgroundColor: WHITE,
+          key: refreshIndicatorState,
+          onRefresh: _refresh,
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(10),
+                child: TextFormField(
+                  autofocus: false,
+                  autocorrect: true,
+                  cursorColor: WHITE,
+                  style: TextStyle(color: WHITE),
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: WHITE, width: 2)),
+                      counterStyle: TextStyle(color: WHITE),
+                      border: OutlineInputBorder(),
+                      labelText: 'Search',
+                      prefixIcon: iconWhite(Icons.search),
+                      labelStyle: TextStyle(color: WHITE)),
+                  onChanged: (string) {
+                    setState(
+                      () {
+                        _filteredEmployees = _employees
+                            .where((u) => (u.employeeInfo
+                                .toLowerCase()
+                                .contains(string.toLowerCase())))
+                            .toList();
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
-            ListTileTheme(
-              contentPadding: EdgeInsets.only(left: 3),
-              child: CheckboxListTile(
-                title: textWhite('Select / Unselect all'),
-                value: _isChecked,
-                activeColor: GREEN,
-                checkColor: WHITE,
-                onChanged: (bool value) {
-                  setState(() {
-                    _isChecked = value;
-                    List<bool> l = new List();
-                    _checked.forEach((b) => l.add(value));
-                    _checked = l;
-                    if (value) {
-                      _selectedIds.addAll(_employees.map((e) => e.employeeId));
-                    } else
-                      _selectedIds.clear();
-                  });
-                },
-                controlAffinity: ListTileControlAffinity.leading,
+              ListTileTheme(
+                contentPadding: EdgeInsets.only(left: 3),
+                child: CheckboxListTile(
+                  title: textWhite('Select / Unselect all'),
+                  value: _isChecked,
+                  activeColor: GREEN,
+                  checkColor: WHITE,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _isChecked = value;
+                      List<bool> l = new List();
+                      _checked.forEach((b) => l.add(value));
+                      _checked = l;
+                      if (value) {
+                        _selectedIds
+                            .addAll(_employees.map((e) => e.employeeId));
+                      } else
+                        _selectedIds.clear();
+                    });
+                  },
+                  controlAffinity: ListTileControlAffinity.leading,
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _filteredEmployees.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    color: DARK,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          color: BRIGHTER_DARK,
-                          child: ListTileTheme(
-                            contentPadding: EdgeInsets.only(right: 10),
-                            child: CheckboxListTile(
-                              controlAffinity: ListTileControlAffinity.leading,
-                              secondary: Image(
-                                image: AssetImage(
-                                  'images/group-img.png', // TODO replace img
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _filteredEmployees.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      color: DARK,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            color: BRIGHTER_DARK,
+                            child: ListTileTheme(
+                              contentPadding: EdgeInsets.only(right: 10),
+                              child: CheckboxListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                secondary: Image(
+                                  image: AssetImage(
+                                    'images/group-img.png', // TODO replace img
+                                  ),
+                                  fit: BoxFit.cover,
                                 ),
-                                fit: BoxFit.cover,
+                                title: text20WhiteBold(utf8.decode(
+                                        _filteredEmployees[index]
+                                            .employeeInfo
+                                            .runes
+                                            .toList()) +
+                                    ' ' +
+                                    LanguageUtil.findFlagByNationality(
+                                        _filteredEmployees[index]
+                                            .employeeNationality)),
+                                subtitle: Column(
+                                  children: <Widget>[
+                                    Align(
+                                        child: Row(
+                                          children: <Widget>[
+                                            textWhite(getTranslated(
+                                                    this.context,
+                                                    'moneyPerHour') +
+                                                ': '),
+                                            textGreenBold(_employees[index]
+                                                    .moneyPerHour
+                                                    .toString() +
+                                                ' ' +
+                                                _employees[index].currency),
+                                          ],
+                                        ),
+                                        alignment: Alignment.topLeft),
+                                    Align(
+                                        child: Row(
+                                          children: <Widget>[
+                                            textWhite(getTranslated(
+                                                    this.context,
+                                                    'averageRating') +
+                                                ': '),
+                                            textGreenBold(_employees[index]
+                                                .averageEmployeeRating
+                                                .toString()),
+                                          ],
+                                        ),
+                                        alignment: Alignment.topLeft),
+                                    Align(
+                                        child: Row(
+                                          children: <Widget>[
+                                            textWhite(getTranslated(
+                                                    this.context,
+                                                    'numberOfHoursWorked') +
+                                                ': '),
+                                            textGreenBold(_employees[index]
+                                                .numberOfHoursWorked
+                                                .toString()),
+                                          ],
+                                        ),
+                                        alignment: Alignment.topLeft),
+                                    Align(
+                                        child: Row(
+                                          children: <Widget>[
+                                            textWhite(getTranslated(
+                                                    this.context,
+                                                    'amountOfEarnedMoney') +
+                                                ': '),
+                                            textGreenBold(_employees[index]
+                                                    .amountOfEarnedMoney
+                                                    .toString() +
+                                                ' ' +
+                                                _employees[index].currency),
+                                          ],
+                                        ),
+                                        alignment: Alignment.topLeft),
+                                  ],
+                                ),
+                                activeColor: GREEN,
+                                checkColor: WHITE,
+                                value: _checked[index],
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    _checked[index] = value;
+                                    if (value) {
+                                      _selectedIds
+                                          .add(_employees[index].employeeId);
+                                    } else {
+                                      _selectedIds
+                                          .remove(_employees[index].employeeId);
+                                    }
+                                  });
+                                },
                               ),
-                              title: text20WhiteBold(utf8.decode(
-                                      _filteredEmployees[index]
-                                          .employeeInfo
-                                          .runes
-                                          .toList()) +
-                                  ' ' +
-                                  LanguageUtil.findFlagByNationality(
-                                      _filteredEmployees[index]
-                                          .employeeNationality)),
-                              subtitle: Column(
-                                children: <Widget>[
-                                  Align(
-                                      child: Row(
-                                        children: <Widget>[
-                                          textWhite(getTranslated(this.context,
-                                                  'moneyPerHour') +
-                                              ': '),
-                                          textGreenBold(_employees[index]
-                                                  .moneyPerHour
-                                                  .toString() +
-                                              ' ' +
-                                              _employees[index].currency),
-                                        ],
-                                      ),
-                                      alignment: Alignment.topLeft),
-                                  Align(
-                                      child: Row(
-                                        children: <Widget>[
-                                          textWhite(getTranslated(this.context,
-                                                  'averageRating') +
-                                              ': '),
-                                          textGreenBold(_employees[index]
-                                              .averageEmployeeRating
-                                              .toString()),
-                                        ],
-                                      ),
-                                      alignment: Alignment.topLeft),
-                                  Align(
-                                      child: Row(
-                                        children: <Widget>[
-                                          textWhite(getTranslated(this.context,
-                                                  'numberOfHoursWorked') +
-                                              ': '),
-                                          textGreenBold(_employees[index]
-                                              .numberOfHoursWorked
-                                              .toString()),
-                                        ],
-                                      ),
-                                      alignment: Alignment.topLeft),
-                                  Align(
-                                      child: Row(
-                                        children: <Widget>[
-                                          textWhite(getTranslated(this.context,
-                                                  'amountOfEarnedMoney') +
-                                              ': '),
-                                          textGreenBold(_employees[index]
-                                                  .amountOfEarnedMoney
-                                                  .toString() +
-                                              ' ' +
-                                              _employees[index].currency),
-                                        ],
-                                      ),
-                                      alignment: Alignment.topLeft),
-                                ],
-                              ),
-                              activeColor: GREEN,
-                              checkColor: WHITE,
-                              value: _checked[index],
-                              onChanged: (bool value) {
-                                setState(() {
-                                  _checked[index] = value;
-                                  if (value) {
-                                    _selectedIds
-                                        .add(_employees[index].employeeId);
-                                  } else {
-                                    _selectedIds
-                                        .remove(_employees[index].employeeId);
-                                  }
-                                });
-                              },
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                },
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         bottomNavigationBar: Container(
           height: 40,
@@ -329,5 +342,26 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         ),
       ),
     );
+  }
+
+  Future<Null> _refresh() {
+    return _managerService
+        .findAllEmployeesOfTimeSheetByGroupIdAndTimeSheetYearMonthStatusForMobile(
+            _model.groupId,
+            _timeSheet.year,
+            MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month),
+            _timeSheet.status,
+            _model.user.authHeader)
+        .then((res) {
+      setState(() {
+        _employees = res;
+        _employees.forEach((e) => _checked.add(false));
+        _filteredEmployees = _employees;
+        _loading = false;
+      });
+    }).catchError((e) {
+      ToastService.showBottomToast('Something went wrong', Colors.red);
+      Navigator.pop(context);
+    });
   }
 }
