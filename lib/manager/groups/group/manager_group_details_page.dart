@@ -14,6 +14,7 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../../manager_app_bar.dart';
 import '../manager_groups_page.dart';
 import 'employee/manager_employee_page.dart';
+import 'employees/manager_time_sheets_page.dart';
 
 class ManagerGroupDetailsPage extends StatefulWidget {
   final GroupEmployeeModel _model;
@@ -127,7 +128,15 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                         child: Material(
                           color: BRIGHTER_DARK,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(
+                                CupertinoPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return ManagerTimeSheetsPage(_model);
+                                  },
+                                ),
+                              );
+                            },
                             child: Column(
                               children: <Widget>[
                                 icon50Green(Icons.people_outline),

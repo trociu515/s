@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:give_job/manager/groups/group/employee/manager_employee_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
+import 'package:give_job/manager/groups/group/employees/manager_time_sheets_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 
 import '../manager_group_details_page.dart';
@@ -42,7 +43,11 @@ Widget groupFloatingActionButton(
         child: Icon(Icons.people_outline),
         label: 'All employees',
         onTap: () {
-          // TODO to be implemented
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ManagerTimeSheetsPage(model)),
+          );
         },
       ),
       SpeedDialChild(
