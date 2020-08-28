@@ -232,4 +232,35 @@ class ManagerService {
         ? res
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
+
+  Future<dynamic> updateEmployeesComment(
+      String comment,
+      String dateFrom,
+      String dateTo,
+      List<int> employeesId,
+      int timeSheetYear,
+      int timeSheetMonth,
+      String timeSheetStatus,
+      String authHeader) async {
+    Map<String, dynamic> map = {
+      'comment': comment,
+      'dateFrom': dateFrom,
+      'dateTo': dateTo,
+      'employeesId': employeesId,
+      'timeSheetYear': timeSheetYear,
+      'timeSheetMonth': timeSheetMonth,
+      'timeSheetStatus': timeSheetStatus,
+    };
+    Response res = await put(
+      _baseWorkdayUrl + '/group/comment',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
 }
