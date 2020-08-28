@@ -124,7 +124,7 @@ class _ManagerTimeSheetsPageState extends State<ManagerTimeSheetsPage> {
                   ),
                 ),
               Padding(
-                padding: EdgeInsets.only(left: 20, top: 25, bottom: 5),
+                padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: text20GreenBold('Accepted timesheets'),
