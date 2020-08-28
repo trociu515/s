@@ -17,6 +17,7 @@ import 'package:give_job/shared/widget/texts.dart';
 
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
+import 'manager_time_sheets_employees_accepted_page.dart';
 
 class ManagerTimeSheetsPage extends StatefulWidget {
   final GroupEmployeeModel _model;
@@ -135,7 +136,14 @@ class _ManagerTimeSheetsPageState extends State<ManagerTimeSheetsPage> {
                   color: BRIGHTER_DARK,
                   child: InkWell(
                     onTap: () {
-                      print('object');
+                      Navigator.of(context).push(
+                        CupertinoPageRoute<Null>(
+                          builder: (BuildContext context) {
+                            return ManagerTimeSheetsEmployeesAcceptedPage(
+                                _model, acceptedTs);
+                          },
+                        ),
+                      );
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
