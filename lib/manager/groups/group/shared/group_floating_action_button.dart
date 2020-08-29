@@ -5,6 +5,7 @@ import 'package:give_job/manager/groups/group/employee/manager_employee_page.dar
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/timesheets/completed/manager_completed_ts_page.dart';
 import 'package:give_job/manager/groups/group/timesheets/in_progress/manager_in_progress_ts_page.dart';
+import 'package:give_job/manager/groups/manager_groups_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 
 import '../manager_group_details_page.dart';
@@ -31,6 +32,17 @@ Widget groupFloatingActionButton(
         },
       ),
       SpeedDialChild(
+        child: Icon(Icons.group),
+        label: 'Groups',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ManagerGroupsPage(model.user)),
+          );
+        },
+      ),
+      SpeedDialChild(
         child: Icon(Icons.person_outline),
         label: 'Employees',
         onTap: () {
@@ -38,13 +50,6 @@ Widget groupFloatingActionButton(
             context,
             MaterialPageRoute(builder: (context) => ManagerEmployeePage(model)),
           );
-        },
-      ),
-      SpeedDialChild(
-        child: Icon(Icons.equalizer),
-        label: 'Plan',
-        onTap: () {
-          // TODO to be implemented
         },
       ),
       SpeedDialChild(
