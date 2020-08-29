@@ -604,6 +604,9 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         initialLastDate: new DateTime(year, monthNum, days),
         firstDate: new DateTime(year, monthNum, 1),
         lastDate: new DateTime(year, monthNum, days));
+    if (picked.length == 1) {
+      picked.add(picked[0]);
+    }
     if (picked != null && picked.length == 2) {
       String dateFrom = DateFormat('yyyy-MM-dd').format(picked[0]);
       String dateTo = DateFormat('yyyy-MM-dd').format(picked[1]);
