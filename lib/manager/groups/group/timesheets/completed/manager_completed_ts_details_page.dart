@@ -17,8 +17,8 @@ import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-import '../../../manager_app_bar.dart';
-import '../../../manager_side_bar.dart';
+import '../../../../manager_app_bar.dart';
+import '../../../../manager_side_bar.dart';
 
 class ManagerTimeSheetsEmployeesAcceptedPage extends StatefulWidget {
   final GroupEmployeeModel _model;
@@ -53,7 +53,7 @@ class _ManagerTimeSheetsEmployeesAcceptedPageState
             _model.groupId,
             _timeSheet.year,
             MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month),
-            _timeSheet.status,
+            STATUS_ACCEPTED,
             _model.user.authHeader)
         .then((res) {
       setState(() {
@@ -90,7 +90,7 @@ class _ManagerTimeSheetsEmployeesAcceptedPageState
                 ' ' +
                 MonthUtil.translateMonth(context, _timeSheet.month) +
                 ' - ' +
-                _timeSheet.status),
+                STATUS_ACCEPTED),
         drawer: managerSideBar(context, _model.user),
         body: Column(
           children: <Widget>[

@@ -70,10 +70,11 @@ class ManagerService {
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 
-  Future<List<ManagerGroupTimeSheetDto>> findTimeSheetsByGroupId(
-      String groupId, String authHeader) async {
+  Future<List<ManagerGroupTimeSheetDto>>
+      findTimeSheetsByGroupIdAndTimeSheetStatus(
+          String groupId, String status, String authHeader) async {
     Response res = await get(
-      _baseTimeSheetUrl + '/groups/${int.parse(groupId)}',
+      _baseTimeSheetUrl + '/groups/${int.parse(groupId)}/$status',
       headers: {HttpHeaders.authorizationHeader: authHeader},
     );
     return res.statusCode == 200

@@ -23,9 +23,9 @@ import 'package:give_job/shared/widget/texts.dart';
 import 'package:intl/intl.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
-import '../../../../main.dart';
-import '../../../manager_app_bar.dart';
-import '../../../manager_side_bar.dart';
+import '../../../../../main.dart';
+import '../../../../manager_app_bar.dart';
+import '../../../../manager_side_bar.dart';
 
 class ManagerTimeSheetsEmployeesInProgressPage extends StatefulWidget {
   final GroupEmployeeModel _model;
@@ -67,7 +67,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
             _model.groupId,
             _timeSheet.year,
             MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month),
-            _timeSheet.status,
+            STATUS_IN_PROGRESS,
             _model.user.authHeader)
         .then((res) {
       setState(() {
@@ -103,7 +103,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                 ' ' +
                 MonthUtil.translateMonth(context, _timeSheet.month) +
                 ' - ' +
-                _timeSheet.status),
+                STATUS_IN_PROGRESS),
         drawer: managerSideBar(context, _model.user),
         body: RefreshIndicator(
           color: DARK,
@@ -446,7 +446,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                             _selectedIds,
                             year,
                             monthNum,
-                            _timeSheet.status,
+                            STATUS_IN_PROGRESS,
                             _model.user.authHeader)
                         .then(
                       (res) {
@@ -571,7 +571,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                             _selectedIds,
                             year,
                             monthNum,
-                            _timeSheet.status,
+                            STATUS_IN_PROGRESS,
                             _model.user.authHeader)
                         .then(
                       (res) {
@@ -688,7 +688,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                             _selectedIds,
                             year,
                             monthNum,
-                            _timeSheet.status,
+                            STATUS_IN_PROGRESS,
                             _model.user.authHeader)
                         .then(
                       (res) {
@@ -743,7 +743,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
             _model.groupId,
             _timeSheet.year,
             MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month),
-            _timeSheet.status,
+            STATUS_IN_PROGRESS,
             _model.user.authHeader)
         .then((res) {
       setState(() {

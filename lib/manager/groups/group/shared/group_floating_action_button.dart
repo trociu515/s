@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:give_job/manager/groups/group/employee/manager_employee_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
-import 'package:give_job/manager/groups/group/timesheets/manager_time_sheets_page.dart';
+import 'package:give_job/manager/groups/group/timesheets/completed/manager_completed_ts_page.dart';
+import 'package:give_job/manager/groups/group/timesheets/in_progress/manager_in_progress_ts_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 
 import '../manager_group_details_page.dart';
@@ -31,7 +32,7 @@ Widget groupFloatingActionButton(
       ),
       SpeedDialChild(
         child: Icon(Icons.person_outline),
-        label: 'Employee',
+        label: 'Employees',
         onTap: () {
           Navigator.push(
             context,
@@ -40,28 +41,32 @@ Widget groupFloatingActionButton(
         },
       ),
       SpeedDialChild(
-        child: Icon(Icons.event),
-        label: 'Timesheets',
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ManagerTimeSheetsPage(model)),
-          );
-        },
-      ),
-      SpeedDialChild(
-        child: Icon(Icons.event_note),
+        child: Icon(Icons.equalizer),
         label: 'Plan',
         onTap: () {
           // TODO to be implemented
         },
       ),
       SpeedDialChild(
-        child: Icon(Icons.equalizer),
-        label: 'Plan for all',
+        child: Icon(Icons.event_available),
+        label: 'Completed timesheets',
         onTap: () {
-          // TODO to be implemented
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ManagerCompletedTimeSheetsPage(model)),
+          );
+        },
+      ),
+      SpeedDialChild(
+        child: Icon(Icons.event_note),
+        label: 'In progress timesheets',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ManagerInProgressTimeSheetsPage(model)),
+          );
         },
       ),
       SpeedDialChild(

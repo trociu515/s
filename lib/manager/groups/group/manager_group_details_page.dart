@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/groups/group/timesheets/completed/manager_completed_ts_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
-import 'package:give_job/manager/groups/group/timesheets/manager_time_sheets_page.dart';
+import 'package:give_job/manager/groups/group/timesheets/in_progress/manager_in_progress_ts_page.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -115,54 +116,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 icon50Green(Icons.person_outline),
-                                text20WhiteBold('Employee'),
+                                text18WhiteBold('Employees'),
                                 textWhite('Manage selected employee'),
-                                SizedBox(height: 10)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Material(
-                          color: BRIGHTER_DARK,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                CupertinoPageRoute<Null>(
-                                  builder: (BuildContext context) {
-                                    return ManagerTimeSheetsPage(_model);
-                                  },
-                                ),
-                              );
-                            },
-                            child: Column(
-                              children: <Widget>[
-                                icon50Green(Icons.event),
-                                text20WhiteBold('Timesheets'),
-                                textWhite('Fill hours, rating etc.'),
-                                SizedBox(height: 10)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Material(
-                          color: BRIGHTER_DARK,
-                          child: InkWell(
-                            onTap: () {},
-                            child: Column(
-                              children: <Widget>[
-                                icon50Green(Icons.event_note),
-                                text20WhiteBold('Plan'),
-                                textWhite('Plan day for one employee'),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -178,8 +133,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 icon50Green(Icons.equalizer),
-                                text20WhiteBold('Plan for all'),
-                                textWhite('Plan day for employees'),
+                                text18WhiteBold('Plan'),
+                                text13White('Plan group schedule'),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -188,7 +143,63 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          color: BRIGHTER_DARK,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                CupertinoPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return ManagerCompletedTimeSheetsPage(
+                                        _model);
+                                  },
+                                ),
+                              );
+                            },
+                            child: Column(
+                              children: <Widget>[
+                                icon50Green(Icons.event_available),
+                                text18WhiteBold('Completed timesheets'),
+                                text13White('Look at accepted timesheets'),
+                                SizedBox(height: 10)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Material(
+                          color: BRIGHTER_DARK,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                CupertinoPageRoute<Null>(
+                                  builder: (BuildContext context) {
+                                    return ManagerInProgressTimeSheetsPage(
+                                        _model);
+                                  },
+                                ),
+                              );
+                            },
+                            child: Column(
+                              children: <Widget>[
+                                icon50Green(Icons.event_note),
+                                text18WhiteBold('In progress timesheets'),
+                                text13White('Fill group hours, ratings etc.'),
+                                SizedBox(height: 10)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -199,8 +210,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 icon50Green(Icons.chat),
-                                text20WhiteBold('Chat'),
-                                textWhite('Chat with your group'),
+                                text18WhiteBold('Chat'),
+                                text13White('Chat with your group'),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -216,8 +227,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 icon50Green(Icons.error_outline),
-                                text20WhiteBold('Message'),
-                                textWhite('Send message to all group'),
+                                text18WhiteBold('Message'),
+                                text13White('Send message to all group'),
                                 SizedBox(height: 10)
                               ],
                             ),
