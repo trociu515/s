@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
+import 'package:give_job/manager/groups/group/timesheets/manager_time_sheets_page.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -14,7 +15,6 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../../manager_app_bar.dart';
 import '../manager_groups_page.dart';
 import 'employee/manager_employee_page.dart';
-import 'employees/manager_time_sheets_page.dart';
 
 class ManagerGroupDetailsPage extends StatefulWidget {
   final GroupEmployeeModel _model;
@@ -116,7 +116,7 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                               children: <Widget>[
                                 icon50Green(Icons.person_outline),
                                 text20WhiteBold('Employee'),
-                                textWhite('Fill hours, rating etc.'),
+                                textWhite('Manage selected employee'),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -139,8 +139,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             },
                             child: Column(
                               children: <Widget>[
-                                icon50Green(Icons.people_outline),
-                                text20WhiteBold('All employees'),
+                                icon50Green(Icons.event),
+                                text20WhiteBold('Timesheets'),
                                 textWhite('Fill hours, rating etc.'),
                                 SizedBox(height: 10)
                               ],

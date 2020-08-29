@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
-import 'package:give_job/manager/groups/group/employees/manager_time_sheets_employees_in_progress_page.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -18,6 +17,7 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
 import 'manager_time_sheets_employees_accepted_page.dart';
+import 'manager_time_sheets_employees_in_progress_page.dart';
 
 class ManagerTimeSheetsPage extends StatefulWidget {
   final GroupEmployeeModel _model;
