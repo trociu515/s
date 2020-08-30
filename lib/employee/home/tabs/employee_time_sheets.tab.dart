@@ -27,10 +27,10 @@ Container employeeTimeSheetsTab(BuildContext context, List timeSheets) {
                   children: <Widget>[
                     ListTile(
                       leading: Icon(
-                        timeSheet.status == 'Accepted'
+                        timeSheet.status == 'Completed'
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
-                        color: timeSheet.status == 'Accepted'
+                        color: timeSheet.status == 'Completed'
                             ? GREEN
                             : Colors.orange,
                       ),

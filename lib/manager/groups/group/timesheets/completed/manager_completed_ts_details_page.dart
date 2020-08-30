@@ -20,19 +20,19 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../../../../manager_app_bar.dart';
 import '../../../../manager_side_bar.dart';
 
-class ManagerTimeSheetsEmployeesAcceptedPage extends StatefulWidget {
+class ManagerTimeSheetsEmployeesCompletedPage extends StatefulWidget {
   final GroupEmployeeModel _model;
   final ManagerGroupTimeSheetDto _timeSheet;
 
-  ManagerTimeSheetsEmployeesAcceptedPage(this._model, this._timeSheet);
+  ManagerTimeSheetsEmployeesCompletedPage(this._model, this._timeSheet);
 
   @override
-  _ManagerTimeSheetsEmployeesAcceptedPageState createState() =>
-      _ManagerTimeSheetsEmployeesAcceptedPageState();
+  _ManagerTimeSheetsEmployeesCompletedPageState createState() =>
+      _ManagerTimeSheetsEmployeesCompletedPageState();
 }
 
-class _ManagerTimeSheetsEmployeesAcceptedPageState
-    extends State<ManagerTimeSheetsEmployeesAcceptedPage> {
+class _ManagerTimeSheetsEmployeesCompletedPageState
+    extends State<ManagerTimeSheetsEmployeesCompletedPage> {
   final ManagerService _managerService = new ManagerService();
 
   GroupEmployeeModel _model;
@@ -53,7 +53,7 @@ class _ManagerTimeSheetsEmployeesAcceptedPageState
             _model.groupId,
             _timeSheet.year,
             MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month),
-            STATUS_ACCEPTED,
+            STATUS_COMPLETED,
             _model.user.authHeader)
         .then((res) {
       setState(() {
@@ -90,7 +90,7 @@ class _ManagerTimeSheetsEmployeesAcceptedPageState
                 ' ' +
                 MonthUtil.translateMonth(context, _timeSheet.month) +
                 ' - ' +
-                STATUS_ACCEPTED),
+                STATUS_COMPLETED),
         drawer: managerSideBar(context, _model.user),
         body: Column(
           children: <Widget>[

@@ -11,7 +11,7 @@ const String ROLE_EMPLOYEE = 'ROLE_EMPLOYEE';
 const String ROLE_MANAGER = 'ROLE_MANAGER';
 
 const String STATUS_IN_PROGRESS = 'In progress';
-const String STATUS_ACCEPTED = 'Accepted';
+const String STATUS_COMPLETED = 'Completed';
 
 const String JANUARY = "January";
 const String FEBRUARY = "February";

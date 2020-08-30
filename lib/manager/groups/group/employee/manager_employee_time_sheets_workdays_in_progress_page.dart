@@ -133,10 +133,10 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                             padding: EdgeInsets.only(top: 15, bottom: 5),
                             child: ListTile(
                               leading: Icon(
-                                _timeSheet.status == 'Accepted'
+                                _timeSheet.status == 'Completed'
                                     ? Icons.check_circle_outline
                                     : Icons.radio_button_unchecked,
-                                color: _timeSheet.status == 'Accepted'
+                                color: _timeSheet.status == 'Completed'
                                     ? GREEN
                                     : Colors.orange,
                               ),
@@ -373,10 +373,10 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                       padding: EdgeInsets.only(top: 15, bottom: 5),
                       child: ListTile(
                         leading: Icon(
-                          _timeSheet.status == 'Accepted'
+                          _timeSheet.status == 'Completed'
                               ? Icons.check_circle_outline
                               : Icons.radio_button_unchecked,
-                          color: _timeSheet.status == 'Accepted'
+                          color: _timeSheet.status == 'Completed'
                               ? GREEN
                               : Colors.orange,
                         ),

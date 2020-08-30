@@ -44,7 +44,7 @@ class _ManagerCompletedTimeSheetsPageState
     _loading = true;
     _managerService
         .findTimeSheetsByGroupIdAndTimeSheetStatus(
-            _model.groupId.toString(), STATUS_ACCEPTED, _model.user.authHeader)
+            _model.groupId.toString(), STATUS_COMPLETED, _model.user.authHeader)
         .then((res) {
       setState(() {
         _timesheets = res;
@@ -98,7 +98,7 @@ class _ManagerCompletedTimeSheetsPageState
                       Navigator.of(context).push(
                         CupertinoPageRoute<Null>(
                           builder: (BuildContext context) {
-                            return ManagerTimeSheetsEmployeesAcceptedPage(
+                            return ManagerTimeSheetsEmployeesCompletedPage(
                                 _model, ts);
                           },
                         ),

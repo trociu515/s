@@ -18,7 +18,7 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../../../../shared/libraries/constants.dart';
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
-import 'manager_employee_time_sheets_workdays_accepted_page.dart';
+import 'manager_employee_time_sheets_workdays_completed_page.dart';
 import 'manager_employee_time_sheets_workdays_in_progress_page.dart';
 
 class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
@@ -118,11 +118,11 @@ class _ManagerEmployeeTimeSheetsPageState
                         color: BRIGHTER_DARK,
                         child: InkWell(
                           onTap: () {
-                            if (timeSheet.status == 'Accepted') {
+                            if (timeSheet.status == 'Completed') {
                               Navigator.of(context).push(
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
-                                    return ManagerEmployeeTimeSheetsWorkdaysAcceptedPage(
+                                    return ManagerEmployeeTimeSheetsWorkdaysCompletedPage(
                                         _model,
                                         _employeeInfo,
                                         _employeeNationality,
@@ -151,10 +151,10 @@ class _ManagerEmployeeTimeSheetsPageState
                             children: <Widget>[
                               ListTile(
                                 leading: Icon(
-                                  timeSheet.status == 'Accepted'
+                                  timeSheet.status == 'Completed'
                                       ? Icons.check_circle_outline
                                       : Icons.radio_button_unchecked,
-                                  color: timeSheet.status == 'Accepted'
+                                  color: timeSheet.status == 'Completed'
                                       ? GREEN
                                       : Colors.orange,
                                 ),

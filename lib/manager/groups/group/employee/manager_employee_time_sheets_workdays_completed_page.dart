@@ -21,14 +21,14 @@ import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
 import 'model/group_employee_model.dart';
 
-class ManagerEmployeeTimeSheetsWorkdaysAcceptedPage extends StatefulWidget {
+class ManagerEmployeeTimeSheetsWorkdaysCompletedPage extends StatefulWidget {
   final GroupEmployeeModel _model;
   final String _employeeInfo;
   final String _employeeNationality;
   final String _currency;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerEmployeeTimeSheetsWorkdaysAcceptedPage(
+  const ManagerEmployeeTimeSheetsWorkdaysCompletedPage(
       this._model,
       this._employeeInfo,
       this._employeeNationality,
@@ -36,12 +36,12 @@ class ManagerEmployeeTimeSheetsWorkdaysAcceptedPage extends StatefulWidget {
       this.timeSheet);
 
   @override
-  _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState createState() =>
-      _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState();
+  _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState createState() =>
+      _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState();
 }
 
-class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
-    extends State<ManagerEmployeeTimeSheetsWorkdaysAcceptedPage> {
+class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
+    extends State<ManagerEmployeeTimeSheetsWorkdaysCompletedPage> {
   final ManagerService _managerService = new ManagerService();
 
   GroupEmployeeModel _model;
@@ -110,10 +110,10 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
                         padding: EdgeInsets.only(top: 15, bottom: 5),
                         child: ListTile(
                           leading: Icon(
-                            timeSheet.status == 'Accepted'
+                            timeSheet.status == 'Completed'
                                 ? Icons.check_circle_outline
                                 : Icons.radio_button_unchecked,
-                            color: timeSheet.status == 'Accepted'
+                            color: timeSheet.status == 'Completed'
                                 ? GREEN
                                 : Colors.orange,
                           ),
