@@ -201,90 +201,97 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                             scrollDirection: Axis.horizontal,
                             child: Theme(
                               data: Theme.of(context).copyWith(),
-                              child: DataTable(
-                                sortAscending: _sort,
-                                sortColumnIndex: _sortColumnIndex,
-                                columns: [
-                                  DataColumn(
-                                    label: textWhiteBold('No.'),
-                                    onSort: (columnIndex, ascending) =>
-                                        _onSortNo(columnIndex, ascending),
-                                  ),
-                                  DataColumn(
-                                    label: textWhiteBold(
-                                        getTranslated(context, 'hours')),
-                                    onSort: (columnIndex, ascending) =>
-                                        _onSortHours(columnIndex, ascending),
-                                  ),
-                                  DataColumn(
-                                    label: textWhiteBold(
-                                        getTranslated(context, 'rating')),
-                                    onSort: (columnIndex, ascending) =>
-                                        _onSortRatings(columnIndex, ascending),
-                                  ),
-                                  DataColumn(
-                                    label: textWhiteBold(
-                                        getTranslated(context, 'money')),
-                                    onSort: (columnIndex, ascending) =>
-                                        _onSortMoney(columnIndex, ascending),
-                                  ),
-                                  DataColumn(
-                                    label: textWhiteBold('Opinion'),
-                                    onSort: (columnIndex, ascending) =>
-                                        _onSortOpinions(columnIndex, ascending),
-                                  ),
-                                ],
-                                rows: this
-                                    .workdays
-                                    .map(
-                                      (workday) => DataRow(
-                                        selected:
-                                            selectedIds.contains(workday.id),
-                                        onSelectChanged: (bool selected) {
-                                          onSelectedRow(selected, workday.id);
-                                        },
-                                        cells: [
-                                          DataCell(textWhite(
-                                              workday.number.toString())),
-                                          DataCell(textWhite(
-                                              workday.hours.toString())),
-                                          DataCell(textWhite(
-                                              workday.rating.toString())),
-                                          DataCell(textWhite(
-                                              workday.money.toString())),
-                                          DataCell(
-                                            Wrap(
-                                              children: <Widget>[
-                                                textWhite(workday.opinion !=
-                                                        null
-                                                    ? workday.opinion.length >
-                                                            10
-                                                        ? utf8
-                                                                .decode(workday
-                                                                    .opinion
-                                                                    .runes
-                                                                    .toList())
-                                                                .substring(
-                                                                    0, 10) +
-                                                            '...'
-                                                        : utf8.decode(workday
-                                                            .opinion.runes
-                                                            .toList())
-                                                    : getTranslated(
-                                                        context, 'empty')),
-                                                workday.opinion != null &&
-                                                        workday.opinion != ''
-                                                    ? iconWhite(Icons.zoom_in)
-                                                    : Text('')
-                                              ],
+                              child: Theme(
+                                data: Theme.of(context)
+                                    .copyWith(dividerColor: MORE_BRIGHTER_DARK),
+                                child: DataTable(
+                                  columnSpacing: 0,
+                                  sortAscending: _sort,
+                                  sortColumnIndex: _sortColumnIndex,
+                                  columns: [
+                                    DataColumn(
+                                      label: textWhiteBold('No.'),
+                                      onSort: (columnIndex, ascending) =>
+                                          _onSortNo(columnIndex, ascending),
+                                    ),
+                                    DataColumn(
+                                      label: textWhiteBold(
+                                          getTranslated(context, 'hours')),
+                                      onSort: (columnIndex, ascending) =>
+                                          _onSortHours(columnIndex, ascending),
+                                    ),
+                                    DataColumn(
+                                      label: textWhiteBold(
+                                          getTranslated(context, 'rating')),
+                                      onSort: (columnIndex, ascending) =>
+                                          _onSortRatings(
+                                              columnIndex, ascending),
+                                    ),
+                                    DataColumn(
+                                      label: textWhiteBold(
+                                          getTranslated(context, 'money')),
+                                      onSort: (columnIndex, ascending) =>
+                                          _onSortMoney(columnIndex, ascending),
+                                    ),
+                                    DataColumn(
+                                      label: textWhiteBold('Opinion'),
+                                      onSort: (columnIndex, ascending) =>
+                                          _onSortOpinions(
+                                              columnIndex, ascending),
+                                    ),
+                                  ],
+                                  rows: this
+                                      .workdays
+                                      .map(
+                                        (workday) => DataRow(
+                                          selected:
+                                              selectedIds.contains(workday.id),
+                                          onSelectChanged: (bool selected) {
+                                            onSelectedRow(selected, workday.id);
+                                          },
+                                          cells: [
+                                            DataCell(textWhite(
+                                                workday.number.toString())),
+                                            DataCell(textWhite(
+                                                workday.hours.toString())),
+                                            DataCell(textWhite(
+                                                workday.rating.toString())),
+                                            DataCell(textWhite(
+                                                workday.money.toString())),
+                                            DataCell(
+                                              Wrap(
+                                                children: <Widget>[
+                                                  textWhite(workday.opinion !=
+                                                          null
+                                                      ? workday.opinion.length >
+                                                              10
+                                                          ? utf8
+                                                                  .decode(workday
+                                                                      .opinion
+                                                                      .runes
+                                                                      .toList())
+                                                                  .substring(
+                                                                      0, 10) +
+                                                              '...'
+                                                          : utf8.decode(workday
+                                                              .opinion.runes
+                                                              .toList())
+                                                      : getTranslated(
+                                                          context, 'empty')),
+                                                  workday.opinion != null &&
+                                                          workday.opinion != ''
+                                                      ? iconWhite(Icons.zoom_in)
+                                                      : Text('')
+                                                ],
+                                              ),
+                                              onTap: () => _showOpinionDetails(
+                                                  workday.opinion),
                                             ),
-                                            onTap: () => _showOpinionDetails(
-                                                workday.opinion),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
+                                          ],
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
                               ),
                             ),
                           ),
@@ -438,85 +445,90 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                       scrollDirection: Axis.horizontal,
                       child: Theme(
                         data: Theme.of(context).copyWith(),
-                        child: DataTable(
-                          sortAscending: _sort,
-                          sortColumnIndex: _sortColumnIndex,
-                          columns: [
-                            DataColumn(
-                              label: textWhiteBold('No.'),
-                              onSort: (columnIndex, ascending) =>
-                                  _onSortNo(columnIndex, ascending),
-                            ),
-                            DataColumn(
-                              label: textWhiteBold(
-                                  getTranslated(context, 'hours')),
-                              onSort: (columnIndex, ascending) =>
-                                  _onSortHours(columnIndex, ascending),
-                            ),
-                            DataColumn(
-                              label: textWhiteBold(
-                                  getTranslated(context, 'rating')),
-                              onSort: (columnIndex, ascending) =>
-                                  _onSortRatings(columnIndex, ascending),
-                            ),
-                            DataColumn(
-                              label: textWhiteBold(
-                                  getTranslated(context, 'money')),
-                              onSort: (columnIndex, ascending) =>
-                                  _onSortMoney(columnIndex, ascending),
-                            ),
-                            DataColumn(
-                              label: textWhiteBold('Opinion'),
-                              onSort: (columnIndex, ascending) =>
-                                  _onSortOpinions(columnIndex, ascending),
-                            ),
-                          ],
-                          rows: this
-                              .workdays
-                              .map(
-                                (workday) => DataRow(
-                                  selected: selectedIds.contains(workday.id),
-                                  onSelectChanged: (bool selected) {
-                                    onSelectedRow(selected, workday.id);
-                                  },
-                                  cells: [
-                                    DataCell(
-                                        textWhite(workday.number.toString())),
-                                    DataCell(
-                                        textWhite(workday.hours.toString())),
-                                    DataCell(
-                                        textWhite(workday.rating.toString())),
-                                    DataCell(
-                                        textWhite(workday.money.toString())),
-                                    DataCell(
-                                      Wrap(
-                                        children: <Widget>[
-                                          textWhite(workday.opinion != null
-                                              ? workday.opinion.length > 10
-                                                  ? utf8
-                                                          .decode(workday
-                                                              .opinion.runes
-                                                              .toList())
-                                                          .substring(0, 10) +
-                                                      '...'
-                                                  : utf8.decode(workday
-                                                      .opinion.runes
-                                                      .toList())
-                                              : getTranslated(
-                                                  context, 'empty')),
-                                          workday.opinion != null &&
-                                                  workday.opinion != ''
-                                              ? iconWhite(Icons.zoom_in)
-                                              : Text('')
-                                        ],
+                        child: Theme(
+                          data: Theme.of(context)
+                              .copyWith(dividerColor: MORE_BRIGHTER_DARK),
+                          child: DataTable(
+                            columnSpacing: 0,
+                            sortAscending: _sort,
+                            sortColumnIndex: _sortColumnIndex,
+                            columns: [
+                              DataColumn(
+                                label: textWhiteBold('No.'),
+                                onSort: (columnIndex, ascending) =>
+                                    _onSortNo(columnIndex, ascending),
+                              ),
+                              DataColumn(
+                                label: textWhiteBold(
+                                    getTranslated(context, 'hours')),
+                                onSort: (columnIndex, ascending) =>
+                                    _onSortHours(columnIndex, ascending),
+                              ),
+                              DataColumn(
+                                label: textWhiteBold(
+                                    getTranslated(context, 'rating')),
+                                onSort: (columnIndex, ascending) =>
+                                    _onSortRatings(columnIndex, ascending),
+                              ),
+                              DataColumn(
+                                label: textWhiteBold(
+                                    getTranslated(context, 'money')),
+                                onSort: (columnIndex, ascending) =>
+                                    _onSortMoney(columnIndex, ascending),
+                              ),
+                              DataColumn(
+                                label: textWhiteBold('Opinion'),
+                                onSort: (columnIndex, ascending) =>
+                                    _onSortOpinions(columnIndex, ascending),
+                              ),
+                            ],
+                            rows: this
+                                .workdays
+                                .map(
+                                  (workday) => DataRow(
+                                    selected: selectedIds.contains(workday.id),
+                                    onSelectChanged: (bool selected) {
+                                      onSelectedRow(selected, workday.id);
+                                    },
+                                    cells: [
+                                      DataCell(
+                                          textWhite(workday.number.toString())),
+                                      DataCell(
+                                          textWhite(workday.hours.toString())),
+                                      DataCell(
+                                          textWhite(workday.rating.toString())),
+                                      DataCell(
+                                          textWhite(workday.money.toString())),
+                                      DataCell(
+                                        Wrap(
+                                          children: <Widget>[
+                                            textWhite(workday.opinion != null
+                                                ? workday.opinion.length > 10
+                                                    ? utf8
+                                                            .decode(workday
+                                                                .opinion.runes
+                                                                .toList())
+                                                            .substring(0, 10) +
+                                                        '...'
+                                                    : utf8.decode(workday
+                                                        .opinion.runes
+                                                        .toList())
+                                                : getTranslated(
+                                                    context, 'empty')),
+                                            workday.opinion != null &&
+                                                    workday.opinion != ''
+                                                ? iconWhite(Icons.zoom_in)
+                                                : Text('')
+                                          ],
+                                        ),
+                                        onTap: () => _showOpinionDetails(
+                                            workday.opinion),
                                       ),
-                                      onTap: () =>
-                                          _showOpinionDetails(workday.opinion),
-                                    ),
-                                  ],
-                                ),
-                              )
-                              .toList(),
+                                    ],
+                                  ),
+                                )
+                                .toList(),
+                          ),
                         ),
                       ),
                     ),

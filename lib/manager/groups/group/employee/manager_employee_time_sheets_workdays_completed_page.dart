@@ -174,57 +174,64 @@ class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          columns: [
-                            DataColumn(label: textWhiteBold('#')),
-                            DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'hours'))),
-                            DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'rating'))),
-                            DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'money'))),
-                            DataColumn(label: textWhiteBold('Opinion')),
-                          ],
-                          rows: [
-                            for (var workday in workdays)
-                              DataRow(
-                                cells: [
-                                  DataCell(
-                                      textWhite(workday.number.toString())),
-                                  DataCell(textWhite(workday.hours.toString())),
-                                  DataCell(
-                                      textWhite(workday.rating.toString())),
-                                  DataCell(textWhite(workday.money.toString())),
-                                  DataCell(
-                                      Wrap(
-                                        children: <Widget>[
-                                          textWhite(workday.opinion != null
-                                              ? workday.opinion.length > 10
-                                                  ? utf8
-                                                          .decode(workday
-                                                              .opinion.runes
-                                                              .toList())
-                                                          .substring(0, 10) +
-                                                      '...'
-                                                  : utf8.decode(workday
-                                                      .opinion.runes
-                                                      .toList())
-                                              : getTranslated(
-                                                  context, 'empty')),
-                                          workday.opinion != null &&
-                                                  workday.opinion != ''
-                                              ? iconWhite(Icons.zoom_in)
-                                              : Text('')
-                                        ],
-                                      ),
-                                      onTap: () =>
-                                          _showOpinionDetails(workday.opinion)),
-                                ],
-                              ),
-                          ],
+                        child: Theme(
+                          data: Theme.of(context)
+                              .copyWith(dividerColor: MORE_BRIGHTER_DARK),
+                          child: DataTable(
+                            columnSpacing: 0,
+                            columns: [
+                              DataColumn(label: textWhiteBold('No.')),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'hours'))),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'rating'))),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'money'))),
+                              DataColumn(label: textWhiteBold('Opinion')),
+                            ],
+                            rows: [
+                              for (var workday in workdays)
+                                DataRow(
+                                  cells: [
+                                    DataCell(
+                                        textWhite(workday.number.toString())),
+                                    DataCell(
+                                        textWhite(workday.hours.toString())),
+                                    DataCell(
+                                        textWhite(workday.rating.toString())),
+                                    DataCell(
+                                        textWhite(workday.money.toString())),
+                                    DataCell(
+                                        Wrap(
+                                          children: <Widget>[
+                                            textWhite(workday.opinion != null
+                                                ? workday.opinion.length > 10
+                                                    ? utf8
+                                                            .decode(workday
+                                                                .opinion.runes
+                                                                .toList())
+                                                            .substring(0, 10) +
+                                                        '...'
+                                                    : utf8.decode(workday
+                                                        .opinion.runes
+                                                        .toList())
+                                                : getTranslated(
+                                                    context, 'empty')),
+                                            workday.opinion != null &&
+                                                    workday.opinion != ''
+                                                ? iconWhite(Icons.zoom_in)
+                                                : Text('')
+                                          ],
+                                        ),
+                                        onTap: () => _showOpinionDetails(
+                                            workday.opinion)),
+                                  ],
+                                ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
