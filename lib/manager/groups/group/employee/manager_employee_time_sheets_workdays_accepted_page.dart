@@ -186,9 +186,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
                             DataColumn(
                                 label: textWhiteBold(
                                     getTranslated(context, 'money'))),
-                            DataColumn(
-                                label: textWhiteBold(
-                                    getTranslated(context, 'comment'))),
+                            DataColumn(label: textWhiteBold('Opinion')),
                           ],
                           rows: [
                             for (var workday in workdays)
@@ -203,27 +201,27 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
                                   DataCell(
                                       Wrap(
                                         children: <Widget>[
-                                          textWhite(workday.comment != null
-                                              ? workday.comment.length > 10
+                                          textWhite(workday.opinion != null
+                                              ? workday.opinion.length > 10
                                                   ? utf8
                                                           .decode(workday
-                                                              .comment.runes
+                                                              .opinion.runes
                                                               .toList())
                                                           .substring(0, 10) +
                                                       '...'
                                                   : utf8.decode(workday
-                                                      .comment.runes
+                                                      .opinion.runes
                                                       .toList())
                                               : getTranslated(
                                                   context, 'empty')),
-                                          workday.comment != null &&
-                                                  workday.comment != ''
+                                          workday.opinion != null &&
+                                                  workday.opinion != ''
                                               ? iconWhite(Icons.zoom_in)
                                               : Text('')
                                         ],
                                       ),
                                       onTap: () =>
-                                          _showCommentDetails(workday.comment)),
+                                          _showOpinionDetails(workday.opinion)),
                                 ],
                               ),
                           ],
@@ -243,7 +241,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
     );
   }
 
-  void _showCommentDetails(String comment) {
+  void _showOpinionDetails(String opinion) {
     slideDialog.showSlideDialog(
       context: context,
       backgroundColor: DARK,
@@ -251,10 +249,10 @@ class _ManagerEmployeeTimeSheetsWorkdaysAcceptedPageState
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            text20GreenBold('Comment details'),
+            text20GreenBold('Opinion details'),
             SizedBox(height: 20),
-            text20White(comment != null
-                ? utf8.decode(comment.runes.toList())
+            text20White(opinion != null
+                ? utf8.decode(opinion.runes.toList())
                 : getTranslated(context, 'empty')),
           ],
         ),

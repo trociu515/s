@@ -5,7 +5,7 @@ class WorkdayDto {
   final int number;
   final int hours;
   final int rating;
-  final String comment;
+  final String opinion;
   final double money;
 
   WorkdayDto({
@@ -13,7 +13,7 @@ class WorkdayDto {
     @required this.number,
     @required this.hours,
     @required this.rating,
-    @required this.comment,
+    @required this.opinion,
     @required this.money,
   });
 
@@ -23,7 +23,7 @@ class WorkdayDto {
       number: json['number'] as int,
       hours: json['hours'] as int,
       rating: json['rating'] as int,
-      comment: json['comment'] as String,
+      opinion: json['opinion'] as String,
       money: json['money'] as double,
     );
   }

@@ -48,7 +48,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
   final ManagerService _managerService = new ManagerService();
   final TextEditingController _hoursController = new TextEditingController();
   final TextEditingController _ratingController = new TextEditingController();
-  final TextEditingController _commentController = new TextEditingController();
+  final TextEditingController _opinionController = new TextEditingController();
 
   GroupEmployeeModel _model;
   String _employeeInfo;
@@ -62,7 +62,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
   bool _sortHours = true;
   bool _sortRatings = true;
   bool _sortMoney = true;
-  bool _sortComments = true;
+  bool _sortOpinions = true;
   bool _sort = true;
   int _sortColumnIndex;
 
@@ -229,10 +229,9 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                         _onSortMoney(columnIndex, ascending),
                                   ),
                                   DataColumn(
-                                    label: textWhiteBold(
-                                        getTranslated(context, 'comment')),
+                                    label: textWhiteBold('Opinion'),
                                     onSort: (columnIndex, ascending) =>
-                                        _onSortComments(columnIndex, ascending),
+                                        _onSortOpinions(columnIndex, ascending),
                                   ),
                                 ],
                                 rows: this
@@ -256,31 +255,31 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                           DataCell(
                                             Wrap(
                                               children: <Widget>[
-                                                textWhite(workday.comment !=
+                                                textWhite(workday.opinion !=
                                                         null
-                                                    ? workday.comment.length >
+                                                    ? workday.opinion.length >
                                                             10
                                                         ? utf8
                                                                 .decode(workday
-                                                                    .comment
+                                                                    .opinion
                                                                     .runes
                                                                     .toList())
                                                                 .substring(
                                                                     0, 10) +
                                                             '...'
                                                         : utf8.decode(workday
-                                                            .comment.runes
+                                                            .opinion.runes
                                                             .toList())
                                                     : getTranslated(
                                                         context, 'empty')),
-                                                workday.comment != null &&
-                                                        workday.comment != ''
+                                                workday.opinion != null &&
+                                                        workday.opinion != ''
                                                     ? iconWhite(Icons.zoom_in)
                                                     : Text('')
                                               ],
                                             ),
-                                            onTap: () => _showCommentDetails(
-                                                workday.comment),
+                                            onTap: () => _showOpinionDetails(
+                                                workday.opinion),
                                           ),
                                         ],
                                       ),
@@ -324,11 +323,10 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                       Expanded(
                         child: MaterialButton(
                           color: GREEN,
-                          child:
-                              textDarkBold(getTranslated(context, 'comment')),
+                          child: textDarkBold('Opinion'),
                           onPressed: () => {
-                            _commentController.clear(),
-                            _showUpdateCommentDialog(selectedIds)
+                            _opinionController.clear(),
+                            _showUpdateOpinionDialog(selectedIds)
                           },
                         ),
                       ),
@@ -468,10 +466,9 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                   _onSortMoney(columnIndex, ascending),
                             ),
                             DataColumn(
-                              label: textWhiteBold(
-                                  getTranslated(context, 'comment')),
+                              label: textWhiteBold('Opinion'),
                               onSort: (columnIndex, ascending) =>
-                                  _onSortComments(columnIndex, ascending),
+                                  _onSortOpinions(columnIndex, ascending),
                             ),
                           ],
                           rows: this
@@ -494,27 +491,27 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                     DataCell(
                                       Wrap(
                                         children: <Widget>[
-                                          textWhite(workday.comment != null
-                                              ? workday.comment.length > 10
+                                          textWhite(workday.opinion != null
+                                              ? workday.opinion.length > 10
                                                   ? utf8
                                                           .decode(workday
-                                                              .comment.runes
+                                                              .opinion.runes
                                                               .toList())
                                                           .substring(0, 10) +
                                                       '...'
                                                   : utf8.decode(workday
-                                                      .comment.runes
+                                                      .opinion.runes
                                                       .toList())
                                               : getTranslated(
                                                   context, 'empty')),
-                                          workday.comment != null &&
-                                                  workday.comment != ''
+                                          workday.opinion != null &&
+                                                  workday.opinion != ''
                                               ? iconWhite(Icons.zoom_in)
                                               : Text('')
                                         ],
                                       ),
                                       onTap: () =>
-                                          _showCommentDetails(workday.comment),
+                                          _showOpinionDetails(workday.opinion),
                                     ),
                                   ],
                                 ),
@@ -558,10 +555,10 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'comment')),
+                    child: textDarkBold('Opinion'),
                     onPressed: () => {
-                      _commentController.clear(),
-                      _showUpdateCommentDialog(selectedIds)
+                      _opinionController.clear(),
+                      _showUpdateOpinionDialog(selectedIds)
                     },
                   ),
                 ),
@@ -653,22 +650,22 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
     });
   }
 
-  void _onSortComments(columnIndex, ascending) {
+  void _onSortOpinions(columnIndex, ascending) {
     setState(() {
       if (columnIndex == _sortColumnIndex) {
-        _sort = _sortComments = ascending;
+        _sort = _sortOpinions = ascending;
       } else {
         _sortColumnIndex = columnIndex;
-        _sort = _sortComments;
+        _sort = _sortOpinions;
       }
-      workdays.sort((a, b) => a.comment.compareTo(b.comment));
+      workdays.sort((a, b) => a.opinion.compareTo(b.opinion));
       if (!_sort) {
         workdays = workdays.reversed.toList();
       }
     });
   }
 
-  void _showCommentDetails(String comment) {
+  void _showOpinionDetails(String opinion) {
     slideDialog.showSlideDialog(
       context: context,
       backgroundColor: DARK,
@@ -676,10 +673,10 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            text20GreenBold('Comment details'),
+            text20GreenBold('Opinion details'),
             SizedBox(height: 20),
-            text20White(comment != null
-                ? utf8.decode(comment.runes.toList())
+            text20White(opinion != null
+                ? utf8.decode(opinion.runes.toList())
                 : getTranslated(context, 'empty')),
           ],
         ),
@@ -838,19 +835,19 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
             : _buildHint());
   }
 
-  void _showUpdateCommentDialog(Set<int> selectedIds) {
+  void _showUpdateOpinionDialog(Set<int> selectedIds) {
     slideDialog.showSlideDialog(
         context: context,
         backgroundColor: DARK,
         child: selectedIds.isNotEmpty
             ? Column(
                 children: <Widget>[
-                  text20GreenBold('COMMENT'),
+                  text20GreenBold('OPINION'),
                   Padding(
                     padding: EdgeInsets.only(left: 20, right: 20),
                     child: TextFormField(
                       autofocus: true,
-                      controller: _commentController,
+                      controller: _opinionController,
                       keyboardType: TextInputType.multiline,
                       maxLength: 510,
                       maxLines: 3,
@@ -860,7 +857,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                       decoration: InputDecoration(
                         counterStyle: TextStyle(color: WHITE),
                         labelStyle: TextStyle(color: WHITE),
-                        labelText: getTranslated(context, 'newComment'),
+                        labelText: 'Opinion',
                       ),
                     ),
                   ),
@@ -872,24 +869,23 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                     child: textWhiteBold(getTranslated(context, 'update')),
                     color: GREEN,
                     onPressed: () {
-                      String comment = _commentController.text;
+                      String opinion = _opinionController.text;
                       String invalidMessage =
-                          ValidatorService.validateUpdatingComment(
-                              comment, context);
+                          ValidatorService.validateUpdatingOpinion(
+                              opinion, context);
                       if (invalidMessage != null) {
                         ToastService.showBottomToast(
                             invalidMessage, Colors.red);
                         return;
                       }
                       _managerService
-                          .updateWorkdaysComment(
-                              selectedIds, comment, _model.user.authHeader)
+                          .updateWorkdaysOpinion(
+                              selectedIds, opinion, _model.user.authHeader)
                           .then((res) {
                         Navigator.of(context).pop();
                         selectedIds.clear();
                         ToastService.showCenterToast(
-                            getTranslated(
-                                context, 'commentUpdatedSuccessfully'),
+                            'Opinion updated successfully',
                             GREEN);
                         _refresh();
                       });

@@ -44,7 +44,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
 
   final TextEditingController _hoursController = new TextEditingController();
   final TextEditingController _ratingController = new TextEditingController();
-  final TextEditingController _commentController = new TextEditingController();
+  final TextEditingController _opinionController = new TextEditingController();
 
   GroupEmployeeModel _model;
   ManagerGroupTimeSheetDto _timeSheet;
@@ -322,12 +322,12 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
               Expanded(
                 child: MaterialButton(
                   color: GREEN,
-                  child: textDarkBold(getTranslated(context, 'comment')),
+                  child: textDarkBold('Opinion'),
                   onPressed: () => {
                     if (_selectedIds.isNotEmpty)
                       {
                         _hoursController.clear(),
-                        _showUpdateCommentDialog(_selectedIds)
+                        _showUpdateOpinionDialog(_selectedIds)
                       }
                     else
                       {_showHint()}
@@ -593,7 +593,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
     }
   }
 
-  void _showUpdateCommentDialog(List<int> selectedIds) async {
+  void _showUpdateOpinionDialog(List<int> selectedIds) async {
     int year = _timeSheet.year;
     int monthNum =
         MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
@@ -616,7 +616,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         backgroundColor: DARK,
         child: Column(
           children: <Widget>[
-            text20GreenBold('COMMENT'),
+            text20GreenBold('OPINION'),
             SizedBox(height: 2.5),
             textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
             SizedBox(height: 2.5),
@@ -624,7 +624,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
               padding: EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
                 autofocus: true,
-                controller: _commentController,
+                controller: _opinionController,
                 keyboardType: TextInputType.multiline,
                 maxLength: 510,
                 maxLines: 3,
@@ -634,7 +634,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                 decoration: InputDecoration(
                   counterStyle: TextStyle(color: WHITE),
                   labelStyle: TextStyle(color: WHITE),
-                  labelText: getTranslated(context, 'newComment'),
+                  labelText: 'Opinion',
                 ),
               ),
             ),
@@ -672,17 +672,17 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                   ),
                   color: GREEN,
                   onPressed: () {
-                    String comment = _commentController.text;
+                    String opinion = _opinionController.text;
                     String invalidMessage =
-                        ValidatorService.validateUpdatingComment(
-                            comment, context);
+                        ValidatorService.validateUpdatingOpinion(
+                            opinion, context);
                     if (invalidMessage != null) {
                       ToastService.showBottomToast(invalidMessage, Colors.red);
                       return;
                     }
                     _managerService
-                        .updateEmployeesComment(
-                            comment,
+                        .updateEmployeesOpinion(
+                            opinion,
                             dateFrom,
                             dateTo,
                             _selectedIds,
@@ -696,9 +696,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                         _refresh();
                         Navigator.of(context).pop();
                         ToastService.showCenterToast(
-                            getTranslated(
-                                context, 'commentUpdatedSuccessfully'),
-                            GREEN);
+                            'Opinion updated successfully', GREEN);
                       },
                     );
                   },

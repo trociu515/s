@@ -153,14 +153,14 @@ class ManagerService {
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 
-  Future<dynamic> updateWorkdaysComment(
-      Set<int> workdayIds, String comment, String authHeader) async {
+  Future<dynamic> updateWorkdaysOpinion(
+      Set<int> workdayIds, String opinion, String authHeader) async {
     Map<String, dynamic> map = {
       'workdayIds': workdayIds.map((el) => el.toString()).toList(),
-      'comment': comment
+      'opinion': opinion
     };
     Response res = await put(
-      _baseWorkdayUrl + '/comment',
+      _baseWorkdayUrl + '/opinion',
       body: jsonEncode(map),
       headers: {
         HttpHeaders.authorizationHeader: authHeader,
@@ -234,8 +234,8 @@ class ManagerService {
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 
-  Future<dynamic> updateEmployeesComment(
-      String comment,
+  Future<dynamic> updateEmployeesOpinion(
+      String opinion,
       String dateFrom,
       String dateTo,
       List<int> employeesId,
@@ -244,7 +244,7 @@ class ManagerService {
       String timeSheetStatus,
       String authHeader) async {
     Map<String, dynamic> map = {
-      'comment': comment,
+      'opinion': opinion,
       'dateFrom': dateFrom,
       'dateTo': dateTo,
       'employeesId': employeesId,
@@ -253,7 +253,7 @@ class ManagerService {
       'timeSheetStatus': timeSheetStatus,
     };
     Response res = await put(
-      _baseWorkdayUrl + '/group/comment',
+      _baseWorkdayUrl + '/group/opinion',
       body: jsonEncode(map),
       headers: {
         HttpHeaders.authorizationHeader: authHeader,

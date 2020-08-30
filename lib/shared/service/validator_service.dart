@@ -33,9 +33,9 @@ class ValidatorService {
     return null;
   }
 
-  static String validateUpdatingComment(String comment, BuildContext context) {
-    return comment != null && comment.length > 510
-        ? getTranslated(context, 'commentLengthCannotBeHigherThan510')
+  static String validateUpdatingOpinion(String opinion, BuildContext context) {
+    return opinion != null && opinion.length > 510
+        ? 'Opinion length cannot be higher than 510'
         : null;
   }
 
