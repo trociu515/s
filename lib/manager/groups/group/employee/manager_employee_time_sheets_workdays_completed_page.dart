@@ -190,6 +190,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
                               DataColumn(
                                   label: textWhiteBold(
                                       getTranslated(context, 'money'))),
+                              DataColumn(label: textWhiteBold('Plan')),
                               DataColumn(label: textWhiteBold('Opinion')),
                             ],
                             rows: [
@@ -204,6 +205,31 @@ class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
                                         textWhite(workday.rating.toString())),
                                     DataCell(
                                         textWhite(workday.money.toString())),
+                                    DataCell(
+                                        Wrap(
+                                          children: <Widget>[
+                                            textWhite(workday.dayPlan != null
+                                                ? workday.dayPlan.length > 10
+                                                    ? utf8
+                                                            .decode(workday
+                                                                .dayPlan.runes
+                                                                .toList())
+                                                            .substring(0, 10) +
+                                                        '...'
+                                                    : utf8.decode(workday
+                                                        .dayPlan.runes
+                                                        .toList())
+                                                : getTranslated(
+                                                    context, 'empty')),
+                                            workday.dayPlan != null &&
+                                                    workday.dayPlan != ''
+                                                ? iconWhite(Icons.zoom_in)
+                                                : Text('')
+                                          ],
+                                        ),
+                                        onTap: () => {
+                                              // TODO to be implemented
+                                            }),
                                     DataCell(
                                         Wrap(
                                           children: <Widget>[

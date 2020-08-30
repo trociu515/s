@@ -322,6 +322,21 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
               Expanded(
                 child: MaterialButton(
                   color: GREEN,
+                  child: textDarkBold('Plan'),
+                  onPressed: () => {
+                    if (_selectedIds.isNotEmpty)
+                      {
+                        // TODO to be implemented
+                      }
+                    else
+                      {_showHint()}
+                  },
+                ),
+              ),
+              SizedBox(width: 5),
+              Expanded(
+                child: MaterialButton(
+                  color: GREEN,
                   child: textDarkBold('Opinion'),
                   onPressed: () => {
                     if (_selectedIds.isNotEmpty)

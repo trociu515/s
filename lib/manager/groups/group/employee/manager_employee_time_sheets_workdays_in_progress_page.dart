@@ -62,6 +62,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
   bool _sortHours = true;
   bool _sortRatings = true;
   bool _sortMoney = true;
+  bool _sortDayPlans = true;
   bool _sortOpinions = true;
   bool _sort = true;
   int _sortColumnIndex;
@@ -234,6 +235,12 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                           _onSortMoney(columnIndex, ascending),
                                     ),
                                     DataColumn(
+                                      label: textWhiteBold('Plan'),
+                                      onSort: (columnIndex, ascending) =>
+                                          _onSortDayPlans(
+                                              columnIndex, ascending),
+                                    ),
+                                    DataColumn(
                                       label: textWhiteBold('Opinion'),
                                       onSort: (columnIndex, ascending) =>
                                           _onSortOpinions(
@@ -258,6 +265,36 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                                 workday.rating.toString())),
                                             DataCell(textWhite(
                                                 workday.money.toString())),
+                                            DataCell(
+                                              Wrap(
+                                                children: <Widget>[
+                                                  textWhite(workday.dayPlan !=
+                                                          null
+                                                      ? workday.dayPlan.length >
+                                                              10
+                                                          ? utf8
+                                                                  .decode(workday
+                                                                      .dayPlan
+                                                                      .runes
+                                                                      .toList())
+                                                                  .substring(
+                                                                      0, 10) +
+                                                              '...'
+                                                          : utf8.decode(workday
+                                                              .dayPlan.runes
+                                                              .toList())
+                                                      : getTranslated(
+                                                          context, 'empty')),
+                                                  workday.dayPlan != null &&
+                                                          workday.dayPlan != ''
+                                                      ? iconWhite(Icons.zoom_in)
+                                                      : Text('')
+                                                ],
+                                              ),
+                                              onTap: () => {
+                                                // TODO to be implemented
+                                              },
+                                            ),
                                             DataCell(
                                               Wrap(
                                                 children: <Widget>[
@@ -323,6 +360,16 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                           onPressed: () => {
                             _ratingController.clear(),
                             _showUpdateRatingDialog(selectedIds)
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: MaterialButton(
+                          color: GREEN,
+                          child: textDarkBold('Plan'),
+                          onPressed: () => {
+                            // TODO to be implemented
                           },
                         ),
                       ),
@@ -477,6 +524,11 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                     _onSortMoney(columnIndex, ascending),
                               ),
                               DataColumn(
+                                label: textWhiteBold('Plan'),
+                                onSort: (columnIndex, ascending) =>
+                                    _onSortDayPlans(columnIndex, ascending),
+                              ),
+                              DataColumn(
                                 label: textWhiteBold('Opinion'),
                                 onSort: (columnIndex, ascending) =>
                                     _onSortOpinions(columnIndex, ascending),
@@ -499,6 +551,32 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                           textWhite(workday.rating.toString())),
                                       DataCell(
                                           textWhite(workday.money.toString())),
+                                      DataCell(
+                                        Wrap(
+                                          children: <Widget>[
+                                            textWhite(workday.dayPlan != null
+                                                ? workday.dayPlan.length > 10
+                                                    ? utf8
+                                                            .decode(workday
+                                                                .dayPlan.runes
+                                                                .toList())
+                                                            .substring(0, 10) +
+                                                        '...'
+                                                    : utf8.decode(workday
+                                                        .dayPlan.runes
+                                                        .toList())
+                                                : getTranslated(
+                                                    context, 'empty')),
+                                            workday.dayPlan != null &&
+                                                    workday.dayPlan != ''
+                                                ? iconWhite(Icons.zoom_in)
+                                                : Text('')
+                                          ],
+                                        ),
+                                        onTap: () => {
+                                          // TODO to be implemented
+                                        },
+                                      ),
                                       DataCell(
                                         Wrap(
                                           children: <Widget>[
@@ -560,6 +638,16 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                     onPressed: () => {
                       _ratingController.clear(),
                       _showUpdateRatingDialog(selectedIds)
+                    },
+                  ),
+                ),
+                SizedBox(width: 5),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold('Plan'),
+                    onPressed: () => {
+                      // TODO to be implemented
                     },
                   ),
                 ),
@@ -656,6 +744,21 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
         _sort = _sortMoney;
       }
       workdays.sort((a, b) => a.money.compareTo(b.money));
+      if (!_sort) {
+        workdays = workdays.reversed.toList();
+      }
+    });
+  }
+
+  void _onSortDayPlans(columnIndex, ascending) {
+    setState(() {
+      if (columnIndex == _sortColumnIndex) {
+        _sort = _sortDayPlans = ascending;
+      } else {
+        _sortColumnIndex = columnIndex;
+        _sort = _sortDayPlans;
+      }
+      workdays.sort((a, b) => a.dayPlan.compareTo(b.dayPlan));
       if (!_sort) {
         workdays = workdays.reversed.toList();
       }
