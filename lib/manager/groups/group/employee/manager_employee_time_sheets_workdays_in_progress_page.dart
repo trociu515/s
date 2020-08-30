@@ -18,7 +18,7 @@ import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
-import '../../../../main.dart';
+import '../../../../shared/global_keys.dart';
 import '../../../../shared/libraries/constants.dart';
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
@@ -122,7 +122,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                 body: RefreshIndicator(
                   color: DARK,
                   backgroundColor: WHITE,
-                  key: refreshIndicatorState,
+                  key: GlobalKeys.globalKey1,
                   onRefresh: _refresh,
                   child: SingleChildScrollView(
                     child: Column(
@@ -362,7 +362,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
           body: RefreshIndicator(
             color: DARK,
             backgroundColor: WHITE,
-            key: refreshIndicatorState,
+            key: GlobalKeys.globalKey2,
             onRefresh: _refresh,
             child: SingleChildScrollView(
               child: Column(
@@ -885,8 +885,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                         Navigator.of(context).pop();
                         selectedIds.clear();
                         ToastService.showCenterToast(
-                            'Opinion updated successfully',
-                            GREEN);
+                            'Opinion updated successfully', GREEN);
                         _refresh();
                       });
                     },

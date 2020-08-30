@@ -18,8 +18,6 @@ import 'internationalization/localization/localization_constants.dart';
 import 'manager/groups/group/manager_group_details_page.dart';
 
 final storage = new FlutterSecureStorage();
-final GlobalKey<RefreshIndicatorState> refreshIndicatorState =
-    new GlobalKey<RefreshIndicatorState>();
 
 void main() {
   HttpOverrides.global = new OwnHttpOverrides();

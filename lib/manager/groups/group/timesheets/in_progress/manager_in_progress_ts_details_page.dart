@@ -11,6 +11,7 @@ import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/service/manager_service.dart';
+import 'package:give_job/shared/global_keys.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
@@ -23,7 +24,6 @@ import 'package:give_job/shared/widget/texts.dart';
 import 'package:intl/intl.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
-import '../../../../../main.dart';
 import '../../../../manager_app_bar.dart';
 import '../../../../manager_side_bar.dart';
 
@@ -108,7 +108,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         body: RefreshIndicator(
           color: DARK,
           backgroundColor: WHITE,
-          key: refreshIndicatorState,
+          key: GlobalKeys.globalKey3,
           onRefresh: _refresh,
           child: Column(
             children: <Widget>[
