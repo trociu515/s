@@ -108,9 +108,14 @@ class _ManagerInProgressTimeSheetsPageState
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         ListTile(
-                          leading: Icon(Icons.radio_button_unchecked,
-                              color: Colors.orange),
-                          title: textWhiteBold(ts.year.toString() +
+                          leading: Padding(
+                            padding: EdgeInsets.only(bottom: 15),
+                            child: Image(
+                              image: AssetImage('images/unchecked.png'),
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ),
+                          title: text18WhiteBold(ts.year.toString() +
                               ' ' +
                               MonthUtil.translateMonth(context, ts.month)),
                         ),

@@ -150,13 +150,13 @@ class _ManagerEmployeeTimeSheetsPageState
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               ListTile(
-                                leading: Icon(
-                                  timeSheet.status == 'Completed'
-                                      ? Icons.check_circle_outline
-                                      : Icons.radio_button_unchecked,
-                                  color: timeSheet.status == 'Completed'
-                                      ? GREEN
-                                      : Colors.orange,
+                                leading: Padding(
+                                  padding: EdgeInsets.only(bottom: 15),
+                                  child: Image(
+                                    image: timeSheet.status == STATUS_COMPLETED
+                                        ? AssetImage('images/unchecked.png')
+                                        : AssetImage('images/checked.png'),
+                                  ),
                                 ),
                                 title: textWhiteBold(timeSheet.year.toString() +
                                     ' ' +

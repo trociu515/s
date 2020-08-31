@@ -84,6 +84,8 @@ flutter:
     - images/instagram-logo.png
     - images/linkedin-logo.png
     - images/group-img.png
+    - images/unchecked.png
+    - images/checked.png
     - docs/regulations.pdf
     - docs/privacy_policy.pdf
 
