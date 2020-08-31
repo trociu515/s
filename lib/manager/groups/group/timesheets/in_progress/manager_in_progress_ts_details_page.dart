@@ -373,113 +373,127 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
     if (picked != null && picked.length == 2) {
       String dateFrom = DateFormat('yyyy-MM-dd').format(picked[0]);
       String dateTo = DateFormat('yyyy-MM-dd').format(picked[1]);
-      slideDialog.showSlideDialog(
-        context: context,
-        barrierDismissible: false,
-        backgroundColor: DARK,
-        child: Column(
-          children: <Widget>[
-            text20GreenBold('HOURS'),
-            SizedBox(height: 2.5),
-            textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
-            SizedBox(height: 2.5),
-            Container(
-              width: 125,
-              child: TextFormField(
-                autofocus: true,
-                controller: _hoursController,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter.digitsOnly
-                ],
-                maxLength: 2,
-                cursorColor: WHITE,
-                textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(color: WHITE),
-                decoration: InputDecoration(
-                  counterStyle: TextStyle(color: WHITE),
-                  labelStyle: TextStyle(color: WHITE),
-                  labelText: getTranslated(context, 'newHours') + ' (0-24)',
+      showGeneralDialog(
+          context: context,
+          barrierColor: DARK.withOpacity(0.95),
+          barrierDismissible: false,
+          barrierLabel: 'Hours',
+          transitionDuration: Duration(milliseconds: 400),
+          pageBuilder: (_, __, ___) {
+            return SizedBox.expand(
+              child: Scaffold(
+                backgroundColor: Colors.black12,
+                body: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.only(top: 50),
+                          child: text20GreenBold('HOURS')),
+                      SizedBox(height: 2.5),
+                      textGreen('Set hours for selected employees'),
+                      SizedBox(height: 2.5),
+                      textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
+                      SizedBox(height: 2.5),
+                      Container(
+                        width: 150,
+                        child: TextFormField(
+                          autofocus: true,
+                          controller: _hoursController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            WhitelistingTextInputFormatter.digitsOnly
+                          ],
+                          maxLength: 2,
+                          cursorColor: WHITE,
+                          textAlignVertical: TextAlignVertical.center,
+                          style: TextStyle(color: WHITE),
+                          decoration: InputDecoration(
+                            counterStyle: TextStyle(color: WHITE),
+                            labelStyle: TextStyle(color: WHITE),
+                            labelText:
+                                getTranslated(context, 'newHours') + ' (0-24)',
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          MaterialButton(
+                            elevation: 0,
+                            height: 50,
+                            minWidth: 40,
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[iconWhite(Icons.close)],
+                            ),
+                            color: Colors.red,
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                          SizedBox(width: 25),
+                          MaterialButton(
+                            elevation: 0,
+                            height: 50,
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[iconWhite(Icons.check)],
+                            ),
+                            color: GREEN,
+                            onPressed: () {
+                              int hours;
+                              try {
+                                hours = int.parse(_hoursController.text);
+                              } catch (FormatException) {
+                                ToastService.showBottomToast(
+                                    getTranslated(
+                                        context, 'givenValueIsNotANumber'),
+                                    Colors.red);
+                                return;
+                              }
+                              String invalidMessage =
+                                  ValidatorService.validateUpdatingHours(
+                                      hours, context);
+                              if (invalidMessage != null) {
+                                ToastService.showBottomToast(
+                                    invalidMessage, Colors.red);
+                                return;
+                              }
+                              _managerService
+                                  .updateEmployeesHours(
+                                      hours,
+                                      dateFrom,
+                                      dateTo,
+                                      _selectedIds,
+                                      year,
+                                      monthNum,
+                                      STATUS_IN_PROGRESS,
+                                      _model.user.authHeader)
+                                  .then(
+                                (res) {
+                                  Navigator.of(context).pop();
+                                  ToastService.showCenterToast(
+                                      getTranslated(
+                                          context, 'hoursUpdatedSuccessfully'),
+                                      GREEN);
+                                  _uncheckAll();
+                                  _refresh();
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                MaterialButton(
-                  elevation: 0,
-                  height: 40,
-                  minWidth: 40,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      text18White(getTranslated(context, 'close')),
-                      iconWhite(Icons.close)
-                    ],
-                  ),
-                  color: Colors.red,
-                  onPressed: () => Navigator.pop(context),
-                ),
-                SizedBox(width: 15),
-                MaterialButton(
-                  elevation: 0,
-                  height: 40,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      text18White(getTranslated(context, 'update')),
-                      iconWhite(Icons.check)
-                    ],
-                  ),
-                  color: GREEN,
-                  onPressed: () {
-                    int hours;
-                    try {
-                      hours = int.parse(_hoursController.text);
-                    } catch (FormatException) {
-                      ToastService.showBottomToast(
-                          getTranslated(context, 'givenValueIsNotANumber'),
-                          Colors.red);
-                      return;
-                    }
-                    String invalidMessage =
-                        ValidatorService.validateUpdatingHours(hours, context);
-                    if (invalidMessage != null) {
-                      ToastService.showBottomToast(invalidMessage, Colors.red);
-                      return;
-                    }
-                    _managerService
-                        .updateEmployeesHours(
-                            hours,
-                            dateFrom,
-                            dateTo,
-                            _selectedIds,
-                            year,
-                            monthNum,
-                            STATUS_IN_PROGRESS,
-                            _model.user.authHeader)
-                        .then(
-                      (res) {
-                        _uncheckAll();
-                        _refresh();
-                        Navigator.of(context).pop();
-                        ToastService.showCenterToast(
-                            getTranslated(context, 'hoursUpdatedSuccessfully'),
-                            GREEN);
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
+            );
+          });
     }
   }
 
@@ -497,113 +511,127 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
     if (picked != null && picked.length == 2) {
       String dateFrom = DateFormat('yyyy-MM-dd').format(picked[0]);
       String dateTo = DateFormat('yyyy-MM-dd').format(picked[1]);
-      slideDialog.showSlideDialog(
+      showGeneralDialog(
         context: context,
+        barrierColor: DARK.withOpacity(0.95),
         barrierDismissible: false,
-        backgroundColor: DARK,
-        child: Column(
-          children: <Widget>[
-            text20GreenBold('RATING'),
-            SizedBox(height: 2.5),
-            textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
-            SizedBox(height: 2.5),
-            Container(
-              width: 125,
-              child: TextFormField(
-                autofocus: true,
-                controller: _ratingController,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter.digitsOnly
-                ],
-                maxLength: 2,
-                cursorColor: WHITE,
-                textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(color: WHITE),
-                decoration: InputDecoration(
-                  counterStyle: TextStyle(color: WHITE),
-                  labelStyle: TextStyle(color: WHITE),
-                  labelText: getTranslated(context, 'newRating') + ' (1-10)',
+        barrierLabel: 'Rating',
+        transitionDuration: Duration(milliseconds: 400),
+        pageBuilder: (_, __, ___) {
+          return SizedBox.expand(
+            child: Scaffold(
+              backgroundColor: Colors.black12,
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: text20GreenBold('RATING')),
+                    SizedBox(height: 2.5),
+                    textGreen('Set rating for selected employees'),
+                    SizedBox(height: 2.5),
+                    textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
+                    SizedBox(height: 2.5),
+                    Container(
+                      width: 150,
+                      child: TextFormField(
+                        autofocus: true,
+                        controller: _ratingController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
+                        maxLength: 2,
+                        cursorColor: WHITE,
+                        textAlignVertical: TextAlignVertical.center,
+                        style: TextStyle(color: WHITE),
+                        decoration: InputDecoration(
+                          counterStyle: TextStyle(color: WHITE),
+                          labelStyle: TextStyle(color: WHITE),
+                          labelText:
+                              getTranslated(context, 'newRating') + ' (1-10)',
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        MaterialButton(
+                          elevation: 0,
+                          height: 50,
+                          minWidth: 40,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[iconWhite(Icons.close)],
+                          ),
+                          color: Colors.red,
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        SizedBox(width: 25),
+                        MaterialButton(
+                          elevation: 0,
+                          height: 50,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[iconWhite(Icons.check)],
+                          ),
+                          color: GREEN,
+                          onPressed: () {
+                            int rating;
+                            try {
+                              rating = int.parse(_ratingController.text);
+                            } catch (FormatException) {
+                              ToastService.showBottomToast(
+                                  getTranslated(
+                                      context, 'givenValueIsNotANumber'),
+                                  Colors.red);
+                              return;
+                            }
+                            String invalidMessage =
+                                ValidatorService.validateUpdatingRating(
+                                    rating, context);
+                            if (invalidMessage != null) {
+                              ToastService.showBottomToast(
+                                  invalidMessage, Colors.red);
+                              return;
+                            }
+                            _managerService
+                                .updateEmployeesRating(
+                                    rating,
+                                    dateFrom,
+                                    dateTo,
+                                    _selectedIds,
+                                    year,
+                                    monthNum,
+                                    STATUS_IN_PROGRESS,
+                                    _model.user.authHeader)
+                                .then(
+                              (res) {
+                                _uncheckAll();
+                                _refresh();
+                                Navigator.of(context).pop();
+                                ToastService.showCenterToast(
+                                    getTranslated(
+                                        context, 'ratingUpdatedSuccessfully'),
+                                    GREEN);
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-            SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                MaterialButton(
-                  elevation: 0,
-                  height: 40,
-                  minWidth: 40,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      text18White(getTranslated(context, 'close')),
-                      iconWhite(Icons.close)
-                    ],
-                  ),
-                  color: Colors.red,
-                  onPressed: () => Navigator.pop(context),
-                ),
-                SizedBox(width: 15),
-                MaterialButton(
-                  elevation: 0,
-                  height: 40,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      text18White(getTranslated(context, 'update')),
-                      iconWhite(Icons.check)
-                    ],
-                  ),
-                  color: GREEN,
-                  onPressed: () {
-                    int rating;
-                    try {
-                      rating = int.parse(_ratingController.text);
-                    } catch (FormatException) {
-                      ToastService.showBottomToast(
-                          getTranslated(context, 'givenValueIsNotANumber'),
-                          Colors.red);
-                      return;
-                    }
-                    String invalidMessage =
-                        ValidatorService.validateUpdatingRating(
-                            rating, context);
-                    if (invalidMessage != null) {
-                      ToastService.showBottomToast(invalidMessage, Colors.red);
-                      return;
-                    }
-                    _managerService
-                        .updateEmployeesRating(
-                            rating,
-                            dateFrom,
-                            dateTo,
-                            _selectedIds,
-                            year,
-                            monthNum,
-                            STATUS_IN_PROGRESS,
-                            _model.user.authHeader)
-                        .then(
-                      (res) {
-                        _uncheckAll();
-                        _refresh();
-                        Navigator.of(context).pop();
-                        ToastService.showCenterToast(
-                            getTranslated(context, 'ratingUpdatedSuccessfully'),
-                            GREEN);
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+          );
+        },
       );
     }
   }
@@ -625,101 +653,118 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
     if (picked != null && picked.length == 2) {
       String dateFrom = DateFormat('yyyy-MM-dd').format(picked[0]);
       String dateTo = DateFormat('yyyy-MM-dd').format(picked[1]);
-      slideDialog.showSlideDialog(
+      showGeneralDialog(
         context: context,
+        barrierColor: DARK.withOpacity(0.95),
         barrierDismissible: false,
-        backgroundColor: DARK,
-        child: Column(
-          children: <Widget>[
-            text20GreenBold('OPINION'),
-            SizedBox(height: 2.5),
-            textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
-            SizedBox(height: 2.5),
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: TextFormField(
-                autofocus: true,
-                controller: _opinionController,
-                keyboardType: TextInputType.multiline,
-                maxLength: 510,
-                maxLines: 3,
-                cursorColor: WHITE,
-                textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(color: WHITE),
-                decoration: InputDecoration(
-                  counterStyle: TextStyle(color: WHITE),
-                  labelStyle: TextStyle(color: WHITE),
-                  labelText: 'Opinion',
+        barrierLabel: 'Opinion',
+        transitionDuration: Duration(milliseconds: 400),
+        pageBuilder: (_, __, ___) {
+          return SizedBox.expand(
+            child: Scaffold(
+              backgroundColor: Colors.black12,
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: text20GreenBold('OPINION')),
+                    SizedBox(height: 2.5),
+                    textGreen('Set opinion for selected employees'),
+                    SizedBox(height: 2.5),
+                    textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: EdgeInsets.only(left: 25, right: 25),
+                      child: TextFormField(
+                        autofocus: false,
+                        controller: _opinionController,
+                        keyboardType: TextInputType.multiline,
+                        maxLength: 510,
+                        maxLines: 5,
+                        cursorColor: WHITE,
+                        textAlignVertical: TextAlignVertical.center,
+                        style: TextStyle(color: WHITE),
+                        decoration: InputDecoration(
+                          hintText: 'Text some opinion ...',
+                          hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
+                          counterStyle: TextStyle(color: WHITE),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: GREEN, width: 2.5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: GREEN, width: 2.5),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        MaterialButton(
+                          elevation: 0,
+                          height: 50,
+                          minWidth: 40,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[iconWhite(Icons.close)],
+                          ),
+                          color: Colors.red,
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        SizedBox(width: 25),
+                        MaterialButton(
+                          elevation: 0,
+                          height: 50,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[iconWhite(Icons.check)],
+                          ),
+                          color: GREEN,
+                          onPressed: () {
+                            String opinion = _opinionController.text;
+                            String invalidMessage =
+                                ValidatorService.validateUpdatingOpinion(
+                                    opinion, context);
+                            if (invalidMessage != null) {
+                              ToastService.showBottomToast(
+                                  invalidMessage, Colors.red);
+                              return;
+                            }
+                            _managerService
+                                .updateEmployeesOpinion(
+                                    opinion,
+                                    dateFrom,
+                                    dateTo,
+                                    _selectedIds,
+                                    year,
+                                    monthNum,
+                                    STATUS_IN_PROGRESS,
+                                    _model.user.authHeader)
+                                .then(
+                              (res) {
+                                _uncheckAll();
+                                _refresh();
+                                Navigator.of(context).pop();
+                                ToastService.showCenterToast(
+                                    'Opinion updated successfully', GREEN);
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                MaterialButton(
-                  elevation: 0,
-                  height: 40,
-                  minWidth: 40,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      text18White(getTranslated(context, 'close')),
-                      iconWhite(Icons.close)
-                    ],
-                  ),
-                  color: Colors.red,
-                  onPressed: () => Navigator.pop(context),
-                ),
-                SizedBox(width: 15),
-                MaterialButton(
-                  elevation: 0,
-                  height: 40,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      text18White(getTranslated(context, 'update')),
-                      iconWhite(Icons.check)
-                    ],
-                  ),
-                  color: GREEN,
-                  onPressed: () {
-                    String opinion = _opinionController.text;
-                    String invalidMessage =
-                        ValidatorService.validateUpdatingOpinion(
-                            opinion, context);
-                    if (invalidMessage != null) {
-                      ToastService.showBottomToast(invalidMessage, Colors.red);
-                      return;
-                    }
-                    _managerService
-                        .updateEmployeesOpinion(
-                            opinion,
-                            dateFrom,
-                            dateTo,
-                            _selectedIds,
-                            year,
-                            monthNum,
-                            STATUS_IN_PROGRESS,
-                            _model.user.authHeader)
-                        .then(
-                      (res) {
-                        _uncheckAll();
-                        _refresh();
-                        Navigator.of(context).pop();
-                        ToastService.showCenterToast(
-                            'Opinion updated successfully', GREEN);
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+          );
+        },
       );
     }
   }
