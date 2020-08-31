@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
-import 'package:give_job/manager/groups/group/timesheets/completed/manager_completed_ts_page.dart';
-import 'package:give_job/manager/groups/group/timesheets/in_progress/manager_in_progress_ts_page.dart';
+import 'package:give_job/manager/groups/group/timesheets/manager_ts_page.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -159,20 +158,13 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                           color: BRIGHTER_DARK,
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).push(
-                                CupertinoPageRoute<Null>(
-                                  builder: (BuildContext context) {
-                                    return ManagerCompletedTimeSheetsPage(
-                                        _model);
-                                  },
-                                ),
-                              );
+                              // TODO
                             },
                             child: Column(
                               children: <Widget>[
-                                icon50Green(Icons.event_available),
-                                text18WhiteBold('Completed timesheets'),
-                                text13White('Look at accepted timesheets'),
+                                icon50Green(Icons.equalizer),
+                                text18WhiteBold('Plan'),
+                                text13White('Plan workday for group'),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -188,8 +180,7 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                               Navigator.of(context).push(
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
-                                    return ManagerInProgressTimeSheetsPage(
-                                        _model);
+                                    return ManagerTsPage(_model);
                                   },
                                 ),
                               );
@@ -197,8 +188,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 icon50Green(Icons.event_note),
-                                text18WhiteBold('In progress timesheets'),
-                                text13White('Plan workdays, fill hours etc.'),
+                                text18WhiteBold('Timesheets'),
+                                text13White('Fill hours, rating, plans etc.'),
                                 SizedBox(height: 10)
                               ],
                             ),

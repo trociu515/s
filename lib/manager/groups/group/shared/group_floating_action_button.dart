@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:give_job/manager/groups/group/employee/manager_employee_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
-import 'package:give_job/manager/groups/group/timesheets/completed/manager_completed_ts_page.dart';
-import 'package:give_job/manager/groups/group/timesheets/in_progress/manager_in_progress_ts_page.dart';
+import 'package:give_job/manager/groups/group/timesheets/manager_ts_page.dart';
 import 'package:give_job/manager/groups/manager_groups_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 
@@ -54,23 +53,18 @@ Widget groupFloatingActionButton(
       ),
       SpeedDialChild(
         child: Icon(Icons.event_available),
-        label: 'Completed timesheets',
+        label: 'Plan',
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ManagerCompletedTimeSheetsPage(model)),
-          );
+          // TODO
         },
       ),
       SpeedDialChild(
         child: Icon(Icons.event_note),
-        label: 'In progress timesheets',
+        label: 'Timesheets',
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => ManagerInProgressTimeSheetsPage(model)),
+            MaterialPageRoute(builder: (context) => ManagerTsPage(model)),
           );
         },
       ),

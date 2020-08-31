@@ -6,7 +6,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
-import 'package:give_job/manager/groups/group/timesheets/completed/manager_completed_ts_details_page.dart';
+import 'package:give_job/manager/groups/group/timesheets/in_progress/manager_in_progress_ts_details_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -15,26 +15,27 @@ import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-import '../../../../manager_app_bar.dart';
-import '../../../../manager_side_bar.dart';
+import '../../../manager_app_bar.dart';
+import '../../../manager_side_bar.dart';
+import 'completed/manager_completed_ts_details_page.dart';
 
-class ManagerCompletedTimeSheetsPage extends StatefulWidget {
+class ManagerTsPage extends StatefulWidget {
   final GroupEmployeeModel _model;
 
-  ManagerCompletedTimeSheetsPage(this._model);
+  ManagerTsPage(this._model);
 
   @override
-  _ManagerCompletedTimeSheetsPageState createState() =>
-      _ManagerCompletedTimeSheetsPageState();
+  _ManagerTsPageState createState() => _ManagerTsPageState();
 }
 
-class _ManagerCompletedTimeSheetsPageState
-    extends State<ManagerCompletedTimeSheetsPage> {
+class _ManagerTsPageState extends State<ManagerTsPage> {
   final ManagerService _managerService = new ManagerService();
 
   GroupEmployeeModel _model;
 
-  List<ManagerGroupTimeSheetDto> _timesheets = new List();
+  List<ManagerGroupTimeSheetDto> _inProgressTimeSheets = new List();
+  List<ManagerGroupTimeSheetDto> _completedTimeSheets = new List();
+
   bool _loading = false;
 
   @override
@@ -43,16 +44,21 @@ class _ManagerCompletedTimeSheetsPageState
     super.initState();
     _loading = true;
     _managerService
-        .findTimeSheetsByGroupIdAndTimeSheetStatus(
-            _model.groupId.toString(), STATUS_COMPLETED, _model.user.authHeader)
+        .findTimeSheetsByGroupId(
+            _model.groupId.toString(), _model.user.authHeader)
         .then((res) {
       setState(() {
-        _timesheets = res;
+        res.forEach((ts) => {
+              if (ts.status == STATUS_IN_PROGRESS)
+                {_inProgressTimeSheets.add(ts)}
+              else
+                {_completedTimeSheets.add(ts)}
+            });
         _loading = false;
       });
     }).catchError((e) {
       ToastService.showBottomToast(
-          'Group does not have completed timesheets', Colors.red);
+          'Group does not have timesheets', Colors.red);
       Navigator.pop(context);
     });
   }
@@ -87,10 +93,51 @@ class _ManagerCompletedTimeSheetsPageState
                 padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
                 child: Align(
                   alignment: Alignment.topLeft,
+                  child: text20OrangeBold('In progress timesheets'),
+                ),
+              ),
+              for (var inProgressTs in _inProgressTimeSheets)
+                Card(
+                  color: BRIGHTER_DARK,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        CupertinoPageRoute<Null>(
+                          builder: (BuildContext context) {
+                            return ManagerTimeSheetsEmployeesInProgressPage(
+                                _model, inProgressTs);
+                          },
+                        ),
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ListTile(
+                          leading: Padding(
+                            padding: EdgeInsets.only(bottom: 15),
+                            child: Image(
+                              image: AssetImage('images/unchecked.png'),
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ),
+                          title: text18WhiteBold(inProgressTs.year.toString() +
+                              ' ' +
+                              MonthUtil.translateMonth(
+                                  context, inProgressTs.month)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              Padding(
+                padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
+                child: Align(
+                  alignment: Alignment.topLeft,
                   child: text20GreenBold('Completed timesheets'),
                 ),
               ),
-              for (var ts in _timesheets)
+              for (var completedTs in _completedTimeSheets)
                 Card(
                   color: BRIGHTER_DARK,
                   child: InkWell(
@@ -99,7 +146,7 @@ class _ManagerCompletedTimeSheetsPageState
                         CupertinoPageRoute<Null>(
                           builder: (BuildContext context) {
                             return ManagerTimeSheetsEmployeesCompletedPage(
-                                _model, ts);
+                                _model, completedTs);
                           },
                         ),
                       );
@@ -115,9 +162,10 @@ class _ManagerCompletedTimeSheetsPageState
                               fit: BoxFit.fitHeight,
                             ),
                           ),
-                          title: text18WhiteBold(ts.year.toString() +
+                          title: text18WhiteBold(completedTs.year.toString() +
                               ' ' +
-                              MonthUtil.translateMonth(context, ts.month)),
+                              MonthUtil.translateMonth(
+                                  context, completedTs.month)),
                         ),
                       ],
                     ),
