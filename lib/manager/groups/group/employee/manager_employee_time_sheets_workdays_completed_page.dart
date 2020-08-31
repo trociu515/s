@@ -208,23 +208,10 @@ class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
                                     DataCell(
                                         Wrap(
                                           children: <Widget>[
-                                            textWhite(workday.dayPlan != null
-                                                ? workday.dayPlan.length > 10
-                                                    ? utf8
-                                                            .decode(workday
-                                                                .dayPlan.runes
-                                                                .toList())
-                                                            .substring(0, 10) +
-                                                        '...'
-                                                    : utf8.decode(workday
-                                                        .dayPlan.runes
-                                                        .toList())
-                                                : getTranslated(
-                                                    context, 'empty')),
                                             workday.dayPlan != null &&
                                                     workday.dayPlan != ''
                                                 ? iconWhite(Icons.zoom_in)
-                                                : Text('')
+                                                : textWhiteBold('-'),
                                           ],
                                         ),
                                         onTap: () => {
@@ -233,23 +220,10 @@ class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
                                     DataCell(
                                         Wrap(
                                           children: <Widget>[
-                                            textWhite(workday.opinion != null
-                                                ? workday.opinion.length > 10
-                                                    ? utf8
-                                                            .decode(workday
-                                                                .opinion.runes
-                                                                .toList())
-                                                            .substring(0, 10) +
-                                                        '...'
-                                                    : utf8.decode(workday
-                                                        .opinion.runes
-                                                        .toList())
-                                                : getTranslated(
-                                                    context, 'empty')),
                                             workday.opinion != null &&
                                                     workday.opinion != ''
                                                 ? iconWhite(Icons.zoom_in)
-                                                : Text('')
+                                                : textWhiteBold('-'),
                                           ],
                                         ),
                                         onTap: () => _showOpinionDetails(
