@@ -208,8 +208,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
                                     DataCell(
                                         Wrap(
                                           children: <Widget>[
-                                            workday.dayPlan != null &&
-                                                    workday.dayPlan != ''
+                                            workday.plan != null &&
+                                                    workday.plan != ''
                                                 ? iconWhite(Icons.zoom_in)
                                                 : textWhiteBold('-'),
                                           ],

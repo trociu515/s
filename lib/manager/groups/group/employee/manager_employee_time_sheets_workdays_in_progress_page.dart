@@ -62,7 +62,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
   bool _sortHours = true;
   bool _sortRatings = true;
   bool _sortMoney = true;
-  bool _sortDayPlans = true;
+  bool _sortPlans = true;
   bool _sortOpinions = true;
   bool _sort = true;
   int _sortColumnIndex;
@@ -237,8 +237,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                     DataColumn(
                                       label: textWhiteBold('Plan'),
                                       onSort: (columnIndex, ascending) =>
-                                          _onSortDayPlans(
-                                              columnIndex, ascending),
+                                          _onSortPlans(columnIndex, ascending),
                                     ),
                                     DataColumn(
                                       label: textWhiteBold('Opinion'),
@@ -268,8 +267,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                             DataCell(
                                               Wrap(
                                                 children: <Widget>[
-                                                  workday.dayPlan != null &&
-                                                          workday.dayPlan != ''
+                                                  workday.plan != null &&
+                                                          workday.plan != ''
                                                       ? iconWhite(Icons.zoom_in)
                                                       : textWhiteBold('-'),
                                                 ],
@@ -507,7 +506,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                               DataColumn(
                                 label: textWhiteBold('Plan'),
                                 onSort: (columnIndex, ascending) =>
-                                    _onSortDayPlans(columnIndex, ascending),
+                                    _onSortPlans(columnIndex, ascending),
                               ),
                               DataColumn(
                                 label: textWhiteBold('Opinion'),
@@ -535,8 +534,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                       DataCell(
                                         Wrap(
                                           children: <Widget>[
-                                            workday.dayPlan != null &&
-                                                    workday.dayPlan != ''
+                                            workday.plan != null &&
+                                                    workday.plan != ''
                                                 ? iconWhite(Icons.zoom_in)
                                                 : textWhiteBold('-'),
                                           ],
@@ -715,15 +714,15 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
     });
   }
 
-  void _onSortDayPlans(columnIndex, ascending) {
+  void _onSortPlans(columnIndex, ascending) {
     setState(() {
       if (columnIndex == _sortColumnIndex) {
-        _sort = _sortDayPlans = ascending;
+        _sort = _sortPlans = ascending;
       } else {
         _sortColumnIndex = columnIndex;
-        _sort = _sortDayPlans;
+        _sort = _sortPlans;
       }
-      workdays.sort((a, b) => a.dayPlan.compareTo(b.dayPlan));
+      workdays.sort((a, b) => a.plan.compareTo(b.plan));
       if (!_sort) {
         workdays = workdays.reversed.toList();
       }
