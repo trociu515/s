@@ -153,7 +153,7 @@ class _ManagerEmployeeTimeSheetsPageState
                                 leading: Padding(
                                   padding: EdgeInsets.only(bottom: 15),
                                   child: Image(
-                                    image: timeSheet.status == STATUS_COMPLETED
+                                    image: timeSheet.status == STATUS_IN_PROGRESS
                                         ? AssetImage('images/unchecked.png')
                                         : AssetImage('images/checked.png'),
                                   ),
