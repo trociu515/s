@@ -152,6 +152,25 @@ class ManagerService {
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 
+  Future<dynamic> updateWorkdaysPlan(
+      Set<int> workdayIds, String plan, String authHeader) async {
+    Map<String, dynamic> map = {
+      'workdayIds': workdayIds.map((el) => el.toString()).toList(),
+      'plan': plan
+    };
+    Response res = await put(
+      _baseWorkdayUrl + '/plan',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
   Future<dynamic> updateWorkdaysOpinion(
       Set<int> workdayIds, String opinion, String authHeader) async {
     Map<String, dynamic> map = {
@@ -222,6 +241,37 @@ class ManagerService {
     };
     Response res = await put(
       _baseWorkdayUrl + '/group/rating',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
+  Future<dynamic> updateEmployeesPlan(
+      String plan,
+      String dateFrom,
+      String dateTo,
+      List<int> employeesId,
+      int timeSheetYear,
+      int timeSheetMonth,
+      String timeSheetStatus,
+      String authHeader) async {
+    Map<String, dynamic> map = {
+      'plan': plan,
+      'dateFrom': dateFrom,
+      'dateTo': dateTo,
+      'employeesId': employeesId,
+      'timeSheetYear': timeSheetYear,
+      'timeSheetMonth': timeSheetMonth,
+      'timeSheetStatus': timeSheetStatus,
+    };
+    Response res = await put(
+      _baseWorkdayUrl + '/group/plan',
       body: jsonEncode(map),
       headers: {
         HttpHeaders.authorizationHeader: authHeader,

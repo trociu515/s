@@ -44,6 +44,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
 
   final TextEditingController _hoursController = new TextEditingController();
   final TextEditingController _ratingController = new TextEditingController();
+  final TextEditingController _planController = new TextEditingController();
   final TextEditingController _opinionController = new TextEditingController();
 
   GroupEmployeeModel _model;
@@ -326,7 +327,8 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                   onPressed: () => {
                     if (_selectedIds.isNotEmpty)
                       {
-                        // TODO to be implemented
+                        _planController.clear(),
+                        _showUpdatePlanDialog(_selectedIds)
                       }
                     else
                       {_showHint()}
@@ -620,6 +622,139 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                     getTranslated(
                                         context, 'ratingUpdatedSuccessfully'),
                                     GREEN);
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  void _showUpdatePlanDialog(List<int> selectedIds) async {
+    int year = _timeSheet.year;
+    int monthNum =
+        MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
+    int days = DateUtil().daysInMonth(monthNum, year);
+    final List<DateTime> picked = await DateRagePicker.showDatePicker(
+        context: context,
+        initialFirstDate: new DateTime(year, monthNum, 1),
+        initialLastDate: new DateTime(year, monthNum, days),
+        firstDate: new DateTime(year, monthNum, 1),
+        lastDate: new DateTime(year, monthNum, days));
+    if (picked.length == 1) {
+      picked.add(picked[0]);
+    }
+    if (picked != null && picked.length == 2) {
+      String dateFrom = DateFormat('yyyy-MM-dd').format(picked[0]);
+      String dateTo = DateFormat('yyyy-MM-dd').format(picked[1]);
+      showGeneralDialog(
+        context: context,
+        barrierColor: DARK.withOpacity(0.95),
+        barrierDismissible: false,
+        barrierLabel: 'Plan',
+        transitionDuration: Duration(milliseconds: 400),
+        pageBuilder: (_, __, ___) {
+          return SizedBox.expand(
+            child: Scaffold(
+              backgroundColor: Colors.black12,
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: text20GreenBold('PLAN')),
+                    SizedBox(height: 2.5),
+                    textGreen('Plan for selected employees'),
+                    SizedBox(height: 2.5),
+                    textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: EdgeInsets.only(left: 25, right: 25),
+                      child: TextFormField(
+                        autofocus: false,
+                        controller: _planController,
+                        keyboardType: TextInputType.multiline,
+                        maxLength: 510,
+                        maxLines: 5,
+                        cursorColor: WHITE,
+                        textAlignVertical: TextAlignVertical.center,
+                        style: TextStyle(color: WHITE),
+                        decoration: InputDecoration(
+                          hintText: 'Text some opinion ...',
+                          hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
+                          counterStyle: TextStyle(color: WHITE),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: GREEN, width: 2.5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: GREEN, width: 2.5),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        MaterialButton(
+                          elevation: 0,
+                          height: 50,
+                          minWidth: 40,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[iconWhite(Icons.close)],
+                          ),
+                          color: Colors.red,
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        SizedBox(width: 25),
+                        MaterialButton(
+                          elevation: 0,
+                          height: 50,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[iconWhite(Icons.check)],
+                          ),
+                          color: GREEN,
+                          onPressed: () {
+                            String plan = _planController.text;
+                            String invalidMessage =
+                                ValidatorService.validateUpdatingPlan(
+                                    plan, context);
+                            if (invalidMessage != null) {
+                              ToastService.showBottomToast(
+                                  invalidMessage, Colors.red);
+                              return;
+                            }
+                            _managerService
+                                .updateEmployeesPlan(
+                                    plan,
+                                    dateFrom,
+                                    dateTo,
+                                    _selectedIds,
+                                    year,
+                                    monthNum,
+                                    STATUS_IN_PROGRESS,
+                                    _model.user.authHeader)
+                                .then(
+                              (res) {
+                                _uncheckAll();
+                                _refresh();
+                                Navigator.of(context).pop();
+                                ToastService.showCenterToast(
+                                    'Plan updated successfully', GREEN);
                               },
                             );
                           },

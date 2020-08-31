@@ -48,6 +48,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
   final ManagerService _managerService = new ManagerService();
   final TextEditingController _hoursController = new TextEditingController();
   final TextEditingController _ratingController = new TextEditingController();
+  final TextEditingController _planController = new TextEditingController();
   final TextEditingController _opinionController = new TextEditingController();
 
   GroupEmployeeModel _model;
@@ -273,9 +274,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                                       : textWhiteBold('-'),
                                                 ],
                                               ),
-                                              onTap: () => {
-                                                // TODO to be implemented
-                                              },
+                                              onTap: () => _showPlanDetails(
+                                                  workday.plan),
                                             ),
                                             DataCell(
                                               Wrap(
@@ -344,7 +344,13 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                           color: GREEN,
                           child: textDarkBold('Plan'),
                           onPressed: () => {
-                            // TODO to be implemented
+                            if (selectedIds.isNotEmpty)
+                              {
+                                _planController.clear(),
+                                _showUpdatePlanDialog(selectedIds)
+                              }
+                            else
+                              {_showHint()}
                           },
                         ),
                       ),
@@ -540,9 +546,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                                 : textWhiteBold('-'),
                                           ],
                                         ),
-                                        onTap: () => {
-                                          // TODO to be implemented
-                                        },
+                                        onTap: () =>
+                                            _showPlanDetails(workday.plan),
                                       ),
                                       DataCell(
                                         Wrap(
@@ -611,7 +616,13 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                     color: GREEN,
                     child: textDarkBold('Plan'),
                     onPressed: () => {
-                      // TODO to be implemented
+                      if (selectedIds.isNotEmpty)
+                        {
+                          _planController.clear(),
+                          _showUpdatePlanDialog(selectedIds)
+                        }
+                      else
+                        {_showHint()}
                     },
                   ),
                 ),
@@ -742,6 +753,25 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
         workdays = workdays.reversed.toList();
       }
     });
+  }
+
+  void _showPlanDetails(String plan) {
+    slideDialog.showSlideDialog(
+      context: context,
+      backgroundColor: DARK,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            text20GreenBold('Plan details'),
+            SizedBox(height: 20),
+            text20White(plan != null
+                ? utf8.decode(plan.runes.toList())
+                : getTranslated(context, 'empty')),
+          ],
+        ),
+      ),
+    );
   }
 
   void _showOpinionDetails(String opinion) {
@@ -976,6 +1006,111 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                 getTranslated(
                                     context, 'ratingUpdatedSuccessfully'),
                                 GREEN);
+                            _refresh();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showUpdatePlanDialog(Set<int> selectedIds) {
+    showGeneralDialog(
+      context: context,
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: 'Plan',
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: text20GreenBold('PLAN')),
+                  SizedBox(height: 2.5),
+                  textGreen('Plan selected days'),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: TextFormField(
+                      autofocus: false,
+                      controller: _planController,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: 510,
+                      maxLines: 5,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        hintText: 'Text some plan ...',
+                        hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
+                        counterStyle: TextStyle(color: WHITE),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        minWidth: 40,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.close)],
+                        ),
+                        color: Colors.red,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      SizedBox(width: 25),
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.check)],
+                        ),
+                        color: GREEN,
+                        onPressed: () {
+                          String plan = _planController.text;
+                          String invalidMessage =
+                              ValidatorService.validateUpdatingPlan(
+                                  plan, context);
+                          if (invalidMessage != null) {
+                            ToastService.showBottomToast(
+                                invalidMessage, Colors.red);
+                            return;
+                          }
+                          _managerService
+                              .updateWorkdaysPlan(
+                                  selectedIds, plan, _model.user.authHeader)
+                              .then((res) {
+                            Navigator.of(context).pop();
+                            selectedIds.clear();
+                            ToastService.showCenterToast(
+                                'Plan updated successfully', GREEN);
                             _refresh();
                           });
                         },
