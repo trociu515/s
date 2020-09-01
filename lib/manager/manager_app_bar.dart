@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/manager/informations/manager_profile_page.dart';
+import 'package:give_job/manager/profile/manager_profile_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/widget/icons.dart';

@@ -42,9 +42,16 @@ Text textWhiteBoldUnderline(String text) { return Text(text, style: TextStyle(co
 /////////////////////
 Text textCenterWhite(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(color: WHITE)); }
 Text textCenter14White(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: WHITE)); }
+Text textCenter16White(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: WHITE)); }
 Text textCenter19White(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 19, color: WHITE)); }
 Text textCenter28White(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 28, color: WHITE)); }
 Text textCenter30White(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 30, color: WHITE)); }
+
+
+//////////////////////////
+/*TEXT CENTER WHITE BOLD*/
+/////////////////////////
+Text textCenter18WhiteBold(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: WHITE, fontWeight: FontWeight.bold)); }
 
 
 /////////////////////
