@@ -889,7 +889,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                               ToastService.showCenterToast(
                                   getTranslated(
                                       context, 'hoursUpdatedSuccessfully'),
-                                  GREEN);
+                                  GREEN,
+                                  WHITE);
                               _refresh();
                             },
                           );
@@ -1003,7 +1004,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                             ToastService.showCenterToast(
                                 getTranslated(
                                     context, 'ratingUpdatedSuccessfully'),
-                                GREEN);
+                                GREEN,
+                                WHITE);
                             _refresh();
                           });
                         },
@@ -1108,7 +1110,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                             Navigator.of(context).pop();
                             selectedIds.clear();
                             ToastService.showCenterToast(
-                                'Plan updated successfully', GREEN);
+                                'Plan updated successfully', GREEN, WHITE);
                             _refresh();
                           });
                         },
@@ -1213,7 +1215,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                             Navigator.of(context).pop();
                             selectedIds.clear();
                             ToastService.showCenterToast(
-                                'Opinion updated successfully', GREEN);
+                                'Opinion updated successfully', GREEN, WHITE);
                             _refresh();
                           });
                         },

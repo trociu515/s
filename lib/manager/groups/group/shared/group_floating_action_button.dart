@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:give_job/manager/groups/group/employee/manager_employee_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
+import 'package:give_job/manager/groups/group/quick_update/quick_update_dialog.dart';
 import 'package:give_job/manager/groups/group/timesheets/manager_ts_page.dart';
 import 'package:give_job/manager/groups/manager_groups_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -52,11 +53,9 @@ Widget groupFloatingActionButton(
         },
       ),
       SpeedDialChild(
-        child: Icon(Icons.event_available),
-        label: 'Plan',
-        onTap: () {
-          // TODO
-        },
+        child: Icon(Icons.today),
+        label: 'Quick update',
+        onTap: () => QuickUpdateDialog.showQuickUpdateDialog(context, model),
       ),
       SpeedDialChild(
         child: Icon(Icons.event_note),

@@ -41,6 +41,7 @@ dependencies:
   flutter_speed_dial: ^1.2.1
   date_range_picker: ^1.0.6
   date_util: ^0.1.4
+  intl: ^0.16.0
 
 dev_dependencies:
   flutter_test:

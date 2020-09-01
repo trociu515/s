@@ -481,7 +481,8 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                   ToastService.showCenterToast(
                                       getTranslated(
                                           context, 'hoursUpdatedSuccessfully'),
-                                      GREEN);
+                                      GREEN,
+                                      WHITE);
                                   _uncheckAll();
                                   _refresh();
                                 },
@@ -621,7 +622,8 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                 ToastService.showCenterToast(
                                     getTranslated(
                                         context, 'ratingUpdatedSuccessfully'),
-                                    GREEN);
+                                    GREEN,
+                                    WHITE);
                               },
                             );
                           },
@@ -754,7 +756,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                 _refresh();
                                 Navigator.of(context).pop();
                                 ToastService.showCenterToast(
-                                    'Plan updated successfully', GREEN);
+                                    'Plan updated successfully', GREEN, WHITE);
                               },
                             );
                           },
@@ -887,7 +889,9 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                 _refresh();
                                 Navigator.of(context).pop();
                                 ToastService.showCenterToast(
-                                    'Opinion updated successfully', GREEN);
+                                    'Opinion updated successfully',
+                                    GREEN,
+                                    WHITE);
                               },
                             );
                           },

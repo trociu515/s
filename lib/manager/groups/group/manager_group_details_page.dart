@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
+import 'package:give_job/manager/groups/group/quick_update/quick_update_dialog.dart';
 import 'package:give_job/manager/groups/group/timesheets/manager_ts_page.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -157,14 +158,13 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                         child: Material(
                           color: BRIGHTER_DARK,
                           child: InkWell(
-                            onTap: () {
-                              // TODO
-                            },
+                            onTap: () =>
+                                QuickUpdateDialog.showQuickUpdateDialog(context, _model),
                             child: Column(
                               children: <Widget>[
-                                icon50Green(Icons.equalizer),
-                                text18WhiteBold('Plan'),
-                                text13White('Plan workday for group'),
+                                icon50Green(Icons.today),
+                                text18WhiteBold('Quick update'),
+                                text13White('Make a quick today update'),
                                 SizedBox(height: 10)
                               ],
                             ),

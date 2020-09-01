@@ -313,4 +313,24 @@ class ManagerService {
         ? res
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
+
+  Future<dynamic> updateGroupHoursOfTodaysDateInCurrentTimesheet(
+      int groupId, String date, int hours, String authHeader) async {
+    Map<String, dynamic> map = {
+      'groupId': groupId,
+      'date': date,
+      'hours': hours,
+    };
+    Response res = await put(
+      _baseTimeSheetUrl + '/group/date/hours',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
 }
