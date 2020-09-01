@@ -117,14 +117,17 @@ class _LoginPageState extends State<LoginPage> {
                     String role = map['role'];
                     String id = map['id'];
                     String info = map['info'];
+                    String nationality = map['nationality'];
                     storage.write(key: 'role', value: role);
                     storage.write(key: 'id', value: id);
                     storage.write(key: 'info', value: info);
                     storage.write(key: 'username', value: username);
+                    storage.write(key: 'nationality', value: nationality);
                     user.id = id;
                     user.role = role;
                     user.username = username;
                     user.info = info;
+                    user.nationality = nationality;
                     user.authHeader = authHeader;
                     if (role == ROLE_EMPLOYEE) {
                       Navigator.push(

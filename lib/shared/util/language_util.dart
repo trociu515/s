@@ -39,4 +39,24 @@ class LanguageUtil {
       default: return '🇬🇧';
     }
   }
+
+  static String convertShortNameToFullName(String nationality) {
+    switch (nationality) {
+      case 'BE': return 'Беларуская';
+      case 'EN': return 'English';
+      case 'FR': return 'French';
+      case 'GE': return 'ქართველი';
+      case 'DE': return 'Deutsche';
+      case 'RO': return 'Română';
+      case 'NL': return 'Nederlands';
+      case 'NO': return 'Norsk';
+      case 'PL': return 'Polska';
+      case 'RU': return 'русский';
+      case 'ES': return 'Español';
+      case 'SE': return 'Svenska';
+      case 'UK': return 'Український';
+      case 'OTHER': return 'Other';
+      default: return 'English';
+    }
+  }
 }

@@ -3,6 +3,7 @@ class User {
   String role;
   String username;
   String info;
+  String nationality;
   String authHeader;
 
   User();
@@ -12,6 +13,7 @@ class User {
     role = data['role'];
     username = data['username'];
     info = data['info'];
+    nationality = data['nationality'];
     authHeader = data['authorization'];
     return this;
   }
