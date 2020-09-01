@@ -977,9 +977,9 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                         ),
                         color: GREEN,
                         onPressed: () {
-                          int hours;
+                          int rating;
                           try {
-                            hours = int.parse(_ratingController.text);
+                            rating = int.parse(_ratingController.text);
                           } catch (FormatException) {
                             ToastService.showBottomToast(
                                 getTranslated(
@@ -989,7 +989,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                           }
                           String invalidMessage =
                               ValidatorService.validateUpdatingRating(
-                                  hours, context);
+                                  rating, context);
                           if (invalidMessage != null) {
                             ToastService.showBottomToast(
                                 invalidMessage, Colors.red);
@@ -997,7 +997,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                           }
                           _managerService
                               .updateWorkdaysRating(
-                                  selectedIds, hours, _model.user.authHeader)
+                                  selectedIds, rating, _model.user.authHeader)
                               .then((res) {
                             Navigator.of(context).pop();
                             selectedIds.clear();
@@ -1208,11 +1208,11 @@ class _ManagerEmployeeTimeSheetsWorkdaysInProgressPageState
                                 invalidMessage, Colors.red);
                             return;
                           }
+                          Navigator.of(context).pop();
                           _managerService
                               .updateWorkdaysOpinion(
                                   selectedIds, opinion, _model.user.authHeader)
                               .then((res) {
-                            Navigator.of(context).pop();
                             selectedIds.clear();
                             ToastService.showCenterToast(
                                 'Opinion updated successfully', GREEN, WHITE);

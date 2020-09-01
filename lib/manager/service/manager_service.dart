@@ -333,4 +333,64 @@ class ManagerService {
         ? res
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
+
+  Future<dynamic> updateGroupRatingOfTodaysDateInCurrentTimesheet(
+      int groupId, String date, int rating, String authHeader) async {
+    Map<String, dynamic> map = {
+      'groupId': groupId,
+      'date': date,
+      'rating': rating,
+    };
+    Response res = await put(
+      _baseTimeSheetUrl + '/group/date/rating',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
+  Future<dynamic> updateGroupPlanOfTodaysDateInCurrentTimesheet(
+      int groupId, String date, String plan, String authHeader) async {
+    Map<String, dynamic> map = {
+      'groupId': groupId,
+      'date': date,
+      'plan': plan,
+    };
+    Response res = await put(
+      _baseTimeSheetUrl + '/group/date/plan',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
+  Future<dynamic> updateGroupOpinionOfTodaysDateInCurrentTimesheet(
+      int groupId, String date, String opinion, String authHeader) async {
+    Map<String, dynamic> map = {
+      'groupId': groupId,
+      'date': date,
+      'opinion': opinion,
+    };
+    Response res = await put(
+      _baseTimeSheetUrl + '/group/date/opinion',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
 }
