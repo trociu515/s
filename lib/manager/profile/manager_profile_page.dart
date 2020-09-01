@@ -76,11 +76,10 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                       'See my groups',
                       Icons.group,
                       () => {
-                        Navigator.of(context).push(
-                          CupertinoPageRoute<Null>(
-                            builder: (BuildContext context) {
-                              return ManagerGroupsPage(_user);
-                            },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ManagerGroupsPage(_user),
                           ),
                         ),
                       },
@@ -168,11 +167,10 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                       'Settings',
                       Icons.settings,
                       () => {
-                        Navigator.of(context).push(
-                          CupertinoPageRoute<Null>(
-                            builder: (BuildContext context) {
-                              return SettingsPage(_user);
-                            },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SettingsPage(_user),
                           ),
                         ),
                       },
