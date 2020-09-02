@@ -21,14 +21,14 @@ import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
 import 'model/group_employee_model.dart';
 
-class ManagerEmployeeTimeSheetsWorkdaysCompletedPage extends StatefulWidget {
+class ManagerEmployeeTsCompletedPage extends StatefulWidget {
   final GroupEmployeeModel _model;
   final String _employeeInfo;
   final String _employeeNationality;
   final String _currency;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerEmployeeTimeSheetsWorkdaysCompletedPage(
+  const ManagerEmployeeTsCompletedPage(
       this._model,
       this._employeeInfo,
       this._employeeNationality,
@@ -36,12 +36,12 @@ class ManagerEmployeeTimeSheetsWorkdaysCompletedPage extends StatefulWidget {
       this.timeSheet);
 
   @override
-  _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState createState() =>
-      _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState();
+  _ManagerEmployeeTsCompletedPageState createState() =>
+      _ManagerEmployeeTsCompletedPageState();
 }
 
-class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
-    extends State<ManagerEmployeeTimeSheetsWorkdaysCompletedPage> {
+class _ManagerEmployeeTsCompletedPageState
+    extends State<ManagerEmployeeTsCompletedPage> {
   final ManagerService _managerService = new ManagerService();
 
   GroupEmployeeModel _model;
@@ -101,75 +101,73 @@ class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
                           ? timeSheet.groupName.runes.toList()
                           : '-')),
               drawer: managerSideBar(context, _model.user),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      color: BRIGHTER_DARK,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 15, bottom: 5),
-                        child: ListTile(
-                          leading: Padding(
-                            padding: EdgeInsets.only(bottom: 15),
-                            child: Image(
-                              image: AssetImage('images/checked.png'),
-                              fit: BoxFit.fitHeight,
+              body: Column(
+                children: <Widget>[
+                  Container(
+                    color: BRIGHTER_DARK,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 15, bottom: 5),
+                      child: ListTile(
+                        leading: Padding(
+                          padding: EdgeInsets.only(bottom: 15),
+                          child: Image(
+                            image: AssetImage('images/checked.png'),
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                        title: textWhiteBold(timeSheet.year.toString() +
+                            ' ' +
+                            MonthUtil.translateMonth(context, timeSheet.month)),
+                        subtitle: Column(
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: textWhiteBold(_employeeInfo != null
+                                  ? utf8.decode(_employeeInfo.runes.toList()) +
+                                      ' ' +
+                                      LanguageUtil.findFlagByNationality(
+                                          _employeeNationality)
+                                  : getTranslated(context, 'empty')),
                             ),
-                          ),
-                          title: textWhiteBold(timeSheet.year.toString() +
-                              ' ' +
-                              MonthUtil.translateMonth(
-                                  context, timeSheet.month)),
-                          subtitle: Column(
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: textWhiteBold(_employeeInfo != null
-                                    ? utf8.decode(
-                                            _employeeInfo.runes.toList()) +
-                                        ' ' +
-                                        LanguageUtil.findFlagByNationality(
-                                            _employeeNationality)
-                                    : getTranslated(context, 'empty')),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: textWhite(
-                                        getTranslated(context, 'hoursWorked') +
-                                            ': '),
-                                  ),
-                                  textGreenBold(
-                                      timeSheet.totalHours.toString() + 'h'),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: textWhite(getTranslated(
-                                            context, 'averageRating') +
-                                        ': '),
-                                  ),
-                                  textGreenBold(widget
-                                      .timeSheet.averageEmployeeRating
-                                      .toString()),
-                                ],
-                              ),
-                            ],
-                          ),
-                          trailing: Wrap(
-                            children: <Widget>[
-                              text20GreenBold(
-                                  timeSheet.totalMoneyEarned.toString()),
-                              text20GreenBold(' ' + _currency),
-                            ],
-                          ),
+                            Row(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: textWhite(
+                                      getTranslated(context, 'hoursWorked') +
+                                          ': '),
+                                ),
+                                textGreenBold(
+                                    timeSheet.totalHours.toString() + 'h'),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: textWhite(
+                                      getTranslated(context, 'averageRating') +
+                                          ': '),
+                                ),
+                                textGreenBold(widget
+                                    .timeSheet.averageEmployeeRating
+                                    .toString()),
+                              ],
+                            ),
+                          ],
+                        ),
+                        trailing: Wrap(
+                          children: <Widget>[
+                            text20GreenBold(
+                                timeSheet.totalMoneyEarned.toString()),
+                            text20GreenBold(' ' + _currency),
+                          ],
                         ),
                       ),
                     ),
-                    SingleChildScrollView(
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -177,7 +175,7 @@ class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
                           data: Theme.of(context)
                               .copyWith(dividerColor: MORE_BRIGHTER_DARK),
                           child: DataTable(
-                            columnSpacing: 0,
+                            columnSpacing: 10,
                             columns: [
                               DataColumn(label: textWhiteBold('No.')),
                               DataColumn(
@@ -233,8 +231,8 @@ class _ManagerEmployeeTimeSheetsWorkdaysCompletedPageState
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.endFloat,

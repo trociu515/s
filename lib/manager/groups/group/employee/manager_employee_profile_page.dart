@@ -18,8 +18,8 @@ import 'package:give_job/shared/widget/texts.dart';
 import '../../../../shared/libraries/constants.dart';
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
-import 'manager_employee_time_sheets_workdays_completed_page.dart';
-import 'manager_employee_time_sheets_workdays_in_progress_page.dart';
+import 'manager_employee_ts_completed_page.dart';
+import 'manager_employee_ts_in_progress_page.dart';
 
 class ManagerEmployeeProfilePage extends StatefulWidget {
   final GroupEmployeeModel _model;
@@ -117,7 +117,7 @@ class _ManagerEmployeeProfilePageState
                               fit: BoxFit.fill),
                         ),
                       ),
-                      text25White(utf8.decode(_employeeInfo != null
+                      text25WhiteBold(utf8.decode(_employeeInfo != null
                           ? _employeeInfo.runes.toList()
                           : '-')),
                       SizedBox(height: 2.5),
@@ -140,7 +140,7 @@ class _ManagerEmployeeProfilePageState
                                 Navigator.of(context).push(
                                   CupertinoPageRoute<Null>(
                                     builder: (BuildContext context) {
-                                      return ManagerEmployeeTimeSheetsWorkdaysCompletedPage(
+                                      return ManagerEmployeeTsCompletedPage(
                                           _model,
                                           _employeeInfo,
                                           _employeeNationality,
@@ -153,7 +153,7 @@ class _ManagerEmployeeProfilePageState
                                 Navigator.of(context).push(
                                   CupertinoPageRoute<Null>(
                                     builder: (BuildContext context) {
-                                      return ManagerEmployeeTimeSheetsWorkdaysInProgressPage(
+                                      return ManagerEmployeeTsInProgressPage(
                                           _model,
                                           _employeeInfo,
                                           _employeeNationality,

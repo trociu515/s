@@ -11,7 +11,6 @@ Text text16White(String text) { return Text(text, style: TextStyle(fontSize: 16,
 Text text17White(String text) { return Text(text, style: TextStyle(fontSize: 18, color: WHITE)); }
 Text text18White(String text) { return Text(text, style: TextStyle(fontSize: 18, color: WHITE)); }
 Text text20White(String text) { return Text(text, style: TextStyle(fontSize: 20, color: WHITE)); }
-Text text25White(String text) { return Text(text, style: TextStyle(fontSize: 25, color: WHITE)); }
 
 
 /////////////////////
@@ -22,6 +21,7 @@ Text text15WhiteBold(String text) { return Text(text, style: TextStyle(fontSize:
 Text text16WhiteBold(String text) { return Text(text, style: TextStyle(fontSize: 16, color: WHITE, fontWeight: FontWeight.bold)); }
 Text text18WhiteBold(String text) { return Text(text, style: TextStyle(fontSize: 18, color: WHITE, fontWeight: FontWeight.bold)); }
 Text text20WhiteBold(String text) { return Text(text, style: TextStyle(fontSize: 20, color: WHITE, fontWeight: FontWeight.bold)); }
+Text text25WhiteBold(String text) { return Text(text, style: TextStyle(fontSize: 25, color: WHITE, fontWeight: FontWeight.bold)); }
 
 
 /////////////////////

@@ -61,7 +61,7 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                 ),
                 Column(
                   children: <Widget>[
-                    text25White(utf8.decode(
+                    text25WhiteBold(utf8.decode(
                         _user.info != null ? _user.info.runes.toList() : '-')),
                     SizedBox(height: 2.5),
                     text20White(LanguageUtil.convertShortNameToFullName(
