@@ -252,17 +252,17 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                 ? _manager.email.runes.toList()
                 : getTranslated(context, 'empty'))),
         _buildListTile(
-            getTranslated(context, 'phoneNumber'),
+            getTranslated(context, 'phone'),
             _manager.phoneNumber != null
                 ? _manager.phoneNumber
                 : getTranslated(context, 'empty')),
         _buildListTile(
-            getTranslated(context, 'viberNumber'),
+            getTranslated(context, 'viber'),
             _manager.viberNumber != null
                 ? _manager.viberNumber
                 : getTranslated(context, 'empty')),
         _buildListTile(
-            getTranslated(context, 'whatsAppNumber'),
+            getTranslated(context, 'whatsApp'),
             _manager.whatsAppNumber != null
                 ? _manager.whatsAppNumber
                 : getTranslated(context, 'empty')),

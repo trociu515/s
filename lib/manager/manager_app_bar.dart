@@ -4,6 +4,7 @@ import 'package:give_job/manager/profile/manager_profile_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/widget/icons.dart';
+import 'package:give_job/shared/widget/texts.dart';
 
 AppBar managerAppBar(BuildContext context, User user, String title) {
   return AppBar(
@@ -11,10 +12,7 @@ AppBar managerAppBar(BuildContext context, User user, String title) {
     backgroundColor: BRIGHTER_DARK,
     elevation: 0.0,
     bottomOpacity: 0.0,
-    title: Text(
-      title,
-      style: TextStyle(fontSize: 15, color: WHITE),
-    ),
+    title: text15White(title),
     actions: <Widget>[
       Padding(
         padding: EdgeInsets.only(right: 15.0),
