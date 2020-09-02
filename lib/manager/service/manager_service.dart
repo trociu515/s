@@ -5,7 +5,7 @@ import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/manager/dto/manager_dto.dart';
 import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
-import 'package:give_job/manager/dto/manager_group_employees_time_sheet_dto.dart';
+import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
 import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -83,7 +83,7 @@ class ManagerService {
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 
-  Future<List<ManagerGroupEmployeesTimeSheetDto>>
+  Future<List<ManagerGroupEmployeeDto>>
       findAllEmployeesOfTimeSheetByGroupIdAndTimeSheetYearMonthStatusForMobile(
           int groupId,
           int year,
@@ -96,7 +96,7 @@ class ManagerService {
     );
     return res.statusCode == 200
         ? (json.decode(res.body) as List)
-            .map((data) => ManagerGroupEmployeesTimeSheetDto.fromJson(data))
+            .map((data) => ManagerGroupEmployeeDto.fromJson(data))
             .toList()
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }

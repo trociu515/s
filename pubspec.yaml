@@ -42,6 +42,7 @@ dependencies:
   date_range_picker: ^1.0.6
   date_util: ^0.1.4
   intl: ^0.16.0
+  bouncing_widget: ^1.2.0
 
 dev_dependencies:
   flutter_test:

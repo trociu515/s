@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/dto/manager_group_employees_time_sheet_dto.dart';
+import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
 import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
+import 'package:give_job/manager/groups/group/employee/manager_employee_profile_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/service/manager_service.dart';
@@ -38,8 +40,8 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
   GroupEmployeeModel _model;
   ManagerGroupTimeSheetDto _timeSheet;
 
-  List<ManagerGroupEmployeesTimeSheetDto> _employees = new List();
-  List<ManagerGroupEmployeesTimeSheetDto> _filteredEmployees = new List();
+  List<ManagerGroupEmployeeDto> _employees = new List();
+  List<ManagerGroupEmployeeDto> _filteredEmployees = new List();
   bool _loading = false;
 
   @override
@@ -135,11 +137,37 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                         Container(
                           color: BRIGHTER_DARK,
                           child: ListTile(
-                            trailing: Image(
-                              image: AssetImage(
-                                'images/group-img.png', // TODO replace img
+                            trailing: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Transform.scale(
+                                scale: 1.5,
+                                child: BouncingWidget(
+                                  duration: Duration(milliseconds: 100),
+                                  scaleFactor: 1.5,
+                                  onPressed: () {
+                                    ManagerGroupEmployeeDto manager =
+                                        _employees[index];
+                                    Navigator.push(
+                                      this.context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ManagerEmployeeProfilePage(
+                                                _model,
+                                                manager.employeeNationality,
+                                                manager.currency,
+                                                manager.employeeId,
+                                                manager.employeeInfo),
+                                      ),
+                                    );
+                                  },
+                                  child: Image(
+                                    image: AssetImage(
+                                      'images/group-img.png', // TODO replace img
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                              fit: BoxFit.cover,
                             ),
                             title: text20WhiteBold(utf8.decode(
                                     _filteredEmployees[index]

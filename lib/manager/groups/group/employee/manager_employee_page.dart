@@ -17,7 +17,7 @@ import 'package:give_job/shared/widget/texts.dart';
 
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
-import 'manager_employee_time_sheets_page.dart';
+import 'manager_employee_profile_page.dart';
 
 class ManagerEmployeePage extends StatefulWidget {
   final GroupEmployeeModel _model;
@@ -130,7 +130,7 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
                               Navigator.of(this.context).push(
                                 CupertinoPageRoute<Null>(
                                   builder: (BuildContext context) {
-                                    return ManagerEmployeeTimeSheetsPage(
+                                    return ManagerEmployeeProfilePage(
                                         _model,
                                         _employees[index].employeeNationality,
                                         _employees[index].currency,

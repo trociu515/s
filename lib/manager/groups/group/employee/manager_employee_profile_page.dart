@@ -21,14 +21,14 @@ import '../../../manager_side_bar.dart';
 import 'manager_employee_time_sheets_workdays_completed_page.dart';
 import 'manager_employee_time_sheets_workdays_in_progress_page.dart';
 
-class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
+class ManagerEmployeeProfilePage extends StatefulWidget {
   final GroupEmployeeModel _model;
   final String _employeeNationality;
   final String _currency;
   final int _employeeId;
   final String _employeeInfo;
 
-  const ManagerEmployeeTimeSheetsPage(
+  const ManagerEmployeeProfilePage(
     this._model,
     this._employeeNationality,
     this._currency,
@@ -37,12 +37,12 @@ class ManagerEmployeeTimeSheetsPage extends StatefulWidget {
   );
 
   @override
-  _ManagerEmployeeTimeSheetsPageState createState() =>
-      _ManagerEmployeeTimeSheetsPageState();
+  _ManagerEmployeeProfilePageState createState() =>
+      _ManagerEmployeeProfilePageState();
 }
 
-class _ManagerEmployeeTimeSheetsPageState
-    extends State<ManagerEmployeeTimeSheetsPage> {
+class _ManagerEmployeeProfilePageState
+    extends State<ManagerEmployeeProfilePage> {
   final ManagerService _managerService = new ManagerService();
 
   GroupEmployeeModel _model;
