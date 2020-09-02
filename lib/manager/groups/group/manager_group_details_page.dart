@@ -159,7 +159,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                           color: BRIGHTER_DARK,
                           child: InkWell(
                             onTap: () =>
-                                QuickUpdateDialog.showQuickUpdateDialog(context, _model),
+                                QuickUpdateDialog.showQuickUpdateDialog(
+                                    context, _model),
                             child: Column(
                               children: <Widget>[
                                 icon50Green(Icons.today),
@@ -190,44 +191,6 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                 icon50Green(Icons.event_note),
                                 text18WhiteBold('Timesheets'),
                                 text13White('Fill hours, rating, plans etc.'),
-                                SizedBox(height: 10)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Material(
-                          color: BRIGHTER_DARK,
-                          child: InkWell(
-                            onTap: () {},
-                            child: Column(
-                              children: <Widget>[
-                                icon50Green(Icons.chat),
-                                text18WhiteBold('Chat'),
-                                text13White('Chat with your group'),
-                                SizedBox(height: 10)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Material(
-                          color: BRIGHTER_DARK,
-                          child: InkWell(
-                            onTap: () {},
-                            child: Column(
-                              children: <Widget>[
-                                icon50Green(Icons.error_outline),
-                                text18WhiteBold('Message'),
-                                text13White('Send message to all group'),
                                 SizedBox(height: 10)
                               ],
                             ),

@@ -48,7 +48,8 @@ Widget groupFloatingActionButton(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ManagerEmployeesPage(model)),
+            MaterialPageRoute(
+                builder: (context) => ManagerEmployeesPage(model)),
           );
         },
       ),
@@ -65,20 +66,6 @@ Widget groupFloatingActionButton(
             context,
             MaterialPageRoute(builder: (context) => ManagerTsPage(model)),
           );
-        },
-      ),
-      SpeedDialChild(
-        child: Icon(Icons.chat),
-        label: 'Chat',
-        onTap: () {
-          // TODO to be implemented
-        },
-      ),
-      SpeedDialChild(
-        child: Icon(Icons.error_outline),
-        label: 'Message',
-        onTap: () {
-          // TODO to be implemented
         },
       ),
     ],
