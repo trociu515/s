@@ -65,9 +65,6 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
         _filteredEmployees = _employees;
         _loading = false;
       });
-    }).catchError((e) {
-      ToastService.showBottomToast('Something went wrong', Colors.red);
-      Navigator.pop(context);
     });
   }
 

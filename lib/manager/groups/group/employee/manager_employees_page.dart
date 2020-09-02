@@ -9,7 +9,6 @@ import 'package:give_job/manager/groups/group/shared/group_floating_action_butto
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
-import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
@@ -51,11 +50,6 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
         _filteredEmployees = _employees;
         _loading = false;
       });
-    }).catchError((e) {
-      ToastService.showBottomToast(
-          getTranslated(context, 'managerDoesNotHaveEmployeesInGroups'),
-          Colors.red);
-      Navigator.pop(context);
     });
   }
 
@@ -113,123 +107,148 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                 },
               ),
             ),
-            Expanded(
-              child: RefreshIndicator(
-                color: DARK,
-                backgroundColor: WHITE,
-                onRefresh: _refresh,
-                child: ListView.builder(
-                  itemCount: _filteredEmployees.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    ManagerGroupDetailsDto employee = _filteredEmployees[index];
-                    String info = employee.employeeInfo;
-                    String nationality = employee.employeeNationality;
-                    String currency = employee.currency;
-                    return Card(
+            _employees.isNotEmpty
+                ? Expanded(
+                    child: RefreshIndicator(
                       color: DARK,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Card(
-                            color: BRIGHTER_DARK,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(this.context).push(
-                                  CupertinoPageRoute<Null>(
-                                    builder: (BuildContext context) {
-                                      return ManagerEmployeeProfilePage(
-                                          _model,
-                                          nationality,
-                                          currency,
-                                          employee.employeeId,
-                                          info);
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Column(
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Tab(
-                                      icon: Container(
-                                        child: Image(
-                                          image: AssetImage(
-                                            'images/group-img.png', // TODO replace img
-                                          ),
-                                          fit: BoxFit.cover,
+                      backgroundColor: WHITE,
+                      onRefresh: _refresh,
+                      child: ListView.builder(
+                        itemCount: _filteredEmployees.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          ManagerGroupDetailsDto employee =
+                              _filteredEmployees[index];
+                          String info = employee.employeeInfo;
+                          String nationality = employee.employeeNationality;
+                          String currency = employee.currency;
+                          return Card(
+                            color: DARK,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Card(
+                                  color: BRIGHTER_DARK,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(this.context).push(
+                                        CupertinoPageRoute<Null>(
+                                          builder: (BuildContext context) {
+                                            return ManagerEmployeeProfilePage(
+                                                _model,
+                                                nationality,
+                                                currency,
+                                                employee.employeeId,
+                                                info);
+                                          },
                                         ),
-                                      ),
-                                    ),
-                                    title: text20WhiteBold(
-                                        utf8.decode(info.runes.toList()) +
-                                            ' ' +
-                                            LanguageUtil.findFlagByNationality(
-                                                nationality)),
-                                    subtitle: Column(
+                                      );
+                                    },
+                                    child: Column(
                                       children: <Widget>[
-                                        Align(
-                                            child: Row(
-                                              children: <Widget>[
-                                                textWhite(getTranslated(
-                                                        this.context,
-                                                        'moneyPerHour') +
-                                                    ': '),
-                                                textGreenBold(employee
-                                                        .moneyPerHour
-                                                        .toString() +
-                                                    ' ' +
-                                                    currency),
-                                              ],
+                                        ListTile(
+                                          leading: Tab(
+                                            icon: Container(
+                                              child: Image(
+                                                image: AssetImage(
+                                                  'images/group-img.png', // TODO replace img
+                                                ),
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
-                                            alignment: Alignment.topLeft),
-                                        Align(
-                                            child: Row(
-                                              children: <Widget>[
-                                                textWhite(getTranslated(
-                                                        this.context,
-                                                        'totalNumberOfHoursWorked') +
-                                                    ': '),
-                                                textGreenBold(employee
-                                                    .numberOfHoursWorked
-                                                    .toString()),
-                                              ],
-                                            ),
-                                            alignment: Alignment.topLeft),
-                                        Align(
-                                            child: Row(
-                                              children: <Widget>[
-                                                textWhite(getTranslated(
-                                                        this.context,
-                                                        'totalAmountOfEarnedMoney') +
-                                                    ': '),
-                                                textGreenBold(employee
-                                                        .amountOfEarnedMoney
-                                                        .toString() +
-                                                    ' ' +
-                                                    currency),
-                                              ],
-                                            ),
-                                            alignment: Alignment.topLeft),
+                                          ),
+                                          title: text20WhiteBold(
+                                              utf8.decode(info.runes.toList()) +
+                                                  ' ' +
+                                                  LanguageUtil
+                                                      .findFlagByNationality(
+                                                          nationality)),
+                                          subtitle: Column(
+                                            children: <Widget>[
+                                              Align(
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      textWhite(getTranslated(
+                                                              this.context,
+                                                              'moneyPerHour') +
+                                                          ': '),
+                                                      textGreenBold(employee
+                                                              .moneyPerHour
+                                                              .toString() +
+                                                          ' ' +
+                                                          currency),
+                                                    ],
+                                                  ),
+                                                  alignment: Alignment.topLeft),
+                                              Align(
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      textWhite(getTranslated(
+                                                              this.context,
+                                                              'totalNumberOfHoursWorked') +
+                                                          ': '),
+                                                      textGreenBold(employee
+                                                          .numberOfHoursWorked
+                                                          .toString()),
+                                                    ],
+                                                  ),
+                                                  alignment: Alignment.topLeft),
+                                              Align(
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      textWhite(getTranslated(
+                                                              this.context,
+                                                              'totalAmountOfEarnedMoney') +
+                                                          ': '),
+                                                      textGreenBold(employee
+                                                              .amountOfEarnedMoney
+                                                              .toString() +
+                                                          ' ' +
+                                                          currency),
+                                                    ],
+                                                  ),
+                                                  alignment: Alignment.topLeft),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
-            ),
+                    ),
+                  )
+                : _handleEmptyData()
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: groupFloatingActionButton(context, _model),
       ),
+    );
+  }
+
+  Widget _handleEmptyData() {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Align(
+            alignment: Alignment.center,
+            child: text20GreenBold('No employees'),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Align(
+            alignment: Alignment.center,
+            child: textCenter19White('Current group has no employees'),
+          ),
+        ),
+      ],
     );
   }
 
@@ -243,11 +262,6 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
         _filteredEmployees = _employees;
         _loading = false;
       });
-    }).catchError((e) {
-      ToastService.showBottomToast(
-          getTranslated(context, 'managerDoesNotHaveEmployeesInGroups'),
-          Colors.red);
-      Navigator.pop(context);
     });
   }
 }

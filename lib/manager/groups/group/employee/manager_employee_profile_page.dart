@@ -12,16 +12,13 @@ import 'package:give_job/manager/groups/group/shared/group_floating_action_butto
 import 'package:give_job/manager/profile/manager_profile_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
-import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
-import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../shared/libraries/constants.dart';
-import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
 import 'manager_employee_ts_completed_page.dart';
 import 'manager_employee_ts_in_progress_page.dart';
@@ -55,7 +52,6 @@ class _ManagerEmployeeProfilePageState
   String _currency;
   int _employeeId;
   String _employeeInfo;
-  bool _firstTime = true;
 
   @override
   Widget build(BuildContext context) {
@@ -64,249 +60,231 @@ class _ManagerEmployeeProfilePageState
     this._currency = widget._currency;
     this._employeeId = widget._employeeId;
     this._employeeInfo = widget._employeeInfo;
-    return FutureBuilder<List<EmployeeTimeSheetDto>>(
-      future: _managerService
-          .findEmployeeTimeSheetsByGroupIdAndEmployeeId(
-              _model.groupId.toString(),
-              _employeeId.toString(),
-              _model.user.authHeader)
-          .catchError((e) {
-        ToastService.showBottomToast(
-            getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
-            Colors.red);
-        Navigator.pop(context);
-      }),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<EmployeeTimeSheetDto>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting ||
-            snapshot.data == null) {
-          return loader(
-            managerAppBar(context, null, getTranslated(context, 'loading')),
-            managerSideBar(context, _model.user),
-          );
-        } else {
-          List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
-          if (timeSheets.isEmpty) {
-            ToastService.showBottomToast(
-                getTranslated(context, 'employeeDoesNotHaveTimeSheets'),
-                Colors.red);
-            Navigator.pop(context);
-          }
-          return MaterialApp(
-            title: APP_NAME,
-            theme:
-                ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
-            debugShowCheckedModeBanner: false,
-            home: Scaffold(
-              drawer: managerSideBar(context, _model.user),
-              backgroundColor: DARK,
-              body: DefaultTabController(
-                length: 2,
-                child: NestedScrollView(
-                  headerSliverBuilder:
-                      (BuildContext context, bool innerBoxIsScrolled) {
-                    return <Widget>[
-                      SliverAppBar(
-                        elevation: 0.0,
-                        actions: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(right: 15.0),
-                            child: IconButton(
-                              icon: iconWhite(Icons.person),
-                              onPressed: () {
-                                Navigator.push(
-                                  this.context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ManagerProfilePage(_model.user)),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                        title: text15White(
-                            getTranslated(this.context, 'employee')),
-                        iconTheme: IconThemeData(color: WHITE),
-                        expandedHeight: 250.0,
-                        pinned: true,
-                        backgroundColor: BRIGHTER_DARK,
-                        flexibleSpace: FlexibleSpaceBar(
-                          background: Column(
-                            children: <Widget>[
-                              Container(
-                                width: 100,
-                                height: 100,
-                                margin: EdgeInsets.only(top: 70, bottom: 10),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      image: AssetImage('images/logo.png'),
-                                      fit: BoxFit.fill),
-                                ),
-                              ),
-                              text25WhiteBold(utf8.decode(_employeeInfo != null
-                                  ? _employeeInfo.runes.toList()
-                                  : '-')),
-                              SizedBox(height: 2.5),
-                              text20White(
-                                  LanguageUtil.convertShortNameToFullName(
-                                          _employeeNationality) +
-                                      ' ' +
-                                      LanguageUtil.findFlagByNationality(
-                                          _employeeNationality)),
-                              SizedBox(height: 2.5),
-                              text18White(
-                                  getTranslated(this.context, 'employee') +
-                                      ' #' +
-                                      _employeeId.toString()),
-                              SizedBox(height: 10),
-                            ],
-                          ),
-                        ),
+    return MaterialApp(
+      title: APP_NAME,
+      theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        drawer: managerSideBar(context, _model.user),
+        backgroundColor: DARK,
+        body: DefaultTabController(
+          length: 2,
+          child: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  elevation: 0.0,
+                  actions: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(right: 15.0),
+                      child: IconButton(
+                        icon: iconWhite(Icons.person),
+                        onPressed: () {
+                          Navigator.push(
+                            this.context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ManagerProfilePage(_model.user)),
+                          );
+                        },
                       ),
-                      SliverPersistentHeader(
-                        delegate: _SliverAppBarDelegate(
-                          TabBar(
-                            labelColor: GREEN,
-                            unselectedLabelColor: Colors.grey,
-                            tabs: [
-                              Tab(
-                                  icon: Icon(Icons.event_note),
-                                  text: 'Timesheets'),
-                              Tab(
-                                  icon: Icon(Icons.import_contacts),
-                                  text: 'Contact'),
-                            ],
-                          ),
-                        ),
-                        pinned: true,
-                      ),
-                    ];
-                  },
-                  body: Padding(
-                    padding: EdgeInsets.all(5),
-                    child: TabBarView(
+                    ),
+                  ],
+                  title: text15White(getTranslated(this.context, 'employee')),
+                  iconTheme: IconThemeData(color: WHITE),
+                  expandedHeight: 250.0,
+                  pinned: true,
+                  backgroundColor: BRIGHTER_DARK,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Column(
                       children: <Widget>[
-                        SingleChildScrollView(
-                          child: Center(
-                            child: Column(
-                              children: <Widget>[
-                                for (var timeSheet in timeSheets)
-                                  Card(
-                                    color: BRIGHTER_DARK,
-                                    child: InkWell(
-                                      onTap: () {
-                                        if (timeSheet.status == 'Completed') {
-                                          Navigator.of(context).push(
-                                            CupertinoPageRoute<Null>(
-                                              builder: (BuildContext context) {
-                                                return ManagerEmployeeTsCompletedPage(
-                                                    _model,
-                                                    _employeeInfo,
-                                                    _employeeNationality,
-                                                    _currency,
-                                                    timeSheet);
-                                              },
-                                            ),
-                                          );
-                                        } else {
-                                          Navigator.of(context).push(
-                                            CupertinoPageRoute<Null>(
-                                              builder: (BuildContext context) {
-                                                return ManagerEmployeeTsInProgressPage(
-                                                    _model,
-                                                    _employeeInfo,
-                                                    _employeeNationality,
-                                                    _currency,
-                                                    timeSheet);
-                                              },
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          ListTile(
-                                            leading: Padding(
-                                              padding:
-                                                  EdgeInsets.only(bottom: 15),
-                                              child: Image(
-                                                image: timeSheet.status ==
-                                                        STATUS_IN_PROGRESS
-                                                    ? AssetImage(
-                                                        'images/unchecked.png')
-                                                    : AssetImage(
-                                                        'images/checked.png'),
-                                              ),
-                                            ),
-                                            title: textWhiteBold(timeSheet.year
-                                                    .toString() +
-                                                ' ' +
-                                                MonthUtil.translateMonth(
-                                                    context, timeSheet.month)),
-                                            subtitle: Column(
-                                              children: <Widget>[
-                                                Align(
-                                                    child: Row(
-                                                      children: <Widget>[
-                                                        textWhite(getTranslated(
-                                                                context,
-                                                                'hoursWorked') +
-                                                            ': '),
-                                                        textGreenBold(timeSheet
-                                                                .numberOfHoursWorked
-                                                                .toString() +
-                                                            'h'),
-                                                      ],
-                                                    ),
-                                                    alignment:
-                                                        Alignment.topLeft),
-                                                Align(
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      textWhite(getTranslated(
-                                                              context,
-                                                              'averageRating') +
-                                                          ': '),
-                                                      textGreenBold(timeSheet
-                                                          .averageRating
-                                                          .toString()),
-                                                    ],
-                                                  ),
-                                                  alignment: Alignment.topLeft,
-                                                ),
-                                              ],
-                                            ),
-                                            trailing: Wrap(
-                                              children: <Widget>[
-                                                text20GreenBold(timeSheet
-                                                    .amountOfEarnedMoney
-                                                    .toString()),
-                                                text20GreenBold(' ' + _currency)
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
+                        Container(
+                          width: 100,
+                          height: 100,
+                          margin: EdgeInsets.only(top: 70, bottom: 10),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: AssetImage('images/logo.png'),
+                                fit: BoxFit.fill),
                           ),
                         ),
-                        SingleChildScrollView(child: _buildContactSection()),
+                        text25WhiteBold(utf8.decode(_employeeInfo != null
+                            ? _employeeInfo.runes.toList()
+                            : '-')),
+                        SizedBox(height: 2.5),
+                        text20White(LanguageUtil.convertShortNameToFullName(
+                                _employeeNationality) +
+                            ' ' +
+                            LanguageUtil.findFlagByNationality(
+                                _employeeNationality)),
+                        SizedBox(height: 2.5),
+                        text18White(getTranslated(this.context, 'employee') +
+                            ' #' +
+                            _employeeId.toString()),
+                        SizedBox(height: 10),
                       ],
                     ),
                   ),
                 ),
+                SliverPersistentHeader(
+                  delegate: _SliverAppBarDelegate(
+                    TabBar(
+                      labelColor: GREEN,
+                      unselectedLabelColor: Colors.grey,
+                      tabs: [
+                        Tab(icon: Icon(Icons.event_note), text: 'Timesheets'),
+                        Tab(icon: Icon(Icons.import_contacts), text: 'Contact'),
+                      ],
+                    ),
+                  ),
+                  pinned: true,
+                ),
+              ];
+            },
+            body: Padding(
+              padding: EdgeInsets.all(5),
+              child: TabBarView(
+                children: <Widget>[
+                  _buildTimesheetsSection(),
+                  _buildContactSection(),
+                ],
               ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.endFloat,
-              floatingActionButton: groupFloatingActionButton(context, _model),
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: groupFloatingActionButton(context, _model),
+      ),
+    );
+  }
+
+  Widget _buildTimesheetsSection() {
+    return FutureBuilder(
+      future: _managerService.findEmployeeTimeSheetsByGroupIdAndEmployeeId(
+          _model.groupId.toString(),
+          _employeeId.toString(),
+          _model.user.authHeader),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<EmployeeTimeSheetDto>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            snapshot.data == null) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: GREEN,
+              valueColor: new AlwaysStoppedAnimation(Colors.white),
             ),
           );
+        } else {
+          List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
+          return timeSheets.isNotEmpty
+              ? SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        for (var timeSheet in timeSheets)
+                          Card(
+                            color: BRIGHTER_DARK,
+                            child: InkWell(
+                              onTap: () {
+                                if (timeSheet.status == 'Completed') {
+                                  Navigator.of(this.context).push(
+                                    CupertinoPageRoute<Null>(
+                                      builder: (BuildContext context) {
+                                        return ManagerEmployeeTsCompletedPage(
+                                            _model,
+                                            _employeeInfo,
+                                            _employeeNationality,
+                                            _currency,
+                                            timeSheet);
+                                      },
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.of(this.context).push(
+                                    CupertinoPageRoute<Null>(
+                                      builder: (BuildContext context) {
+                                        return ManagerEmployeeTsInProgressPage(
+                                            _model,
+                                            _employeeInfo,
+                                            _employeeNationality,
+                                            _currency,
+                                            timeSheet);
+                                      },
+                                    ),
+                                  );
+                                }
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: Padding(
+                                      padding: EdgeInsets.only(bottom: 15),
+                                      child: Image(
+                                        image: timeSheet.status ==
+                                                STATUS_IN_PROGRESS
+                                            ? AssetImage('images/unchecked.png')
+                                            : AssetImage('images/checked.png'),
+                                      ),
+                                    ),
+                                    title: textWhiteBold(
+                                        timeSheet.year.toString() +
+                                            ' ' +
+                                            MonthUtil.translateMonth(
+                                                this.context, timeSheet.month)),
+                                    subtitle: Column(
+                                      children: <Widget>[
+                                        Align(
+                                            child: Row(
+                                              children: <Widget>[
+                                                textWhite(getTranslated(
+                                                        this.context,
+                                                        'hoursWorked') +
+                                                    ': '),
+                                                textGreenBold(timeSheet
+                                                        .numberOfHoursWorked
+                                                        .toString() +
+                                                    'h'),
+                                              ],
+                                            ),
+                                            alignment: Alignment.topLeft),
+                                        Align(
+                                          child: Row(
+                                            children: <Widget>[
+                                              textWhite(getTranslated(
+                                                      this.context,
+                                                      'averageRating') +
+                                                  ': '),
+                                              textGreenBold(timeSheet
+                                                  .averageRating
+                                                  .toString()),
+                                            ],
+                                          ),
+                                          alignment: Alignment.topLeft,
+                                        ),
+                                      ],
+                                    ),
+                                    trailing: Wrap(
+                                      children: <Widget>[
+                                        text20GreenBold(timeSheet
+                                            .amountOfEarnedMoney
+                                            .toString()),
+                                        text20GreenBold(' ' + _currency)
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                )
+              : _handleEmptyData(
+                  'No timesheets', 'Current employee has no timesheets');
         }
       },
     );
@@ -318,6 +296,7 @@ class _ManagerEmployeeProfilePageState
             _employeeId, _model.user.authHeader),
         builder: (BuildContext context,
             AsyncSnapshot<ManagerEmployeeContactDto> snapshot) {
+          ManagerEmployeeContactDto contact = snapshot.data;
           if (snapshot.connectionState == ConnectionState.waiting ||
               snapshot.data == null) {
             return Center(
@@ -326,27 +305,31 @@ class _ManagerEmployeeProfilePageState
                 valueColor: new AlwaysStoppedAnimation(Colors.white),
               ),
             );
+          } else if (contact == null) {
+            return _handleEmptyData(
+                'No contact', 'Current employee has no contact');
           } else {
-            ManagerEmployeeContactDto contact = snapshot.data;
             String email = contact.email;
             String phoneNumber = contact.phoneNumber;
             String viberNumber = contact.viberNumber;
             String whatsAppNumber = contact.whatsAppNumber;
-            return Column(
-              children: <Widget>[
-                email != null
-                    ? _buildEmail(email)
-                    : _buildEmptyListTile('email'),
-                phoneNumber != null
-                    ? _buildPhoneNumber(phoneNumber)
-                    : _buildEmptyListTile('phoneNumber'),
-                viberNumber != null
-                    ? _buildViber(viberNumber)
-                    : _buildEmptyListTile('viberNumber'),
-                whatsAppNumber != null
-                    ? _buildWhatsApp(whatsAppNumber)
-                    : _buildEmptyListTile('whatsAppNumber'),
-              ],
+            return SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  email != null
+                      ? _buildEmail(email)
+                      : _buildEmptyListTile('email'),
+                  phoneNumber != null
+                      ? _buildPhoneNumber(phoneNumber)
+                      : _buildEmptyListTile('phoneNumber'),
+                  viberNumber != null
+                      ? _buildViber(viberNumber)
+                      : _buildEmptyListTile('viberNumber'),
+                  whatsAppNumber != null
+                      ? _buildWhatsApp(whatsAppNumber)
+                      : _buildEmptyListTile('whatsAppNumber'),
+                ],
+              ),
             );
           }
         });
@@ -462,6 +445,27 @@ class _ManagerEmployeeProfilePageState
     return ListTile(
       title: text20GreenBold(getTranslated(this.context, title)),
       subtitle: text18White(getTranslated(this.context, 'empty')),
+    );
+  }
+
+  Widget _handleEmptyData(String title, String subtitle) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Align(
+            alignment: Alignment.center,
+            child: text20GreenBold('No timesheets'),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Align(
+            alignment: Alignment.center,
+            child: textCenter19White('Current employee has no timesheets'),
+          ),
+        ),
+      ],
     );
   }
 }

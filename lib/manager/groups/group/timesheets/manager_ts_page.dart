@@ -10,7 +10,6 @@ import 'package:give_job/manager/groups/group/timesheets/in_progress/manager_in_
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
-import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -56,10 +55,6 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
             });
         _loading = false;
       });
-    }).catchError((e) {
-      ToastService.showBottomToast(
-          'Group does not have timesheets', Colors.red);
-      Navigator.pop(context);
     });
   }
 
@@ -96,6 +91,16 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                   child: text20OrangeBold('In progress timesheets'),
                 ),
               ),
+              _inProgressTimeSheets.isEmpty
+                  ? Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: text15White(
+                            'Current group has no in progress timesheets'),
+                      ),
+                    )
+                  : Container(),
               for (var inProgressTs in _inProgressTimeSheets)
                 Card(
                   color: BRIGHTER_DARK,
@@ -137,6 +142,16 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                   child: text20GreenBold('Completed timesheets'),
                 ),
               ),
+              _completedTimeSheets.isEmpty
+                  ? Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: text15White(
+                            'Current group has no completed timesheets'),
+                      ),
+                    )
+                  : Container(),
               for (var completedTs in _completedTimeSheets)
                 Card(
                   color: BRIGHTER_DARK,

@@ -14,7 +14,6 @@ import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
-import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
@@ -30,12 +29,8 @@ class ManagerEmployeeTsInProgressPage extends StatefulWidget {
   final String _currency;
   final EmployeeTimeSheetDto timeSheet;
 
-  const ManagerEmployeeTsInProgressPage(
-      this._model,
-      this._employeeInfo,
-      this._employeeNationality,
-      this._currency,
-      this.timeSheet);
+  const ManagerEmployeeTsInProgressPage(this._model, this._employeeInfo,
+      this._employeeNationality, this._currency, this.timeSheet);
 
   @override
   _ManagerEmployeeTsInProgressPageState createState() =>
@@ -75,124 +70,111 @@ class _ManagerEmployeeTsInProgressPageState
     this._currency = widget._currency;
     this._timeSheet = widget.timeSheet;
     if (workdays.isEmpty) {
-      return FutureBuilder<List<WorkdayDto>>(
-        future: _managerService
-            .findWorkdaysByTimeSheetId(
-                _timeSheet.id.toString(), _model.user.authHeader)
-            .catchError((e) {
-          ToastService.showBottomToast(
-              getTranslated(
-                  context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
-              Colors.red);
-          Navigator.pop(context);
-        }),
-        builder:
-            (BuildContext context, AsyncSnapshot<List<WorkdayDto>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting ||
-              snapshot.data == null) {
-            return loader(
-              managerAppBar(context, null, getTranslated(context, 'loading')),
-              managerSideBar(context, _model.user),
-            );
-          } else {
-            List<WorkdayDto> workdays = snapshot.data;
-            this.workdays = workdays;
-            if (workdays.isEmpty) {
-              ToastService.showBottomToast(
-                  getTranslated(
-                      context, 'employeeDoesNotHaveWorkdaysInCurrentTimeSheet'),
-                  Colors.red);
-              Navigator.pop(context);
-            }
-            return MaterialApp(
-              title: APP_NAME,
-              theme: ThemeData(
-                  primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
-              debugShowCheckedModeBanner: false,
-              home: Scaffold(
-                backgroundColor: DARK,
-                appBar: managerAppBar(
-                    context,
-                    _model.user,
-                    getTranslated(context, 'workdays') +
-                        ' - ' +
-                        utf8.decode(_timeSheet.groupName != null
-                            ? _timeSheet.groupName.runes.toList()
-                            : '-')),
-                drawer: managerSideBar(context, _model.user),
-                body: RefreshIndicator(
-                  color: DARK,
-                  backgroundColor: WHITE,
-                  onRefresh: _refresh,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        color: BRIGHTER_DARK,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 15, bottom: 5),
-                          child: ListTile(
-                            leading: Padding(
-                              padding: EdgeInsets.only(bottom: 15),
-                              child: Image(
-                                image: AssetImage('images/unchecked.png'),
-                                fit: BoxFit.fitHeight,
-                              ),
-                            ),
-                            title: textWhiteBold(_timeSheet.year.toString() +
-                                ' ' +
-                                MonthUtil.translateMonth(
-                                    context, _timeSheet.month)),
-                            subtitle: Column(
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: textWhiteBold(_employeeInfo != null
-                                      ? utf8.decode(
-                                              _employeeInfo.runes.toList()) +
-                                          ' ' +
-                                          LanguageUtil.findFlagByNationality(
-                                              _employeeNationality)
-                                      : getTranslated(context, 'empty')),
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: textWhite(getTranslated(
-                                              context, 'hoursWorked') +
-                                          ': '),
-                                    ),
-                                    textGreenBold(
-                                        _timeSheet.numberOfHoursWorked.toString() + 'h'),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: textWhite(getTranslated(
-                                              context, 'averageRating') +
-                                          ': '),
-                                    ),
-                                    textGreenBold(widget
-                                        .timeSheet.averageRating
-                                        .toString()),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            trailing: Wrap(
-                              children: <Widget>[
-                                text20GreenBold(widget
-                                    .timeSheet.amountOfEarnedMoney
-                                    .toString()),
-                                text20GreenBold(' ' + _currency)
-                              ],
-                            ),
-                          ),
+      return MaterialApp(
+        title: APP_NAME,
+        theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: DARK,
+          appBar: managerAppBar(
+              context,
+              _model.user,
+              getTranslated(context, 'workdays') +
+                  ' - ' +
+                  utf8.decode(_timeSheet.groupName != null
+                      ? _timeSheet.groupName.runes.toList()
+                      : '-')),
+          drawer: managerSideBar(context, _model.user),
+          body: RefreshIndicator(
+            color: DARK,
+            backgroundColor: WHITE,
+            onRefresh: _refresh,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  color: BRIGHTER_DARK,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 15, bottom: 5),
+                    child: ListTile(
+                      leading: Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: Image(
+                          image: AssetImage('images/unchecked.png'),
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
-                      Expanded(
+                      title: textWhiteBold(_timeSheet.year.toString() +
+                          ' ' +
+                          MonthUtil.translateMonth(context, _timeSheet.month)),
+                      subtitle: Column(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: textWhiteBold(_employeeInfo != null
+                                ? utf8.decode(_employeeInfo.runes.toList()) +
+                                    ' ' +
+                                    LanguageUtil.findFlagByNationality(
+                                        _employeeNationality)
+                                : getTranslated(context, 'empty')),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: textWhite(
+                                    getTranslated(context, 'hoursWorked') +
+                                        ': '),
+                              ),
+                              textGreenBold(
+                                  _timeSheet.numberOfHoursWorked.toString() +
+                                      'h'),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: textWhite(
+                                    getTranslated(context, 'averageRating') +
+                                        ': '),
+                              ),
+                              textGreenBold(
+                                  widget.timeSheet.averageRating.toString()),
+                            ],
+                          ),
+                        ],
+                      ),
+                      trailing: Wrap(
+                        children: <Widget>[
+                          text20GreenBold(
+                              widget.timeSheet.amountOfEarnedMoney.toString()),
+                          text20GreenBold(' ' + _currency)
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                FutureBuilder(
+                  future: _managerService.findWorkdaysByTimeSheetId(
+                      _timeSheet.id.toString(), _model.user.authHeader),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<WorkdayDto>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting ||
+                        snapshot.data == null) {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            backgroundColor: GREEN,
+                            valueColor:
+                                new AlwaysStoppedAnimation(Colors.white),
+                          ),
+                        ),
+                      );
+                    } else {
+                      this.workdays = snapshot.data;
+                      BuildContext context = this.context;
+                      return Expanded(
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: SingleChildScrollView(
@@ -294,90 +276,88 @@ class _ManagerEmployeeTsInProgressPageState
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: Container(
+            height: 40,
+            child: Row(
+              children: <Widget>[
+                SizedBox(width: 1),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold(getTranslated(context, 'hours')),
+                    onPressed: () => {
+                      if (selectedIds.isNotEmpty)
+                        {
+                          _hoursController.clear(),
+                          _showUpdateHoursDialog(selectedIds)
+                        }
+                      else
+                        {_showHint()}
+                    },
                   ),
                 ),
-                bottomNavigationBar: Container(
-                  height: 40,
-                  child: Row(
-                    children: <Widget>[
-                      SizedBox(width: 1),
-                      Expanded(
-                        child: MaterialButton(
-                          color: GREEN,
-                          child: textDarkBold(getTranslated(context, 'hours')),
-                          onPressed: () => {
-                            if (selectedIds.isNotEmpty)
-                              {
-                                _hoursController.clear(),
-                                _showUpdateHoursDialog(selectedIds)
-                              }
-                            else
-                              {_showHint()}
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 5),
-                      Expanded(
-                        child: MaterialButton(
-                          color: GREEN,
-                          child: textDarkBold(getTranslated(context, 'rating')),
-                          onPressed: () => {
-                            if (selectedIds.isNotEmpty)
-                              {
-                                _ratingController.clear(),
-                                _showUpdateRatingDialog(selectedIds)
-                              }
-                            else
-                              {_showHint()}
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 5),
-                      Expanded(
-                        child: MaterialButton(
-                          color: GREEN,
-                          child: textDarkBold('Plan'),
-                          onPressed: () => {
-                            if (selectedIds.isNotEmpty)
-                              {
-                                _planController.clear(),
-                                _showUpdatePlanDialog(selectedIds)
-                              }
-                            else
-                              {_showHint()}
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 5),
-                      Expanded(
-                        child: MaterialButton(
-                          color: GREEN,
-                          child: textDarkBold('Opinion'),
-                          onPressed: () => {
-                            if (selectedIds.isNotEmpty)
-                              {
-                                _opinionController.clear(),
-                                _showUpdateOpinionDialog(selectedIds)
-                              }
-                            else
-                              {_showHint()}
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 1),
-                    ],
+                SizedBox(width: 5),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold(getTranslated(context, 'rating')),
+                    onPressed: () => {
+                      if (selectedIds.isNotEmpty)
+                        {
+                          _ratingController.clear(),
+                          _showUpdateRatingDialog(selectedIds)
+                        }
+                      else
+                        {_showHint()}
+                    },
                   ),
                 ),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.endFloat,
-                floatingActionButton:
-                    groupFloatingActionButton(context, _model),
-              ),
-            );
-          }
-        },
+                SizedBox(width: 5),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold('Plan'),
+                    onPressed: () => {
+                      if (selectedIds.isNotEmpty)
+                        {
+                          _planController.clear(),
+                          _showUpdatePlanDialog(selectedIds)
+                        }
+                      else
+                        {_showHint()}
+                    },
+                  ),
+                ),
+                SizedBox(width: 5),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold('Opinion'),
+                    onPressed: () => {
+                      if (selectedIds.isNotEmpty)
+                        {
+                          _opinionController.clear(),
+                          _showUpdateOpinionDialog(selectedIds)
+                        }
+                      else
+                        {_showHint()}
+                    },
+                  ),
+                ),
+                SizedBox(width: 1),
+              ],
+            ),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: groupFloatingActionButton(context, _model),
+        ),
       );
     } else {
       return MaterialApp(
@@ -436,7 +416,8 @@ class _ManagerEmployeeTsInProgressPageState
                                         ': '),
                               ),
                               textGreenBold(
-                                  _timeSheet.numberOfHoursWorked.toString() + 'h'),
+                                  _timeSheet.numberOfHoursWorked.toString() +
+                                      'h'),
                             ],
                           ),
                           Row(
@@ -447,9 +428,8 @@ class _ManagerEmployeeTsInProgressPageState
                                     getTranslated(context, 'averageRating') +
                                         ': '),
                               ),
-                              textGreenBold(widget
-                                  .timeSheet.averageRating
-                                  .toString()),
+                              textGreenBold(
+                                  widget.timeSheet.averageRating.toString()),
                             ],
                           ),
                         ],

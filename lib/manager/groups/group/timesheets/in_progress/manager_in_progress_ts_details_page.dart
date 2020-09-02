@@ -79,9 +79,6 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         _filteredEmployees = _employees;
         _loading = false;
       });
-    }).catchError((e) {
-      ToastService.showBottomToast('Something went wrong', Colors.red);
-      Navigator.pop(context);
     });
   }
 
@@ -251,8 +248,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                                     this.context,
                                                     'averageRating') +
                                                 ': '),
-                                            textGreenBold(employee
-                                                .averageRating
+                                            textGreenBold(employee.averageRating
                                                 .toString()),
                                           ],
                                         ),
@@ -987,9 +983,6 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         _filteredEmployees = _employees;
         _loading = false;
       });
-    }).catchError((e) {
-      ToastService.showBottomToast('Something went wrong', Colors.red);
-      Navigator.pop(context);
     });
   }
 }
