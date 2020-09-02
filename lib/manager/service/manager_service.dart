@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/manager/dto/manager_dto.dart';
+import 'package:give_job/manager/dto/manager_employee_contact_dto.dart';
 import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
@@ -18,6 +19,7 @@ class ManagerService {
   static const String _baseEmployeeUrl = SERVER_IP + '$_baseUrl/employees';
   static const String _baseTimeSheetUrl = SERVER_IP + '$_baseUrl/time-sheets';
   static const String _baseWorkdayUrl = SERVER_IP + '$_baseUrl/workdays';
+  static const String _baseContactUrl = SERVER_IP + '$_baseUrl/contacts';
 
   Future<ManagerDto> findById(String id, String authHeader) async {
     Response res = await get(
@@ -112,6 +114,17 @@ class ManagerService {
             .map((data) => WorkdayDto.fromJson(data))
             .toList()
         : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
+  Future<ManagerEmployeeContactDto> findEmployeeContactByEmployeeId(
+      int employeeId, String authHeader) async {
+    Response res = await get(
+      _baseContactUrl + '/$employeeId',
+      headers: {HttpHeaders.authorizationHeader: authHeader},
+    );
+    return res.statusCode == 200
+        ? ManagerEmployeeContactDto.fromJson(jsonDecode(res.body))
+        : throw 'Cannot find employee contact by employee id';
   }
 
   Future<dynamic> updateWorkdaysHours(

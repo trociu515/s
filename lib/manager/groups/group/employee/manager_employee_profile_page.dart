@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/dto/manager_employee_contact_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/profile/manager_profile_page.dart';
@@ -16,6 +18,7 @@ import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../shared/libraries/constants.dart';
 import '../../../manager_app_bar.dart';
@@ -52,6 +55,7 @@ class _ManagerEmployeeProfilePageState
   String _currency;
   int _employeeId;
   String _employeeInfo;
+  bool _firstTime = true;
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +173,9 @@ class _ManagerEmployeeProfilePageState
                               Tab(
                                   icon: Icon(Icons.event_note),
                                   text: 'Timesheets'),
-                              Tab(icon: Icon(Icons.phone), text: 'Contact'),
+                              Tab(
+                                  icon: Icon(Icons.import_contacts),
+                                  text: 'Contact'),
                             ],
                           ),
                         ),
@@ -255,7 +261,8 @@ class _ManagerEmployeeProfilePageState
                                                             'h'),
                                                       ],
                                                     ),
-                                                    alignment: Alignment.topLeft),
+                                                    alignment:
+                                                        Alignment.topLeft),
                                                 Align(
                                                   child: Row(
                                                     children: <Widget>[
@@ -289,9 +296,7 @@ class _ManagerEmployeeProfilePageState
                             ),
                           ),
                         ),
-                        Container(
-                          child: textWhite('fsdfsdds'),
-                        ),
+                        SingleChildScrollView(child: _buildContactSection()),
                       ],
                     ),
                   ),
@@ -304,6 +309,159 @@ class _ManagerEmployeeProfilePageState
           );
         }
       },
+    );
+  }
+
+  Widget _buildContactSection() {
+    return FutureBuilder(
+        future: _managerService.findEmployeeContactByEmployeeId(
+            _employeeId, _model.user.authHeader),
+        builder: (BuildContext context,
+            AsyncSnapshot<ManagerEmployeeContactDto> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.data == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: GREEN,
+                valueColor: new AlwaysStoppedAnimation(Colors.white),
+              ),
+            );
+          } else {
+            ManagerEmployeeContactDto contact = snapshot.data;
+            String email = contact.email;
+            String phoneNumber = contact.phoneNumber;
+            String viberNumber = contact.viberNumber;
+            String whatsAppNumber = contact.whatsAppNumber;
+            return Column(
+              children: <Widget>[
+                email != null
+                    ? _buildEmail(email)
+                    : _buildEmptyListTile('email'),
+                phoneNumber != null
+                    ? _buildPhoneNumber(phoneNumber)
+                    : _buildEmptyListTile('phoneNumber'),
+                viberNumber != null
+                    ? _buildViber(viberNumber)
+                    : _buildEmptyListTile('viberNumber'),
+                whatsAppNumber != null
+                    ? _buildWhatsApp(whatsAppNumber)
+                    : _buildEmptyListTile('whatsAppNumber'),
+              ],
+            );
+          }
+        });
+  }
+
+  Widget _buildEmail(String email) {
+    return ListTile(
+      title: text20GreenBold(getTranslated(this.context, 'email')),
+      subtitle: Row(
+        children: <Widget>[
+          SelectableText(email, style: TextStyle(fontSize: 18, color: WHITE)),
+          SizedBox(width: 5),
+          IconButton(
+            icon: icon30White(Icons.alternate_email),
+            onPressed: () => _launchAction('mailto', email),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPhoneNumber(String phoneNumber) {
+    return ListTile(
+      title: text20GreenBold(getTranslated(this.context, 'phone')),
+      subtitle: Row(
+        children: <Widget>[
+          SelectableText(phoneNumber,
+              style: TextStyle(fontSize: 18, color: WHITE)),
+          SizedBox(width: 5),
+          IconButton(
+            icon: icon30White(Icons.phone),
+            onPressed: () => _launchAction('tel', phoneNumber),
+          ),
+          IconButton(
+            icon: icon30White(Icons.local_post_office),
+            onPressed: () => _launchAction('sms', phoneNumber),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildViber(String viberNumber) {
+    return ListTile(
+      title: text20GreenBold(getTranslated(this.context, 'viber')),
+      subtitle: Row(
+        children: <Widget>[
+          SelectableText(viberNumber,
+              style: TextStyle(fontSize: 18, color: WHITE)),
+          SizedBox(width: 5),
+          SizedBox(width: 7.5),
+          Padding(
+            padding: EdgeInsets.all(4),
+            child: Transform.scale(
+              scale: 1.2,
+              child: BouncingWidget(
+                duration: Duration(milliseconds: 100),
+                scaleFactor: 2,
+                onPressed: () => _launchApp('viber', viberNumber),
+                child: Image(
+                  width: 40,
+                  height: 40,
+                  image: AssetImage('images/viber-logo.png'),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWhatsApp(String whatsAppNumber) {
+    return ListTile(
+      title: text20GreenBold(getTranslated(this.context, 'whatsApp')),
+      subtitle: Row(
+        children: <Widget>[
+          SelectableText(whatsAppNumber,
+              style: TextStyle(fontSize: 18, color: WHITE)),
+          SizedBox(width: 7.5),
+          Padding(
+            padding: EdgeInsets.all(4),
+            child: Transform.scale(
+              scale: 1.2,
+              child: BouncingWidget(
+                duration: Duration(milliseconds: 100),
+                scaleFactor: 2,
+                onPressed: () => _launchApp('whatsapp', whatsAppNumber),
+                child: Image(
+                  width: 40,
+                  height: 40,
+                  image: AssetImage('images/whatsapp-logo.png'),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _launchAction(String action, String number) async {
+    String url = action + ':' + number;
+    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+  }
+
+  _launchApp(String app, String number) async {
+    var url = '$app://send?phone=$number';
+    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+  }
+
+  Widget _buildEmptyListTile(String title) {
+    return ListTile(
+      title: text20GreenBold(getTranslated(this.context, title)),
+      subtitle: text18White(getTranslated(this.context, 'empty')),
     );
   }
 }

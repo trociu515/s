@@ -83,9 +83,9 @@ Container employeeInfoTab(BuildContext context, EmployeeDto employee) {
       getTranslated(context, 'contact'),
       [
         getTranslated(context, 'email') + '//$email',
-        getTranslated(context, 'phoneNumber') + '//$phoneNumber',
-        getTranslated(context, 'viberNumber') + '//$viberNumber',
-        getTranslated(context, 'whatsAppNumber') + '//$whatsAppNumber',
+        getTranslated(context, 'phone') + '//$phoneNumber',
+        getTranslated(context, 'viber') + '//$viberNumber',
+        getTranslated(context, 'whatsApp') + '//$whatsAppNumber',
       ],
       iconWhite(Icons.phone_in_talk),
     ),
