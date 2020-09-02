@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
 class ManagerGroupEmployeeDto {
-  final int employeeId;
-  final String employeeInfo;
-  final String employeeNationality;
+  final int id;
+  final String info;
+  final String nationality;
   final String currency;
   final double averageEmployeeRating;
   final int numberOfHoursWorked;
@@ -11,9 +11,9 @@ class ManagerGroupEmployeeDto {
   final double amountOfEarnedMoney;
 
   ManagerGroupEmployeeDto({
-    @required this.employeeId,
-    @required this.employeeInfo,
-    @required this.employeeNationality,
+    @required this.id,
+    @required this.info,
+    @required this.nationality,
     @required this.currency,
     @required this.averageEmployeeRating,
     @required this.numberOfHoursWorked,
@@ -21,12 +21,11 @@ class ManagerGroupEmployeeDto {
     @required this.amountOfEarnedMoney,
   });
 
-  factory ManagerGroupEmployeeDto.fromJson(
-      Map<String, dynamic> json) {
+  factory ManagerGroupEmployeeDto.fromJson(Map<String, dynamic> json) {
     return ManagerGroupEmployeeDto(
-      employeeId: json['employeeId'] as int,
-      employeeInfo: json['employeeInfo'] as String,
-      employeeNationality: json['employeeNationality'] as String,
+      id: json['id'] as int,
+      info: json['info'] as String,
+      nationality: json['nationality'] as String,
       currency: json['currency'] as String,
       averageEmployeeRating: json['averageEmployeeRating'] as double,
       numberOfHoursWorked: json['numberOfHoursWorked'] as int,

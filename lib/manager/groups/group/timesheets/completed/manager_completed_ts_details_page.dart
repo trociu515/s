@@ -115,7 +115,7 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                   setState(
                     () {
                       _filteredEmployees = _employees
-                          .where((u) => (u.employeeInfo
+                          .where((u) => (u.info
                               .toLowerCase()
                               .contains(string.toLowerCase())))
                           .toList();
@@ -128,6 +128,10 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
               child: ListView.builder(
                 itemCount: _filteredEmployees.length,
                 itemBuilder: (BuildContext context, int index) {
+                  ManagerGroupEmployeeDto employee = _filteredEmployees[index];
+                  String info = employee.info;
+                  String nationality = employee.nationality;
+                  String currency = employee.currency;
                   return Card(
                     color: DARK,
                     child: Column(
@@ -140,23 +144,21 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                             trailing: Padding(
                               padding: EdgeInsets.all(4),
                               child: Transform.scale(
-                                scale: 1.5,
+                                scale: 1.2,
                                 child: BouncingWidget(
                                   duration: Duration(milliseconds: 100),
                                   scaleFactor: 1.5,
                                   onPressed: () {
-                                    ManagerGroupEmployeeDto manager =
-                                        _employees[index];
                                     Navigator.push(
                                       this.context,
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             ManagerEmployeeProfilePage(
                                                 _model,
-                                                manager.employeeNationality,
-                                                manager.currency,
-                                                manager.employeeId,
-                                                manager.employeeInfo),
+                                                nationality,
+                                                currency,
+                                                employee.id,
+                                                info),
                                       ),
                                     );
                                   },
@@ -169,15 +171,11 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                                 ),
                               ),
                             ),
-                            title: text20WhiteBold(utf8.decode(
-                                    _filteredEmployees[index]
-                                        .employeeInfo
-                                        .runes
-                                        .toList()) +
-                                ' ' +
-                                LanguageUtil.findFlagByNationality(
-                                    _filteredEmployees[index]
-                                        .employeeNationality)),
+                            title: text20WhiteBold(
+                                utf8.decode(info.runes.toList()) +
+                                    ' ' +
+                                    LanguageUtil.findFlagByNationality(
+                                        nationality)),
                             subtitle: Column(
                               children: <Widget>[
                                 Align(
@@ -190,7 +188,7 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                                                 .moneyPerHour
                                                 .toString() +
                                             ' ' +
-                                            _employees[index].currency),
+                                            currency),
                                       ],
                                     ),
                                     alignment: Alignment.topLeft),
@@ -228,7 +226,7 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                                                 .amountOfEarnedMoney
                                                 .toString() +
                                             ' ' +
-                                            _employees[index].currency),
+                                            currency),
                                       ],
                                     ),
                                     alignment: Alignment.topLeft),

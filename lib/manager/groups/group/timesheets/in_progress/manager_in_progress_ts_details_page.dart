@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:bouncing_widget/bouncing_widget.dart';
@@ -57,7 +58,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
   bool _loading = false;
   bool _isChecked = false;
   List<bool> _checked = new List();
-  List<int> _selectedIds = new List();
+  LinkedHashSet<int> _selectedIds = new LinkedHashSet();
 
   @override
   void initState() {
@@ -134,7 +135,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                     setState(
                       () {
                         _filteredEmployees = _employees
-                            .where((u) => (u.employeeInfo
+                            .where((u) => (u.info
                                 .toLowerCase()
                                 .contains(string.toLowerCase())))
                             .toList();
@@ -158,7 +159,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                       _checked = l;
                       if (value) {
                         _selectedIds
-                            .addAll(_employees.map((e) => e.employeeId));
+                            .addAll(_filteredEmployees.map((e) => e.id));
                       } else
                         _selectedIds.clear();
                     });
@@ -170,6 +171,17 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                 child: ListView.builder(
                   itemCount: _filteredEmployees.length,
                   itemBuilder: (BuildContext context, int index) {
+                    ManagerGroupEmployeeDto employee =
+                        _filteredEmployees[index];
+                    int foundIndex = 0;
+                    for (int i = 0; i < _employees.length; i++) {
+                      if (_employees[i].id == employee.id) {
+                        foundIndex = i;
+                      }
+                    }
+                    String info = employee.info;
+                    String nationality = employee.nationality;
+                    String currency = employee.currency;
                     return Card(
                       color: DARK,
                       child: Column(
@@ -186,23 +198,21 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                 secondary: Padding(
                                   padding: EdgeInsets.all(4),
                                   child: Transform.scale(
-                                    scale: 1.5,
+                                    scale: 1.2,
                                     child: BouncingWidget(
                                       duration: Duration(milliseconds: 100),
-                                      scaleFactor: 1.5,
+                                      scaleFactor: 2,
                                       onPressed: () {
-                                        ManagerGroupEmployeeDto manager =
-                                            _filteredEmployees[index];
                                         Navigator.push(
                                           this.context,
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 ManagerEmployeeProfilePage(
                                                     _model,
-                                                    manager.employeeNationality,
-                                                    manager.currency,
-                                                    manager.employeeId,
-                                                    manager.employeeInfo),
+                                                    nationality,
+                                                    currency,
+                                                    employee.id,
+                                                    info),
                                           ),
                                         );
                                       },
@@ -215,15 +225,11 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                     ),
                                   ),
                                 ),
-                                title: text20WhiteBold(utf8.decode(
-                                        _filteredEmployees[index]
-                                            .employeeInfo
-                                            .runes
-                                            .toList()) +
-                                    ' ' +
-                                    LanguageUtil.findFlagByNationality(
-                                        _filteredEmployees[index]
-                                            .employeeNationality)),
+                                title: text20WhiteBold(
+                                    utf8.decode(info.runes.toList()) +
+                                        ' ' +
+                                        LanguageUtil.findFlagByNationality(
+                                            nationality)),
                                 subtitle: Column(
                                   children: <Widget>[
                                     Align(
@@ -233,11 +239,10 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                                     this.context,
                                                     'moneyPerHour') +
                                                 ': '),
-                                            textGreenBold(_employees[index]
-                                                    .moneyPerHour
+                                            textGreenBold(employee.moneyPerHour
                                                     .toString() +
                                                 ' ' +
-                                                _employees[index].currency),
+                                                currency),
                                           ],
                                         ),
                                         alignment: Alignment.topLeft),
@@ -248,7 +253,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                                     this.context,
                                                     'averageRating') +
                                                 ': '),
-                                            textGreenBold(_employees[index]
+                                            textGreenBold(employee
                                                 .averageEmployeeRating
                                                 .toString()),
                                           ],
@@ -261,7 +266,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                                     this.context,
                                                     'numberOfHoursWorked') +
                                                 ': '),
-                                            textGreenBold(_employees[index]
+                                            textGreenBold(employee
                                                 .numberOfHoursWorked
                                                 .toString()),
                                           ],
@@ -274,11 +279,11 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                                     this.context,
                                                     'amountOfEarnedMoney') +
                                                 ': '),
-                                            textGreenBold(_employees[index]
+                                            textGreenBold(employee
                                                     .amountOfEarnedMoney
                                                     .toString() +
                                                 ' ' +
-                                                _employees[index].currency),
+                                                currency),
                                           ],
                                         ),
                                         alignment: Alignment.topLeft),
@@ -286,16 +291,23 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                 ),
                                 activeColor: GREEN,
                                 checkColor: WHITE,
-                                value: _checked[index],
+                                value: _checked[foundIndex],
                                 onChanged: (bool value) {
                                   setState(() {
-                                    _checked[index] = value;
+                                    _checked[foundIndex] = value;
                                     if (value) {
                                       _selectedIds
-                                          .add(_employees[index].employeeId);
+                                          .add(_employees[foundIndex].id);
                                     } else {
                                       _selectedIds
-                                          .remove(_employees[index].employeeId);
+                                          .remove(_employees[foundIndex].id);
+                                    }
+                                    int selectedIdsLength = _selectedIds.length;
+                                    if (selectedIdsLength ==
+                                        _employees.length) {
+                                      _isChecked = true;
+                                    } else if (selectedIdsLength == 0) {
+                                      _isChecked = false;
                                     }
                                   });
                                 },
@@ -389,7 +401,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
     );
   }
 
-  void _showUpdateHoursDialog(List<int> selectedIds) async {
+  void _showUpdateHoursDialog(LinkedHashSet<int> selectedIds) async {
     int year = _timeSheet.year;
     int monthNum =
         MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
@@ -528,7 +540,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
     }
   }
 
-  void _showUpdateRatingDialog(List<int> selectedIds) async {
+  void _showUpdateRatingDialog(LinkedHashSet<int> selectedIds) async {
     int year = _timeSheet.year;
     int monthNum =
         MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
@@ -668,7 +680,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
     }
   }
 
-  void _showUpdatePlanDialog(List<int> selectedIds) async {
+  void _showUpdatePlanDialog(LinkedHashSet<int> selectedIds) async {
     int year = _timeSheet.year;
     int monthNum =
         MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
@@ -801,7 +813,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
     }
   }
 
-  void _showUpdateOpinionDialog(List<int> selectedIds) async {
+  void _showUpdateOpinionDialog(LinkedHashSet<int> selectedIds) async {
     int year = _timeSheet.year;
     int monthNum =
         MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
