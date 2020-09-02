@@ -19,16 +19,16 @@ import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
 import 'manager_employee_profile_page.dart';
 
-class ManagerEmployeePage extends StatefulWidget {
+class ManagerEmployeesPage extends StatefulWidget {
   final GroupEmployeeModel _model;
 
-  ManagerEmployeePage(this._model);
+  ManagerEmployeesPage(this._model);
 
   @override
-  _ManagerEmployeePageState createState() => _ManagerEmployeePageState();
+  _ManagerEmployeesPageState createState() => _ManagerEmployeesPageState();
 }
 
-class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
+class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
   final ManagerService _managerService = new ManagerService();
 
   GroupEmployeeModel _model;
@@ -117,6 +117,10 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
               child: ListView.builder(
                 itemCount: _filteredEmployees.length,
                 itemBuilder: (BuildContext context, int index) {
+                  ManagerGroupDetailsDto employee = _filteredEmployees[index];
+                  String info = employee.employeeInfo;
+                  String nationality = employee.employeeNationality;
+                  String currency = employee.currency;
                   return Card(
                     color: DARK,
                     child: Column(
@@ -132,10 +136,10 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
                                   builder: (BuildContext context) {
                                     return ManagerEmployeeProfilePage(
                                         _model,
-                                        _employees[index].employeeNationality,
-                                        _employees[index].currency,
-                                        _employees[index].employeeId,
-                                        _employees[index].employeeInfo);
+                                        nationality,
+                                        currency,
+                                        employee.employeeId,
+                                        info);
                                   },
                                 ),
                               );
@@ -153,15 +157,11 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
                                       ),
                                     ),
                                   ),
-                                  title: text20WhiteBold(utf8.decode(
-                                          _filteredEmployees[index]
-                                              .employeeInfo
-                                              .runes
-                                              .toList()) +
-                                      ' ' +
-                                      LanguageUtil.findFlagByNationality(
-                                          _filteredEmployees[index]
-                                              .employeeNationality)),
+                                  title: text20WhiteBold(
+                                      utf8.decode(info.runes.toList()) +
+                                          ' ' +
+                                          LanguageUtil.findFlagByNationality(
+                                              nationality)),
                                   subtitle: Column(
                                     children: <Widget>[
                                       Align(
@@ -171,11 +171,11 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
                                                       this.context,
                                                       'moneyPerHour') +
                                                   ': '),
-                                              textGreenBold(_employees[index]
+                                              textGreenBold(employee
                                                       .moneyPerHour
                                                       .toString() +
                                                   ' ' +
-                                                  _employees[index].currency),
+                                                  currency),
                                             ],
                                           ),
                                           alignment: Alignment.topLeft),
@@ -186,7 +186,7 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
                                                       this.context,
                                                       'numberOfHoursWorked') +
                                                   ': '),
-                                              textGreenBold(_employees[index]
+                                              textGreenBold(employee
                                                   .numberOfHoursWorked
                                                   .toString()),
                                             ],
@@ -199,11 +199,11 @@ class _ManagerEmployeePageState extends State<ManagerEmployeePage> {
                                                       this.context,
                                                       'amountOfEarnedMoney') +
                                                   ': '),
-                                              textGreenBold(_employees[index]
+                                              textGreenBold(employee
                                                       .amountOfEarnedMoney
                                                       .toString() +
                                                   ' ' +
-                                                  _employees[index].currency),
+                                                  currency),
                                             ],
                                           ),
                                           alignment: Alignment.topLeft),

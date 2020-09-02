@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:give_job/manager/groups/group/employee/manager_employee_page.dart';
+import 'package:give_job/manager/groups/group/employee/manager_employees_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/quick_update/quick_update_dialog.dart';
 import 'package:give_job/manager/groups/group/timesheets/manager_ts_page.dart';
@@ -48,7 +48,7 @@ Widget groupFloatingActionButton(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ManagerEmployeePage(model)),
+            MaterialPageRoute(builder: (context) => ManagerEmployeesPage(model)),
           );
         },
       ),
