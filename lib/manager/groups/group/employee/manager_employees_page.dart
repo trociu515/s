@@ -188,7 +188,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                               children: <Widget>[
                                                 textWhite(getTranslated(
                                                         this.context,
-                                                        'numberOfHoursWorked') +
+                                                        'totalNumberOfHoursWorked') +
                                                     ': '),
                                                 textGreenBold(employee
                                                     .numberOfHoursWorked
@@ -201,7 +201,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                               children: <Widget>[
                                                 textWhite(getTranslated(
                                                         this.context,
-                                                        'amountOfEarnedMoney') +
+                                                        'totalAmountOfEarnedMoney') +
                                                     ': '),
                                                 textGreenBold(employee
                                                         .amountOfEarnedMoney

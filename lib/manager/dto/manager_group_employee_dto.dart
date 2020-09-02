@@ -5,7 +5,7 @@ class ManagerGroupEmployeeDto {
   final String info;
   final String nationality;
   final String currency;
-  final double averageEmployeeRating;
+  final double averageRating;
   final int numberOfHoursWorked;
   final double moneyPerHour;
   final double amountOfEarnedMoney;
@@ -15,7 +15,7 @@ class ManagerGroupEmployeeDto {
     @required this.info,
     @required this.nationality,
     @required this.currency,
-    @required this.averageEmployeeRating,
+    @required this.averageRating,
     @required this.numberOfHoursWorked,
     @required this.moneyPerHour,
     @required this.amountOfEarnedMoney,
@@ -27,7 +27,7 @@ class ManagerGroupEmployeeDto {
       info: json['info'] as String,
       nationality: json['nationality'] as String,
       currency: json['currency'] as String,
-      averageEmployeeRating: json['averageEmployeeRating'] as double,
+      averageRating: json['averageEmployeeRating'] as double,
       numberOfHoursWorked: json['numberOfHoursWorked'] as int,
       moneyPerHour: json['moneyPerHour'] as double,
       amountOfEarnedMoney: json['amountOfEarnedMoney'] as double,

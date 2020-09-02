@@ -7,9 +7,9 @@ class EmployeeTimeSheetDto {
   final String groupName;
   final String groupCountryCurrency;
   final String status;
-  final int totalHours;
-  final double averageEmployeeRating;
-  final double totalMoneyEarned;
+  final int numberOfHoursWorked;
+  final double averageRating;
+  final double amountOfEarnedMoney;
 
   EmployeeTimeSheetDto({
     @required this.id,
@@ -18,9 +18,9 @@ class EmployeeTimeSheetDto {
     @required this.groupName,
     @required this.groupCountryCurrency,
     @required this.status,
-    @required this.totalHours,
-    @required this.averageEmployeeRating,
-    @required this.totalMoneyEarned,
+    @required this.numberOfHoursWorked,
+    @required this.averageRating,
+    @required this.amountOfEarnedMoney,
   });
 
   factory EmployeeTimeSheetDto.fromJson(Map<String, dynamic> json) {
@@ -31,9 +31,9 @@ class EmployeeTimeSheetDto {
       groupName: json['groupName'] as String,
       groupCountryCurrency: json['groupCountryCurrency'] as String,
       status: json['status'] as String,
-      totalHours: json['totalHours'] as int,
-      averageEmployeeRating: json['averageEmployeeRating'] as double,
-      totalMoneyEarned: json['totalMoneyEarned'] as double,
+      numberOfHoursWorked: json['totalHours'] as int,
+      averageRating: json['averageEmployeeRating'] as double,
+      amountOfEarnedMoney: json['totalMoneyEarned'] as double,
     );
   }
 }

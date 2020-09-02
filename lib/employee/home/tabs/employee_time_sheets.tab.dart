@@ -43,17 +43,17 @@ Container employeeTimeSheetsTab(BuildContext context, List timeSheets) {
                         children: <Widget>[
                           textWhite(getTranslated(context, 'hoursWorked') +
                               ': ' +
-                              timeSheet.totalHours.toString() +
+                              timeSheet.numberOfHoursWorked.toString() +
                               'h'),
                           textWhite(getTranslated(context, 'averageRating') +
                               ': ' +
-                              timeSheet.averageEmployeeRating.toString()),
+                              timeSheet.averageRating.toString()),
                         ],
                       ),
                       trailing: Wrap(
                         children: <Widget>[
                           text20GreenBold(
-                              timeSheet.totalMoneyEarned.toString()),
+                              timeSheet.amountOfEarnedMoney.toString()),
                           text20GreenBold(" " + timeSheet.groupCountryCurrency.toString())
                         ],
                       ),

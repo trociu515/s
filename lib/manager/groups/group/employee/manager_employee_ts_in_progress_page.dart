@@ -163,7 +163,7 @@ class _ManagerEmployeeTsInProgressPageState
                                           ': '),
                                     ),
                                     textGreenBold(
-                                        _timeSheet.totalHours.toString() + 'h'),
+                                        _timeSheet.numberOfHoursWorked.toString() + 'h'),
                                   ],
                                 ),
                                 Row(
@@ -175,7 +175,7 @@ class _ManagerEmployeeTsInProgressPageState
                                           ': '),
                                     ),
                                     textGreenBold(widget
-                                        .timeSheet.averageEmployeeRating
+                                        .timeSheet.averageRating
                                         .toString()),
                                   ],
                                 ),
@@ -184,7 +184,7 @@ class _ManagerEmployeeTsInProgressPageState
                             trailing: Wrap(
                               children: <Widget>[
                                 text20GreenBold(widget
-                                    .timeSheet.totalMoneyEarned
+                                    .timeSheet.amountOfEarnedMoney
                                     .toString()),
                                 text20GreenBold(' ' + _currency)
                               ],
@@ -436,7 +436,7 @@ class _ManagerEmployeeTsInProgressPageState
                                         ': '),
                               ),
                               textGreenBold(
-                                  _timeSheet.totalHours.toString() + 'h'),
+                                  _timeSheet.numberOfHoursWorked.toString() + 'h'),
                             ],
                           ),
                           Row(
@@ -448,7 +448,7 @@ class _ManagerEmployeeTsInProgressPageState
                                         ': '),
                               ),
                               textGreenBold(widget
-                                  .timeSheet.averageEmployeeRating
+                                  .timeSheet.averageRating
                                   .toString()),
                             ],
                           ),
@@ -457,7 +457,7 @@ class _ManagerEmployeeTsInProgressPageState
                       trailing: Wrap(
                         children: <Widget>[
                           text20GreenBold(
-                              _timeSheet.totalMoneyEarned.toString()),
+                              _timeSheet.amountOfEarnedMoney.toString()),
                           text20GreenBold(' ' + _currency)
                         ],
                       ),

@@ -138,7 +138,7 @@ class _ManagerEmployeeTsCompletedPageState
                                           ': '),
                                 ),
                                 textGreenBold(
-                                    timeSheet.totalHours.toString() + 'h'),
+                                    timeSheet.numberOfHoursWorked.toString() + 'h'),
                               ],
                             ),
                             Row(
@@ -150,7 +150,7 @@ class _ManagerEmployeeTsCompletedPageState
                                           ': '),
                                 ),
                                 textGreenBold(widget
-                                    .timeSheet.averageEmployeeRating
+                                    .timeSheet.averageRating
                                     .toString()),
                               ],
                             ),
@@ -159,7 +159,7 @@ class _ManagerEmployeeTsCompletedPageState
                         trailing: Wrap(
                           children: <Widget>[
                             text20GreenBold(
-                                timeSheet.totalMoneyEarned.toString()),
+                                timeSheet.amountOfEarnedMoney.toString()),
                             text20GreenBold(' ' + _currency),
                           ],
                         ),

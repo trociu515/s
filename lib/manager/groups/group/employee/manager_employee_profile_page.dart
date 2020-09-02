@@ -190,7 +190,7 @@ class _ManagerEmployeeProfilePageState
                                               textWhite(getTranslated(
                                                       context, 'hoursWorked') +
                                                   ': '),
-                                              textGreenBold(timeSheet.totalHours
+                                              textGreenBold(timeSheet.numberOfHoursWorked
                                                       .toString() +
                                                   'h'),
                                             ],
@@ -203,7 +203,7 @@ class _ManagerEmployeeProfilePageState
                                                     context, 'averageRating') +
                                                 ': '),
                                             textGreenBold(timeSheet
-                                                .averageEmployeeRating
+                                                .averageRating
                                                 .toString()),
                                           ],
                                         ),
@@ -213,7 +213,7 @@ class _ManagerEmployeeProfilePageState
                                   ),
                                   trailing: Wrap(
                                     children: <Widget>[
-                                      text20GreenBold(timeSheet.totalMoneyEarned
+                                      text20GreenBold(timeSheet.amountOfEarnedMoney
                                           .toString()),
                                       text20GreenBold(' ' + _currency)
                                     ],

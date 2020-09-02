@@ -252,7 +252,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                                     'averageRating') +
                                                 ': '),
                                             textGreenBold(employee
-                                                .averageEmployeeRating
+                                                .averageRating
                                                 .toString()),
                                           ],
                                         ),
