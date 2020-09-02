@@ -203,7 +203,7 @@ class _ManagerEmployeeTsInProgressPageState
                                 data: Theme.of(context)
                                     .copyWith(dividerColor: MORE_BRIGHTER_DARK),
                                 child: DataTable(
-                                  columnSpacing: 0,
+                                  columnSpacing: 10,
                                   sortAscending: _sort,
                                   sortColumnIndex: _sortColumnIndex,
                                   columns: [
