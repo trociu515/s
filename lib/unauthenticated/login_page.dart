@@ -239,8 +239,9 @@ class _LoginPageState extends State<LoginPage> {
 
   void _chooseManagerPage(Map data, User user) {
     String containsMoreThanOneGroup = data['containsMoreThanOneGroup'];
-    if (containsMoreThanOneGroup == null ||
-        containsMoreThanOneGroup == 'true') {
+    if (containsMoreThanOneGroup == 'true' ||
+        containsMoreThanOneGroup == null ||
+        containsMoreThanOneGroup == 'null') {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => ManagerGroupsPage(user)));
     }

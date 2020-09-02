@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
@@ -11,7 +12,6 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
-import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -32,18 +32,14 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
   final ManagerService _managerService = new ManagerService();
   User _user;
 
+  List<ManagerGroupDto> _groups = new List();
+
   @override
   Widget build(BuildContext context) {
     this._user = widget._user;
     return WillPopScope(
       child: FutureBuilder<List<ManagerGroupDto>>(
-        future: _managerService
-            .findGroupsManager(_user.id, _user.authHeader)
-            .catchError((e) {
-          ToastService.showBottomToast(
-              getTranslated(context, 'managerDoesNotHaveGroups'), Colors.red);
-          Navigator.pop(context);
-        }),
+        future: _managerService.findGroupsManager(_user.id, _user.authHeader),
         builder: (BuildContext context,
             AsyncSnapshot<List<ManagerGroupDto>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting ||
@@ -53,13 +49,7 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
               managerSideBar(context, _user),
             );
           } else {
-            List<ManagerGroupDto> groups = snapshot.data;
-            if (groups.isEmpty) {
-              ToastService.showBottomToast(
-                  getTranslated(context, 'managerDoesNotHaveGroups'),
-                  Colors.red);
-              Navigator.pop(context);
-            }
+            this._groups = snapshot.data;
             return MaterialApp(
               title: APP_NAME,
               theme: ThemeData(
@@ -70,97 +60,10 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                 appBar: managerAppBar(
                     context, _user, getTranslated(context, 'groups')),
                 drawer: managerSideBar(context, _user),
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      children: <Widget>[
-                        for (int i = 0; i < groups.length; i++)
-                          Card(
-                            color: BRIGHTER_DARK,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  CupertinoPageRoute<Null>(
-                                    builder: (BuildContext context) {
-                                      return ManagerGroupDetailsPage(
-                                          new GroupEmployeeModel(
-                                              _user,
-                                              groups[i].id,
-                                              groups[i].name,
-                                              groups[i].description,
-                                              groups[i]
-                                                  .numberOfEmployees
-                                                  .toString(),
-                                              groups[i].countryOfWork));
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Tab(
-                                      icon: Container(
-                                        child: Image(
-                                          image: AssetImage(
-                                            'images/group-img.png',
-                                          ),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    title: text18WhiteBold(
-                                      utf8.decode(
-                                        groups[i].name != null
-                                            ? groups[i].name.runes.toList()
-                                            : getTranslated(context, 'empty'),
-                                      ),
-                                    ),
-                                    subtitle: Column(
-                                      children: <Widget>[
-                                        Align(
-                                            child: textWhite(utf8.decode(
-                                                groups[i].description != null
-                                                    ? groups[i]
-                                                        .description
-                                                        .runes
-                                                        .toList()
-                                                    : getTranslated(
-                                                        context, 'empty'))),
-                                            alignment: Alignment.topLeft),
-                                        SizedBox(height: 5),
-                                        Align(
-                                            child: textWhite(getTranslated(
-                                                    context,
-                                                    'numberOfEmployees') +
-                                                ': ' +
-                                                groups[i]
-                                                    .numberOfEmployees
-                                                    .toString()),
-                                            alignment: Alignment.topLeft),
-                                        Align(
-                                            child: textWhite(getTranslated(
-                                                    context,
-                                                    'groupCountryOfWork') +
-                                                ': ' +
-                                                LanguageUtil
-                                                    .findFlagByNationality(
-                                                        groups[i]
-                                                            .countryOfWork
-                                                            .toString())),
-                                            alignment: Alignment.topLeft),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
+                body: Column(
+                  children: <Widget>[
+                    _groups.isNotEmpty ? _handleGroups() : _handleNoGroups()
+                  ],
                 ),
               ),
             );
@@ -168,6 +71,108 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
         },
       ),
       onWillPop: _onWillPop,
+    );
+  }
+
+  Widget _handleGroups() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: <Widget>[
+            for (int i = 0; i < _groups.length; i++)
+              Card(
+                color: BRIGHTER_DARK,
+                child: InkWell(
+                  onTap: () {
+                    ManagerGroupDto group = _groups[i];
+                    Navigator.of(context).push(
+                      CupertinoPageRoute<Null>(
+                        builder: (BuildContext context) {
+                          return ManagerGroupDetailsPage(new GroupEmployeeModel(
+                              _user,
+                              group.id,
+                              group.name,
+                              group.description,
+                              group.numberOfEmployees.toString(),
+                              group.countryOfWork));
+                        },
+                      ),
+                    );
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      ListTile(
+                        leading: Tab(
+                          icon: Container(
+                            child: Image(
+                              image: AssetImage(
+                                'images/group-img.png',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        title: text18WhiteBold(
+                          utf8.decode(
+                            _groups[i].name != null
+                                ? _groups[i].name.runes.toList()
+                                : getTranslated(context, 'empty'),
+                          ),
+                        ),
+                        subtitle: Column(
+                          children: <Widget>[
+                            Align(
+                                child: textWhite(utf8.decode(
+                                    _groups[i].description != null
+                                        ? _groups[i].description.runes.toList()
+                                        : getTranslated(context, 'empty'))),
+                                alignment: Alignment.topLeft),
+                            SizedBox(height: 5),
+                            Align(
+                                child: textWhite(getTranslated(
+                                        context, 'numberOfEmployees') +
+                                    ': ' +
+                                    _groups[i].numberOfEmployees.toString()),
+                                alignment: Alignment.topLeft),
+                            Align(
+                                child: textWhite(getTranslated(
+                                        context, 'groupCountryOfWork') +
+                                    ': ' +
+                                    LanguageUtil.findFlagByNationality(
+                                        _groups[i].countryOfWork.toString())),
+                                alignment: Alignment.topLeft),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _handleNoGroups() {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: Align(
+              alignment: Alignment.center,
+              child: text20GreenBold('Welcome ' + _user.info)),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 30, left: 30, top: 10),
+          child: Align(
+              alignment: Alignment.center,
+              child: textCenter19White(
+                  'You have successfully logged in but it looks like you don\'t have created groups. Ask the administrator to create employee groups.')),
+        ),
+      ],
     );
   }
 
