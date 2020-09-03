@@ -79,7 +79,6 @@ Text text22DarkBold(String text) { return Text(text, style: TextStyle(fontSize: 
 /////////////////////
 Text textGreen(String text) { return Text(text, style: TextStyle(color: GREEN)); }
 Text text14Green(String text) { return Text(text, style: TextStyle(fontSize: 14, color: GREEN)); }
-Text text16Green(String text) { return Text(text, style: TextStyle(fontSize: 18, color: GREEN)); }
 
 
 /////////////////////////////////

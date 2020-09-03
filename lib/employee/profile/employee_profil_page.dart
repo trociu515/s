@@ -5,33 +5,32 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
-import 'package:give_job/employee/home/tabs/employee_info_tab.dart';
-import 'package:give_job/employee/home/tabs/employee_time_sheets.tab.dart';
+import 'package:give_job/employee/profile/tabs/employee_info_tab.dart';
+import 'package:give_job/employee/profile/tabs/employee_time_sheets.tab.dart';
 import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/manager_app_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 import '../dto/employee_dto.dart';
+import '../employee_app_bar.dart';
 
-class EmployeeHomePage extends StatefulWidget {
+class EmployeeProfilPage extends StatefulWidget {
   final User _user;
 
-  EmployeeHomePage(this._user);
+  EmployeeProfilPage(this._user);
 
   @override
-  _EmployeeHomePageState createState() => _EmployeeHomePageState();
+  _EmployeeProfilPageState createState() => _EmployeeProfilPageState();
 }
 
-class _EmployeeHomePageState extends State<EmployeeHomePage> {
+class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
   final EmployeeService _employeeService = new EmployeeService();
 
   @override
@@ -43,7 +42,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
           return loader(
-            managerAppBar(context, null, getTranslated(context, 'loading')),
+            employeeAppBar(context, null, getTranslated(context, 'loading')),
             employeeSideBar(context, widget._user),
           );
         } else {
@@ -56,8 +55,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                 debugShowCheckedModeBanner: false,
                 home: Scaffold(
                   backgroundColor: DARK,
-                  appBar: appBar(
-                      context, widget._user, getTranslated(context, 'home')),
+                  appBar: employeeAppBar(context, widget._user, 'Profile'),
                   drawer: employeeSideBar(context, widget._user),
                   body: Column(
                     children: <Widget>[
@@ -105,79 +103,85 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                 ],
                               ),
                               SizedBox(height: 1.0),
-                              text16Green(
+                              text16GreenBold(
                                   getTranslated(context, 'statisticsForThe') +
                                       employee.currentYear +
                                       ' ' +
                                       getTranslated(
                                           context, employee.currentMonth)),
-                              Card(
-                                child: Container(
-                                  padding: const EdgeInsets.all(5.0),
-                                  color: BRIGHTER_DARK,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Column(
-                                          children: <Widget>[
-                                            text20White(
-                                                getTranslated(context, 'days')),
-                                            SizedBox(height: 5.0),
-                                            Countup(
-                                              begin: 0,
-                                              end: employee
-                                                  .daysWorkedInCurrentMonth
-                                                  .toDouble(),
-                                              duration: Duration(seconds: 2),
-                                              style: TextStyle(
-                                                  fontSize: 18.0, color: WHITE),
-                                            ),
-                                          ],
+                              Padding(
+                                padding: EdgeInsets.only(right: 12, left: 12),
+                                child: Card(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5.0),
+                                    color: BRIGHTER_DARK,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              text20White(getTranslated(
+                                                  context, 'days')),
+                                              SizedBox(height: 5.0),
+                                              Countup(
+                                                begin: 0,
+                                                end: employee
+                                                    .daysWorkedInCurrentMonth
+                                                    .toDouble(),
+                                                duration: Duration(seconds: 2),
+                                                style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    color: WHITE),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          children: <Widget>[
-                                            text20White(getTranslated(
-                                                context, 'money')),
-                                            text14White(
-                                                employee.moneyCurrency != null
-                                                    ? '(' +
-                                                        employee.moneyCurrency +
-                                                        ')'
-                                                    : getTranslated(
-                                                        context, 'noCurrency')),
-                                            Countup(
-                                              begin: 0,
-                                              end: employee
-                                                  .earnedMoneyInCurrentMonth,
-                                              duration: Duration(seconds: 2),
-                                              separator: ',',
-                                              style: TextStyle(
-                                                  fontSize: 18, color: WHITE),
-                                            ),
-                                          ],
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              text20White(getTranslated(
+                                                  context, 'money')),
+                                              text14White(employee
+                                                          .moneyCurrency !=
+                                                      null
+                                                  ? '(' +
+                                                      employee.moneyCurrency +
+                                                      ')'
+                                                  : getTranslated(
+                                                      context, 'noCurrency')),
+                                              Countup(
+                                                begin: 0,
+                                                end: employee
+                                                    .earnedMoneyInCurrentMonth,
+                                                duration: Duration(seconds: 2),
+                                                separator: ',',
+                                                style: TextStyle(
+                                                    fontSize: 18, color: WHITE),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          children: <Widget>[
-                                            text20White(getTranslated(
-                                                context, 'rating')),
-                                            SizedBox(height: 5.0),
-                                            Countup(
-                                              begin: 0,
-                                              end:
-                                                  employee.ratingInCurrentMonth,
-                                              precision: 1,
-                                              duration: Duration(seconds: 2),
-                                              style: TextStyle(
-                                                  fontSize: 18.0, color: WHITE),
-                                            ),
-                                          ],
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              text20White(getTranslated(
+                                                  context, 'rating')),
+                                              SizedBox(height: 5.0),
+                                              Countup(
+                                                begin: 0,
+                                                end: employee
+                                                    .ratingInCurrentMonth,
+                                                precision: 1,
+                                                duration: Duration(seconds: 2),
+                                                style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    color: WHITE),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

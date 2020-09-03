@@ -22,7 +22,7 @@ Container employeeTimeSheetsTab(BuildContext context, List timeSheets) {
           children: <Widget>[
             for (var timeSheet in timeSheets)
               Card(
-                color: DARK,
+                color: BRIGHTER_DARK,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[

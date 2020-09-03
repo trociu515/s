@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:give_job/employee/profile/employee_profil_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/manager_groups_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -12,7 +13,6 @@ import 'package:give_job/shared/own_http_overrides.dart';
 import 'package:give_job/unauthenticated/get_started_page.dart';
 import 'package:give_job/unauthenticated/login_page.dart';
 
-import 'employee/home/employee_home_page.dart';
 import 'internationalization/localization/demo_localization.dart';
 import 'internationalization/localization/localization_constants.dart';
 import 'manager/groups/group/manager_group_details_page.dart';
@@ -144,7 +144,7 @@ class _MyAppState extends State<MyApp> {
             User user = new User().create(data);
             String role = user.role;
             if (role == ROLE_EMPLOYEE) {
-              return EmployeeHomePage(user);
+              return EmployeeProfilPage(user);
             } else if (role == ROLE_MANAGER) {
               return _chooseManagerPage(data, user);
             } else {

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
+import 'package:give_job/employee/profile/employee_profil_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/manager_group_details_page.dart';
@@ -21,7 +22,6 @@ import 'package:give_job/unauthenticated/registration_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 
-import '../employee/home/employee_home_page.dart';
 import '../internationalization/localization/localization_constants.dart';
 
 class LoginPage extends StatefulWidget {
@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EmployeeHomePage(user)));
+                              builder: (context) => EmployeeProfilPage(user)));
                     } else if (role == ROLE_MANAGER) {
                       _chooseManagerPage(map, user);
                     }
