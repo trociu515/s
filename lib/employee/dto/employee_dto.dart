@@ -36,6 +36,7 @@ class EmployeeDto {
   final num earnedMoneyInCurrentMonth;
   final String moneyCurrency;
   final List timeSheets;
+  final String todaysPlan;
 
   EmployeeDto({
     @required this.username,
@@ -71,44 +72,47 @@ class EmployeeDto {
     @required this.earnedMoneyInCurrentMonth,
     @required this.moneyCurrency,
     @required this.timeSheets,
+    @required this.todaysPlan,
   });
 
   factory EmployeeDto.fromJson(Map<String, dynamic> json) {
     return EmployeeDto(
-        username: json['username'] as String,
-        nationality: json['nationality'] as String,
-        dateOfBirth: json['dateOfBirth'] as String,
-        fatherName: json['fatherName'] as String,
-        motherName: json['motherName'] as String,
-        expirationDateOfWork: json['expirationDateOfWork'] as String,
-        nip: json['nip'] as String,
-        bankAccountNumber: json['bankAccountNumber'] as String,
-        moneyPerHour: json['moneyPerHour'] as double,
-        drivingLicense: json['drivingLicense'] as String,
-        houseNumber: json['houseNumber'] as String,
-        street: json['street'] as String,
-        zipCode: json['zipCode'] as String,
-        locality: json['locality'] as String,
-        passportNumber: json['passportNumber'] as String,
-        passportReleaseDate: json['passportReleaseDate'] as String,
-        passportExpirationDate: json['passportExpirationDate'] as String,
-        email: json['email'] as String,
-        phoneNumber: json['phoneNumber'] as String,
-        viberNumber: json['viberNumber'] as String,
-        whatsAppNumber: json['whatsAppNumber'] as String,
-        groupId: json['groupId'] as int,
-        groupName: json['groupName'] as String,
-        groupCountryOfWork: json['groupCountryOfWork'] as String,
-        groupDescription: json['groupDescription'] as String,
-        groupManager: json['groupManager'] as String,
-        currentYear: json['currentYear'] as String,
-        currentMonth: json['currentMonth'] as String,
-        daysWorkedInCurrentMonth: json['daysWorkedInCurrentMonth'] as num,
-        ratingInCurrentMonth: json['ratingInCurrentMonth'] as num,
-        earnedMoneyInCurrentMonth: json['earnedMoneyInCurrentMonth'] as num,
-        moneyCurrency: json['moneyCurrency'] as String,
-        timeSheets: json['timeSheets']
-            .map((data) => EmployeeTimeSheetDto.fromJson(data))
-            .toList());
+      username: json['username'] as String,
+      nationality: json['nationality'] as String,
+      dateOfBirth: json['dateOfBirth'] as String,
+      fatherName: json['fatherName'] as String,
+      motherName: json['motherName'] as String,
+      expirationDateOfWork: json['expirationDateOfWork'] as String,
+      nip: json['nip'] as String,
+      bankAccountNumber: json['bankAccountNumber'] as String,
+      moneyPerHour: json['moneyPerHour'] as double,
+      drivingLicense: json['drivingLicense'] as String,
+      houseNumber: json['houseNumber'] as String,
+      street: json['street'] as String,
+      zipCode: json['zipCode'] as String,
+      locality: json['locality'] as String,
+      passportNumber: json['passportNumber'] as String,
+      passportReleaseDate: json['passportReleaseDate'] as String,
+      passportExpirationDate: json['passportExpirationDate'] as String,
+      email: json['email'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      viberNumber: json['viberNumber'] as String,
+      whatsAppNumber: json['whatsAppNumber'] as String,
+      groupId: json['groupId'] as int,
+      groupName: json['groupName'] as String,
+      groupCountryOfWork: json['groupCountryOfWork'] as String,
+      groupDescription: json['groupDescription'] as String,
+      groupManager: json['groupManager'] as String,
+      currentYear: json['currentYear'] as String,
+      currentMonth: json['currentMonth'] as String,
+      daysWorkedInCurrentMonth: json['daysWorkedInCurrentMonth'] as num,
+      ratingInCurrentMonth: json['ratingInCurrentMonth'] as num,
+      earnedMoneyInCurrentMonth: json['earnedMoneyInCurrentMonth'] as num,
+      moneyCurrency: json['moneyCurrency'] as String,
+      timeSheets: json['timeSheets']
+          .map((data) => EmployeeTimeSheetDto.fromJson(data))
+          .toList(),
+      todaysPlan: json['todaysPlan'] as String,
+    );
   }
 }

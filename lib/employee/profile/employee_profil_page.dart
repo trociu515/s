@@ -8,6 +8,7 @@ import 'package:give_job/employee/dto/employee_dto.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/profile/tabs/employee_info_tab.dart';
 import 'package:give_job/employee/profile/tabs/employee_time_sheets.tab.dart';
+import 'package:give_job/employee/profile/tabs/employee_todo.dart';
 import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -60,7 +61,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                   drawer: employeeSideBar(context, _user),
                   backgroundColor: DARK,
                   body: DefaultTabController(
-                    length: 2,
+                    length: 3,
                     child: NestedScrollView(
                       headerSliverBuilder:
                           (BuildContext context, bool innerBoxIsScrolled) {
@@ -222,6 +223,9 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                                       text: getTranslated(
                                           this.context, 'timesheets')),
                                   Tab(
+                                      icon: iconWhite(Icons.done_outline),
+                                      text: 'Todo'),
+                                  Tab(
                                       icon: iconWhite(Icons.info),
                                       text: 'About me'),
                                 ],
@@ -237,6 +241,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                           children: <Widget>[
                             employeeTimeSheetsTab(
                                 this.context, employee.timeSheets),
+                            employeeTodaysTodo(context, employee.todaysPlan),
                             employeeInfoTab(this.context, employee)
                           ],
                         ),
