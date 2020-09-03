@@ -15,6 +15,7 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
+import 'package:give_job/shared/widget/silver_app_bar_delegate.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -129,7 +130,7 @@ class _ManagerEmployeeProfilePageState
                   ),
                 ),
                 SliverPersistentHeader(
-                  delegate: _SliverAppBarDelegate(
+                  delegate: SliverAppBarDelegate(
                     TabBar(
                       labelColor: GREEN,
                       unselectedLabelColor: Colors.grey,
@@ -467,31 +468,5 @@ class _ManagerEmployeeProfilePageState
         ),
       ],
     );
-  }
-}
-
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate(this._tabBar);
-
-  final TabBar _tabBar;
-
-  @override
-  double get minExtent => _tabBar.preferredSize.height;
-
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new Container(
-      color: DARK,
-      child: _tabBar,
-    );
-  }
-
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
   }
 }

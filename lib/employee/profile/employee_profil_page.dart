@@ -4,6 +4,7 @@ import 'package:countup/countup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:give_job/employee/dto/employee_dto.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/profile/tabs/employee_info_tab.dart';
 import 'package:give_job/employee/profile/tabs/employee_time_sheets.tab.dart';
@@ -13,13 +14,11 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
+import 'package:give_job/shared/settings/settings_page.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
-import 'package:give_job/shared/widget/loader.dart';
+import 'package:give_job/shared/widget/silver_app_bar_delegate.dart';
 import 'package:give_job/shared/widget/texts.dart';
-
-import '../dto/employee_dto.dart';
-import '../employee_app_bar.dart';
 
 class EmployeeProfilPage extends StatefulWidget {
   final User _user;
@@ -33,20 +32,24 @@ class EmployeeProfilPage extends StatefulWidget {
 class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
   final EmployeeService _employeeService = new EmployeeService();
 
+  User _user;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<EmployeeDto>(
-      future:
-          _employeeService.findById(widget._user.id, widget._user.authHeader),
+      future: _employeeService.findById(_user.id, _user.authHeader),
       builder: (BuildContext context, AsyncSnapshot<EmployeeDto> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return loader(
-            employeeAppBar(context, null, getTranslated(context, 'loading')),
-            employeeSideBar(context, widget._user),
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: GREEN,
+              valueColor: new AlwaysStoppedAnimation(Colors.white),
+            ),
           );
         } else {
           EmployeeDto employee = snapshot.data;
+          this._user = widget._user;
           return WillPopScope(
               child: MaterialApp(
                 title: APP_NAME,
@@ -54,29 +57,43 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                     primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
                 debugShowCheckedModeBanner: false,
                 home: Scaffold(
+                  drawer: employeeSideBar(context, _user),
                   backgroundColor: DARK,
-                  appBar: employeeAppBar(context, widget._user, 'Profile'),
-                  drawer: employeeSideBar(context, widget._user),
-                  body: Column(
-                    children: <Widget>[
-                      Container(
-                        color: DARK,
-                        width: double.infinity,
-                        height: 175,
-                        child: Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Row(
+                  body: DefaultTabController(
+                    length: 2,
+                    child: NestedScrollView(
+                      headerSliverBuilder:
+                          (BuildContext context, bool innerBoxIsScrolled) {
+                        return <Widget>[
+                          SliverAppBar(
+                            elevation: 0.0,
+                            actions: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(right: 15.0),
+                                child: IconButton(
+                                  icon: iconWhite(Icons.settings),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      this.context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SettingsPage(_user)),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                            iconTheme: IconThemeData(color: WHITE),
+                            expandedHeight: 305.0,
+                            pinned: true,
+                            backgroundColor: BRIGHTER_DARK,
+                            flexibleSpace: FlexibleSpaceBar(
+                              background: Column(
                                 children: <Widget>[
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25),
                                   Container(
-                                    width: 50,
-                                    height: 50,
-                                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                                    width: 100,
+                                    height: 100,
+                                    margin: EdgeInsets.only(top: 35, bottom: 5),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
@@ -84,141 +101,147 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                                           fit: BoxFit.fill),
                                     ),
                                   ),
-                                  Expanded(
-                                    child: ListTile(
-                                      title: text22WhiteBold(utf8.decode(
-                                          widget._user.info != null
-                                              ? widget._user.info.runes.toList()
-                                              : '-')),
-                                      subtitle: textWhite(
-                                        getTranslated(context, 'employee') +
-                                            ' #' +
-                                            widget._user.id +
-                                            ' ' +
-                                            LanguageUtil.findFlagByNationality(
-                                                employee.nationality),
+                                  text25WhiteBold(utf8.decode(_user.info != null
+                                      ? _user.info.runes.toList()
+                                      : '-')),
+                                  SizedBox(height: 2.5),
+                                  text20White(
+                                      LanguageUtil.convertShortNameToFullName(
+                                              _user.nationality) +
+                                          ' ' +
+                                          LanguageUtil.findFlagByNationality(
+                                              _user.nationality)),
+                                  SizedBox(height: 2.5),
+                                  text18White(
+                                      getTranslated(this.context, 'employee') +
+                                          ' #' +
+                                          _user.id.toString()),
+                                  SizedBox(height: 5),
+                                  text16GreenBold(getTranslated(
+                                          this.context, 'statisticsForThe') +
+                                      employee.currentYear +
+                                      ' ' +
+                                      getTranslated(
+                                          this.context, employee.currentMonth)),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(right: 12, left: 12),
+                                    child: Card(
+                                      elevation: 0.0,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(5.0),
+                                        color: BRIGHTER_DARK,
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  text20White(getTranslated(
+                                                      this.context, 'days')),
+                                                  SizedBox(height: 5.0),
+                                                  Countup(
+                                                    begin: 0,
+                                                    end: employee
+                                                        .daysWorkedInCurrentMonth
+                                                        .toDouble(),
+                                                    duration:
+                                                        Duration(seconds: 2),
+                                                    style: TextStyle(
+                                                        fontSize: 18.0,
+                                                        color: WHITE),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  text20White(getTranslated(
+                                                      this.context, 'money')),
+                                                  text14White(employee
+                                                              .moneyCurrency !=
+                                                          null
+                                                      ? '(' +
+                                                          employee
+                                                              .moneyCurrency +
+                                                          ')'
+                                                      : getTranslated(
+                                                          this.context,
+                                                          'noCurrency')),
+                                                  Countup(
+                                                    begin: 0,
+                                                    end: employee
+                                                        .earnedMoneyInCurrentMonth,
+                                                    duration:
+                                                        Duration(seconds: 2),
+                                                    separator: ',',
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: WHITE),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  text20White(getTranslated(
+                                                      this.context, 'rating')),
+                                                  SizedBox(height: 5.0),
+                                                  Countup(
+                                                    begin: 0,
+                                                    end: employee
+                                                        .ratingInCurrentMonth,
+                                                    precision: 1,
+                                                    duration:
+                                                        Duration(seconds: 2),
+                                                    style: TextStyle(
+                                                        fontSize: 18.0,
+                                                        color: WHITE),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 1.0),
-                              text16GreenBold(
-                                  getTranslated(context, 'statisticsForThe') +
-                                      employee.currentYear +
-                                      ' ' +
-                                      getTranslated(
-                                          context, employee.currentMonth)),
-                              Padding(
-                                padding: EdgeInsets.only(right: 12, left: 12),
-                                child: Card(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(5.0),
-                                    color: BRIGHTER_DARK,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              text20White(getTranslated(
-                                                  context, 'days')),
-                                              SizedBox(height: 5.0),
-                                              Countup(
-                                                begin: 0,
-                                                end: employee
-                                                    .daysWorkedInCurrentMonth
-                                                    .toDouble(),
-                                                duration: Duration(seconds: 2),
-                                                style: TextStyle(
-                                                    fontSize: 18.0,
-                                                    color: WHITE),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              text20White(getTranslated(
-                                                  context, 'money')),
-                                              text14White(employee
-                                                          .moneyCurrency !=
-                                                      null
-                                                  ? '(' +
-                                                      employee.moneyCurrency +
-                                                      ')'
-                                                  : getTranslated(
-                                                      context, 'noCurrency')),
-                                              Countup(
-                                                begin: 0,
-                                                end: employee
-                                                    .earnedMoneyInCurrentMonth,
-                                                duration: Duration(seconds: 2),
-                                                separator: ',',
-                                                style: TextStyle(
-                                                    fontSize: 18, color: WHITE),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              text20White(getTranslated(
-                                                  context, 'rating')),
-                                              SizedBox(height: 5.0),
-                                              Countup(
-                                                begin: 0,
-                                                end: employee
-                                                    .ratingInCurrentMonth,
-                                                precision: 1,
-                                                duration: Duration(seconds: 2),
-                                                style: TextStyle(
-                                                    fontSize: 18.0,
-                                                    color: WHITE),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                            ),
+                          ),
+                          SliverPersistentHeader(
+                            delegate: SliverAppBarDelegate(
+                              TabBar(
+                                labelColor: GREEN,
+                                unselectedLabelColor: Colors.grey,
+                                tabs: <Widget>[
+                                  Tab(
+                                      icon: iconWhite(Icons.assignment),
+                                      text: getTranslated(
+                                          this.context, 'timesheets')),
+                                  Tab(
+                                      icon: iconWhite(Icons.info),
+                                      text: 'About me'),
+                                ],
                               ),
-                            ],
+                            ),
+                            pinned: true,
                           ),
+                        ];
+                      },
+                      body: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: TabBarView(
+                          children: <Widget>[
+                            employeeTimeSheetsTab(
+                                this.context, employee.timeSheets),
+                            employeeInfoTab(this.context, employee)
+                          ],
                         ),
                       ),
-                      Expanded(
-                        child: DefaultTabController(
-                          length: 2,
-                          child: Scaffold(
-                            body: TabBarView(
-                              children: <Widget>[
-                                employeeTimeSheetsTab(
-                                    context, employee.timeSheets),
-                                employeeInfoTab(context, employee)
-                              ],
-                            ),
-                            bottomNavigationBar: TabBar(
-                              tabs: <Widget>[
-                                Tab(
-                                    icon: iconWhite(Icons.assignment),
-                                    text: getTranslated(context, 'timesheets')),
-                                Tab(
-                                    icon: iconWhite(Icons.person_pin),
-                                    text:
-                                        getTranslated(context, 'informations')),
-                              ],
-                              labelColor: WHITE,
-                              unselectedLabelColor: Colors.white30,
-                              indicatorColor: GREEN,
-                            ),
-                            backgroundColor: DARK,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
