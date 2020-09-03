@@ -1,16 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
+import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/settings/settings_page.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:open_appstore/open_appstore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'home/employee_home_page.dart';
 
@@ -46,10 +47,23 @@ Drawer employeeSideBar(BuildContext context, User user) {
                           fit: BoxFit.fill),
                     ),
                   ),
-                  text22DarkBold(utf8.decode(
-                      user.info != null ? user.info.runes.toList() : '-')),
-                  textDarkBold(
-                      getTranslated(context, 'employee') + ' #' + user.id),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'https://www.givejob.pl',
+                          style: TextStyle(
+                              fontSize: 22,
+                              color: DARK,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () async =>
+                                _launchURL(context, 'https://www.givejob.pl'),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -96,4 +110,11 @@ Drawer employeeSideBar(BuildContext context, User user) {
       ),
     ),
   );
+}
+
+_launchURL(BuildContext context, String url) async {
+  await canLaunch(url)
+      ? await launch(url)
+      : ToastService.showBottomToast(
+          getTranslated(context, 'couldNotLaunch'), Colors.red);
 }
