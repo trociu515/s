@@ -71,12 +71,10 @@ Drawer employeeSideBar(BuildContext context, User user) {
             leading: iconWhite(Icons.person),
             title: text18White('Profile'),
             onTap: () {
-              Navigator.of(context).push(
-                CupertinoPageRoute<Null>(
-                  builder: (BuildContext context) {
-                    return EmployeeProfilPage(user);
-                  },
-                ),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EmployeeProfilPage(user)),
               );
             },
           ),
