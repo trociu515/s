@@ -36,6 +36,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
 
   @override
   Widget build(BuildContext context) {
+    this._user = widget._user;
     return FutureBuilder<EmployeeDto>(
       future: _employeeService.findById(_user.id, _user.authHeader),
       builder: (BuildContext context, AsyncSnapshot<EmployeeDto> snapshot) {
@@ -49,7 +50,6 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
           );
         } else {
           EmployeeDto employee = snapshot.data;
-          this._user = widget._user;
           return WillPopScope(
               child: MaterialApp(
                 title: APP_NAME,

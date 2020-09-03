@@ -10,9 +10,7 @@ import 'package:give_job/shared/widget/texts.dart';
 
 Container employeeTimeSheetsTab(BuildContext context, List timeSheets) {
   if (timeSheets.isEmpty) {
-    return Container(
-        child: text17White(
-            '\n   ' + getTranslated(context, 'employeeDoesNotHaveTimeSheets')));
+    return _handleEmptyData();
   }
   return Container(
     child: SingleChildScrollView(
@@ -82,6 +80,29 @@ Container employeeTimeSheetsTab(BuildContext context, List timeSheets) {
           ],
         ),
       ),
+    ),
+  );
+}
+
+Widget _handleEmptyData() {
+  return Container(
+    child: Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Align(
+            alignment: Alignment.center,
+            child: text20GreenBold('No timesheets'),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Align(
+            alignment: Alignment.center,
+            child: textCenter19White('You don\'t have timesheets yet'),
+          ),
+        ),
+      ],
     ),
   );
 }
