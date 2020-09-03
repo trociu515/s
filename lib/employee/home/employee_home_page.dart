@@ -62,7 +62,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                   body: Column(
                     children: <Widget>[
                       Container(
-                        color: GREEN,
+                        color: DARK,
                         width: double.infinity,
                         height: 175,
                         child: Center(
@@ -88,11 +88,11 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                   ),
                                   Expanded(
                                     child: ListTile(
-                                      title: text22DarkBold(utf8.decode(
+                                      title: text22WhiteBold(utf8.decode(
                                           widget._user.info != null
                                               ? widget._user.info.runes.toList()
                                               : '-')),
-                                      subtitle: textDarkBold(
+                                      subtitle: textWhite(
                                         getTranslated(context, 'employee') +
                                             ' #' +
                                             widget._user.id +
@@ -105,7 +105,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                 ],
                               ),
                               SizedBox(height: 1.0),
-                              text18DarkBold(
+                              text16Green(
                                   getTranslated(context, 'statisticsForThe') +
                                       employee.currentYear +
                                       ' ' +
@@ -114,13 +114,13 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                               Card(
                                 child: Container(
                                   padding: const EdgeInsets.all(5.0),
-                                  color: WHITE,
+                                  color: BRIGHTER_DARK,
                                   child: Row(
                                     children: <Widget>[
                                       Expanded(
                                         child: Column(
                                           children: <Widget>[
-                                            text20DarkBold(
+                                            text20White(
                                                 getTranslated(context, 'days')),
                                             SizedBox(height: 5.0),
                                             Countup(
@@ -130,7 +130,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                                   .toDouble(),
                                               duration: Duration(seconds: 2),
                                               style: TextStyle(
-                                                  fontSize: 18.0, color: DARK),
+                                                  fontSize: 18.0, color: WHITE),
                                             ),
                                           ],
                                         ),
@@ -138,9 +138,9 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                       Expanded(
                                         child: Column(
                                           children: <Widget>[
-                                            text20DarkBold(getTranslated(
+                                            text20White(getTranslated(
                                                 context, 'money')),
-                                            text14DarkBold(
+                                            text14White(
                                                 employee.moneyCurrency != null
                                                     ? '(' +
                                                         employee.moneyCurrency +
@@ -154,7 +154,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                               duration: Duration(seconds: 2),
                                               separator: ',',
                                               style: TextStyle(
-                                                  fontSize: 18, color: DARK),
+                                                  fontSize: 18, color: WHITE),
                                             ),
                                           ],
                                         ),
@@ -162,7 +162,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                       Expanded(
                                         child: Column(
                                           children: <Widget>[
-                                            text20DarkBold(getTranslated(
+                                            text20White(getTranslated(
                                                 context, 'rating')),
                                             SizedBox(height: 5.0),
                                             Countup(
@@ -172,7 +172,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                               precision: 1,
                                               duration: Duration(seconds: 2),
                                               style: TextStyle(
-                                                  fontSize: 18.0, color: DARK),
+                                                  fontSize: 18.0, color: WHITE),
                                             ),
                                           ],
                                         ),
