@@ -8,7 +8,6 @@ import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
 import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
-import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:http/http.dart';
 
@@ -99,19 +98,6 @@ class ManagerService {
     return res.statusCode == 200
         ? (json.decode(res.body) as List)
             .map((data) => ManagerGroupEmployeeDto.fromJson(data))
-            .toList()
-        : res.statusCode == 400 ? Future.error(res.body) : null;
-  }
-
-  Future<List<WorkdayDto>> findWorkdaysByTimeSheetId(
-      String timeSheetId, String authHeader) async {
-    Response res = await get(
-      _baseWorkdayUrl + '/${int.parse(timeSheetId)}',
-      headers: {HttpHeaders.authorizationHeader: authHeader},
-    );
-    return res.statusCode == 200
-        ? (json.decode(res.body) as List)
-            .map((data) => WorkdayDto.fromJson(data))
             .toList()
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }

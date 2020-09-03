@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/employee/profile/employee_profil_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/model/user.dart';
+import 'package:give_job/shared/settings/settings_page.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
@@ -17,11 +17,11 @@ AppBar employeeAppBar(BuildContext context, User user, String title) {
       Padding(
         padding: EdgeInsets.only(right: 15.0),
         child: IconButton(
-          icon: iconWhite(Icons.person),
+          icon: iconWhite(Icons.settings),
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => EmployeeProfilPage(user)),
+              MaterialPageRoute(builder: (context) => SettingsPage(user)),
             );
           },
         ),

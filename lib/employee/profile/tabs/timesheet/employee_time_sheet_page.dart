@@ -1,12 +1,16 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
+import 'package:give_job/employee/employee_app_bar.dart';
+import 'package:give_job/employee/employee_side_bar.dart';
+import 'package:give_job/employee/profile/employee_profil_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
-import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
@@ -14,59 +18,35 @@ import 'package:give_job/shared/widget/texts.dart';
 import 'package:give_job/shared/workdays/workday_service.dart';
 import 'package:give_job/shared/workdays/workday_util.dart';
 
-import '../../../../shared/libraries/constants.dart';
-import '../../../manager_app_bar.dart';
-import '../../../manager_side_bar.dart';
-import 'model/group_employee_model.dart';
+class EmployeeTimeSheetPage extends StatefulWidget {
+  final User _user;
+  final EmployeeTimeSheetDto _timesheet;
 
-class ManagerEmployeeTsCompletedPage extends StatefulWidget {
-  final GroupEmployeeModel _model;
-  final String _employeeInfo;
-  final String _employeeNationality;
-  final String _currency;
-  final EmployeeTimeSheetDto timeSheet;
-
-  const ManagerEmployeeTsCompletedPage(this._model, this._employeeInfo,
-      this._employeeNationality, this._currency, this.timeSheet);
+  EmployeeTimeSheetPage(this._user, this._timesheet);
 
   @override
-  _ManagerEmployeeTsCompletedPageState createState() =>
-      _ManagerEmployeeTsCompletedPageState();
+  _EmployeeTimeSheetPageState createState() => _EmployeeTimeSheetPageState();
 }
 
-class _ManagerEmployeeTsCompletedPageState
-    extends State<ManagerEmployeeTsCompletedPage> {
+class _EmployeeTimeSheetPageState extends State<EmployeeTimeSheetPage> {
   final SharedWorkdayService _sharedWorkdayService = new SharedWorkdayService();
 
-  GroupEmployeeModel _model;
-  String _employeeInfo;
-  String _employeeNationality;
-  String _currency;
-  EmployeeTimeSheetDto timeSheet;
+  User _user;
+  EmployeeTimeSheetDto _timesheet;
 
   @override
   Widget build(BuildContext context) {
-    this._model = widget._model;
-    this._employeeInfo = widget._employeeInfo;
-    this._employeeNationality = widget._employeeNationality;
-    this._currency = widget._currency;
-    this.timeSheet = widget.timeSheet;
-
+    this._user = widget._user;
+    this._timesheet = widget._timesheet;
     return MaterialApp(
       title: APP_NAME,
       theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: managerAppBar(
-            context,
-            _model.user,
-            getTranslated(context, 'workdays') +
-                ' - ' +
-                utf8.decode(timeSheet.groupName != null
-                    ? timeSheet.groupName.runes.toList()
-                    : '-')),
-        drawer: managerSideBar(context, _model.user),
+        appBar: employeeAppBar(context, _user,
+            getTranslated(context, 'workdays') + ' - ' + _timesheet.status),
+        drawer: employeeSideBar(context, _user),
         body: Column(
           children: <Widget>[
             Container(
@@ -77,22 +57,24 @@ class _ManagerEmployeeTsCompletedPageState
                   leading: Padding(
                     padding: EdgeInsets.only(bottom: 15),
                     child: Image(
-                      image: AssetImage('images/checked.png'),
+                      image: _timesheet.status == STATUS_COMPLETED
+                          ? AssetImage('images/checked.png')
+                          : AssetImage('images/unchecked.png'),
                       fit: BoxFit.fitHeight,
                     ),
                   ),
-                  title: textWhiteBold(timeSheet.year.toString() +
+                  title: textWhiteBold(_timesheet.year.toString() +
                       ' ' +
-                      MonthUtil.translateMonth(context, timeSheet.month)),
+                      MonthUtil.translateMonth(context, _timesheet.month)),
                   subtitle: Column(
                     children: <Widget>[
                       Align(
                         alignment: Alignment.topLeft,
-                        child: textWhiteBold(_employeeInfo != null
-                            ? utf8.decode(_employeeInfo.runes.toList()) +
+                        child: textWhiteBold(_user.info != null
+                            ? utf8.decode(_user.info.runes.toList()) +
                                 ' ' +
                                 LanguageUtil.findFlagByNationality(
-                                    _employeeNationality)
+                                    _user.nationality)
                             : getTranslated(context, 'empty')),
                       ),
                       Row(
@@ -103,7 +85,7 @@ class _ManagerEmployeeTsCompletedPageState
                                 getTranslated(context, 'hoursWorked') + ': '),
                           ),
                           textGreenBold(
-                              timeSheet.numberOfHoursWorked.toString() + 'h'),
+                              _timesheet.numberOfHoursWorked.toString() + 'h'),
                         ],
                       ),
                       Row(
@@ -114,15 +96,16 @@ class _ManagerEmployeeTsCompletedPageState
                                 getTranslated(context, 'averageRating') + ': '),
                           ),
                           textGreenBold(
-                              widget.timeSheet.averageRating.toString()),
+                              widget._timesheet.averageRating.toString()),
                         ],
                       ),
                     ],
                   ),
                   trailing: Wrap(
                     children: <Widget>[
-                      text20GreenBold(timeSheet.amountOfEarnedMoney.toString()),
-                      text20GreenBold(' ' + _currency),
+                      text20GreenBold(
+                          _timesheet.amountOfEarnedMoney.toString()),
+                      text20GreenBold(' ' + _timesheet.groupCountryCurrency),
                     ],
                   ),
                 ),
@@ -130,7 +113,7 @@ class _ManagerEmployeeTsCompletedPageState
             ),
             FutureBuilder(
               future: _sharedWorkdayService.findWorkdaysByTimeSheetId(
-                  timeSheet.id.toString(), _model.user.authHeader),
+                  _timesheet.id.toString(), _user.authHeader),
               builder: (BuildContext context,
                   AsyncSnapshot<List<WorkdayDto>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting ||
@@ -155,7 +138,7 @@ class _ManagerEmployeeTsCompletedPageState
                           data: Theme.of(this.context)
                               .copyWith(dividerColor: MORE_BRIGHTER_DARK),
                           child: DataTable(
-                            columnSpacing: 10,
+                            columnSpacing: 20,
                             columns: [
                               DataColumn(label: textWhiteBold('No.')),
                               DataColumn(
@@ -219,8 +202,17 @@ class _ManagerEmployeeTsCompletedPageState
             ),
           ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: groupFloatingActionButton(context, _model),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              this.context,
+              MaterialPageRoute(
+                  builder: (context) => EmployeeProfilPage(_user)),
+            );
+          },
+          child: Icon(Icons.person),
+          backgroundColor: GREEN,
+        ),
       ),
     );
   }

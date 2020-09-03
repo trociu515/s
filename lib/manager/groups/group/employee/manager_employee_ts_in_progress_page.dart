@@ -15,6 +15,8 @@ import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:give_job/shared/workdays/workday_service.dart';
+import 'package:give_job/shared/workdays/workday_util.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 import '../../../../shared/libraries/constants.dart';
@@ -39,6 +41,7 @@ class ManagerEmployeeTsInProgressPage extends StatefulWidget {
 
 class _ManagerEmployeeTsInProgressPageState
     extends State<ManagerEmployeeTsInProgressPage> {
+  final SharedWorkdayService _sharedWorkdayService = new SharedWorkdayService();
   final ManagerService _managerService = new ManagerService();
   final TextEditingController _hoursController = new TextEditingController();
   final TextEditingController _ratingController = new TextEditingController();
@@ -155,7 +158,7 @@ class _ManagerEmployeeTsInProgressPageState
                   ),
                 ),
                 FutureBuilder(
-                  future: _managerService.findWorkdaysByTimeSheetId(
+                  future: _sharedWorkdayService.findWorkdaysByTimeSheetId(
                       _timeSheet.id.toString(), _model.user.authHeader),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<WorkdayDto>> snapshot) {
@@ -252,8 +255,10 @@ class _ManagerEmployeeTsInProgressPageState
                                                       : textWhiteBold('-'),
                                                 ],
                                               ),
-                                              onTap: () => _showPlanDetails(
-                                                  workday.plan),
+                                              onTap: () =>
+                                                  WorkdayUtil.showPlanDetails(
+                                                      this.context,
+                                                      workday.plan),
                                             ),
                                             DataCell(
                                               Wrap(
@@ -264,8 +269,10 @@ class _ManagerEmployeeTsInProgressPageState
                                                       : textWhiteBold('-'),
                                                 ],
                                               ),
-                                              onTap: () => _showOpinionDetails(
-                                                  workday.opinion),
+                                              onTap: () => WorkdayUtil
+                                                  .showOpinionDetails(
+                                                      this.context,
+                                                      workday.opinion),
                                             ),
                                           ],
                                         ),
@@ -520,7 +527,8 @@ class _ManagerEmployeeTsInProgressPageState
                                           ],
                                         ),
                                         onTap: () =>
-                                            _showPlanDetails(workday.plan),
+                                            WorkdayUtil.showPlanDetails(
+                                                this.context, workday.plan),
                                       ),
                                       DataCell(
                                         Wrap(
@@ -531,8 +539,9 @@ class _ManagerEmployeeTsInProgressPageState
                                                 : textWhiteBold('-'),
                                           ],
                                         ),
-                                        onTap: () => _showOpinionDetails(
-                                            workday.opinion),
+                                        onTap: () =>
+                                            WorkdayUtil.showOpinionDetails(
+                                                this.context, workday.opinion),
                                       ),
                                     ],
                                   ),
@@ -622,7 +631,7 @@ class _ManagerEmployeeTsInProgressPageState
   }
 
   Future<Null> _refresh() {
-    return _managerService
+    return _sharedWorkdayService
         .findWorkdaysByTimeSheetId(
             _timeSheet.id.toString(), _model.user.authHeader)
         .then((_workdays) {
@@ -726,44 +735,6 @@ class _ManagerEmployeeTsInProgressPageState
         workdays = workdays.reversed.toList();
       }
     });
-  }
-
-  void _showPlanDetails(String plan) {
-    slideDialog.showSlideDialog(
-      context: context,
-      backgroundColor: DARK,
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            text20GreenBold('Plan details'),
-            SizedBox(height: 20),
-            text20White(plan != null
-                ? utf8.decode(plan.runes.toList())
-                : getTranslated(context, 'empty')),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showOpinionDetails(String opinion) {
-    slideDialog.showSlideDialog(
-      context: context,
-      backgroundColor: DARK,
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            text20GreenBold('Opinion details'),
-            SizedBox(height: 20),
-            text20White(opinion != null
-                ? utf8.decode(opinion.runes.toList())
-                : getTranslated(context, 'empty')),
-          ],
-        ),
-      ),
-    );
   }
 
   void _showUpdateHoursDialog(Set<int> selectedIds) {

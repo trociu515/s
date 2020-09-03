@@ -240,7 +240,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                         child: TabBarView(
                           children: <Widget>[
                             employeeTimeSheetsTab(
-                                this.context, employee.timeSheets),
+                                this.context, _user, employee.timeSheets),
                             employeeTodaysTodo(context, employee.todaysPlan),
                             employeeInfoTab(this.context, employee)
                           ],
