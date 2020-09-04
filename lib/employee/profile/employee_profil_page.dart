@@ -10,6 +10,7 @@ import 'package:give_job/employee/profile/tabs/employee_info_tab.dart';
 import 'package:give_job/employee/profile/tabs/employee_time_sheets.tab.dart';
 import 'package:give_job/employee/profile/tabs/employee_todo.dart';
 import 'package:give_job/employee/service/employee_service.dart';
+import 'package:give_job/employee/shimmer/shimmer_employee_profile.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -48,12 +49,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
         builder: (BuildContext context, AsyncSnapshot<EmployeeDto> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting ||
               snapshot.data == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: GREEN,
-                valueColor: new AlwaysStoppedAnimation(Colors.white),
-              ),
-            );
+            return shimmerEmployeeProfile();
           } else {
             this._employee = snapshot.data;
             return _buildPage();
@@ -120,8 +116,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                                 ' ' +
                                 LanguageUtil.findFlagByNationality(
                                     _user.nationality)),
-                            SizedBox(height: 2.5),
-                            SizedBox(height: 2.5),
+                            SizedBox(height: 5),
                             text18White(
                                 getTranslated(this.context, 'employee') +
                                     ' #' +
