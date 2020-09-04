@@ -106,7 +106,9 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                    image: AssetImage('images/logo.png'),
+                                    image: AssetImage(
+                                      'images/big-employee-icon.png',
+                                    ),
                                     fit: BoxFit.fill),
                               ),
                             ),

@@ -15,14 +15,14 @@ Widget groupFloatingActionButton(
   return SpeedDial(
     backgroundColor: GREEN,
     animatedIcon: AnimatedIcons.view_list,
-    animatedIconTheme: IconThemeData(color: DARK),
+    animatedIconTheme: IconThemeData(color: BRIGHTER_DARK),
     children: [
       SpeedDialChild(
-        child: Image(
-          image: AssetImage('images/group-img.png'),
-          fit: BoxFit.fitHeight,
-        ),
+        backgroundColor: BRIGHTER_DARK,
+        child: Image(image: AssetImage('images/small-group-icon.png')),
         label: 'Group',
+        labelBackgroundColor: BRIGHTER_DARK,
+        labelStyle: TextStyle(color: WHITE),
         onTap: () {
           Navigator.push(
             context,
@@ -32,8 +32,11 @@ Widget groupFloatingActionButton(
         },
       ),
       SpeedDialChild(
-        child: Icon(Icons.group),
-        label: 'Groups',
+        backgroundColor: BRIGHTER_DARK,
+        child: Image(image: AssetImage('images/small-groups-icon.png')),
+        label: 'Back to groups',
+        labelBackgroundColor: BRIGHTER_DARK,
+        labelStyle: TextStyle(color: WHITE),
         onTap: () {
           Navigator.push(
             context,
@@ -43,8 +46,11 @@ Widget groupFloatingActionButton(
         },
       ),
       SpeedDialChild(
-        child: Icon(Icons.person_outline),
+        backgroundColor: BRIGHTER_DARK,
+        child: Image(image: AssetImage('images/small-employees-icon.png')),
         label: 'Employees',
+        labelBackgroundColor: BRIGHTER_DARK,
+        labelStyle: TextStyle(color: WHITE),
         onTap: () {
           Navigator.push(
             context,
@@ -54,13 +60,19 @@ Widget groupFloatingActionButton(
         },
       ),
       SpeedDialChild(
-        child: Icon(Icons.today),
+        backgroundColor: BRIGHTER_DARK,
+        child: Image(image: AssetImage('images/small-quick_update-icon.png')),
         label: 'Quick update',
+        labelBackgroundColor: BRIGHTER_DARK,
+        labelStyle: TextStyle(color: WHITE),
         onTap: () => QuickUpdateDialog.showQuickUpdateDialog(context, model),
       ),
       SpeedDialChild(
-        child: Icon(Icons.event_note),
+        backgroundColor: BRIGHTER_DARK,
+        child: Image(image: AssetImage('images/small-timesheets-icon.png')),
         label: 'Timesheets',
+        labelBackgroundColor: BRIGHTER_DARK,
+        labelStyle: TextStyle(color: WHITE),
         onTap: () {
           Navigator.push(
             context,

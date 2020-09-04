@@ -13,6 +13,7 @@ import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
@@ -146,11 +147,15 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                         ListTile(
                                           leading: Tab(
                                             icon: Container(
-                                              child: Image(
-                                                image: AssetImage(
-                                                  'images/group-img.png', // TODO replace img
+                                              child: Shimmer.fromColors(
+                                                baseColor: GREEN,
+                                                highlightColor: WHITE,
+                                                child: Image(
+                                                  image: AssetImage(
+                                                    'images/big-employee-icon.png',
+                                                  ),
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                fit: BoxFit.cover,
                                               ),
                                             ),
                                           ),

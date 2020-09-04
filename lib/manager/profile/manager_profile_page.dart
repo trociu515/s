@@ -43,7 +43,7 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: managerAppBar(context, _user, 'Profile'),
+        appBar: _buildAppBar(this.context, _user),
         drawer: managerSideBar(context, _user),
         body: SingleChildScrollView(
           child: Center(
@@ -52,11 +52,11 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                 Container(
                   width: 150,
                   height: 150,
-                  margin: EdgeInsets.only(top: 20, bottom: 10),
+                  margin: EdgeInsets.only(top: 20),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: AssetImage('images/logo.png'), fit: BoxFit.fill),
+                        image: AssetImage('images/big-manager-icon.png')),
                   ),
                 ),
                 Column(
@@ -302,6 +302,30 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
     return ListTile(
       title: textCenter18WhiteBold(title),
       subtitle: textCenter16White(subtile),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context, User user) {
+    return AppBar(
+      iconTheme: IconThemeData(color: WHITE),
+      backgroundColor: BRIGHTER_DARK,
+      elevation: 0.0,
+      bottomOpacity: 0.0,
+      title: text15White('Profile'),
+      actions: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(right: 15.0),
+          child: IconButton(
+            icon: iconWhite(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsPage(user)),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

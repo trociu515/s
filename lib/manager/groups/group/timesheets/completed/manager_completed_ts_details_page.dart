@@ -19,6 +19,7 @@ import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../manager_app_bar.dart';
 import '../../../../manager_side_bar.dart';
@@ -73,7 +74,7 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
     this._timeSheet = widget._timeSheet;
     if (_loading) {
       return shimmerManagerCompletedTsDetails(this.context, _model.user);
-   }
+    }
     return MaterialApp(
       title: APP_NAME,
       theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
@@ -187,11 +188,15 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                                         ),
                                       );
                                     },
-                                    child: Image(
-                                      image: AssetImage(
-                                        'images/group-img.png', // TODO replace img
+                                    child: Shimmer.fromColors(
+                                      baseColor: GREEN,
+                                      highlightColor: WHITE,
+                                      child: Image(
+                                        image: AssetImage(
+                                          'images/big-employee-icon.png',
+                                        ),
+                                        fit: BoxFit.cover,
                                       ),
-                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),

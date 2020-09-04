@@ -91,6 +91,18 @@ flutter:
     - images/group-img.png
     - images/unchecked.png
     - images/checked.png
+    - images/big-group-icon.png
+    - images/big-groups-icon.png
+    - images/big-employees-icon.png
+    - images/big-quick_update-icon.png
+    - images/big-timesheets-icon.png
+    - images/big-manager-icon.png
+    - images/big-employee-icon.png
+    - images/small-group-icon.png
+    - images/small-groups-icon.png
+    - images/small-employees-icon.png
+    - images/small-quick_update-icon.png
+    - images/small-timesheets-icon.png
     - docs/regulations.pdf
     - docs/privacy_policy.pdf
 

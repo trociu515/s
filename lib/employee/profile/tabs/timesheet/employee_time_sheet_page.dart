@@ -206,8 +206,11 @@ class _EmployeeTimeSheetPageState extends State<EmployeeTimeSheetPage> {
                   builder: (context) => EmployeeProfilPage(_user)),
             );
           },
-          child: Icon(Icons.person),
-          backgroundColor: GREEN,
+          child: Image(
+            height: 50,
+            image: AssetImage('images/big-employee-icon.png'),
+          ),
+          backgroundColor: BRIGHTER_DARK,
         ),
       ),
     );

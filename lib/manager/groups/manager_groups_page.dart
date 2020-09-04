@@ -102,12 +102,16 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
                     children: <Widget>[
                       ListTile(
                         leading: Tab(
-                          icon: Container(
-                            child: Image(
-                              image: AssetImage(
-                                'images/group-img.png',
+                          icon: Padding(
+                            padding: EdgeInsets.only(top: 13),
+                            child: Container(
+                              child: Image(
+                                width: 75,
+                                image: AssetImage(
+                                  'images/big-group-icon.png',
+                                ),
+                                fit: BoxFit.cover,
                               ),
-                              fit: BoxFit.cover,
                             ),
                           ),
                         ),

@@ -24,6 +24,7 @@ import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 import '../../../../manager_app_bar.dart';
@@ -208,11 +209,15 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
                                           ),
                                         );
                                       },
-                                      child: Image(
-                                        image: AssetImage(
-                                          'images/group-img.png', // TODO replace img
+                                      child: Shimmer.fromColors(
+                                        baseColor: GREEN,
+                                        highlightColor: WHITE,
+                                        child: Image(
+                                          image: AssetImage(
+                                            'images/big-employee-icon.png',
+                                          ),
+                                          fit: BoxFit.cover,
                                         ),
-                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),

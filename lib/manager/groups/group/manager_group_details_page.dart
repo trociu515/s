@@ -57,11 +57,17 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                   ListTile(
                     leading: Tab(
                       icon: Container(
-                        child: Image(
-                          image: AssetImage(
-                            'images/group-img.png',
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 13),
+                          child: Container(
+                            child: Image(
+                              width: 75,
+                              image: AssetImage(
+                                'images/big-group-icon.png',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -115,9 +121,13 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             },
                             child: Column(
                               children: <Widget>[
-                                icon50Green(Icons.group),
-                                text18WhiteBold('Groups'),
-                                text13White('List of your groups'),
+                                Image(
+                                  height: 75,
+                                  image:
+                                      AssetImage('images/big-groups-icon.png'),
+                                ),
+                                text18WhiteBold('Back to groups'),
+                                text13White('See your all groups'),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -140,7 +150,11 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             },
                             child: Column(
                               children: <Widget>[
-                                icon50Green(Icons.person_outline),
+                                Image(
+                                  height: 75,
+                                  image: AssetImage(
+                                      'images/big-employees-icon.png'),
+                                ),
                                 text18WhiteBold('Employees'),
                                 textWhite('Manage selected employee'),
                                 SizedBox(height: 10)
@@ -163,7 +177,11 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                     context, _model),
                             child: Column(
                               children: <Widget>[
-                                icon50Green(Icons.today),
+                                Image(
+                                  height: 75,
+                                  image: AssetImage(
+                                      'images/big-quick_update-icon.png'),
+                                ),
                                 text18WhiteBold('Quick update'),
                                 text13White('Make a quick today update'),
                                 SizedBox(height: 10)
@@ -188,7 +206,11 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             },
                             child: Column(
                               children: <Widget>[
-                                icon50Green(Icons.event_note),
+                                Image(
+                                  height: 75,
+                                  image:
+                                  AssetImage('images/big-timesheets-icon.png'),
+                                ),
                                 text18WhiteBold('Timesheets'),
                                 text13White('Fill hours, rating, plans etc.'),
                                 SizedBox(height: 10)
