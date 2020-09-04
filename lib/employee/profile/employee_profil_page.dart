@@ -34,221 +34,239 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
   final EmployeeService _employeeService = new EmployeeService();
 
   User _user;
+  EmployeeDto _employee;
+  bool _refreshCalled = false;
 
   @override
   Widget build(BuildContext context) {
     this._user = widget._user;
-    return FutureBuilder<EmployeeDto>(
-      future: _employeeService.findById(_user.id, _user.authHeader),
-      builder: (BuildContext context, AsyncSnapshot<EmployeeDto> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting ||
-            snapshot.data == null) {
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: GREEN,
-              valueColor: new AlwaysStoppedAnimation(Colors.white),
-            ),
-          );
-        } else {
-          EmployeeDto employee = snapshot.data;
-          return WillPopScope(
-              child: MaterialApp(
-                title: APP_NAME,
-                theme: ThemeData(
-                    primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
-                debugShowCheckedModeBanner: false,
-                home: Scaffold(
-                  drawer: employeeSideBar(context, _user),
-                  backgroundColor: DARK,
-                  body: DefaultTabController(
-                    length: 3,
-                    child: NestedScrollView(
-                      headerSliverBuilder:
-                          (BuildContext context, bool innerBoxIsScrolled) {
-                        return <Widget>[
-                          SliverAppBar(
-                            elevation: 0.0,
-                            actions: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(right: 15.0),
-                                child: IconButton(
-                                  icon: iconWhite(Icons.settings),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      this.context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SettingsPage(_user)),
-                                    );
-                                  },
-                                ),
+    if (_refreshCalled) {
+      return _buildPage();
+    } else {
+      return FutureBuilder<EmployeeDto>(
+        future: _employeeService.findById(_user.id, _user.authHeader),
+        builder: (BuildContext context, AsyncSnapshot<EmployeeDto> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.data == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: GREEN,
+                valueColor: new AlwaysStoppedAnimation(Colors.white),
+              ),
+            );
+          } else {
+            this._employee = snapshot.data;
+            return _buildPage();
+          }
+        },
+      );
+    }
+  }
+
+  Widget _buildPage() {
+    return WillPopScope(
+        child: MaterialApp(
+          title: APP_NAME,
+          theme:
+              ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            drawer: employeeSideBar(context, _user),
+            backgroundColor: DARK,
+            body: DefaultTabController(
+              length: 3,
+              child: NestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      elevation: 0.0,
+                      actions: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: IconButton(
+                            icon: iconWhite(Icons.settings),
+                            onPressed: () {
+                              Navigator.push(
+                                this.context,
+                                MaterialPageRoute(
+                                    builder: (context) => SettingsPage(_user)),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                      iconTheme: IconThemeData(color: WHITE),
+                      expandedHeight: 280.0,
+                      pinned: true,
+                      backgroundColor: BRIGHTER_DARK,
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Column(
+                          children: <Widget>[
+                            Container(
+                              width: 100,
+                              height: 100,
+                              margin: EdgeInsets.only(top: 35, bottom: 5),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage('images/logo.png'),
+                                    fit: BoxFit.fill),
                               ),
-                            ],
-                            iconTheme: IconThemeData(color: WHITE),
-                            expandedHeight: 280.0,
-                            pinned: true,
-                            backgroundColor: BRIGHTER_DARK,
-                            flexibleSpace: FlexibleSpaceBar(
-                              background: Column(
-                                children: <Widget>[
-                                  Container(
-                                    width: 100,
-                                    height: 100,
-                                    margin: EdgeInsets.only(top: 35, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: AssetImage('images/logo.png'),
-                                          fit: BoxFit.fill),
-                                    ),
-                                  ),
-                                  text25WhiteBold(utf8.decode(_user.info != null
-                                      ? _user.info.runes.toList()
-                                      : '-') + ' ' + LanguageUtil.findFlagByNationality(
-                                      _user.nationality)),
-                                  SizedBox(height: 2.5),
-                                  SizedBox(height: 2.5),
-                                  text18White(
-                                      getTranslated(this.context, 'employee') +
-                                          ' #' +
-                                          _user.id.toString()),
-                                  SizedBox(height: 5),
-                                  text16GreenBold(getTranslated(
-                                          this.context, 'statisticsForThe') +
-                                      employee.currentYear +
-                                      ' ' +
-                                      getTranslated(
-                                          this.context, employee.currentMonth)),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(right: 12, left: 12),
-                                    child: Card(
-                                      elevation: 0.0,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(5.0),
-                                        color: BRIGHTER_DARK,
-                                        child: Row(
+                            ),
+                            text25WhiteBold(utf8.decode(_user.info != null
+                                    ? _user.info.runes.toList()
+                                    : '-') +
+                                ' ' +
+                                LanguageUtil.findFlagByNationality(
+                                    _user.nationality)),
+                            SizedBox(height: 2.5),
+                            SizedBox(height: 2.5),
+                            text18White(
+                                getTranslated(this.context, 'employee') +
+                                    ' #' +
+                                    _user.id.toString()),
+                            SizedBox(height: 5),
+                            text16GreenBold(getTranslated(
+                                    this.context, 'statisticsForThe') +
+                                _employee.currentYear +
+                                ' ' +
+                                getTranslated(
+                                    this.context, _employee.currentMonth)),
+                            Padding(
+                              padding: EdgeInsets.only(right: 12, left: 12),
+                              child: Card(
+                                elevation: 0.0,
+                                child: Container(
+                                  padding: const EdgeInsets.all(5.0),
+                                  color: BRIGHTER_DARK,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Column(
                                           children: <Widget>[
-                                            Expanded(
-                                              child: Column(
-                                                children: <Widget>[
-                                                  text20White(getTranslated(
-                                                      this.context, 'days')),
-                                                  SizedBox(height: 5.0),
-                                                  Countup(
-                                                    begin: 0,
-                                                    end: employee
-                                                        .daysWorkedInCurrentMonth
-                                                        .toDouble(),
-                                                    duration:
-                                                        Duration(seconds: 2),
-                                                    style: TextStyle(
-                                                        fontSize: 18.0,
-                                                        color: WHITE),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                children: <Widget>[
-                                                  text20White(getTranslated(
-                                                      this.context, 'money')),
-                                                  text14White(employee
-                                                              .moneyCurrency !=
-                                                          null
-                                                      ? '(' +
-                                                          employee
-                                                              .moneyCurrency +
-                                                          ')'
-                                                      : getTranslated(
-                                                          this.context,
-                                                          'noCurrency')),
-                                                  Countup(
-                                                    begin: 0,
-                                                    end: employee
-                                                        .earnedMoneyInCurrentMonth,
-                                                    duration:
-                                                        Duration(seconds: 2),
-                                                    separator: ',',
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: WHITE),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                children: <Widget>[
-                                                  text20White(getTranslated(
-                                                      this.context, 'rating')),
-                                                  SizedBox(height: 5.0),
-                                                  Countup(
-                                                    begin: 0,
-                                                    end: employee
-                                                        .ratingInCurrentMonth,
-                                                    precision: 1,
-                                                    duration:
-                                                        Duration(seconds: 2),
-                                                    style: TextStyle(
-                                                        fontSize: 18.0,
-                                                        color: WHITE),
-                                                  ),
-                                                ],
-                                              ),
+                                            text20White(getTranslated(
+                                                this.context, 'days')),
+                                            SizedBox(height: 5.0),
+                                            Countup(
+                                              begin: 0,
+                                              end: _employee
+                                                  .daysWorkedInCurrentMonth
+                                                  .toDouble(),
+                                              duration: Duration(seconds: 2),
+                                              style: TextStyle(
+                                                  fontSize: 18.0, color: WHITE),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
+                                      Expanded(
+                                        child: Column(
+                                          children: <Widget>[
+                                            text20White(getTranslated(
+                                                this.context, 'money')),
+                                            text14White(
+                                                _employee.moneyCurrency != null
+                                                    ? '(' +
+                                                        _employee
+                                                            .moneyCurrency +
+                                                        ')'
+                                                    : getTranslated(
+                                                        this.context,
+                                                        'noCurrency')),
+                                            Countup(
+                                              begin: 0,
+                                              end: _employee
+                                                  .earnedMoneyInCurrentMonth,
+                                              duration: Duration(seconds: 2),
+                                              separator: ',',
+                                              style: TextStyle(
+                                                  fontSize: 18, color: WHITE),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          children: <Widget>[
+                                            text20White(getTranslated(
+                                                this.context, 'rating')),
+                                            SizedBox(height: 5.0),
+                                            Countup(
+                                              begin: 0,
+                                              end: _employee
+                                                  .ratingInCurrentMonth,
+                                              precision: 1,
+                                              duration: Duration(seconds: 2),
+                                              style: TextStyle(
+                                                  fontSize: 18.0, color: WHITE),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                          SliverPersistentHeader(
-                            delegate: SliverAppBarDelegate(
-                              TabBar(
-                                labelColor: GREEN,
-                                unselectedLabelColor: Colors.grey,
-                                tabs: <Widget>[
-                                  Tab(
-                                      icon: iconWhite(Icons.assignment),
-                                      text: getTranslated(
-                                          this.context, 'timesheets')),
-                                  Tab(
-                                      icon: iconWhite(Icons.done_outline),
-                                      text: 'Todo'),
-                                  Tab(
-                                      icon: iconWhite(Icons.info),
-                                      text: 'About me'),
-                                ],
-                              ),
-                            ),
-                            pinned: true,
-                          ),
-                        ];
-                      },
-                      body: Padding(
-                        padding: EdgeInsets.all(5),
-                        child: TabBarView(
-                          children: <Widget>[
-                            employeeTimeSheetsTab(
-                                this.context, _user, employee.timeSheets),
-                            employeeTodaysTodo(context, employee.todaysPlan),
-                            employeeInfoTab(this.context, employee)
                           ],
                         ),
                       ),
                     ),
+                    SliverPersistentHeader(
+                      delegate: SliverAppBarDelegate(
+                        TabBar(
+                          labelColor: GREEN,
+                          unselectedLabelColor: Colors.grey,
+                          tabs: <Widget>[
+                            Tab(
+                                icon: iconWhite(Icons.assignment),
+                                text:
+                                    getTranslated(this.context, 'timesheets')),
+                            Tab(
+                                icon: iconWhite(Icons.done_outline),
+                                text: 'Todo'),
+                            Tab(icon: iconWhite(Icons.info), text: 'About me'),
+                          ],
+                        ),
+                      ),
+                      pinned: true,
+                    ),
+                  ];
+                },
+                body: Padding(
+                  padding: EdgeInsets.all(5),
+                  child: TabBarView(
+                    children: <Widget>[
+                      _buildTab(employeeTimeSheetsTab(
+                          this.context, _user, _employee.timeSheets)),
+                      _buildTab(employeeTodaysTodo(
+                          this.context, _employee.todaysPlan)),
+                      _buildTab(employeeInfoTab(this.context, _employee)),
+                    ],
                   ),
                 ),
               ),
-              onWillPop: _onWillPop);
-        }
-      },
-    );
+            ),
+          ),
+        ),
+        onWillPop: _onWillPop);
+  }
+
+  RefreshIndicator _buildTab(Widget tab) {
+    return RefreshIndicator(
+        color: DARK, backgroundColor: WHITE, onRefresh: _refresh, child: tab);
+  }
+
+  Future<Null> _refresh() {
+    return _employeeService
+        .findById(_user.id.toString(), _user.authHeader)
+        .then((employee) {
+      setState(() {
+        _employee = employee;
+        _refreshCalled = true;
+      });
+    });
   }
 
   Future<bool> _onWillPop() async {
