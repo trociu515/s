@@ -7,6 +7,7 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/widget/app_bar.dart';
+import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
@@ -76,7 +77,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
                 ? textCenter28White(
                     'Press button to choose interested document')
                 : _isLoading
-                    ? Center(child: CircularProgressIndicator())
+                    ? Center(child: circularProgressIndicator())
                     : PDFViewer(document: regulationsPDF),
           ),
         ),

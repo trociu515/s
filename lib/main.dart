@@ -89,9 +89,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     if (_locale == null) {
       return Container(
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
+        child: Center(child: CircularProgressIndicator()),
       );
     } else {
       return MaterialApp(

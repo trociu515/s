@@ -14,6 +14,7 @@ import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
+import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/silver_app_bar_delegate.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -171,12 +172,7 @@ class _ManagerEmployeeProfilePageState
           AsyncSnapshot<List<EmployeeTimeSheetDto>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: GREEN,
-              valueColor: new AlwaysStoppedAnimation(Colors.white),
-            ),
-          );
+          return Center(child: circularProgressIndicator());
         } else {
           List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
           return timeSheets.isNotEmpty
@@ -300,12 +296,7 @@ class _ManagerEmployeeProfilePageState
           ManagerEmployeeContactDto contact = snapshot.data;
           if (snapshot.connectionState == ConnectionState.waiting ||
               snapshot.data == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: GREEN,
-                valueColor: new AlwaysStoppedAnimation(Colors.white),
-              ),
-            );
+            return Center(child: circularProgressIndicator());
           } else if (contact == null) {
             return _handleEmptyData(
                 'No contact', 'Current employee has no contact');

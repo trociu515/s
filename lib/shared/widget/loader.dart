@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../libraries/colors.dart';
 import '../libraries/constants.dart';
+import 'circular_progress_indicator.dart';
 
 MaterialApp loader(AppBar appBar, Drawer drawer) {
   return MaterialApp(
@@ -12,12 +13,7 @@ MaterialApp loader(AppBar appBar, Drawer drawer) {
       backgroundColor: DARK,
       appBar: appBar,
       drawer: drawer,
-      body: Center(
-        child: CircularProgressIndicator(
-          backgroundColor: GREEN,
-          valueColor: new AlwaysStoppedAnimation(Colors.white),
-        ),
-      ),
+      body: Center(child: circularProgressIndicator()),
     ),
   );
 }

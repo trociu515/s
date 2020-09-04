@@ -9,6 +9,7 @@ import 'package:give_job/manager/groups/group/shared/group_floating_action_butto
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
+import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:give_job/shared/workdays/workday_service.dart';
@@ -137,12 +138,7 @@ class _ManagerEmployeeTsCompletedPageState
                     snapshot.data == null) {
                   return Padding(
                     padding: EdgeInsets.only(top: 50),
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: GREEN,
-                        valueColor: new AlwaysStoppedAnimation(Colors.white),
-                      ),
-                    ),
+                    child: Center(child: circularProgressIndicator()),
                   );
                 } else {
                   List<WorkdayDto> workdays = snapshot.data;

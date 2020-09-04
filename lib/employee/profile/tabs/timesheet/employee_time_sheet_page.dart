@@ -13,6 +13,7 @@ import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
+import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:give_job/shared/workdays/workday_service.dart';
@@ -120,12 +121,7 @@ class _EmployeeTimeSheetPageState extends State<EmployeeTimeSheetPage> {
                     snapshot.data == null) {
                   return Padding(
                     padding: EdgeInsets.only(top: 50),
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: GREEN,
-                        valueColor: new AlwaysStoppedAnimation(Colors.white),
-                      ),
-                    ),
+                    child: circularProgressIndicator(),
                   );
                 } else {
                   List<WorkdayDto> workdays = snapshot.data;
