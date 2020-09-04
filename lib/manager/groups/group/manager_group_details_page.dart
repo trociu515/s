@@ -10,7 +10,6 @@ import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/util/language_util.dart';
-import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 import '../../manager_app_bar.dart';
@@ -208,8 +207,8 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                               children: <Widget>[
                                 Image(
                                   height: 75,
-                                  image:
-                                  AssetImage('images/big-timesheets-icon.png'),
+                                  image: AssetImage(
+                                      'images/big-timesheets-icon.png'),
                                 ),
                                 text18WhiteBold('Timesheets'),
                                 text13White('Fill hours, rating, plans etc.'),

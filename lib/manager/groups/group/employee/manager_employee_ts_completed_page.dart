@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
+import 'package:give_job/employee/dto/employee_timesheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
@@ -25,10 +25,10 @@ class ManagerEmployeeTsCompletedPage extends StatefulWidget {
   final String _employeeInfo;
   final String _employeeNationality;
   final String _currency;
-  final EmployeeTimeSheetDto timeSheet;
+  final EmployeeTimesheetDto timesheet;
 
   const ManagerEmployeeTsCompletedPage(this._model, this._employeeInfo,
-      this._employeeNationality, this._currency, this.timeSheet);
+      this._employeeNationality, this._currency, this.timesheet);
 
   @override
   _ManagerEmployeeTsCompletedPageState createState() =>
@@ -43,7 +43,7 @@ class _ManagerEmployeeTsCompletedPageState
   String _employeeInfo;
   String _employeeNationality;
   String _currency;
-  EmployeeTimeSheetDto timeSheet;
+  EmployeeTimesheetDto timesheet;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class _ManagerEmployeeTsCompletedPageState
     this._employeeInfo = widget._employeeInfo;
     this._employeeNationality = widget._employeeNationality;
     this._currency = widget._currency;
-    this.timeSheet = widget.timeSheet;
+    this.timesheet = widget.timesheet;
 
     return MaterialApp(
       title: APP_NAME,
@@ -64,8 +64,8 @@ class _ManagerEmployeeTsCompletedPageState
             _model.user,
             getTranslated(context, 'workdays') +
                 ' - ' +
-                utf8.decode(timeSheet.groupName != null
-                    ? timeSheet.groupName.runes.toList()
+                utf8.decode(timesheet.groupName != null
+                    ? timesheet.groupName.runes.toList()
                     : '-')),
         drawer: managerSideBar(context, _model.user),
         body: Column(
@@ -82,9 +82,9 @@ class _ManagerEmployeeTsCompletedPageState
                       fit: BoxFit.fitHeight,
                     ),
                   ),
-                  title: textWhiteBold(timeSheet.year.toString() +
+                  title: textWhiteBold(timesheet.year.toString() +
                       ' ' +
-                      MonthUtil.translateMonth(context, timeSheet.month)),
+                      MonthUtil.translateMonth(context, timesheet.month)),
                   subtitle: Column(
                     children: <Widget>[
                       Align(
@@ -104,7 +104,7 @@ class _ManagerEmployeeTsCompletedPageState
                                 getTranslated(context, 'hoursWorked') + ': '),
                           ),
                           textGreenBold(
-                              timeSheet.numberOfHoursWorked.toString() + 'h'),
+                              timesheet.numberOfHoursWorked.toString() + 'h'),
                         ],
                       ),
                       Row(
@@ -115,14 +115,14 @@ class _ManagerEmployeeTsCompletedPageState
                                 getTranslated(context, 'averageRating') + ': '),
                           ),
                           textGreenBold(
-                              widget.timeSheet.averageRating.toString()),
+                              widget.timesheet.averageRating.toString()),
                         ],
                       ),
                     ],
                   ),
                   trailing: Wrap(
                     children: <Widget>[
-                      text20GreenBold(timeSheet.amountOfEarnedMoney.toString()),
+                      text20GreenBold(timesheet.amountOfEarnedMoney.toString()),
                       text20GreenBold(' ' + _currency),
                     ],
                   ),
@@ -130,8 +130,8 @@ class _ManagerEmployeeTsCompletedPageState
               ),
             ),
             FutureBuilder(
-              future: _sharedWorkdayService.findWorkdaysByTimeSheetId(
-                  timeSheet.id.toString(), _model.user.authHeader),
+              future: _sharedWorkdayService.findWorkdaysByTimesheetId(
+                  timesheet.id.toString(), _model.user.authHeader),
               builder: (BuildContext context,
                   AsyncSnapshot<List<WorkdayDto>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting ||

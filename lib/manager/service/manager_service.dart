@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
+import 'package:give_job/employee/dto/employee_timesheet_dto.dart';
 import 'package:give_job/manager/dto/manager_dto.dart';
 import 'package:give_job/manager/dto/manager_employee_contact_dto.dart';
 import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
-import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
+import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:http/http.dart';
 
@@ -16,7 +16,7 @@ class ManagerService {
   static const String _baseManagerUrl = SERVER_IP + '$_baseUrl/managers';
   static const String _baseGroupUrl = SERVER_IP + '$_baseUrl/groups';
   static const String _baseEmployeeUrl = SERVER_IP + '$_baseUrl/employees';
-  static const String _baseTimeSheetUrl = SERVER_IP + '$_baseUrl/time-sheets';
+  static const String _baseTimesheetUrl = SERVER_IP + '$_baseUrl/timesheets';
   static const String _baseWorkdayUrl = SERVER_IP + '$_baseUrl/workdays';
   static const String _baseContactUrl = SERVER_IP + '$_baseUrl/contacts';
 
@@ -56,36 +56,36 @@ class ManagerService {
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 
-  Future<List<EmployeeTimeSheetDto>>
-      findEmployeeTimeSheetsByGroupIdAndEmployeeId(
+  Future<List<EmployeeTimesheetDto>>
+      findEmployeeTimesheetsByGroupIdAndEmployeeId(
           String groupId, String employeeId, String authHeader) async {
     Response res = await get(
-      _baseTimeSheetUrl +
+      _baseTimesheetUrl +
           '/groups/${int.parse(groupId)}/employees/${int.parse(employeeId)}',
       headers: {HttpHeaders.authorizationHeader: authHeader},
     );
     return res.statusCode == 200
         ? (json.decode(res.body) as List)
-            .map((data) => EmployeeTimeSheetDto.fromJson(data))
+            .map((data) => EmployeeTimesheetDto.fromJson(data))
             .toList()
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 
-  Future<List<ManagerGroupTimeSheetDto>> findTimeSheetsByGroupId(
+  Future<List<ManagerGroupTimesheetDto>> findTimesheetsByGroupId(
       String groupId, String authHeader) async {
     Response res = await get(
-      _baseTimeSheetUrl + '/groups/${int.parse(groupId)}',
+      _baseTimesheetUrl + '/groups/${int.parse(groupId)}',
       headers: {HttpHeaders.authorizationHeader: authHeader},
     );
     return res.statusCode == 200
         ? (json.decode(res.body) as List)
-            .map((data) => ManagerGroupTimeSheetDto.fromJson(data))
+            .map((data) => ManagerGroupTimesheetDto.fromJson(data))
             .toList()
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 
   Future<List<ManagerGroupEmployeeDto>>
-      findAllEmployeesOfTimeSheetByGroupIdAndTimeSheetYearMonthStatusForMobile(
+      findAllEmployeesOfTimesheetByGroupIdAndTimesheetYearMonthStatusForMobile(
           int groupId,
           int year,
           int month,
@@ -194,18 +194,18 @@ class ManagerService {
       String dateFrom,
       String dateTo,
       Set<int> employeesId,
-      int timeSheetYear,
-      int timeSheetMonth,
-      String timeSheetStatus,
+      int timesheetYear,
+      int timesheetMonth,
+      String timesheetStatus,
       String authHeader) async {
     Map<String, dynamic> map = {
       'hours': hours,
       'dateFrom': dateFrom,
       'dateTo': dateTo,
       'employeesId': employeesId.map((el) => el.toInt()).toList(),
-      'timeSheetYear': timeSheetYear,
-      'timeSheetMonth': timeSheetMonth,
-      'timeSheetStatus': timeSheetStatus,
+      'timesheetYear': timesheetYear,
+      'timesheetMonth': timesheetMonth,
+      'timesheetStatus': timesheetStatus,
     };
     Response res = await put(
       _baseWorkdayUrl + '/group/hours',
@@ -225,18 +225,18 @@ class ManagerService {
       String dateFrom,
       String dateTo,
       Set<int> employeesId,
-      int timeSheetYear,
-      int timeSheetMonth,
-      String timeSheetStatus,
+      int timesheetYear,
+      int timesheetMonth,
+      String timesheetStatus,
       String authHeader) async {
     Map<String, dynamic> map = {
       'rating': rating,
       'dateFrom': dateFrom,
       'dateTo': dateTo,
       'employeesId': employeesId.map((el) => el.toInt()).toList(),
-      'timeSheetYear': timeSheetYear,
-      'timeSheetMonth': timeSheetMonth,
-      'timeSheetStatus': timeSheetStatus,
+      'timesheetYear': timesheetYear,
+      'timesheetMonth': timesheetMonth,
+      'timesheetStatus': timesheetStatus,
     };
     Response res = await put(
       _baseWorkdayUrl + '/group/rating',
@@ -256,18 +256,18 @@ class ManagerService {
       String dateFrom,
       String dateTo,
       Set<int> employeesId,
-      int timeSheetYear,
-      int timeSheetMonth,
-      String timeSheetStatus,
+      int timesheetYear,
+      int timesheetMonth,
+      String timesheetStatus,
       String authHeader) async {
     Map<String, dynamic> map = {
       'plan': plan,
       'dateFrom': dateFrom,
       'dateTo': dateTo,
       'employeesId': employeesId.map((el) => el.toInt()).toList(),
-      'timeSheetYear': timeSheetYear,
-      'timeSheetMonth': timeSheetMonth,
-      'timeSheetStatus': timeSheetStatus,
+      'timesheetYear': timesheetYear,
+      'timesheetMonth': timesheetMonth,
+      'timesheetStatus': timesheetStatus,
     };
     Response res = await put(
       _baseWorkdayUrl + '/group/plan',
@@ -287,18 +287,18 @@ class ManagerService {
       String dateFrom,
       String dateTo,
       Set<int> employeesId,
-      int timeSheetYear,
-      int timeSheetMonth,
-      String timeSheetStatus,
+      int timesheetYear,
+      int timesheetMonth,
+      String timesheetStatus,
       String authHeader) async {
     Map<String, dynamic> map = {
       'opinion': opinion,
       'dateFrom': dateFrom,
       'dateTo': dateTo,
       'employeesId': employeesId.map((el) => el.toInt()).toList(),
-      'timeSheetYear': timeSheetYear,
-      'timeSheetMonth': timeSheetMonth,
-      'timeSheetStatus': timeSheetStatus,
+      'timesheetYear': timesheetYear,
+      'timesheetMonth': timesheetMonth,
+      'timesheetStatus': timesheetStatus,
     };
     Response res = await put(
       _baseWorkdayUrl + '/group/opinion',
@@ -321,7 +321,7 @@ class ManagerService {
       'hours': hours,
     };
     Response res = await put(
-      _baseTimeSheetUrl + '/group/date/hours',
+      _baseTimesheetUrl + '/group/date/hours',
       body: jsonEncode(map),
       headers: {
         HttpHeaders.authorizationHeader: authHeader,
@@ -341,7 +341,7 @@ class ManagerService {
       'rating': rating,
     };
     Response res = await put(
-      _baseTimeSheetUrl + '/group/date/rating',
+      _baseTimesheetUrl + '/group/date/rating',
       body: jsonEncode(map),
       headers: {
         HttpHeaders.authorizationHeader: authHeader,
@@ -361,7 +361,7 @@ class ManagerService {
       'plan': plan,
     };
     Response res = await put(
-      _baseTimeSheetUrl + '/group/date/plan',
+      _baseTimesheetUrl + '/group/date/plan',
       body: jsonEncode(map),
       headers: {
         HttpHeaders.authorizationHeader: authHeader,
@@ -381,7 +381,7 @@ class ManagerService {
       'opinion': opinion,
     };
     Response res = await put(
-      _baseTimeSheetUrl + '/group/date/opinion',
+      _baseTimesheetUrl + '/group/date/opinion',
       body: jsonEncode(map),
       headers: {
         HttpHeaders.authorizationHeader: authHeader,

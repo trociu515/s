@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:give_job/shared/libraries/colors.dart';
 
 class ToastService {
   static showBottomToast(String msg, Color backgroundColor) {

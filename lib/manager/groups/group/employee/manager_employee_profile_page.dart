@@ -4,7 +4,7 @@ import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
+import 'package:give_job/employee/dto/employee_timesheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_employee_contact_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
@@ -166,28 +166,28 @@ class _ManagerEmployeeProfilePageState
 
   Widget _buildTimesheetsSection() {
     return FutureBuilder(
-      future: _managerService.findEmployeeTimeSheetsByGroupIdAndEmployeeId(
+      future: _managerService.findEmployeeTimesheetsByGroupIdAndEmployeeId(
           _model.groupId.toString(),
           _employeeId.toString(),
           _model.user.authHeader),
       builder: (BuildContext context,
-          AsyncSnapshot<List<EmployeeTimeSheetDto>> snapshot) {
+          AsyncSnapshot<List<EmployeeTimesheetDto>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.data == null) {
           return Center(child: circularProgressIndicator());
         } else {
-          List<EmployeeTimeSheetDto> timeSheets = snapshot.data;
-          return timeSheets.isNotEmpty
+          List<EmployeeTimesheetDto> timesheets = snapshot.data;
+          return timesheets.isNotEmpty
               ? SingleChildScrollView(
                   child: Center(
                     child: Column(
                       children: <Widget>[
-                        for (var timeSheet in timeSheets)
+                        for (var timesheet in timesheets)
                           Card(
                             color: BRIGHTER_DARK,
                             child: InkWell(
                               onTap: () {
-                                if (timeSheet.status == 'Completed') {
+                                if (timesheet.status == 'Completed') {
                                   Navigator.of(this.context).push(
                                     CupertinoPageRoute<Null>(
                                       builder: (BuildContext context) {
@@ -196,7 +196,7 @@ class _ManagerEmployeeProfilePageState
                                             _employeeInfo,
                                             _employeeNationality,
                                             _currency,
-                                            timeSheet);
+                                            timesheet);
                                       },
                                     ),
                                   );
@@ -209,7 +209,7 @@ class _ManagerEmployeeProfilePageState
                                             _employeeInfo,
                                             _employeeNationality,
                                             _currency,
-                                            timeSheet);
+                                            timesheet);
                                       },
                                     ),
                                   );
@@ -222,17 +222,17 @@ class _ManagerEmployeeProfilePageState
                                     leading: Padding(
                                       padding: EdgeInsets.only(bottom: 15),
                                       child: Image(
-                                        image: timeSheet.status ==
+                                        image: timesheet.status ==
                                                 STATUS_IN_PROGRESS
                                             ? AssetImage('images/unchecked.png')
                                             : AssetImage('images/checked.png'),
                                       ),
                                     ),
                                     title: textWhiteBold(
-                                        timeSheet.year.toString() +
+                                        timesheet.year.toString() +
                                             ' ' +
                                             MonthUtil.translateMonth(
-                                                this.context, timeSheet.month)),
+                                                this.context, timesheet.month)),
                                     subtitle: Column(
                                       children: <Widget>[
                                         Align(
@@ -242,7 +242,7 @@ class _ManagerEmployeeProfilePageState
                                                         this.context,
                                                         'hoursWorked') +
                                                     ': '),
-                                                textGreenBold(timeSheet
+                                                textGreenBold(timesheet
                                                         .numberOfHoursWorked
                                                         .toString() +
                                                     'h'),
@@ -256,7 +256,7 @@ class _ManagerEmployeeProfilePageState
                                                       this.context,
                                                       'averageRating') +
                                                   ': '),
-                                              textGreenBold(timeSheet
+                                              textGreenBold(timesheet
                                                   .averageRating
                                                   .toString()),
                                             ],
@@ -267,7 +267,7 @@ class _ManagerEmployeeProfilePageState
                                     ),
                                     trailing: Wrap(
                                       children: <Widget>[
-                                        text20GreenBold(timeSheet
+                                        text20GreenBold(timesheet
                                             .amountOfEarnedMoney
                                             .toString()),
                                         text20GreenBold(' ' + _currency)

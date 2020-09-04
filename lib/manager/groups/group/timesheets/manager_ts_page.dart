@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
+import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/service/manager_service.dart';
@@ -32,8 +32,8 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
 
   GroupEmployeeModel _model;
 
-  List<ManagerGroupTimeSheetDto> _inProgressTimeSheets = new List();
-  List<ManagerGroupTimeSheetDto> _completedTimeSheets = new List();
+  List<ManagerGroupTimesheetDto> _inProgressTimesheets = new List();
+  List<ManagerGroupTimesheetDto> _completedTimesheets = new List();
 
   bool _loading = false;
 
@@ -43,15 +43,15 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
     super.initState();
     _loading = true;
     _managerService
-        .findTimeSheetsByGroupId(
+        .findTimesheetsByGroupId(
             _model.groupId.toString(), _model.user.authHeader)
         .then((res) {
       setState(() {
         res.forEach((ts) => {
               if (ts.status == STATUS_IN_PROGRESS)
-                {_inProgressTimeSheets.add(ts)}
+                {_inProgressTimesheets.add(ts)}
               else
-                {_completedTimeSheets.add(ts)}
+                {_completedTimesheets.add(ts)}
             });
         _loading = false;
       });
@@ -88,7 +88,7 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                   child: text20OrangeBold('In progress timesheets'),
                 ),
               ),
-              _inProgressTimeSheets.isEmpty
+              _inProgressTimesheets.isEmpty
                   ? Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: Align(
@@ -98,7 +98,7 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                       ),
                     )
                   : Container(),
-              for (var inProgressTs in _inProgressTimeSheets)
+              for (var inProgressTs in _inProgressTimesheets)
                 Card(
                   color: BRIGHTER_DARK,
                   child: InkWell(
@@ -106,7 +106,7 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                       Navigator.of(context).push(
                         CupertinoPageRoute<Null>(
                           builder: (BuildContext context) {
-                            return ManagerTimeSheetsEmployeesInProgressPage(
+                            return ManagerTimesheetsEmployeesInProgressPage(
                                 _model, inProgressTs);
                           },
                         ),
@@ -139,7 +139,7 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                   child: text20GreenBold('Completed timesheets'),
                 ),
               ),
-              _completedTimeSheets.isEmpty
+              _completedTimesheets.isEmpty
                   ? Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: Align(
@@ -149,7 +149,7 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                       ),
                     )
                   : Container(),
-              for (var completedTs in _completedTimeSheets)
+              for (var completedTs in _completedTimesheets)
                 Card(
                   color: BRIGHTER_DARK,
                   child: InkWell(
@@ -157,7 +157,7 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                       Navigator.of(context).push(
                         CupertinoPageRoute<Null>(
                           builder: (BuildContext context) {
-                            return ManagerTimeSheetsEmployeesCompletedPage(
+                            return ManagerTimesheetsEmployeesCompletedPage(
                                 _model, completedTs);
                           },
                         ),

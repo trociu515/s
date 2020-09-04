@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
+import 'package:give_job/employee/dto/employee_timesheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
-import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
+import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
 import 'package:give_job/manager/groups/group/employee/manager_employee_profile_page.dart';
 import 'package:give_job/manager/groups/group/employee/manager_employee_ts_completed_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
@@ -24,23 +24,23 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../manager_app_bar.dart';
 import '../../../../manager_side_bar.dart';
 
-class ManagerTimeSheetsEmployeesCompletedPage extends StatefulWidget {
+class ManagerTimesheetsEmployeesCompletedPage extends StatefulWidget {
   final GroupEmployeeModel _model;
-  final ManagerGroupTimeSheetDto _timeSheet;
+  final ManagerGroupTimesheetDto _timesheet;
 
-  ManagerTimeSheetsEmployeesCompletedPage(this._model, this._timeSheet);
+  ManagerTimesheetsEmployeesCompletedPage(this._model, this._timesheet);
 
   @override
-  _ManagerTimeSheetsEmployeesCompletedPageState createState() =>
-      _ManagerTimeSheetsEmployeesCompletedPageState();
+  _ManagerTimesheetsEmployeesCompletedPageState createState() =>
+      _ManagerTimesheetsEmployeesCompletedPageState();
 }
 
-class _ManagerTimeSheetsEmployeesCompletedPageState
-    extends State<ManagerTimeSheetsEmployeesCompletedPage> {
+class _ManagerTimesheetsEmployeesCompletedPageState
+    extends State<ManagerTimesheetsEmployeesCompletedPage> {
   final ManagerService _managerService = new ManagerService();
 
   GroupEmployeeModel _model;
-  ManagerGroupTimeSheetDto _timeSheet;
+  ManagerGroupTimesheetDto _timesheet;
 
   List<ManagerGroupEmployeeDto> _employees = new List();
   List<ManagerGroupEmployeeDto> _filteredEmployees = new List();
@@ -49,14 +49,14 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
   @override
   void initState() {
     this._model = widget._model;
-    this._timeSheet = widget._timeSheet;
+    this._timesheet = widget._timesheet;
     super.initState();
     _loading = true;
     _managerService
-        .findAllEmployeesOfTimeSheetByGroupIdAndTimeSheetYearMonthStatusForMobile(
+        .findAllEmployeesOfTimesheetByGroupIdAndTimesheetYearMonthStatusForMobile(
             _model.groupId,
-            _timeSheet.year,
-            MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month),
+            _timesheet.year,
+            MonthUtil.findMonthNumberByMonthName(context, _timesheet.month),
             STATUS_COMPLETED,
             _model.user.authHeader)
         .then((res) {
@@ -71,7 +71,7 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
   @override
   Widget build(BuildContext context) {
     this._model = widget._model;
-    this._timeSheet = widget._timeSheet;
+    this._timesheet = widget._timesheet;
     if (_loading) {
       return shimmerManagerCompletedTsDetails(this.context, _model.user);
     }
@@ -84,9 +84,9 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
         appBar: managerAppBar(
             context,
             _model.user,
-            _timeSheet.year.toString() +
+            _timesheet.year.toString() +
                 ' ' +
-                MonthUtil.translateMonth(context, _timeSheet.month) +
+                MonthUtil.translateMonth(context, _timesheet.month) +
                 ' - ' +
                 STATUS_COMPLETED),
         drawer: managerSideBar(context, _model.user),
@@ -132,14 +132,14 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                     color: DARK,
                     child: InkWell(
                       onTap: () {
-                        EmployeeTimeSheetDto _completedTimeSheet =
-                            new EmployeeTimeSheetDto(
-                          id: _timeSheet.id,
-                          year: _timeSheet.year,
-                          month: _timeSheet.month,
+                        EmployeeTimesheetDto _completedTimesheet =
+                            new EmployeeTimesheetDto(
+                          id: _timesheet.id,
+                          year: _timesheet.year,
+                          month: _timesheet.month,
                           groupName: _model.groupName,
                           groupCountryCurrency: currency,
-                          status: _timeSheet.status,
+                          status: _timesheet.status,
                           numberOfHoursWorked:
                               _filteredEmployees[index].numberOfHoursWorked,
                           averageRating:
@@ -155,7 +155,7 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                                   info,
                                   nationality,
                                   currency,
-                                  _completedTimeSheet);
+                                  _completedTimesheet);
                             },
                           ),
                         );

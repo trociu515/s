@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
-import 'package:give_job/manager/dto/manager_group_time_sheet_dto.dart';
+import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
 import 'package:give_job/manager/groups/group/employee/manager_employee_profile_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
@@ -30,19 +30,19 @@ import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 import '../../../../manager_app_bar.dart';
 import '../../../../manager_side_bar.dart';
 
-class ManagerTimeSheetsEmployeesInProgressPage extends StatefulWidget {
+class ManagerTimesheetsEmployeesInProgressPage extends StatefulWidget {
   final GroupEmployeeModel _model;
-  final ManagerGroupTimeSheetDto _timeSheet;
+  final ManagerGroupTimesheetDto _timeSheet;
 
-  ManagerTimeSheetsEmployeesInProgressPage(this._model, this._timeSheet);
+  ManagerTimesheetsEmployeesInProgressPage(this._model, this._timeSheet);
 
   @override
-  _ManagerTimeSheetsEmployeesInProgressPageState createState() =>
-      _ManagerTimeSheetsEmployeesInProgressPageState();
+  _ManagerTimesheetsEmployeesInProgressPageState createState() =>
+      _ManagerTimesheetsEmployeesInProgressPageState();
 }
 
-class _ManagerTimeSheetsEmployeesInProgressPageState
-    extends State<ManagerTimeSheetsEmployeesInProgressPage> {
+class _ManagerTimesheetsEmployeesInProgressPageState
+    extends State<ManagerTimesheetsEmployeesInProgressPage> {
   final ManagerService _managerService = new ManagerService();
 
   final TextEditingController _hoursController = new TextEditingController();
@@ -51,7 +51,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
   final TextEditingController _opinionController = new TextEditingController();
 
   GroupEmployeeModel _model;
-  ManagerGroupTimeSheetDto _timeSheet;
+  ManagerGroupTimesheetDto _timesheet;
 
   List<ManagerGroupEmployeeDto> _employees = new List();
   List<ManagerGroupEmployeeDto> _filteredEmployees = new List();
@@ -63,14 +63,14 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
   @override
   void initState() {
     this._model = widget._model;
-    this._timeSheet = widget._timeSheet;
+    this._timesheet = widget._timeSheet;
     super.initState();
     _loading = true;
     _managerService
-        .findAllEmployeesOfTimeSheetByGroupIdAndTimeSheetYearMonthStatusForMobile(
+        .findAllEmployeesOfTimesheetByGroupIdAndTimesheetYearMonthStatusForMobile(
             _model.groupId,
-            _timeSheet.year,
-            MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month),
+            _timesheet.year,
+            MonthUtil.findMonthNumberByMonthName(context, _timesheet.month),
             STATUS_IN_PROGRESS,
             _model.user.authHeader)
         .then((res) {
@@ -97,9 +97,9 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
         appBar: managerAppBar(
             context,
             _model.user,
-            _timeSheet.year.toString() +
+            _timesheet.year.toString() +
                 ' ' +
-                MonthUtil.translateMonth(context, _timeSheet.month) +
+                MonthUtil.translateMonth(context, _timesheet.month) +
                 ' - ' +
                 STATUS_IN_PROGRESS),
         drawer: managerSideBar(context, _model.user),
@@ -398,9 +398,9 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
   }
 
   void _showUpdateHoursDialog(LinkedHashSet<int> selectedIds) async {
-    int year = _timeSheet.year;
+    int year = _timesheet.year;
     int monthNum =
-        MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
+        MonthUtil.findMonthNumberByMonthName(context, _timesheet.month);
     int days = DateUtil().daysInMonth(monthNum, year);
     final List<DateTime> picked = await DateRagePicker.showDatePicker(
         context: context,
@@ -537,9 +537,9 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
   }
 
   void _showUpdateRatingDialog(LinkedHashSet<int> selectedIds) async {
-    int year = _timeSheet.year;
+    int year = _timesheet.year;
     int monthNum =
-        MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
+        MonthUtil.findMonthNumberByMonthName(context, _timesheet.month);
     int days = DateUtil().daysInMonth(monthNum, year);
     final List<DateTime> picked = await DateRagePicker.showDatePicker(
         context: context,
@@ -677,9 +677,9 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
   }
 
   void _showUpdatePlanDialog(LinkedHashSet<int> selectedIds) async {
-    int year = _timeSheet.year;
+    int year = _timesheet.year;
     int monthNum =
-        MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
+        MonthUtil.findMonthNumberByMonthName(context, _timesheet.month);
     int days = DateUtil().daysInMonth(monthNum, year);
     final List<DateTime> picked = await DateRagePicker.showDatePicker(
         context: context,
@@ -810,9 +810,9 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
   }
 
   void _showUpdateOpinionDialog(LinkedHashSet<int> selectedIds) async {
-    int year = _timeSheet.year;
+    int year = _timesheet.year;
     int monthNum =
-        MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month);
+        MonthUtil.findMonthNumberByMonthName(context, _timesheet.month);
     int days = DateUtil().daysInMonth(monthNum, year);
     final List<DateTime> picked = await DateRagePicker.showDatePicker(
         context: context,
@@ -972,10 +972,10 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
 
   Future<Null> _refresh() {
     return _managerService
-        .findAllEmployeesOfTimeSheetByGroupIdAndTimeSheetYearMonthStatusForMobile(
+        .findAllEmployeesOfTimesheetByGroupIdAndTimesheetYearMonthStatusForMobile(
             _model.groupId,
-            _timeSheet.year,
-            MonthUtil.findMonthNumberByMonthName(context, _timeSheet.month),
+            _timesheet.year,
+            MonthUtil.findMonthNumberByMonthName(context, _timesheet.month),
             STATUS_IN_PROGRESS,
             _model.user.authHeader)
         .then((res) {

@@ -4,8 +4,8 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-import '../../unauthenticated/login_page.dart';
 import '../../main.dart';
+import '../../unauthenticated/login_page.dart';
 
 class Logout {
   static logout(BuildContext context) {

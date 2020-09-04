@@ -8,10 +8,10 @@ import 'package:http/http.dart';
 class SharedWorkdayService {
   final String _baseTimesheetUrl = SERVER_IP + '/mobile/workdays';
 
-  Future<List<WorkdayDto>> findWorkdaysByTimeSheetId(
-      String timeSheetId, String authHeader) async {
+  Future<List<WorkdayDto>> findWorkdaysByTimesheetId(
+      String timesheetId, String authHeader) async {
     Response res = await get(
-      _baseTimesheetUrl + '/${int.parse(timeSheetId)}',
+      _baseTimesheetUrl + '/${int.parse(timesheetId)}',
       headers: {HttpHeaders.authorizationHeader: authHeader},
     );
     return res.statusCode == 200

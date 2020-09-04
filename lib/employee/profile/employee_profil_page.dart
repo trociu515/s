@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:give_job/employee/dto/employee_dto.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/profile/tabs/employee_info_tab.dart';
-import 'package:give_job/employee/profile/tabs/employee_time_sheets.tab.dart';
+import 'package:give_job/employee/profile/tabs/employee_timesheets.tab.dart';
 import 'package:give_job/employee/profile/tabs/employee_todo.dart';
 import 'package:give_job/employee/service/employee_service.dart';
 import 'package:give_job/employee/shimmer/shimmer_employee_profile.dart';
@@ -235,7 +235,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                   padding: EdgeInsets.all(5),
                   child: TabBarView(
                     children: <Widget>[
-                      _buildTab(employeeTimeSheetsTab(
+                      _buildTab(employeeTimesheetsTab(
                           this.context, _user, _employee.timeSheets)),
                       _buildTab(employeeTodaysTodo(
                           this.context, _employee.todaysPlan)),

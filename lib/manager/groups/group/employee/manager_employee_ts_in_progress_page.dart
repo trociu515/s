@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
+import 'package:give_job/employee/dto/employee_timesheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
@@ -30,10 +30,10 @@ class ManagerEmployeeTsInProgressPage extends StatefulWidget {
   final String _employeeInfo;
   final String _employeeNationality;
   final String _currency;
-  final EmployeeTimeSheetDto timeSheet;
+  final EmployeeTimesheetDto timesheet;
 
   const ManagerEmployeeTsInProgressPage(this._model, this._employeeInfo,
-      this._employeeNationality, this._currency, this.timeSheet);
+      this._employeeNationality, this._currency, this.timesheet);
 
   @override
   _ManagerEmployeeTsInProgressPageState createState() =>
@@ -53,7 +53,7 @@ class _ManagerEmployeeTsInProgressPageState
   String _employeeInfo;
   String _employeeNationality;
   String _currency;
-  EmployeeTimeSheetDto _timeSheet;
+  EmployeeTimesheetDto _timesheet;
 
   Set<int> selectedIds = new Set();
   List<WorkdayDto> workdays = new List();
@@ -72,7 +72,7 @@ class _ManagerEmployeeTsInProgressPageState
     this._employeeInfo = widget._employeeInfo;
     this._employeeNationality = widget._employeeNationality;
     this._currency = widget._currency;
-    this._timeSheet = widget.timeSheet;
+    this._timesheet = widget.timesheet;
     if (workdays.isEmpty) {
       return MaterialApp(
         title: APP_NAME,
@@ -85,8 +85,8 @@ class _ManagerEmployeeTsInProgressPageState
               _model.user,
               getTranslated(context, 'workdays') +
                   ' - ' +
-                  utf8.decode(_timeSheet.groupName != null
-                      ? _timeSheet.groupName.runes.toList()
+                  utf8.decode(_timesheet.groupName != null
+                      ? _timesheet.groupName.runes.toList()
                       : '-')),
           drawer: managerSideBar(context, _model.user),
           body: RefreshIndicator(
@@ -107,9 +107,9 @@ class _ManagerEmployeeTsInProgressPageState
                           fit: BoxFit.fitHeight,
                         ),
                       ),
-                      title: textWhiteBold(_timeSheet.year.toString() +
+                      title: textWhiteBold(_timesheet.year.toString() +
                           ' ' +
-                          MonthUtil.translateMonth(context, _timeSheet.month)),
+                          MonthUtil.translateMonth(context, _timesheet.month)),
                       subtitle: Column(
                         children: <Widget>[
                           Align(
@@ -130,7 +130,7 @@ class _ManagerEmployeeTsInProgressPageState
                                         ': '),
                               ),
                               textGreenBold(
-                                  _timeSheet.numberOfHoursWorked.toString() +
+                                  _timesheet.numberOfHoursWorked.toString() +
                                       'h'),
                             ],
                           ),
@@ -143,7 +143,7 @@ class _ManagerEmployeeTsInProgressPageState
                                         ': '),
                               ),
                               textGreenBold(
-                                  widget.timeSheet.averageRating.toString()),
+                                  widget.timesheet.averageRating.toString()),
                             ],
                           ),
                         ],
@@ -151,7 +151,7 @@ class _ManagerEmployeeTsInProgressPageState
                       trailing: Wrap(
                         children: <Widget>[
                           text20GreenBold(
-                              widget.timeSheet.amountOfEarnedMoney.toString()),
+                              widget.timesheet.amountOfEarnedMoney.toString()),
                           text20GreenBold(' ' + _currency)
                         ],
                       ),
@@ -159,8 +159,8 @@ class _ManagerEmployeeTsInProgressPageState
                   ),
                 ),
                 FutureBuilder(
-                  future: _sharedWorkdayService.findWorkdaysByTimeSheetId(
-                      _timeSheet.id.toString(), _model.user.authHeader),
+                  future: _sharedWorkdayService.findWorkdaysByTimesheetId(
+                      _timesheet.id.toString(), _model.user.authHeader),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<WorkdayDto>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting ||
@@ -373,8 +373,8 @@ class _ManagerEmployeeTsInProgressPageState
               _model.user,
               getTranslated(context, 'workdays') +
                   ' - ' +
-                  utf8.decode(_timeSheet.groupName != null
-                      ? _timeSheet.groupName.runes.toList()
+                  utf8.decode(_timesheet.groupName != null
+                      ? _timesheet.groupName.runes.toList()
                       : '-')),
           drawer: managerSideBar(context, _model.user),
           body: RefreshIndicator(
@@ -395,9 +395,9 @@ class _ManagerEmployeeTsInProgressPageState
                           fit: BoxFit.fitHeight,
                         ),
                       ),
-                      title: textWhiteBold(_timeSheet.year.toString() +
+                      title: textWhiteBold(_timesheet.year.toString() +
                           ' ' +
-                          MonthUtil.translateMonth(context, _timeSheet.month)),
+                          MonthUtil.translateMonth(context, _timesheet.month)),
                       subtitle: Column(
                         children: <Widget>[
                           Align(
@@ -418,7 +418,7 @@ class _ManagerEmployeeTsInProgressPageState
                                         ': '),
                               ),
                               textGreenBold(
-                                  _timeSheet.numberOfHoursWorked.toString() +
+                                  _timesheet.numberOfHoursWorked.toString() +
                                       'h'),
                             ],
                           ),
@@ -431,7 +431,7 @@ class _ManagerEmployeeTsInProgressPageState
                                         ': '),
                               ),
                               textGreenBold(
-                                  widget.timeSheet.averageRating.toString()),
+                                  widget.timesheet.averageRating.toString()),
                             ],
                           ),
                         ],
@@ -439,7 +439,7 @@ class _ManagerEmployeeTsInProgressPageState
                       trailing: Wrap(
                         children: <Widget>[
                           text20GreenBold(
-                              _timeSheet.amountOfEarnedMoney.toString()),
+                              _timesheet.amountOfEarnedMoney.toString()),
                           text20GreenBold(' ' + _currency)
                         ],
                       ),
@@ -627,8 +627,8 @@ class _ManagerEmployeeTsInProgressPageState
 
   Future<Null> _refresh() {
     return _sharedWorkdayService
-        .findWorkdaysByTimeSheetId(
-            _timeSheet.id.toString(), _model.user.authHeader)
+        .findWorkdaysByTimesheetId(
+            _timesheet.id.toString(), _model.user.authHeader)
         .then((_workdays) {
       setState(() {
         workdays = _workdays;

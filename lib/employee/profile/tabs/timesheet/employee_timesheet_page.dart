@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:give_job/employee/dto/employee_time_sheet_dto.dart';
+import 'package:give_job/employee/dto/employee_timesheet_dto.dart';
 import 'package:give_job/employee/employee_app_bar.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/profile/employee_profil_page.dart';
@@ -19,21 +19,21 @@ import 'package:give_job/shared/widget/texts.dart';
 import 'package:give_job/shared/workdays/workday_service.dart';
 import 'package:give_job/shared/workdays/workday_util.dart';
 
-class EmployeeTimeSheetPage extends StatefulWidget {
+class EmployeeTimesheetPage extends StatefulWidget {
   final User _user;
-  final EmployeeTimeSheetDto _timesheet;
+  final EmployeeTimesheetDto _timesheet;
 
-  EmployeeTimeSheetPage(this._user, this._timesheet);
+  EmployeeTimesheetPage(this._user, this._timesheet);
 
   @override
-  _EmployeeTimeSheetPageState createState() => _EmployeeTimeSheetPageState();
+  _EmployeeTimesheetPageState createState() => _EmployeeTimesheetPageState();
 }
 
-class _EmployeeTimeSheetPageState extends State<EmployeeTimeSheetPage> {
+class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
   final SharedWorkdayService _sharedWorkdayService = new SharedWorkdayService();
 
   User _user;
-  EmployeeTimeSheetDto _timesheet;
+  EmployeeTimesheetDto _timesheet;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class _EmployeeTimeSheetPageState extends State<EmployeeTimeSheetPage> {
               ),
             ),
             FutureBuilder(
-              future: _sharedWorkdayService.findWorkdaysByTimeSheetId(
+              future: _sharedWorkdayService.findWorkdaysByTimesheetId(
                   _timesheet.id.toString(), _user.authHeader),
               builder: (BuildContext context,
                   AsyncSnapshot<List<WorkdayDto>> snapshot) {

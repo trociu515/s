@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:give_job/employee/profile/tabs/timesheet/employee_time_sheet_page.dart';
+import 'package:give_job/employee/profile/tabs/timesheet/employee_timesheet_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -11,8 +11,8 @@ import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-Widget employeeTimeSheetsTab(BuildContext context, User user, List timeSheets) {
-  if (timeSheets.isEmpty) {
+Widget employeeTimesheetsTab(BuildContext context, User user, List timesheets) {
+  if (timesheets.isEmpty) {
     return _handleEmptyData();
   }
   return Container(
@@ -21,7 +21,7 @@ Widget employeeTimeSheetsTab(BuildContext context, User user, List timeSheets) {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: <Widget>[
-            for (var timeSheet in timeSheets)
+            for (var timesheet in timesheets)
               Card(
                 color: BRIGHTER_DARK,
                 child: Column(
@@ -32,7 +32,7 @@ Widget employeeTimeSheetsTab(BuildContext context, User user, List timeSheets) {
                         Navigator.of(context).push(
                           CupertinoPageRoute<Null>(
                             builder: (BuildContext context) {
-                              return EmployeeTimeSheetPage(user, timeSheet);
+                              return EmployeeTimesheetPage(user, timesheet);
                             },
                           ),
                         );
@@ -41,17 +41,17 @@ Widget employeeTimeSheetsTab(BuildContext context, User user, List timeSheets) {
                         leading: Padding(
                           padding: EdgeInsets.only(bottom: 15),
                           child: Image(
-                            image: timeSheet.status == STATUS_IN_PROGRESS
+                            image: timesheet.status == STATUS_IN_PROGRESS
                                 ? AssetImage('images/unchecked.png')
                                 : AssetImage('images/checked.png'),
                             fit: BoxFit.fitHeight,
                           ),
                         ),
-                        title: textWhiteBold(timeSheet.year.toString() +
+                        title: textWhiteBold(timesheet.year.toString() +
                             ' ' +
-                            MonthUtil.translateMonth(context, timeSheet.month) +
+                            MonthUtil.translateMonth(context, timesheet.month) +
                             '\n' +
-                            utf8.decode(timeSheet.groupName.runes.toList())),
+                            utf8.decode(timesheet.groupName.runes.toList())),
                         subtitle: Column(
                           children: <Widget>[
                             Align(
@@ -60,7 +60,7 @@ Widget employeeTimeSheetsTab(BuildContext context, User user, List timeSheets) {
                                     textWhite(
                                         getTranslated(context, 'hoursWorked') +
                                             ': '),
-                                    textGreenBold(timeSheet.numberOfHoursWorked
+                                    textGreenBold(timesheet.numberOfHoursWorked
                                         .toString()),
                                   ],
                                 ),
@@ -72,7 +72,7 @@ Widget employeeTimeSheetsTab(BuildContext context, User user, List timeSheets) {
                                             context, 'averageRating') +
                                         ': '),
                                     textGreenBold(
-                                        timeSheet.averageRating.toString()),
+                                        timesheet.averageRating.toString()),
                                   ],
                                 ),
                                 alignment: Alignment.topLeft),
@@ -81,9 +81,9 @@ Widget employeeTimeSheetsTab(BuildContext context, User user, List timeSheets) {
                         trailing: Wrap(
                           children: <Widget>[
                             text16GreenBold(
-                                timeSheet.amountOfEarnedMoney.toString()),
+                                timesheet.amountOfEarnedMoney.toString()),
                             text16GreenBold(
-                                " " + timeSheet.groupCountryCurrency.toString())
+                                " " + timesheet.groupCountryCurrency.toString())
                           ],
                         ),
                       ),

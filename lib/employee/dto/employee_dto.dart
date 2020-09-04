@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'employee_time_sheet_dto.dart';
+import 'employee_timesheet_dto.dart';
 
 class EmployeeDto {
   final String username;
@@ -110,7 +110,7 @@ class EmployeeDto {
       earnedMoneyInCurrentMonth: json['earnedMoneyInCurrentMonth'] as num,
       moneyCurrency: json['moneyCurrency'] as String,
       timeSheets: json['timeSheets']
-          .map((data) => EmployeeTimeSheetDto.fromJson(data))
+          .map((data) => EmployeeTimesheetDto.fromJson(data))
           .toList(),
       todaysPlan: json['todaysPlan'] as String,
     );
