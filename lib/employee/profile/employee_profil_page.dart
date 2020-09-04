@@ -85,7 +85,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                               ),
                             ],
                             iconTheme: IconThemeData(color: WHITE),
-                            expandedHeight: 305.0,
+                            expandedHeight: 280.0,
                             pinned: true,
                             backgroundColor: BRIGHTER_DARK,
                             flexibleSpace: FlexibleSpaceBar(
@@ -104,14 +104,9 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                                   ),
                                   text25WhiteBold(utf8.decode(_user.info != null
                                       ? _user.info.runes.toList()
-                                      : '-')),
+                                      : '-') + ' ' + LanguageUtil.findFlagByNationality(
+                                      _user.nationality)),
                                   SizedBox(height: 2.5),
-                                  text20White(
-                                      LanguageUtil.convertShortNameToFullName(
-                                              _user.nationality) +
-                                          ' ' +
-                                          LanguageUtil.findFlagByNationality(
-                                              _user.nationality)),
                                   SizedBox(height: 2.5),
                                   text18White(
                                       getTranslated(this.context, 'employee') +
