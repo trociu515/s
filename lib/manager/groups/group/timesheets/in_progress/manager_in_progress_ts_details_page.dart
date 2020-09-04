@@ -14,6 +14,7 @@ import 'package:give_job/manager/groups/group/employee/manager_employee_profile_
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/service/manager_service.dart';
+import 'package:give_job/manager/shimmer/shimmer_manager_in_progress_ts_details.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
@@ -21,7 +22,6 @@ import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
-import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:intl/intl.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
@@ -85,10 +85,7 @@ class _ManagerTimeSheetsEmployeesInProgressPageState
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return loader(
-        managerAppBar(context, null, getTranslated(context, 'loading')),
-        managerSideBar(context, _model.user),
-      );
+      return shimmerManagerInProgressTsDetails(this.context, _model.user);
     }
     return MaterialApp(
       title: APP_NAME,

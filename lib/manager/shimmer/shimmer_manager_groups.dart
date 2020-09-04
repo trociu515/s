@@ -69,7 +69,7 @@ Widget _buildContainer(double width) {
   return Column(
     children: <Widget>[
       Container(width: width, height: 8.0, color: Colors.white),
-      Padding(padding: const EdgeInsets.symmetric(vertical: 2.0))
+      Padding(padding: const EdgeInsets.symmetric(vertical: 4.0))
     ],
   );
 }

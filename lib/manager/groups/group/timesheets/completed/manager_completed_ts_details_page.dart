@@ -12,13 +12,12 @@ import 'package:give_job/manager/groups/group/employee/manager_employee_ts_compl
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/service/manager_service.dart';
+import 'package:give_job/manager/shimmer/shimmer_manager_completed_ts_details.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
-import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
-import 'package:give_job/shared/widget/loader.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 import '../../../../manager_app_bar.dart';
@@ -73,11 +72,8 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
     this._model = widget._model;
     this._timeSheet = widget._timeSheet;
     if (_loading) {
-      return loader(
-        managerAppBar(context, null, getTranslated(context, 'loading')),
-        managerSideBar(context, _model.user),
-      );
-    }
+      return shimmerManagerCompletedTsDetails(this.context, _model.user);
+   }
     return MaterialApp(
       title: APP_NAME,
       theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
@@ -143,9 +139,12 @@ class _ManagerTimeSheetsEmployeesCompletedPageState
                           groupName: _model.groupName,
                           groupCountryCurrency: currency,
                           status: _timeSheet.status,
-                          numberOfHoursWorked: _filteredEmployees[index].numberOfHoursWorked,
-                          averageRating: _filteredEmployees[index].averageRating,
-                          amountOfEarnedMoney: _filteredEmployees[index].amountOfEarnedMoney,
+                          numberOfHoursWorked:
+                              _filteredEmployees[index].numberOfHoursWorked,
+                          averageRating:
+                              _filteredEmployees[index].averageRating,
+                          amountOfEarnedMoney:
+                              _filteredEmployees[index].amountOfEarnedMoney,
                         );
                         Navigator.of(this.context).push(
                           CupertinoPageRoute<Null>(
