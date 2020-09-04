@@ -50,7 +50,7 @@ Drawer employeeSideBar(BuildContext context, User user) {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'https://www.givejob.pl',
+                          text: 'www.givejob.pl',
                           style: TextStyle(
                               fontSize: 22,
                               color: DARK,
