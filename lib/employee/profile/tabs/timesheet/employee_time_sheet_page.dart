@@ -52,7 +52,7 @@ class _EmployeeTimeSheetPageState extends State<EmployeeTimeSheetPage> {
             Container(
               color: BRIGHTER_DARK,
               child: Padding(
-                padding: EdgeInsets.only(top: 15, bottom: 5),
+                padding: EdgeInsets.only(bottom: 5),
                 child: ListTile(
                   leading: Padding(
                     padding: EdgeInsets.only(bottom: 15),
