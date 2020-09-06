@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
+import 'package:give_job/employee/employee_app_bar.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/manager_app_bar.dart';
 import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -43,8 +44,11 @@ class _DocumentsPageState extends State<DocumentsPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: appBar(context, widget._user,
-            getTranslated(context, 'termsOfUseLowerCase')),
+        appBar: widget._user.role == ROLE_EMPLOYEE
+            ? employeeAppBar(context, widget._user,
+                getTranslated(context, 'termsOfUseLowerCase'))
+            : managerAppBar(context, widget._user,
+                getTranslated(context, 'termsOfUseLowerCase')),
         drawer: widget._user.role == ROLE_EMPLOYEE
             ? employeeSideBar(context, widget._user)
             : managerSideBar(context, widget._user),

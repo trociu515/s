@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:give_job/employee/employee_app_bar.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/internationalization/model/language.dart';
@@ -13,7 +14,6 @@ import 'package:give_job/shared/settings/bug_report_dialog.dart';
 import 'package:give_job/shared/settings/change_password_dialog.dart';
 import 'package:give_job/shared/settings/documents_page.dart';
 import 'package:give_job/shared/util/language_util.dart';
-import 'package:give_job/shared/widget/app_bar.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -63,7 +63,8 @@ class _SettingsPageState extends State<SettingsPage> {
       home: Scaffold(
         backgroundColor: DARK,
         appBar: widget._user.role == ROLE_EMPLOYEE
-            ? appBar(context, widget._user, getTranslated(context, 'settings'))
+            ? employeeAppBar(
+                context, widget._user, getTranslated(context, 'settings'))
             : managerAppBar(
                 context, widget._user, getTranslated(context, 'settings')),
         drawer: widget._user.role == ROLE_EMPLOYEE
