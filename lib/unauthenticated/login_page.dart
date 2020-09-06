@@ -108,7 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                 _login(_usernameController.text, _passwordController.text).then(
                     (res) {
                   FocusScope.of(context).unfocus();
-                  if (res.statusCode == 200) {
+                  bool resNotNullOrEmpty = res.body != null && res.body != '{}';
+                  if (res.statusCode == 200 && resNotNullOrEmpty) {
                     String authHeader = 'Basic ' +
                         base64Encode(utf8.encode('$username:$password'));
                     storage.write(key: 'authorization', value: authHeader);
@@ -140,10 +141,11 @@ class _LoginPageState extends State<LoginPage> {
                     ToastService.showBottomToast(
                         getTranslated(context, 'loginSuccessfully'),
                         Color(0xffb5d76d));
-                  } else if (res.statusCode == 401) {
+                  } else if (res.statusCode == 200 && !resNotNullOrEmpty) {
                     progressDialog.hide();
                     ToastService.showBottomToast(
-                        getTranslated(context, 'userIsNotVerified'), Colors.red);
+                        getTranslated(context, 'userIsNotVerified'),
+                        Colors.red);
                   } else {
                     progressDialog.hide();
                     ToastService.showBottomToast(
