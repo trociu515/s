@@ -31,10 +31,11 @@ class QuickUpdateDialog {
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            text20GreenBold(getTranslated(context, 'quickUpdateOfTodaysDate') +
-                ' $formattedDate'),
+            textCenter20GreenBold(
+                getTranslated(context, 'quickUpdateOfTodaysDate') +
+                    ' $formattedDate'),
             SizedBox(height: 10),
-            textCenter19White(
+            textCenter16White(
                 getTranslated(context, 'updateDataForAllEmployeesOfGroup')),
             SizedBox(height: 20),
             _buildUpdateButton(getTranslated(context, 'hours'),

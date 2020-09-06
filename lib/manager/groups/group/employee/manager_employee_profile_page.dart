@@ -271,10 +271,10 @@ class _ManagerEmployeeProfilePageState
                                     ),
                                     trailing: Wrap(
                                       children: <Widget>[
-                                        text20GreenBold(timesheet
+                                        textGreenBold(timesheet
                                             .amountOfEarnedMoney
                                             .toString()),
-                                        text20GreenBold(' ' + _currency)
+                                        textGreenBold(' ' + _currency)
                                       ],
                                     ),
                                   ),
@@ -460,7 +460,8 @@ class _ManagerEmployeeProfilePageState
           padding: EdgeInsets.only(top: 10),
           child: Align(
             alignment: Alignment.center,
-            child: textCenter19White(getTranslated(context, 'employeeHasNoTimesheets')),
+            child: textCenter19White(
+                getTranslated(context, 'employeeHasNoTimesheets')),
           ),
         ),
       ],

@@ -127,8 +127,11 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                 ),
                                 text18WhiteBold(
                                     getTranslated(context, 'backToGroups')),
-                                text13White(
-                                    getTranslated(context, 'seeYourAllGroups')),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  child: textCenter13White(getTranslated(
+                                      context, 'seeYourAllGroups')),
+                                ),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -158,8 +161,11 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                 ),
                                 text18WhiteBold(
                                     getTranslated(context, 'employees')),
-                                textWhite(getTranslated(
-                                    context, 'manageSelectedEmployee')),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  child: textCenter13White(getTranslated(
+                                      context, 'manageSelectedEmployee')),
+                                ),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -187,8 +193,11 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                 ),
                                 text18WhiteBold(
                                     getTranslated(context, 'quickUpdate')),
-                                text13White(getTranslated(
-                                    context, 'quickUpdateDescription')),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  child: textCenter13White(getTranslated(
+                                      context, 'quickUpdateDescription')),
+                                ),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -218,8 +227,11 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                 ),
                                 text18WhiteBold(
                                     getTranslated(context, 'timesheets')),
-                                text13White(getTranslated(
-                                    context, 'fillHoursRatingPlans')),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  child: textCenter13White(getTranslated(
+                                      context, 'fillHoursRatingPlans')),
+                                ),
                                 SizedBox(height: 10)
                               ],
                             ),
