@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 Container employeeTodaysTodo(BuildContext context, String todaysPlan) {
   if (todaysPlan == null || todaysPlan.isEmpty) {
-    return _handleData('You have nothing to do today', '-');
+    return _handleData(getTranslated(context, 'nothingTodo'), '-');
   }
-  return _handleData('Todo for today', todaysPlan);
+  return _handleData(getTranslated(context, 'todayTodo'), todaysPlan);
 }
 
 Widget _handleData(String title, String subtitle) {

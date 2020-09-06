@@ -107,12 +107,13 @@ class _SettingsPageState extends State<SettingsPage> {
                           Navigator.of(context).push(
                             CupertinoPageRoute<Null>(
                               builder: (BuildContext context) {
-                                return DocumentsPage(widget._user, null);
+                                return DocumentsPage(widget._user);
                               },
                             ),
                           ),
                         },
-                    child: _subtitleInkWellContainer('Terms of use'))),
+                    child: _subtitleInkWellContainer(
+                        getTranslated(context, 'termsOfUseLowerCase')))),
             Container(
                 margin: EdgeInsets.only(left: 15, top: 10),
                 child: InkWell(

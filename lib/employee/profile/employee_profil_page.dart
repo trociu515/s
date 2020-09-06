@@ -222,8 +222,10 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                                     getTranslated(this.context, 'timesheets')),
                             Tab(
                                 icon: iconWhite(Icons.done_outline),
-                                text: 'Todo'),
-                            Tab(icon: iconWhite(Icons.info), text: 'About me'),
+                                text: getTranslated(this.context, 'todo')),
+                            Tab(
+                                icon: iconWhite(Icons.info),
+                                text: getTranslated(this.context, 'aboutMe')),
                           ],
                         ),
                       ),
@@ -236,7 +238,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                   child: TabBarView(
                     children: <Widget>[
                       _buildTab(employeeTimesheetsTab(
-                          this.context, _user, _employee.timeSheets)),
+                          this.context, _user, _employee.timesheets)),
                       _buildTab(employeeTodaysTodo(
                           this.context, _employee.todaysPlan)),
                       _buildTab(employeeInfoTab(this.context, _employee)),

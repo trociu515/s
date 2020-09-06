@@ -103,7 +103,7 @@ Drawer managerSideBar(BuildContext context, User user) {
           ),
           ListTile(
             leading: iconWhite(Icons.exit_to_app),
-            title: text18White(getTranslated(context, 'signOut')),
+            title: text18White(getTranslated(context, 'logout')),
             onTap: () => Logout.logout(context),
           ),
         ],

@@ -125,8 +125,10 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                   image:
                                       AssetImage('images/big-groups-icon.png'),
                                 ),
-                                text18WhiteBold('Back to groups'),
-                                text13White('See your all groups'),
+                                text18WhiteBold(
+                                    getTranslated(context, 'backToGroups')),
+                                text13White(
+                                    getTranslated(context, 'seeYourAllGroups')),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -154,8 +156,10 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                   image: AssetImage(
                                       'images/big-employees-icon.png'),
                                 ),
-                                text18WhiteBold('Employees'),
-                                textWhite('Manage selected employee'),
+                                text18WhiteBold(
+                                    getTranslated(context, 'employees')),
+                                textWhite(getTranslated(
+                                    context, 'manageSelectedEmployee')),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -181,8 +185,10 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                   image: AssetImage(
                                       'images/big-quick_update-icon.png'),
                                 ),
-                                text18WhiteBold('Quick update'),
-                                text13White('Make a quick today update'),
+                                text18WhiteBold(
+                                    getTranslated(context, 'quickUpdate')),
+                                text13White(getTranslated(
+                                    context, 'quickUpdateDescription')),
                                 SizedBox(height: 10)
                               ],
                             ),
@@ -210,8 +216,10 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                   image: AssetImage(
                                       'images/big-timesheets-icon.png'),
                                 ),
-                                text18WhiteBold('Timesheets'),
-                                text13White('Fill hours, rating, plans etc.'),
+                                text18WhiteBold(
+                                    getTranslated(context, 'timesheets')),
+                                text13White(getTranslated(
+                                    context, 'fillHoursRatingPlans')),
                                 SizedBox(height: 10)
                               ],
                             ),

@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/internationalization/model/language.dart';
 
 class LanguageUtil {
@@ -40,23 +42,23 @@ class LanguageUtil {
     }
   }
 
-  static String convertShortNameToFullName(String nationality) {
+  static String convertShortNameToFullName(BuildContext context, String nationality) {
     switch (nationality) {
-      case 'BE': return 'Беларуская';
-      case 'EN': return 'English';
-      case 'FR': return 'French';
-      case 'GE': return 'ქართველი';
-      case 'DE': return 'Deutsche';
-      case 'RO': return 'Română';
-      case 'NL': return 'Nederlands';
-      case 'NO': return 'Norsk';
-      case 'PL': return 'Polska';
-      case 'RU': return 'русский';
-      case 'ES': return 'Español';
-      case 'SE': return 'Svenska';
-      case 'UK': return 'Український';
-      case 'OTHER': return 'Other';
-      default: return 'English';
+      case 'BE': return getTranslated(context, 'belarus');
+      case 'EN': return getTranslated(context, 'england');
+      case 'FR': return getTranslated(context, 'france');
+      case 'GE': return getTranslated(context, 'georgia');
+      case 'DE': return getTranslated(context, 'germany');
+      case 'RO': return getTranslated(context, 'romania');
+      case 'NL': return getTranslated(context, 'netherlands');
+      case 'NO': return getTranslated(context, 'norway');
+      case 'PL': return getTranslated(context, 'poland');
+      case 'RU': return getTranslated(context, 'russia');
+      case 'ES': return getTranslated(context, 'spain');
+      case 'SE': return getTranslated(context, 'sweden');
+      case 'UK': return getTranslated(context, 'ukraine');
+      case 'OTHER': return getTranslated(context, 'other');
+      default: return getTranslated(context, 'england');
     }
   }
 }

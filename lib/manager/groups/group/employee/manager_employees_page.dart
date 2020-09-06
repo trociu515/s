@@ -89,7 +89,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                         borderSide: BorderSide(color: WHITE, width: 2)),
                     counterStyle: TextStyle(color: WHITE),
                     border: OutlineInputBorder(),
-                    labelText: 'Search',
+                    labelText: getTranslated(context, 'search'),
                     prefixIcon: iconWhite(Icons.search),
                     labelStyle: TextStyle(color: WHITE)),
                 onChanged: (string) {
@@ -240,14 +240,14 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
           padding: EdgeInsets.only(top: 10),
           child: Align(
             alignment: Alignment.center,
-            child: text20GreenBold('No employees'),
+            child: text20GreenBold(getTranslated(context, 'noEmployees')),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(top: 10),
           child: Align(
             alignment: Alignment.center,
-            child: textCenter19White('Current group has no employees'),
+            child: textCenter19White(getTranslated(context, 'groupNoEmployees')),
           ),
         ),
       ],

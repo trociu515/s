@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/groups/group/employee/manager_employees_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/quick_update/quick_update_dialog.dart';
@@ -20,7 +21,7 @@ Widget groupFloatingActionButton(
       SpeedDialChild(
         backgroundColor: BRIGHTER_DARK,
         child: Image(image: AssetImage('images/small-group-icon.png')),
-        label: 'Group',
+        label: getTranslated(context, 'group'),
         labelBackgroundColor: BRIGHTER_DARK,
         labelStyle: TextStyle(color: WHITE),
         onTap: () {
@@ -34,7 +35,7 @@ Widget groupFloatingActionButton(
       SpeedDialChild(
         backgroundColor: BRIGHTER_DARK,
         child: Image(image: AssetImage('images/small-groups-icon.png')),
-        label: 'Back to groups',
+        label: getTranslated(context, 'backToGroups'),
         labelBackgroundColor: BRIGHTER_DARK,
         labelStyle: TextStyle(color: WHITE),
         onTap: () {
@@ -48,7 +49,7 @@ Widget groupFloatingActionButton(
       SpeedDialChild(
         backgroundColor: BRIGHTER_DARK,
         child: Image(image: AssetImage('images/small-employees-icon.png')),
-        label: 'Employees',
+        label: getTranslated(context, 'employees'),
         labelBackgroundColor: BRIGHTER_DARK,
         labelStyle: TextStyle(color: WHITE),
         onTap: () {
@@ -62,7 +63,7 @@ Widget groupFloatingActionButton(
       SpeedDialChild(
         backgroundColor: BRIGHTER_DARK,
         child: Image(image: AssetImage('images/small-quick_update-icon.png')),
-        label: 'Quick update',
+        label: getTranslated(context, 'quickUpdate'),
         labelBackgroundColor: BRIGHTER_DARK,
         labelStyle: TextStyle(color: WHITE),
         onTap: () => QuickUpdateDialog.showQuickUpdateDialog(context, model),
@@ -70,7 +71,7 @@ Widget groupFloatingActionButton(
       SpeedDialChild(
         backgroundColor: BRIGHTER_DARK,
         child: Image(image: AssetImage('images/small-timesheets-icon.png')),
-        label: 'Timesheets',
+        label: getTranslated(context, 'timesheets'),
         labelBackgroundColor: BRIGHTER_DARK,
         labelStyle: TextStyle(color: WHITE),
         onTap: () {

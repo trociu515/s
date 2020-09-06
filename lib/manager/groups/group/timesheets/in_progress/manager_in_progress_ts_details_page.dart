@@ -140,7 +140,8 @@ class _ManagerTimesheetsEmployeesInProgressPageState
               ListTileTheme(
                 contentPadding: EdgeInsets.only(left: 3),
                 child: CheckboxListTile(
-                  title: textWhite('Select / Unselect all'),
+                  title: textWhite(
+                      getTranslated(this.context, 'selectUnselectAll')),
                   value: _isChecked,
                   activeColor: GREEN,
                   checkColor: WHITE,
@@ -427,9 +428,11 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                     children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(top: 50),
-                          child: text20GreenBold('HOURS')),
+                          child: text20GreenBold(
+                              getTranslated(context, 'hoursUpperCase'))),
                       SizedBox(height: 2.5),
-                      textGreen('Set hours for selected employees'),
+                      textGreen(getTranslated(
+                          context, 'setHoursForSelectedEmployee')),
                       SizedBox(height: 2.5),
                       textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
                       SizedBox(height: 2.5),
@@ -566,9 +569,11 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.only(top: 50),
-                        child: text20GreenBold('RATING')),
+                        child: text20GreenBold(
+                            getTranslated(context, 'ratingUpperCase'))),
                     SizedBox(height: 2.5),
-                    textGreen('Set rating for selected employees'),
+                    textGreen(
+                        getTranslated(context, 'setRatingForSelectedEmployee')),
                     SizedBox(height: 2.5),
                     textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
                     SizedBox(height: 2.5),
@@ -711,7 +716,8 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                         padding: EdgeInsets.only(top: 50),
                         child: text20GreenBold('PLAN')),
                     SizedBox(height: 2.5),
-                    textGreen('Plan for selected employees'),
+                    textGreen(
+                        getTranslated(context, 'planForSelectedEmployees')),
                     SizedBox(height: 2.5),
                     textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
                     SizedBox(height: 20),
@@ -727,7 +733,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                         textAlignVertical: TextAlignVertical.center,
                         style: TextStyle(color: WHITE),
                         decoration: InputDecoration(
-                          hintText: 'Text some opinion ...',
+                          hintText: getTranslated(context, 'textSomePlan'),
                           hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
                           counterStyle: TextStyle(color: WHITE),
                           focusedBorder: OutlineInputBorder(
@@ -792,7 +798,10 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                 _refresh();
                                 Navigator.of(context).pop();
                                 ToastService.showCenterToast(
-                                    'Plan updated successfully', GREEN, WHITE);
+                                    getTranslated(
+                                        context, 'planUpdatedSuccessfully'),
+                                    GREEN,
+                                    WHITE);
                               },
                             );
                           },
@@ -830,7 +839,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
         context: context,
         barrierColor: DARK.withOpacity(0.95),
         barrierDismissible: false,
-        barrierLabel: 'Opinion',
+        barrierLabel: getTranslated(context, 'opinion'),
         transitionDuration: Duration(milliseconds: 400),
         pageBuilder: (_, __, ___) {
           return SizedBox.expand(
@@ -842,9 +851,11 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.only(top: 50),
-                        child: text20GreenBold('OPINION')),
+                        child: text20GreenBold(
+                            getTranslated(context, 'opinionUpperCase'))),
                     SizedBox(height: 2.5),
-                    textGreen('Set opinion for selected employees'),
+                    textGreen(getTranslated(
+                        context, 'setOpinionForSelectedEmployee')),
                     SizedBox(height: 2.5),
                     textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
                     SizedBox(height: 20),
@@ -860,7 +871,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                         textAlignVertical: TextAlignVertical.center,
                         style: TextStyle(color: WHITE),
                         decoration: InputDecoration(
-                          hintText: 'Text some opinion ...',
+                          hintText: getTranslated(context, 'textSomeOpinion'),
                           hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
                           counterStyle: TextStyle(color: WHITE),
                           focusedBorder: OutlineInputBorder(
@@ -925,7 +936,8 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                 _refresh();
                                 Navigator.of(context).pop();
                                 ToastService.showCenterToast(
-                                    'Opinion updated successfully',
+                                    getTranslated(
+                                        context, 'opinionUpdatedSuccessfully'),
                                     GREEN,
                                     WHITE);
                               },
@@ -960,10 +972,10 @@ class _ManagerTimesheetsEmployeesInProgressPageState
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            text20GreenBold('Hint'),
+            text20GreenBold(getTranslated(context, 'hint')),
             SizedBox(height: 10),
-            text20White('You need to select records '),
-            text20White('which you want to update.'),
+            text20White(getTranslated(context, 'needToSelectRecords') + ' '),
+            text20White(getTranslated(context, 'whichYouWantToUpdate')),
           ],
         ),
       ),

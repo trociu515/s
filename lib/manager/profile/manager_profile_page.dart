@@ -65,7 +65,7 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                         _user.info != null ? _user.info.runes.toList() : '-')),
                     SizedBox(height: 2.5),
                     text20White(LanguageUtil.convertShortNameToFullName(
-                            _user.nationality) +
+                            this.context, _user.nationality) +
                         ' ' +
                         LanguageUtil.findFlagByNationality(_user.nationality)),
                     SizedBox(height: 2.5),
@@ -73,7 +73,7 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                         getTranslated(context, 'manager') + ' #' + _user.id),
                     SizedBox(height: 10),
                     _buildButton(
-                      'See my groups',
+                      getTranslated(context, 'seeMyGroups'),
                       Icons.group,
                       () => {
                         Navigator.push(
@@ -85,14 +85,14 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                       },
                     ),
                     _buildButton(
-                      'About me',
+                      getTranslated(context, 'aboutMe'),
                       Icons.info,
                       () => {
                         showGeneralDialog(
                           context: context,
                           barrierColor: DARK.withOpacity(0.95),
                           barrierDismissible: false,
-                          barrierLabel: 'Hours',
+                          barrierLabel: getTranslated(context, 'hours'),
                           transitionDuration: Duration(milliseconds: 400),
                           pageBuilder: (_, __, ___) {
                             return FutureBuilder<ManagerDto>(
@@ -164,7 +164,7 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                       },
                     ),
                     _buildButton(
-                      'Settings',
+                      getTranslated(context, 'settings'),
                       Icons.settings,
                       () => {
                         Navigator.push(
@@ -175,8 +175,8 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                         ),
                       },
                     ),
-                    _buildButton('Logout', Icons.exit_to_app,
-                        () => Logout.logout(context)),
+                    _buildButton(getTranslated(context, 'logout'),
+                        Icons.exit_to_app, () => Logout.logout(context)),
                   ],
                 )
               ],
@@ -311,7 +311,7 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
       backgroundColor: BRIGHTER_DARK,
       elevation: 0.0,
       bottomOpacity: 0.0,
-      title: text15White('Profile'),
+      title: text15White(getTranslated(context, 'profile')),
       actions: <Widget>[
         Padding(
           padding: EdgeInsets.only(right: 15.0),

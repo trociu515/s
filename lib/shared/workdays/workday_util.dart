@@ -15,7 +15,7 @@ class WorkdayUtil {
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            text20GreenBold('Plan details'),
+            text20GreenBold(getTranslated(context, 'planDetails')),
             SizedBox(height: 20),
             text20White(plan != null
                 ? utf8.decode(plan.runes.toList())
@@ -34,7 +34,7 @@ class WorkdayUtil {
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            text20GreenBold('Opinion details'),
+            text20GreenBold(getTranslated(context, 'opinionDetails')),
             SizedBox(height: 20),
             text20White(opinion != null
                 ? utf8.decode(opinion.runes.toList())

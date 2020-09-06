@@ -35,13 +35,13 @@ class ValidatorService {
 
   static String validateUpdatingPlan(String plan, BuildContext context) {
     return plan != null && plan.length > 510
-        ? 'Plan length cannot be higher than 510'
+        ? getTranslated(context, 'wrongPlanLength')
         : null;
   }
 
   static String validateUpdatingOpinion(String opinion, BuildContext context) {
     return opinion != null && opinion.length > 510
-        ? 'Opinion length cannot be higher than 510'
+        ? getTranslated(context, 'wrongOpinionLength')
         : null;
   }
 

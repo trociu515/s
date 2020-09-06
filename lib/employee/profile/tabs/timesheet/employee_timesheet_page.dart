@@ -146,8 +146,12 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
                               DataColumn(
                                   label: textWhiteBold(
                                       getTranslated(this.context, 'money'))),
-                              DataColumn(label: textWhiteBold('Plan')),
-                              DataColumn(label: textWhiteBold('Opinion')),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(this.context, 'plan'))),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(this.context, 'opinion'))),
                             ],
                             rows: [
                               for (var workday in workdays)

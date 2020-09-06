@@ -85,7 +85,8 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                 padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: text20OrangeBold('In progress timesheets'),
+                  child: text20OrangeBold(
+                      getTranslated(context, 'inProgressTimesheets')),
                 ),
               ),
               _inProgressTimesheets.isEmpty
@@ -94,7 +95,7 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: text15White(
-                            'Current group has no in progress timesheets'),
+                            getTranslated(context, 'noInProgressTimesheets')),
                       ),
                     )
                   : Container(),
@@ -136,7 +137,8 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                 padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: text20GreenBold('Completed timesheets'),
+                  child: text20GreenBold(
+                      getTranslated(this.context, 'completedTimesheets')),
                 ),
               ),
               _completedTimesheets.isEmpty
@@ -145,7 +147,7 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: text15White(
-                            'Current group has no completed timesheets'),
+                            getTranslated(this.context, 'noCompletedTimesheets')),
                       ),
                     )
                   : Container(),

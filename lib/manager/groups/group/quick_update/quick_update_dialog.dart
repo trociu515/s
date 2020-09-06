@@ -31,16 +31,20 @@ class QuickUpdateDialog {
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            text20GreenBold('Quick update of today\'s date $formattedDate'),
+            text20GreenBold(getTranslated(context, 'quickUpdateOfTodaysDate') +
+                ' $formattedDate'),
             SizedBox(height: 10),
-            textCenter19White('Update data for all employees of a group'),
+            textCenter19White(
+                getTranslated(context, 'updateDataForAllEmployeesOfGroup')),
             SizedBox(height: 20),
-            _buildUpdateButton('Hours', () => _buildUpdateHoursDialog(context)),
-            _buildUpdateButton(
-                'Rating', () => _buildUpdateRatingDialog(context)),
-            _buildUpdateButton('Plan', () => _buildUpdatePlanDialog(context)),
-            _buildUpdateButton(
-                'Opinion', () => _buildUpdateOpinionDialog(context)),
+            _buildUpdateButton(getTranslated(context, 'hours'),
+                () => _buildUpdateHoursDialog(context)),
+            _buildUpdateButton(getTranslated(context, 'rating'),
+                () => _buildUpdateRatingDialog(context)),
+            _buildUpdateButton(getTranslated(context, 'plan'),
+                () => _buildUpdatePlanDialog(context)),
+            _buildUpdateButton(getTranslated(context, 'opinion'),
+                () => _buildUpdateOpinionDialog(context)),
           ],
         ),
       ),
@@ -72,7 +76,7 @@ class QuickUpdateDialog {
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Hours',
+      barrierLabel: getTranslated(context, 'hours'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -84,9 +88,10 @@ class QuickUpdateDialog {
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('HOURS')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'hoursUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Fill in the group hours for today'),
+                  textGreen(getTranslated(context, 'fillTodaysGroupHours')),
                   Container(
                     width: 150,
                     child: TextFormField(
@@ -164,14 +169,17 @@ class QuickUpdateDialog {
                                   _model.user.authHeader)
                               .then((res) {
                             ToastService.showCenterToast(
-                                'Today\'s group hours updated successfully',
+                                getTranslated(context,
+                                    'todaysGroupHoursUpdatedSuccessfully'),
                                 BRIGHTER_DARK,
                                 GREEN);
                           }).catchError((onError) {
                             String s = onError.toString();
                             if (s.contains('TIMESHEET_NULL_OR_EMPTY')) {
-                              _errorDialog(context,
-                                  'Cannot update today\'s hours cause group does not have a timesheet for today.');
+                              _errorDialog(
+                                  context,
+                                  getTranslated(
+                                      context, 'cannotUpdateTodaysHours'));
                             }
                           });
                         },
@@ -193,7 +201,7 @@ class QuickUpdateDialog {
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Rating',
+      barrierLabel: getTranslated(context, 'rating'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -205,9 +213,10 @@ class QuickUpdateDialog {
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('RATING')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'ratingUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Fill in the group rating for today'),
+                  textGreen(getTranslated(context, 'fillTodaysGroupRating')),
                   Container(
                     width: 150,
                     child: TextFormField(
@@ -285,14 +294,17 @@ class QuickUpdateDialog {
                                   _model.user.authHeader)
                               .then((res) {
                             ToastService.showCenterToast(
-                                'Today\'s group rating updated successfully',
+                                getTranslated(context,
+                                    'todaysGroupRatingUpdatedSuccessfully'),
                                 BRIGHTER_DARK,
                                 GREEN);
                           }).catchError((onError) {
                             String s = onError.toString();
                             if (s.contains('TIMESHEET_NULL_OR_EMPTY')) {
-                              _errorDialog(context,
-                                  'Cannot update today\'s rating cause group does not have a timesheet for today.');
+                              _errorDialog(
+                                  context,
+                                  getTranslated(
+                                      context, 'cannotUpdateTodaysRating'));
                             }
                           });
                         },
@@ -314,7 +326,7 @@ class QuickUpdateDialog {
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Plan',
+      barrierLabel: getTranslated(context, 'plan'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -326,9 +338,10 @@ class QuickUpdateDialog {
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('PLAN')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'planUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Plan today for the group'),
+                  textGreen(getTranslated(context, 'planTodayForTheGroup')),
                   SizedBox(height: 20),
                   Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
@@ -342,7 +355,7 @@ class QuickUpdateDialog {
                       textAlignVertical: TextAlignVertical.center,
                       style: TextStyle(color: WHITE),
                       decoration: InputDecoration(
-                        hintText: 'Text some plan ...',
+                        hintText: getTranslated(context, 'textSomePlan'),
                         hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
                         counterStyle: TextStyle(color: WHITE),
                         focusedBorder: OutlineInputBorder(
@@ -400,14 +413,17 @@ class QuickUpdateDialog {
                                   _model.user.authHeader)
                               .then((res) {
                             ToastService.showCenterToast(
-                                'Today\'s group plan updated successfully',
+                                getTranslated(context,
+                                    'todaysGroupPlanUpdatedSuccessfully'),
                                 BRIGHTER_DARK,
                                 GREEN);
                           }).catchError((onError) {
                             String s = onError.toString();
                             if (s.contains('TIMESHEET_NULL_OR_EMPTY')) {
-                              _errorDialog(context,
-                                  'Cannot update today\'s plan cause group does not have a timesheet for today.');
+                              _errorDialog(
+                                  context,
+                                  getTranslated(
+                                      context, 'cannotUpdateTodaysPlan'));
                             }
                           });
                         },
@@ -429,7 +445,7 @@ class QuickUpdateDialog {
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Opinion',
+      barrierLabel: getTranslated(context, 'opinion'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -441,9 +457,10 @@ class QuickUpdateDialog {
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('OPINION')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'opinionUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Fill in the group opinion for today'),
+                  textGreen(getTranslated(context, 'fillTodaysGroupOpinion')),
                   SizedBox(height: 20),
                   Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
@@ -457,7 +474,7 @@ class QuickUpdateDialog {
                       textAlignVertical: TextAlignVertical.center,
                       style: TextStyle(color: WHITE),
                       decoration: InputDecoration(
-                        hintText: 'Text some opinion ...',
+                        hintText: getTranslated(context, 'textSomeOpinion'),
                         hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
                         counterStyle: TextStyle(color: WHITE),
                         focusedBorder: OutlineInputBorder(
@@ -515,14 +532,17 @@ class QuickUpdateDialog {
                                   _model.user.authHeader)
                               .then((res) {
                             ToastService.showCenterToast(
-                                'Today\'s group opinion updated successfully',
+                                getTranslated(context,
+                                    'todaysGroupOpinionUpdatedSuccessfully'),
                                 BRIGHTER_DARK,
                                 GREEN);
                           }).catchError((onError) {
                             String s = onError.toString();
                             if (s.contains('TIMESHEET_NULL_OR_EMPTY')) {
-                              _errorDialog(context,
-                                  'Cannot update today\'s opinion cause group does not have a timesheet for today.');
+                              _errorDialog(
+                                  context,
+                                  getTranslated(
+                                      context, 'cannotUpdateTodaysOpinion'));
                             }
                           });
                         },
@@ -545,7 +565,7 @@ class QuickUpdateDialog {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: DARK,
-          title: textGreen('Error'),
+          title: textGreen(getTranslated(context, 'error')),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[

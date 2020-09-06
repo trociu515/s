@@ -104,7 +104,7 @@ class _ManagerTimesheetsEmployeesCompletedPageState
                         borderSide: BorderSide(color: WHITE, width: 2)),
                     counterStyle: TextStyle(color: WHITE),
                     border: OutlineInputBorder(),
-                    labelText: 'Search',
+                    labelText: getTranslated(context, 'search'),
                     prefixIcon: iconWhite(Icons.search),
                     labelStyle: TextStyle(color: WHITE)),
                 onChanged: (string) {

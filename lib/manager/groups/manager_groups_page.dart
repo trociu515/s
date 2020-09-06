@@ -164,14 +164,15 @@ class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
           padding: EdgeInsets.only(top: 20),
           child: Align(
               alignment: Alignment.center,
-              child: text20GreenBold('Welcome ' + _user.info)),
+              child: text20GreenBold(
+                  getTranslated(context, 'welcome') + ' ' + _user.info)),
         ),
         Padding(
           padding: EdgeInsets.only(right: 30, left: 30, top: 10),
           child: Align(
               alignment: Alignment.center,
               child: textCenter19White(
-                  'You have successfully logged in but it looks like you don\'t have created groups. Ask the administrator to create employee groups.')),
+                  getTranslated(context, 'loggedSuccessButNoGroups'))),
         ),
       ],
     );

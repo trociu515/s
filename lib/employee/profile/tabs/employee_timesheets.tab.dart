@@ -13,7 +13,7 @@ import 'package:give_job/shared/widget/texts.dart';
 
 Widget employeeTimesheetsTab(BuildContext context, User user, List timesheets) {
   if (timesheets.isEmpty) {
-    return _handleEmptyData();
+    return _handleEmptyData(context);
   }
   return Container(
     child: SingleChildScrollView(
@@ -80,9 +80,9 @@ Widget employeeTimesheetsTab(BuildContext context, User user, List timesheets) {
                         ),
                         trailing: Wrap(
                           children: <Widget>[
-                            text16GreenBold(
+                            textGreenBold(
                                 timesheet.amountOfEarnedMoney.toString()),
-                            text16GreenBold(
+                            textGreenBold(
                                 " " + timesheet.groupCountryCurrency.toString())
                           ],
                         ),
@@ -98,7 +98,7 @@ Widget employeeTimesheetsTab(BuildContext context, User user, List timesheets) {
   );
 }
 
-Widget _handleEmptyData() {
+Widget _handleEmptyData(BuildContext context) {
   return Container(
     child: Column(
       children: <Widget>[
@@ -106,14 +106,14 @@ Widget _handleEmptyData() {
           padding: EdgeInsets.only(top: 10),
           child: Align(
             alignment: Alignment.center,
-            child: text20GreenBold('No timesheets'),
+            child: text20GreenBold(getTranslated(context, 'noTimesheets')),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(top: 10),
           child: Align(
             alignment: Alignment.center,
-            child: textCenter19White('You don\'t have timesheets yet'),
+            child: textCenter19White(getTranslated(context, 'noTimesheetsYet')),
           ),
         ),
       ],

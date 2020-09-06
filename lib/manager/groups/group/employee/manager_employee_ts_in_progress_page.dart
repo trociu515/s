@@ -212,12 +212,14 @@ class _ManagerEmployeeTsInProgressPageState
                                           _onSortMoney(columnIndex, ascending),
                                     ),
                                     DataColumn(
-                                      label: textWhiteBold('Plan'),
+                                      label: textWhiteBold(
+                                          getTranslated(context, 'plan')),
                                       onSort: (columnIndex, ascending) =>
                                           _onSortPlans(columnIndex, ascending),
                                     ),
                                     DataColumn(
-                                      label: textWhiteBold('Opinion'),
+                                      label: textWhiteBold(
+                                          getTranslated(context, 'opinion')),
                                       onSort: (columnIndex, ascending) =>
                                           _onSortOpinions(
                                               columnIndex, ascending),
@@ -325,7 +327,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold('Plan'),
+                    child: textDarkBold(getTranslated(context, 'plan')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -341,7 +343,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold('Opinion'),
+                    child: textDarkBold(getTranslated(context, 'opinion')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -485,12 +487,14 @@ class _ManagerEmployeeTsInProgressPageState
                                     _onSortMoney(columnIndex, ascending),
                               ),
                               DataColumn(
-                                label: textWhiteBold('Plan'),
+                                label: textWhiteBold(
+                                    getTranslated(context, 'plan')),
                                 onSort: (columnIndex, ascending) =>
                                     _onSortPlans(columnIndex, ascending),
                               ),
                               DataColumn(
-                                label: textWhiteBold('Opinion'),
+                                label: textWhiteBold(
+                                    getTranslated(context, 'opinion')),
                                 onSort: (columnIndex, ascending) =>
                                     _onSortOpinions(columnIndex, ascending),
                               ),
@@ -591,7 +595,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold('Plan'),
+                    child: textDarkBold(getTranslated(context, 'plan')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -607,7 +611,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold('Opinion'),
+                    child: textDarkBold(getTranslated(context, 'opinion')),
                     onPressed: () => {
                       _opinionController.clear(),
                       _showUpdateOpinionDialog(selectedIds)
@@ -737,7 +741,7 @@ class _ManagerEmployeeTsInProgressPageState
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Hours',
+      barrierLabel: getTranslated(context, 'hours'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -749,9 +753,10 @@ class _ManagerEmployeeTsInProgressPageState
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('HOURS')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'hoursUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Set hours for selected days'),
+                  textGreen(getTranslated(context, 'setHoursForSelectedDays')),
                   Container(
                     width: 150,
                     child: TextFormField(
@@ -853,7 +858,7 @@ class _ManagerEmployeeTsInProgressPageState
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Rating',
+      barrierLabel: getTranslated(context, 'rating'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -865,9 +870,10 @@ class _ManagerEmployeeTsInProgressPageState
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('RATING')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'ratingUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Set rating for selected days'),
+                  textGreen(getTranslated(context, 'setRatingForSelectedDays')),
                   Container(
                     width: 150,
                     child: TextFormField(
@@ -967,7 +973,7 @@ class _ManagerEmployeeTsInProgressPageState
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Plan',
+      barrierLabel: getTranslated(context, 'plan'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -979,9 +985,10 @@ class _ManagerEmployeeTsInProgressPageState
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('PLAN')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'planUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Plan selected days'),
+                  textGreen(getTranslated(context, 'planForSelectedDays')),
                   SizedBox(height: 20),
                   Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
@@ -995,7 +1002,7 @@ class _ManagerEmployeeTsInProgressPageState
                       textAlignVertical: TextAlignVertical.center,
                       style: TextStyle(color: WHITE),
                       decoration: InputDecoration(
-                        hintText: 'Text some plan ...',
+                        hintText: getTranslated(context, 'textSomePlan'),
                         hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
                         counterStyle: TextStyle(color: WHITE),
                         focusedBorder: OutlineInputBorder(
@@ -1051,7 +1058,10 @@ class _ManagerEmployeeTsInProgressPageState
                             Navigator.of(context).pop();
                             selectedIds.clear();
                             ToastService.showCenterToast(
-                                'Plan updated successfully', GREEN, WHITE);
+                                getTranslated(
+                                    context, 'planUpdatedSuccessfully'),
+                                GREEN,
+                                WHITE);
                             _refresh();
                           });
                         },
@@ -1072,7 +1082,7 @@ class _ManagerEmployeeTsInProgressPageState
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Opinion',
+      barrierLabel: getTranslated(context, 'opinion'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -1084,9 +1094,11 @@ class _ManagerEmployeeTsInProgressPageState
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('OPINION')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'opinionUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Set opinion for selected days'),
+                  textGreen(
+                      getTranslated(context, 'setOpinionForSelectedDays')),
                   SizedBox(height: 20),
                   Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
@@ -1100,7 +1112,7 @@ class _ManagerEmployeeTsInProgressPageState
                       textAlignVertical: TextAlignVertical.center,
                       style: TextStyle(color: WHITE),
                       decoration: InputDecoration(
-                        hintText: 'Text some opinion ...',
+                        hintText: getTranslated(context, 'textSomeOpinion'),
                         hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
                         counterStyle: TextStyle(color: WHITE),
                         focusedBorder: OutlineInputBorder(
@@ -1156,7 +1168,10 @@ class _ManagerEmployeeTsInProgressPageState
                               .then((res) {
                             selectedIds.clear();
                             ToastService.showCenterToast(
-                                'Opinion updated successfully', GREEN, WHITE);
+                                getTranslated(
+                                    context, 'opinionUpdatedSuccessfully'),
+                                GREEN,
+                                WHITE);
                             _refresh();
                           });
                         },
@@ -1180,10 +1195,10 @@ class _ManagerEmployeeTsInProgressPageState
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            text20GreenBold('Hint'),
+            text20GreenBold(getTranslated(context, 'hint')),
             SizedBox(height: 10),
-            text20White('You need to select records '),
-            text20White('which you want to update.'),
+            text20White(getTranslated(context, 'needToSelectRecords') + ' '),
+            text20White(getTranslated(context, 'whichYouWantToUpdate')),
           ],
         ),
       ),

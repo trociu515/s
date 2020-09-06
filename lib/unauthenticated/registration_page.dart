@@ -94,7 +94,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
               key: formKey,
               child: Column(
                 children: <Widget>[
-                  textCenter28GreenBold('Registration form'),
+                  textCenter28GreenBold(
+                      getTranslated(context, 'registrationForm')),
                   Divider(color: WHITE),
                   SizedBox(height: 10),
                   Expanded(
@@ -129,10 +130,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildLoginSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader('LOGIN SECTION',
-            'Through the information in this section you will be able to log into the application. Please remember them.'),
-        _buildRequiredTextField(_usernameController, 26, 'Username',
-            'Username is required', Icons.person),
+        _buildSectionHeader(
+          getTranslated(context, 'loginSection'),
+          getTranslated(context, 'loginSectionDescription'),
+        ),
+        _buildRequiredTextField(
+          _usernameController,
+          26,
+          getTranslated(context, 'username'),
+          getTranslated(context, 'usernameIsRequired'),
+          Icons.person,
+        ),
         _buildPasswordTextField(),
         _buildRePasswordTextField(),
       ],
@@ -142,16 +150,38 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildBasicSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader('BASIC SECTION',
-            'This section contains very basic informations about you like for example name or surname.'),
-        _buildRequiredTextField(_nameController, 26, 'Name', 'Name is required',
-            Icons.person_outline),
-        _buildRequiredTextField(_surnameController, 26, 'Surname',
-            'Surname is required', Icons.person_outline),
-        _buildRequiredTextField(_fatherNameController, 26, 'Father\'s name',
-            'Father\'s name is required', Icons.directions_walk),
-        _buildRequiredTextField(_motherNameController, 26, 'Mother\'s name',
-            'Mother\'s name is required', Icons.pregnant_woman),
+        _buildSectionHeader(
+          getTranslated(context, 'basicSection'),
+          getTranslated(context, 'basicSectionDescription'),
+        ),
+        _buildRequiredTextField(
+          _nameController,
+          26,
+          getTranslated(context, 'name'),
+          getTranslated(context, 'nameIsRequired'),
+          Icons.person_outline,
+        ),
+        _buildRequiredTextField(
+          _surnameController,
+          26,
+          getTranslated(context, 'surname'),
+          getTranslated(context, 'surnameIsRequired'),
+          Icons.person_outline,
+        ),
+        _buildRequiredTextField(
+          _fatherNameController,
+          26,
+          getTranslated(context, 'fatherName'),
+          getTranslated(context, 'fatherNameIsRequired'),
+          Icons.directions_walk,
+        ),
+        _buildRequiredTextField(
+          _motherNameController,
+          26,
+          getTranslated(context, 'motherName'),
+          getTranslated(context, 'motherNameIsRequired'),
+          Icons.pregnant_woman,
+        ),
         _buildDateOfBirthField(),
         _buildNationalityDropdown(),
       ],
@@ -161,16 +191,38 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildAddressSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader('ADDRESS SECTION',
-            'This section contains information about your home address.'),
-        _buildRequiredTextField(_localityController, 100, 'Locality',
-            'Locality is required', Icons.location_city),
-        _buildRequiredTextField(_zipCodeController, 12, 'Zip code',
-            'Accommodation is required', Icons.local_post_office),
-        _buildRequiredTextField(_streetController, 100, 'Street',
-            'Street is required', Icons.directions),
-        _buildRequiredTextField(_houseNumberController, 8, 'House number',
-            'House number is required', Icons.home),
+        _buildSectionHeader(
+          getTranslated(context, 'addressSection'),
+          getTranslated(context, 'addressSectionDescription'),
+        ),
+        _buildRequiredTextField(
+          _localityController,
+          100,
+          getTranslated(context, 'locality'),
+          getTranslated(context, 'localityIsRequired'),
+          Icons.location_city,
+        ),
+        _buildRequiredTextField(
+          _zipCodeController,
+          12,
+          getTranslated(context, 'zipCode'),
+          getTranslated(context, 'zipCodeIsRequired'),
+          Icons.local_post_office,
+        ),
+        _buildRequiredTextField(
+          _streetController,
+          100,
+          getTranslated(context, 'street'),
+          getTranslated(context, 'streetIsRequired'),
+          Icons.directions,
+        ),
+        _buildRequiredTextField(
+          _houseNumberController,
+          8,
+          getTranslated(context, 'houseNumber'),
+          getTranslated(context, 'streetIsRequired'),
+          Icons.home,
+        ),
       ],
     );
   }
@@ -178,13 +230,25 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildContactSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader('CONTACT SECTION',
-            'To be in touch, please provide one of the three forms of contact.'),
-        _buildContactNumField(_phoneController, 'Phone number', Icons.phone),
+        _buildSectionHeader(
+          getTranslated(context, 'contactSection'),
+          getTranslated(context, 'contactSectionDescription'),
+        ),
         _buildContactNumField(
-            _viberController, 'Viber number', Icons.phone_in_talk),
+          _phoneController,
+          getTranslated(context, 'phone'),
+          Icons.phone,
+        ),
         _buildContactNumField(
-            _whatsAppController, 'Whats app number', Icons.perm_phone_msg),
+          _viberController,
+          getTranslated(context, 'viber'),
+          Icons.phone_in_talk,
+        ),
+        _buildContactNumField(
+          _whatsAppController,
+          getTranslated(context, 'whatsApp'),
+          Icons.perm_phone_msg,
+        ),
       ],
     );
   }
@@ -192,10 +256,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildPassportSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader('PASSPORT SECTION',
-            'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.'),
+        _buildSectionHeader(
+          getTranslated(context, 'passportSection'),
+          getTranslated(context, 'passportSectionDescription'),
+        ),
         _buildNotRequiredNumField(
-            _passportNumberController, 'Passport number', Icons.card_travel),
+          _passportNumberController,
+          getTranslated(context, 'passportNumber'),
+          Icons.card_travel,
+        ),
         _buildPassportReleaseDateField(),
         _buildPassportExpirationDateField(),
       ],
@@ -205,15 +274,29 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildOtherSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader('OTHER SECTION',
-            'This section is NOT REQUIRED, so that means you don\'t need to fill in given fields.'),
+        _buildSectionHeader(
+          getTranslated(context, 'otherSection'),
+          getTranslated(context, 'otherSectionDescription'),
+        ),
         _buildEmailField(),
         _buildExpirationDateOfWorkField(),
-        _buildNotRequiredNumField(_nipController, 'NIP', Icons.language),
-        _buildNotRequiredTextField(_bankAccountNumberController, 28,
-            'Bank account number', Icons.monetization_on),
+        _buildNotRequiredNumField(
+          _nipController,
+          getTranslated(context, 'nip'),
+          Icons.language,
+        ),
         _buildNotRequiredTextField(
-            _drivingLicenseController, 30, 'Driving licenses', Icons.drive_eta),
+          _bankAccountNumberController,
+          28,
+          getTranslated(context, 'bankAccountNumber'),
+          Icons.monetization_on,
+        ),
+        _buildNotRequiredTextField(
+          _drivingLicenseController,
+          30,
+          getTranslated(context, 'drivingLicense'),
+          Icons.drive_eta,
+        ),
       ],
     );
   }
@@ -221,14 +304,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildDocumentsSection() {
     return Column(
       children: <Widget>[
-        _buildSectionHeader('TERMS OF USE',
-            'Accept regulations and privacy policy to complete registration.'),
+        _buildSectionHeader(
+          getTranslated(context, 'termsOfUse'),
+          getTranslated(context, 'termsOfUseIsRequired'),
+        ),
         GestureDetector(
           onTap: () {
             Navigator.of(context).push(
               CupertinoPageRoute<Null>(
                 builder: (BuildContext context) {
-                  return DocumentsPage(null, widget._tokenId);
+                  return DocumentsPage(null);
                 },
               ),
             );
@@ -236,22 +321,31 @@ class _RegistrationPageState extends State<RegistrationPage> {
           child: Column(
             children: <Widget>[
               Align(
-                  alignment: Alignment.topLeft,
-                  child: textWhite(
-                      'To view the documents, click on the link below.')),
+                alignment: Alignment.topLeft,
+                child: textWhite(
+                  getTranslated(context, 'seeDocumentsHint'),
+                ),
+              ),
               SizedBox(height: 1),
               Align(
-                  alignment: Alignment.topLeft,
-                  child: textWhiteBoldUnderline('See documents'))
+                alignment: Alignment.topLeft,
+                child: textWhiteBoldUnderline(
+                  getTranslated(context, 'seeDocuments'),
+                ),
+              )
             ],
           ),
         ),
         ListTileTheme(
           contentPadding: EdgeInsets.all(0),
           child: CheckboxListTile(
-            title: textWhite('I accept the regulations'),
+            title: textWhite(
+              getTranslated(context, 'acceptRegulations'),
+            ),
             subtitle: !_regulationsCheckbox
-                ? text13Red('Confirmation of the regulations is required.')
+                ? text13Red(
+                    getTranslated(context, 'acceptRegulationsIsRequired'),
+                  )
                 : null,
             value: _regulationsCheckbox,
             onChanged: (value) {
@@ -265,9 +359,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ListTileTheme(
           contentPadding: EdgeInsets.all(0),
           child: CheckboxListTile(
-            title: textWhite('I accept the privacy policy'),
+            title: textWhite(
+              getTranslated(context, 'acceptPrivacyPolicy'),
+            ),
             subtitle: !_privacyPolicyCheckbox
-                ? text13Red('Confirmation of the privacy policy is required.')
+                ? text13Red(
+                    getTranslated(context, 'acceptPrivacyPolicyIsRequired'),
+                  )
                 : null,
             value: _privacyPolicyCheckbox,
             onChanged: (value) {
@@ -352,7 +450,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       if (phone.isNotEmpty || viber.isNotEmpty || whatsApp.isNotEmpty) {
         return null;
       }
-      return 'Please provide one of the three forms of contact.';
+      return getTranslated(context, 'oneOfThreeContactsIsRequired');
     }
 
     return Column(
@@ -425,7 +523,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   borderSide: BorderSide(color: WHITE, width: 2)),
               counterStyle: TextStyle(color: WHITE),
               border: OutlineInputBorder(),
-              labelText: 'Password',
+              labelText: getTranslated(context, 'password'),
               prefixIcon: iconWhite(Icons.lock),
               suffixIcon: IconButton(
                 icon: iconWhite(
@@ -436,9 +534,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
               labelStyle: TextStyle(color: WHITE)),
           validator: MultiValidator([
-            RequiredValidator(errorText: 'Password is required'),
-            MinLengthValidator(6,
-                errorText: 'Password should contain at least 6 characters'),
+            RequiredValidator(
+              errorText: getTranslated(context, 'passwordIsRequired'),
+            ),
+            MinLengthValidator(
+              6,
+              errorText: getTranslated(context, 'passwordWrongLength'),
+            ),
           ]),
         ),
         SizedBox(height: 10),
@@ -449,9 +551,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget _buildRePasswordTextField() {
     validate(String value) {
       if (value.isEmpty) {
-        return 'Please retype your password';
+        return getTranslated(context, 'retypeYourPassword');
       } else if (value != _passwordController.text) {
-        return 'Password and retyped password do not match';
+        return getTranslated(context, 'passwordAndRetypedPasswordDoNotMatch');
       }
       return null;
     }
@@ -469,7 +571,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   borderSide: BorderSide(color: WHITE, width: 2)),
               counterStyle: TextStyle(color: WHITE),
               border: OutlineInputBorder(),
-              labelText: 'Retyped password',
+              labelText: getTranslated(context, 'retypedPassword'),
               prefixIcon: iconWhite(Icons.lock),
               suffixIcon: IconButton(
                 icon: iconWhite(_rePasswordVisible
@@ -491,7 +593,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     String validate(value) {
       if (_dateOfBirth.toString().substring(0, 10) ==
           DateTime.now().toString().substring(0, 10)) {
-        return 'Date of birth is required';
+        return getTranslated(context, 'dateOfBirthIsRequired');
       }
       return null;
     }
@@ -511,8 +613,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
             border: OutlineInputBorder(),
             hintText: _dateOfBirth.toString().substring(0, 10) ==
                     DateTime.now().toString().substring(0, 10)
-                ? 'Date of birth'
-                : _dateOfBirth.toString().substring(0, 10) + ' (Date of birth)',
+                ? getTranslated(context, 'dateOfBirth')
+                : _dateOfBirth.toString().substring(0, 10) +
+                    ' (' +
+                    getTranslated(context, 'dateOfBirth') +
+                    ')',
             hintStyle: TextStyle(color: WHITE),
             prefixIcon: iconWhite(Icons.date_range),
             labelStyle: TextStyle(color: WHITE),
@@ -546,8 +651,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
           Container(
             color: Colors.white,
             child: DropDownFormField(
-              titleText: 'Nationality',
-              hintText: 'Please choose your nationality',
+              titleText: getTranslated(context, 'nationality'),
+              hintText: getTranslated(context, 'nationalityIsRequired'),
               value: _nationality,
               onSaved: (value) {
                 setState(() {
@@ -659,10 +764,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
             border: OutlineInputBorder(),
             hintText: _passportReleaseDate.toString().substring(0, 10) ==
                     DateTime.now().toString().substring(0, 10)
-                ? 'Passport release date'
+                ? getTranslated(context, 'passportReleaseDate')
                 : _passportReleaseDate.toString().substring(0, 10) +
                     ' (' +
-                    'Passport release date' +
+                    getTranslated(context, 'passportReleaseDate') +
                     ')',
             hintStyle: TextStyle(color: WHITE),
             prefixIcon: iconWhite(Icons.date_range),
@@ -704,10 +809,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
             border: OutlineInputBorder(),
             hintText: _passportExpirationDate.toString().substring(0, 10) ==
                     DateTime.now().toString().substring(0, 10)
-                ? 'Passport expiration date'
+                ? getTranslated(context, 'passportExpirationDate')
                 : _passportExpirationDate.toString().substring(0, 10) +
                     ' (' +
-                    'Passport expiration date' +
+                    getTranslated(context, 'passportExpirationDate') +
                     ')',
             hintStyle: TextStyle(color: WHITE),
             prefixIcon: iconWhite(Icons.date_range),
@@ -747,10 +852,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   borderSide: BorderSide(color: WHITE, width: 2)),
               counterStyle: TextStyle(color: WHITE),
               border: OutlineInputBorder(),
-              labelText: 'Email',
+              labelText: getTranslated(context, 'email'),
               prefixIcon: iconWhite(Icons.alternate_email),
               labelStyle: TextStyle(color: WHITE)),
-          validator: EmailValidator(errorText: 'Wrong email address format'),
+          validator: EmailValidator(
+            errorText: getTranslated(context, 'emailWrongFormat'),
+          ),
         ),
         SizedBox(height: 10),
       ],
@@ -773,10 +880,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
             border: OutlineInputBorder(),
             hintText: _expirationDateOfWork.toString().substring(0, 10) ==
                     DateTime.now().toString().substring(0, 10)
-                ? 'Expiration date of work'
+                ? getTranslated(context, 'expirationDateOfWork')
                 : _expirationDateOfWork.toString().substring(0, 10) +
                     ' (' +
-                    'Expiration date of work' +
+                    getTranslated(context, 'expirationDateOfWork') +
                     ')',
             hintStyle: TextStyle(color: WHITE),
             prefixIcon: iconWhite(Icons.date_range),
@@ -815,7 +922,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           onPressed: () => {
             if (!_isValid() || !_regulationsCheckbox || !_privacyPolicyCheckbox)
               {
-                _errorDialog('Please correct invalid fields.'),
+                _errorDialog(getTranslated(context, 'correctInvalidFields')),
               }
             else
               {
@@ -853,19 +960,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   String s = onError.toString();
                   if (s.contains('USERNAME_UNIQUE')) {
                     _errorDialog(
-                        'Username already exists.\nPlease choose other username.');
+                      getTranslated(context, 'usernameExists') +
+                          '\n' +
+                          getTranslated(context, 'chooseOtherUsername'),
+                    );
                   } else if (s.contains('TOKEN_INCORRECT') ||
                       s.contains('TOKEN_NULL_OR_EMPTY')) {
                     _errorDialogWithNavigate(
-                        'Given token is incorrect.\nAsk administrator what went wrong.');
+                      getTranslated(context, 'tokenIsIncorrect') +
+                          '\n' +
+                          getTranslated(
+                              context, 'askAdministratorWhatWentWrong'),
+                    );
                   } else {
-                    _errorDialog('Something went wrong');
+                    _errorDialog(
+                      getTranslated(context, 'smthWentWrong'),
+                    );
                   }
                 }),
               }
           },
           color: GREEN,
-          child: text20White('Register'),
+          child: text20White(getTranslated(context, 'register')),
           textColor: Colors.white,
         ),
       ],
@@ -879,7 +995,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: DARK,
-          title: textGreen('Error'),
+          title: textGreen(getTranslated(context, 'error')),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -904,18 +1020,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: DARK,
-          title: textGreen(getTranslated(context, 'success')),
+          title: textGreen(getTranslated(this.context, 'success')),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                textWhite(
-                    'Registration went successfully. The account will be active after administrator verification.'),
+                textWhite(getTranslated(this.context, 'registerSuccess')),
               ],
             ),
           ),
           actions: <Widget>[
             FlatButton(
-              child: textWhite('Go to login page'),
+              child: textWhite(getTranslated(this.context, 'goToLoginPage')),
               onPressed: () => _resetAndOpenPage(),
             ),
           ],
@@ -931,7 +1046,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: DARK,
-          title: textGreen('Error'),
+          title: textGreen(getTranslated(this.context, 'close')),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -941,7 +1056,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
           actions: <Widget>[
             FlatButton(
-              child: textWhite('Close'),
+              child: textWhite(getTranslated(this.context, 'close')),
               onPressed: () => _resetAndOpenPage(),
             ),
           ],

@@ -119,7 +119,7 @@ class _ManagerEmployeeProfilePageState
                             : '-')),
                         SizedBox(height: 2.5),
                         text20White(LanguageUtil.convertShortNameToFullName(
-                                _employeeNationality) +
+                                this.context, _employeeNationality) +
                             ' ' +
                             LanguageUtil.findFlagByNationality(
                                 _employeeNationality)),
@@ -138,8 +138,12 @@ class _ManagerEmployeeProfilePageState
                       labelColor: GREEN,
                       unselectedLabelColor: Colors.grey,
                       tabs: [
-                        Tab(icon: Icon(Icons.event_note), text: 'Timesheets'),
-                        Tab(icon: Icon(Icons.import_contacts), text: 'Contact'),
+                        Tab(
+                            icon: Icon(Icons.event_note),
+                            text: getTranslated(this.context, 'timesheets')),
+                        Tab(
+                            icon: Icon(Icons.import_contacts),
+                            text: getTranslated(this.context, 'contact')),
                       ],
                     ),
                   ),
@@ -282,8 +286,8 @@ class _ManagerEmployeeProfilePageState
                     ),
                   ),
                 )
-              : _handleEmptyData(
-                  'No timesheets', 'Current employee has no timesheets');
+              : _handleEmptyData(getTranslated(context, 'noTimesheets'),
+                  getTranslated(context, 'employeeHasNoTimesheets'));
         }
       },
     );
@@ -300,8 +304,8 @@ class _ManagerEmployeeProfilePageState
               snapshot.data == null) {
             return Center(child: circularProgressIndicator());
           } else if (contact == null) {
-            return _handleEmptyData(
-                'No contact', 'Current employee has no contact');
+            return _handleEmptyData(getTranslated(context, 'noContact'),
+                getTranslated(context, 'employeeHasNoContact'));
           } else {
             String email = contact.email;
             String phoneNumber = contact.phoneNumber;
@@ -449,14 +453,14 @@ class _ManagerEmployeeProfilePageState
           padding: EdgeInsets.only(top: 10),
           child: Align(
             alignment: Alignment.center,
-            child: text20GreenBold('No timesheets'),
+            child: text20GreenBold(getTranslated(context, 'noTimesheets')),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(top: 10),
           child: Align(
             alignment: Alignment.center,
-            child: textCenter19White('Current employee has no timesheets'),
+            child: textCenter19White(getTranslated(context, 'employeeHasNoTimesheets')),
           ),
         ),
       ],
