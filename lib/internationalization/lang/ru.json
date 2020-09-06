@@ -273,5 +273,7 @@
   "todayTodo": "Todo на сегодня",
   "nothingTodo": "Тебе сегодня нечего делать",
   "noTimesheetsYet": "У вас еще нет табелей",
-  "userIsNotVerified": "Пользователь не подтвержден"
+  "userIsNotVerified": "Пользователь не подтвержден",
+  "In progress": "В процессе",
+  "Completed": "Завершено"
 }

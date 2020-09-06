@@ -273,5 +273,7 @@
   "todayTodo": "Todo на сьогодні",
   "nothingTodo": "Вам сьогодні нічого робити",
   "noTimesheetsYet": "У вас ще немає табелів обліку робочого часу",
-  "userIsNotVerified": "Користувача не підтверджено"
+  "userIsNotVerified": "Користувача не підтверджено",
+  "In progress": "Виконується",
+  "Completed": "Завершено"
 }

@@ -273,5 +273,7 @@
   "todayTodo": "ტოდო დღეს",
   "nothingTodo": "თქვენ დღეს არაფერი გაქვთ გასაკეთებელი",
   "noTimesheetsYet": "ჯერ არ გაქვთ ცხრილი",
-  "userIsNotVerified": "მომხმარებელი არ არის დადასტურებული"
+  "userIsNotVerified": "მომხმარებელი არ არის დადასტურებული",
+  "In progress": "მიმდინარეობს",
+  "Completed": "დასრულებულია"
 }

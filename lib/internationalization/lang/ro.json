@@ -273,5 +273,7 @@
   "todayTodo": "Tot pentru azi",
   "nothingTodo": "Nu aveți nimic de făcut astăzi",
   "noTimesheetsYet": "Nu aveți încă foi de timp",
-  "userIsNotVerified": "Utilizatorul nu este verificat"
+  "userIsNotVerified": "Utilizatorul nu este verificat",
+  "In progress": "În curs",
+  "Completed": "Finalizat"
 }

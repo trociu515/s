@@ -273,5 +273,7 @@
   "todayTodo": "Do zrobienia na dziś",
   "nothingTodo": "Nie masz dziś nic do zrobienia",
   "noTimesheetsYet": "Nie masz jeszcze arkuszy czasu pracy",
-  "userIsNotVerified": "Użytkownik nie jest zweryfikowany"
+  "userIsNotVerified": "Użytkownik nie jest zweryfikowany",
+  "In progress": "W toku",
+  "Completed": "Zakończony"
 }

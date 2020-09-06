@@ -273,5 +273,7 @@
   "todayTodo": "Todo for i dag",
   "nothingTodo": "Du har ingenting å gjøre i dag",
   "noTimesheetsYet": "Du har ikke timelister ennå",
-  "userIsNotVerified": "Brukeren er ikke bekreftet"
+  "userIsNotVerified": "Brukeren er ikke bekreftet",
+  "In progress": "Pågår",
+  "Completed": "Fullført"
 }

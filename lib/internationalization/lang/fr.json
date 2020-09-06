@@ -273,5 +273,7 @@
   "todayTodo": "Todo pour aujourd'hui",
   "nothingTodo": "Vous n'avez rien à faire aujourd'hui",
   "noTimesheetsYet": "Vous n'avez pas encore de feuilles de temps",
-  "userIsNotVerified": "L'utilisateur n'est pas vérifié"
+  "userIsNotVerified": "L'utilisateur n'est pas vérifié",
+  "In progress": "En cours",
+  "Completed": "Terminé"
 }

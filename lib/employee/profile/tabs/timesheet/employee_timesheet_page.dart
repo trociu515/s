@@ -45,8 +45,12 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: employeeAppBar(context, _user,
-            getTranslated(context, 'workdays') + ' - ' + _timesheet.status),
+        appBar: employeeAppBar(
+            context,
+            _user,
+            getTranslated(context, 'workdays') +
+                ' - ' +
+                getTranslated(context, _timesheet.status)),
         drawer: employeeSideBar(context, _user),
         body: Column(
           children: <Widget>[

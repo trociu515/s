@@ -273,5 +273,7 @@
   "todayTodo": "Todo voor vandaag",
   "nothingTodo": "Je hebt vandaag niets te doen",
   "noTimesheetsYet": "Je hebt nog geen urenstaten",
-  "userIsNotVerified": "Gebruiker is niet geverifieerd"
+  "userIsNotVerified": "Gebruiker is niet geverifieerd",
+  "In progress": "In uitvoering",
+  "Completed": "Voltooid"
 }

@@ -88,7 +88,7 @@ class _ManagerTimesheetsEmployeesCompletedPageState
                 ' ' +
                 MonthUtil.translateMonth(context, _timesheet.month) +
                 ' - ' +
-                STATUS_COMPLETED),
+                getTranslated(context, STATUS_COMPLETED)),
         drawer: managerSideBar(context, _model.user),
         body: Column(
           children: <Widget>[

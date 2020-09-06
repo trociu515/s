@@ -273,5 +273,7 @@
   "todayTodo": "Todo на сёння",
   "nothingTodo": "Вам сёння няма чым заняцца",
   "noTimesheetsYet": "У вас яшчэ няма табеляў",
-  "userIsNotVerified": "Карыстальнік не правераны"
+  "userIsNotVerified": "Карыстальнік не правераны",
+  "In progress": "У працэсе",
+  "Completed": "Завершана"
 }

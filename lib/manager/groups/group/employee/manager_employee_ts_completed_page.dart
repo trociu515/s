@@ -64,9 +64,7 @@ class _ManagerEmployeeTsCompletedPageState
             _model.user,
             getTranslated(context, 'workdays') +
                 ' - ' +
-                utf8.decode(timesheet.groupName != null
-                    ? timesheet.groupName.runes.toList()
-                    : '-')),
+                getTranslated(context, STATUS_COMPLETED)),
         drawer: managerSideBar(context, _model.user),
         body: Column(
           children: <Widget>[

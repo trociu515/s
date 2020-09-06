@@ -85,9 +85,7 @@ class _ManagerEmployeeTsInProgressPageState
               _model.user,
               getTranslated(context, 'workdays') +
                   ' - ' +
-                  utf8.decode(_timesheet.groupName != null
-                      ? _timesheet.groupName.runes.toList()
-                      : '-')),
+                  getTranslated(context, STATUS_IN_PROGRESS)),
           drawer: managerSideBar(context, _model.user),
           body: RefreshIndicator(
             color: DARK,

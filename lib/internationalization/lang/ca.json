@@ -273,5 +273,7 @@
   "todayTodo": "Todo för idag",
   "nothingTodo": "Du har inget att göra idag",
   "noTimesheetsYet": "Du har inte tidrapporter ännu",
-  "userIsNotVerified": "Användaren är inte verifierad"
+  "userIsNotVerified": "Användaren är inte verifierad",
+  "In progress": "Pågår",
+  "Completed": "Slutfört"
 }

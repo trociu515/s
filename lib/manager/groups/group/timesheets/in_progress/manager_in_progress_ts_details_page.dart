@@ -101,7 +101,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                 ' ' +
                 MonthUtil.translateMonth(context, _timesheet.month) +
                 ' - ' +
-                STATUS_IN_PROGRESS),
+                getTranslated(context, STATUS_IN_PROGRESS)),
         drawer: managerSideBar(context, _model.user),
         body: RefreshIndicator(
           color: DARK,
