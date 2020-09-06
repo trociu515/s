@@ -275,5 +275,6 @@
   "noTimesheetsYet": "У вас ще немає табелів обліку робочого часу",
   "userIsNotVerified": "Користувача не підтверджено",
   "In progress": "Виконується",
-  "Completed": "Завершено"
+  "Completed": "Завершено",
+  "changingLanguage": "Зміна мови"
 }

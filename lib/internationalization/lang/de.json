@@ -213,7 +213,7 @@
   "wrongOpinionLength": "Die Meinungslänge darf nicht höher als 510 sein",
   "seeMyGroups": "Siehe meine Gruppen",
   "aboutMe": "Über mich",
-  "profil": "Profil",
+  "profile": "Profil",
   "welcome": "Wilkommen",
   "loggedSuccessButNoGroups": "Sie haben sich erfolgreich angemeldet, aber es sieht so aus, als hätten Sie keine Gruppen erstellt. Bitten Sie den Administrator, Mitarbeitergruppen zu erstellen.",
   "backToGroups": "Zurück zu Gruppen",
@@ -275,5 +275,6 @@
   "noTimesheetsYet": "Sie haben noch keine Arbeitszeittabellen",
   "userIsNotVerified": "Benutzer wird nicht verifiziert",
   "In progress": "In Bearbeitung",
-  "Completed": "abgeschlossen"
+  "Completed": "Abgeschlossen",
+  "changingLanguage": "Sprache ändern"
 }

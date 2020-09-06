@@ -15,6 +15,7 @@ import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/service/token_service.dart';
 import 'package:give_job/shared/service/validator_service.dart';
+import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:give_job/unauthenticated/get_started_page.dart';
@@ -50,10 +51,7 @@ class _LoginPageState extends State<LoginPage> {
     progressDialog.style(
       message: '  ' + getTranslated(context, 'loading'),
       messageTextStyle: TextStyle(color: DARK),
-      progressWidget: CircularProgressIndicator(
-        backgroundColor: GREEN,
-        valueColor: new AlwaysStoppedAnimation(Colors.white),
-      ),
+      progressWidget: circularProgressIndicator(),
     );
 
     return Scaffold(

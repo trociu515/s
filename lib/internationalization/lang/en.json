@@ -275,5 +275,6 @@
   "noTimesheetsYet": "You don't have timesheets yet",
   "userIsNotVerified": "User is not verified",
   "In progress": "In progress",
-  "Completed": "Completed"
+  "Completed": "Completed",
+  "changingLanguage": "Changing language"
 }

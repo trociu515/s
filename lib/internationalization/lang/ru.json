@@ -275,5 +275,6 @@
   "noTimesheetsYet": "У вас еще нет табелей",
   "userIsNotVerified": "Пользователь не подтвержден",
   "In progress": "В процессе",
-  "Completed": "Завершено"
+  "Completed": "Завершено",
+  "changingLanguage": "Смена языка"
 }

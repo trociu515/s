@@ -275,5 +275,6 @@
   "noTimesheetsYet": "Du har ikke timelister ennå",
   "userIsNotVerified": "Brukeren er ikke bekreftet",
   "In progress": "Pågår",
-  "Completed": "Fullført"
+  "Completed": "Fullført",
+  "changingLanguage": "Endrer språk"
 }

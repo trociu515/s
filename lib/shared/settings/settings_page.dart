@@ -14,7 +14,9 @@ import 'package:give_job/shared/settings/bug_report_dialog.dart';
 import 'package:give_job/shared/settings/change_password_dialog.dart';
 import 'package:give_job/shared/settings/documents_page.dart';
 import 'package:give_job/shared/util/language_util.dart';
+import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
@@ -51,9 +53,20 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ProgressDialog progressDialog = new ProgressDialog(context);
+    progressDialog.style(
+      message: '  ' + getTranslated(context, 'changingLanguage') + ' ...',
+      messageTextStyle: TextStyle(color: DARK),
+      progressWidget: circularProgressIndicator(),
+    );
+
     void _changeLanguage(Language language, BuildContext context) async {
+      progressDialog.show();
       Locale _temp = await setLocale(language.languageCode);
       MyApp.setLocale(context, _temp);
+      Future.delayed(Duration(seconds: 1)).then((value) {
+        progressDialog.hide();
+      });
     }
 
     return MaterialApp(
@@ -96,8 +109,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           style: TextStyle(color: Colors.white, fontSize: 22),
                           hint: text16White(getTranslated(context, 'language')),
                           items: _dropdownMenuItems,
-                          onChanged: (Language language) =>
-                              (_changeLanguage(language, context))))),
+                          onChanged: (Language language) => {
+                                _changeLanguage(language, context),
+                              }))),
                 ),
               ),
             ),

@@ -275,5 +275,6 @@
   "noTimesheetsYet": "Du har inte tidrapporter ännu",
   "userIsNotVerified": "Användaren är inte verifierad",
   "In progress": "Pågår",
-  "Completed": "Slutfört"
+  "Completed": "Slutfört",
+  "changingLanguage": "Ändrar språk"
 }

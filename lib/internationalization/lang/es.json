@@ -275,5 +275,6 @@
   "noTimesheetsYet": "Aún no tienes hojas de tiempo",
   "userIsNotVerified": "El usuario no está verificado",
   "In progress": "En progreso",
-  "Completed": "Completado"
+  "Completed": "Completado",
+  "changingLanguage": "Cambio de idioma"
 }
