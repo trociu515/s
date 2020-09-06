@@ -135,7 +135,6 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                               child: Card(
                                 elevation: 0.0,
                                 child: Container(
-                                  padding: const EdgeInsets.all(5.0),
                                   color: BRIGHTER_DARK,
                                   child: Row(
                                     children: <Widget>[
@@ -162,7 +161,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                                           children: <Widget>[
                                             text20White(getTranslated(
                                                 this.context, 'money')),
-                                            text14White(
+                                            textCenter14White(
                                                 _employee.moneyCurrency != null
                                                     ? '(' +
                                                         _employee
