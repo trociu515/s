@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/employee/dto/employee_timesheet_dto.dart';
-import 'package:give_job/employee/dto/employee_workday_dto.dart';
 import 'package:give_job/employee/employee_app_bar.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/employee/profile/employee_profil_page.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
@@ -117,10 +117,10 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
               ),
             ),
             FutureBuilder(
-              future: _sharedWorkdayService.findEmployeeWorkdaysByTimesheetId(
+              future: _sharedWorkdayService.findWorkdaysByTimesheetId(
                   _timesheet.id.toString(), _user.authHeader),
               builder: (BuildContext context,
-                  AsyncSnapshot<List<EmployeeWorkdayDto>> snapshot) {
+                  AsyncSnapshot<List<WorkdayDto>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting ||
                     snapshot.data == null) {
                   return Padding(
@@ -128,7 +128,7 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
                     child: circularProgressIndicator(),
                   );
                 } else {
-                  List<EmployeeWorkdayDto> workdays = snapshot.data;
+                  List<WorkdayDto> workdays = snapshot.data;
                   return Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -138,6 +138,7 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
                           data: Theme.of(this.context)
                               .copyWith(dividerColor: MORE_BRIGHTER_DARK),
                           child: DataTable(
+                            columnSpacing: 20,
                             columns: [
                               DataColumn(label: textWhiteBold('No.')),
                               DataColumn(
@@ -145,10 +146,16 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
                                       getTranslated(this.context, 'hours'))),
                               DataColumn(
                                   label: textWhiteBold(
+                                      getTranslated(this.context, 'rating'))),
+                              DataColumn(
+                                  label: textWhiteBold(
                                       getTranslated(this.context, 'money'))),
                               DataColumn(
                                   label: textWhiteBold(
                                       getTranslated(this.context, 'plan'))),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(this.context, 'opinion'))),
                             ],
                             rows: [
                               for (var workday in workdays)
@@ -158,6 +165,8 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
                                         textWhite(workday.number.toString())),
                                     DataCell(
                                         textWhite(workday.hours.toString())),
+                                    DataCell(
+                                        textWhite(workday.rating.toString())),
                                     DataCell(
                                         textWhite(workday.money.toString())),
                                     DataCell(
@@ -172,6 +181,18 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
                                         onTap: () =>
                                             WorkdayUtil.showPlanDetails(
                                                 this.context, workday.plan)),
+                                    DataCell(
+                                        Wrap(
+                                          children: <Widget>[
+                                            workday.opinion != null &&
+                                                    workday.opinion != ''
+                                                ? iconWhite(Icons.zoom_in)
+                                                : textWhiteBold('-'),
+                                          ],
+                                        ),
+                                        onTap: () =>
+                                            WorkdayUtil.showOpinionDetails(
+                                                this.context, workday.opinion)),
                                   ],
                                 ),
                             ],
