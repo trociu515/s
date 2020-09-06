@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/unauthenticated/login_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/util/language_util.dart';
-import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
-import 'package:give_job/unauthenticated/login_page.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 
 import '../internationalization/model/language.dart';
 
@@ -42,23 +40,12 @@ class _GetStartedPageState extends State<GetStartedPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ProgressDialog progressDialog = new ProgressDialog(context);
-    progressDialog.style(
-      message: '  ' + getTranslated(this.context, 'changingLanguage') + ' ...',
-      messageTextStyle: TextStyle(color: DARK),
-      progressWidget: circularProgressIndicator(),
-    );
-
     void _changeLanguage(Language language, BuildContext context) async {
-      progressDialog.show();
       setState(() {
         _selectedLanguage = language;
       });
       Locale _temp = await setLocale(language.languageCode);
       MyApp.setLocale(context, _temp);
-      Future.delayed(Duration(seconds: 1)).then((value) {
-        progressDialog.hide();
-      });
     }
 
     return Scaffold(
