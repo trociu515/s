@@ -121,7 +121,7 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 Image(
-                                  height: 75,
+                                  height: 100,
                                   image:
                                       AssetImage('images/big-groups-icon.png'),
                                 ),
@@ -155,7 +155,7 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 Image(
-                                  height: 75,
+                                  height: 100,
                                   image: AssetImage(
                                       'images/big-employees-icon.png'),
                                 ),
@@ -187,7 +187,7 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 Image(
-                                  height: 75,
+                                  height: 100,
                                   image: AssetImage(
                                       'images/big-quick_update-icon.png'),
                                 ),
@@ -221,7 +221,7 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 Image(
-                                  height: 75,
+                                  height: 100,
                                   image: AssetImage(
                                       'images/big-timesheets-icon.png'),
                                 ),
