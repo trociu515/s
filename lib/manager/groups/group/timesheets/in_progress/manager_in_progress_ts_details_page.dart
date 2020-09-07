@@ -121,7 +121,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                           borderSide: BorderSide(color: WHITE, width: 2)),
                       counterStyle: TextStyle(color: WHITE),
                       border: OutlineInputBorder(),
-                      labelText: 'Search',
+                      labelText: getTranslated(this.context, 'search'),
                       prefixIcon: iconWhite(Icons.search),
                       labelStyle: TextStyle(color: WHITE)),
                   onChanged: (string) {
@@ -376,7 +376,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
               Expanded(
                 child: MaterialButton(
                   color: GREEN,
-                  child: textDarkBold('Opinion'),
+                  child: textDarkBold(getTranslated(this.context, 'opinion')),
                   onPressed: () => {
                     if (_selectedIds.isNotEmpty)
                       {
