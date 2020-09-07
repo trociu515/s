@@ -218,7 +218,7 @@
   "loggedSuccessButNoGroups": "Ви успішно ввійшли в систему, але, схоже, у вас не створено груп. Попросіть адміністратора створити групи співробітників.",
   "backToGroups": "Назад до груп",
   "seeYourAllGroups": "Переглянути всі ваші групи",
-  "manageSelectedE Employee": "Керувати вибраним працівником",
+  "manageSelectedEmployee": "Керувати вибраним працівником",
   "quickUpdate": "Швидке оновлення",
   "quickUpdateDescription": "Зробити швидке оновлення сьогодні",
   "fillHoursRatingPlans": "Заповніть години, рейтинг, плани тощо",
