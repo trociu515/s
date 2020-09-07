@@ -335,10 +335,10 @@ class _ManagerEmployeeProfilePageState
 
   Widget _buildEmail(String email) {
     return ListTile(
-      title: text20GreenBold(getTranslated(this.context, 'email')),
+      title: text16GreenBold(getTranslated(this.context, 'email')),
       subtitle: Row(
         children: <Widget>[
-          SelectableText(email, style: TextStyle(fontSize: 18, color: WHITE)),
+          SelectableText(email, style: TextStyle(fontSize: 16, color: WHITE)),
           SizedBox(width: 5),
           IconButton(
             icon: icon30White(Icons.alternate_email),
@@ -351,11 +351,11 @@ class _ManagerEmployeeProfilePageState
 
   Widget _buildPhoneNumber(String phoneNumber) {
     return ListTile(
-      title: text20GreenBold(getTranslated(this.context, 'phone')),
+      title: text16GreenBold(getTranslated(this.context, 'phone')),
       subtitle: Row(
         children: <Widget>[
           SelectableText(phoneNumber,
-              style: TextStyle(fontSize: 18, color: WHITE)),
+              style: TextStyle(fontSize: 16, color: WHITE)),
           SizedBox(width: 5),
           IconButton(
             icon: icon30White(Icons.phone),
@@ -372,11 +372,11 @@ class _ManagerEmployeeProfilePageState
 
   Widget _buildViber(String viberNumber) {
     return ListTile(
-      title: text20GreenBold(getTranslated(this.context, 'viber')),
+      title: text16GreenBold(getTranslated(this.context, 'viber')),
       subtitle: Row(
         children: <Widget>[
           SelectableText(viberNumber,
-              style: TextStyle(fontSize: 18, color: WHITE)),
+              style: TextStyle(fontSize: 16, color: WHITE)),
           SizedBox(width: 5),
           SizedBox(width: 7.5),
           Padding(
@@ -402,11 +402,11 @@ class _ManagerEmployeeProfilePageState
 
   Widget _buildWhatsApp(String whatsAppNumber) {
     return ListTile(
-      title: text20GreenBold(getTranslated(this.context, 'whatsApp')),
+      title: text16GreenBold(getTranslated(this.context, 'whatsApp')),
       subtitle: Row(
         children: <Widget>[
           SelectableText(whatsAppNumber,
-              style: TextStyle(fontSize: 18, color: WHITE)),
+              style: TextStyle(fontSize: 16, color: WHITE)),
           SizedBox(width: 7.5),
           Padding(
             padding: EdgeInsets.all(4),
@@ -441,8 +441,8 @@ class _ManagerEmployeeProfilePageState
 
   Widget _buildEmptyListTile(String title) {
     return ListTile(
-      title: text20GreenBold(getTranslated(this.context, title)),
-      subtitle: text18White(getTranslated(this.context, 'empty')),
+      title: text16GreenBold(getTranslated(this.context, title)),
+      subtitle: text16White(getTranslated(this.context, 'empty')),
     );
   }
 
@@ -453,7 +453,7 @@ class _ManagerEmployeeProfilePageState
           padding: EdgeInsets.only(top: 10),
           child: Align(
             alignment: Alignment.center,
-            child: text20GreenBold(getTranslated(context, 'noTimesheets')),
+            child: text16GreenBold(getTranslated(context, 'noTimesheets')),
           ),
         ),
         Padding(
