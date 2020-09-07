@@ -248,9 +248,9 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
         _buildSectionTitle(getTranslated(context, 'contact')),
         _buildListTile(
             getTranslated(context, 'email'),
-            utf8.decode(_manager.email != null
-                ? _manager.email.runes.toList()
-                : getTranslated(context, 'empty'))),
+            _manager.email != null
+                ? utf8.decode(_manager.email.runes.toList())
+                : getTranslated(context, 'empty')),
         _buildListTile(
             getTranslated(context, 'phone'),
             _manager.phoneNumber != null

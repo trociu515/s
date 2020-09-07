@@ -319,13 +319,13 @@ class _ManagerEmployeeProfilePageState
                       : _buildEmptyListTile('email'),
                   phoneNumber != null
                       ? _buildPhoneNumber(phoneNumber)
-                      : _buildEmptyListTile('phoneNumber'),
+                      : _buildEmptyListTile('phone'),
                   viberNumber != null
                       ? _buildViber(viberNumber)
-                      : _buildEmptyListTile('viberNumber'),
+                      : _buildEmptyListTile('viber'),
                   whatsAppNumber != null
                       ? _buildWhatsApp(whatsAppNumber)
-                      : _buildEmptyListTile('whatsAppNumber'),
+                      : _buildEmptyListTile('whatsApp'),
                 ],
               ),
             );
