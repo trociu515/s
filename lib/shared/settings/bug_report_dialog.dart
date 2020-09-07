@@ -14,8 +14,10 @@ bugReportDialog(BuildContext context) {
         children: <Widget>[
           text20GreenBold(getTranslated(context, 'bugReport')),
           SizedBox(height: 10),
-          text20White(getTranslated(context, 'somethingWrongWithApplication')),
-          text20White(getTranslated(context, 'contactWithUsByGivenEmail')),
+          textCenter20White(
+              getTranslated(context, 'somethingWrongWithApplication')),
+          textCenter20White(
+              getTranslated(context, 'contactWithUsByGivenEmail')),
           SizedBox(height: 15),
           SelectableText(
             'givejob.bug@gmail.com',
