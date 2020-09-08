@@ -123,7 +123,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                                 getTranslated(this.context, 'employee') +
                                     ' #' +
                                     _user.id.toString()),
-                            SizedBox(height: 5),
+                            SizedBox(height: 12),
                             text16GreenBold(getTranslated(
                                     this.context, 'statisticsForThe') +
                                 _employee.currentYear +

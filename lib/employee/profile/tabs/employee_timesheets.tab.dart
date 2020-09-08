@@ -58,8 +58,7 @@ Widget employeeTimesheetsTab(BuildContext context, User user, List timesheets) {
                                 child: Row(
                                   children: <Widget>[
                                     textWhite(
-                                        getTranslated(context, 'hoursWorked') +
-                                            ': '),
+                                        getTranslated(context, 'hours') + ': '),
                                     textGreenBold(timesheet.numberOfHoursWorked
                                         .toString()),
                                   ],

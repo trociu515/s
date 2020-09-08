@@ -87,7 +87,7 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
                           Align(
                             alignment: Alignment.topLeft,
                             child: textWhite(
-                                getTranslated(context, 'hoursWorked') + ': '),
+                                getTranslated(context, 'hours') + ': '),
                           ),
                           textGreenBold(
                               _timesheet.numberOfHoursWorked.toString() + 'h'),

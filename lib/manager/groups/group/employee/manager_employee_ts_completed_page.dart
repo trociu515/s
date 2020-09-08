@@ -99,7 +99,7 @@ class _ManagerEmployeeTsCompletedPageState
                           Align(
                             alignment: Alignment.topLeft,
                             child: textWhite(
-                                getTranslated(context, 'hoursWorked') + ': '),
+                                getTranslated(context, 'hours') + ': '),
                           ),
                           textGreenBold(
                               timesheet.numberOfHoursWorked.toString() + 'h'),
