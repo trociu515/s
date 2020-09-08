@@ -118,23 +118,10 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                 ),
                               );
                             },
-                            child: Column(
-                              children: <Widget>[
-                                Image(
-                                  height: 100,
-                                  image:
-                                      AssetImage('images/big-groups-icon.png'),
-                                ),
-                                text18WhiteBold(
-                                    getTranslated(context, 'backToGroups')),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  child: textCenter13White(getTranslated(
-                                      context, 'seeYourAllGroups')),
-                                ),
-                                SizedBox(height: 10)
-                              ],
-                            ),
+                            child: _buildScrollableContainer(
+                                'images/big-groups-icon.png',
+                                'backToGroups',
+                                'seeYourAllGroups'),
                           ),
                         ),
                       ),
@@ -152,23 +139,10 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                 ),
                               );
                             },
-                            child: Column(
-                              children: <Widget>[
-                                Image(
-                                  height: 100,
-                                  image: AssetImage(
-                                      'images/big-employees-icon.png'),
-                                ),
-                                text18WhiteBold(
-                                    getTranslated(context, 'employees')),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  child: textCenter13White(getTranslated(
-                                      context, 'manageSelectedEmployee')),
-                                ),
-                                SizedBox(height: 10)
-                              ],
-                            ),
+                            child: _buildScrollableContainer(
+                                'images/big-employees-icon.png',
+                                'employees',
+                                'manageSelectedEmployee'),
                           ),
                         ),
                       ),
@@ -184,23 +158,10 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                             onTap: () =>
                                 QuickUpdateDialog.showQuickUpdateDialog(
                                     context, _model),
-                            child: Column(
-                              children: <Widget>[
-                                Image(
-                                  height: 100,
-                                  image: AssetImage(
-                                      'images/big-quick_update-icon.png'),
-                                ),
-                                text18WhiteBold(
-                                    getTranslated(context, 'quickUpdate')),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  child: textCenter13White(getTranslated(
-                                      context, 'quickUpdateDescription')),
-                                ),
-                                SizedBox(height: 10)
-                              ],
-                            ),
+                            child: _buildScrollableContainer(
+                                'images/big-quick_update-icon.png',
+                                'quickUpdate',
+                                'quickUpdateDescription'),
                           ),
                         ),
                       ),
@@ -218,23 +179,10 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                 ),
                               );
                             },
-                            child: Column(
-                              children: <Widget>[
-                                Image(
-                                  height: 100,
-                                  image: AssetImage(
-                                      'images/big-timesheets-icon.png'),
-                                ),
-                                text18WhiteBold(
-                                    getTranslated(context, 'timesheets')),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  child: textCenter13White(getTranslated(
-                                      context, 'fillHoursRatingPlans')),
-                                ),
-                                SizedBox(height: 10)
-                              ],
-                            ),
+                            child: _buildScrollableContainer(
+                                'images/big-timesheets-icon.png',
+                                'timesheets',
+                                'fillHoursRatingPlans'),
                           ),
                         ),
                       ),
@@ -247,6 +195,26 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
         ),
       ),
       onWillPop: _onWillPop,
+    );
+  }
+
+  Widget _buildScrollableContainer(
+      String imagePath, String title, String subtitle) {
+    return Container(
+      height: 160,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: <Widget>[
+            Image(height: 100, image: AssetImage(imagePath)),
+            text18WhiteBold(getTranslated(context, title)),
+            Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: textCenter13White(getTranslated(context, subtitle))),
+            SizedBox(height: 10)
+          ],
+        ),
+      ),
     );
   }
 
