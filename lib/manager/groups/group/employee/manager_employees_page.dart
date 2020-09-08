@@ -187,7 +187,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                                     children: <Widget>[
                                                       textWhite(getTranslated(
                                                               this.context,
-                                                              'totalNumberOfHoursWorked') +
+                                                              'numberOfHoursWorked') +
                                                           ': '),
                                                       textGreenBold(employee
                                                           .numberOfHoursWorked
@@ -200,7 +200,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                                     children: <Widget>[
                                                       textWhite(getTranslated(
                                                               this.context,
-                                                              'totalAmountOfEarnedMoney') +
+                                                              'amountOfEarnedMoney') +
                                                           ': '),
                                                       textGreenBold(employee
                                                               .amountOfEarnedMoney
@@ -247,7 +247,8 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
           padding: EdgeInsets.only(top: 10),
           child: Align(
             alignment: Alignment.center,
-            child: textCenter19White(getTranslated(context, 'groupNoEmployees')),
+            child:
+                textCenter19White(getTranslated(context, 'groupNoEmployees')),
           ),
         ),
       ],

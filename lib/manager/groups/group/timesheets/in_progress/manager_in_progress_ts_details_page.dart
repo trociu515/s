@@ -261,7 +261,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                           children: <Widget>[
                                             textWhite(getTranslated(
                                                     this.context,
-                                                    'numberOfHoursWorked') +
+                                                    'hoursWorked') +
                                                 ': '),
                                             textGreenBold(employee
                                                 .numberOfHoursWorked
@@ -274,7 +274,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                           children: <Widget>[
                                             textWhite(getTranslated(
                                                     this.context,
-                                                    'amountOfEarnedMoney') +
+                                                    'earnedMoney') +
                                                 ': '),
                                             textGreenBold(employee
                                                     .amountOfEarnedMoney
