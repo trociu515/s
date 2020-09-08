@@ -115,6 +115,5 @@ Drawer managerSideBar(BuildContext context, User user) {
 _launchURL(BuildContext context, String url) async {
   await canLaunch(url)
       ? await launch(url)
-      : ToastService.showBottomToast(
-          getTranslated(context, 'couldNotLaunch'), Colors.red);
+      : ToastService.showErrorToast(getTranslated(context, 'couldNotLaunch'));
 }

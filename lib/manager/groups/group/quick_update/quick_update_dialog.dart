@@ -147,18 +147,15 @@ class QuickUpdateDialog {
                           try {
                             hours = int.parse(_hoursController.text);
                           } catch (FormatException) {
-                            ToastService.showBottomToast(
-                                getTranslated(
-                                    context, 'givenValueIsNotANumber'),
-                                Colors.red);
+                            ToastService.showErrorToast(getTranslated(
+                                context, 'givenValueIsNotANumber'));
                             return;
                           }
                           String invalidMessage =
                               ValidatorService.validateUpdatingHours(
                                   hours, context);
                           if (invalidMessage != null) {
-                            ToastService.showBottomToast(
-                                invalidMessage, Colors.red);
+                            ToastService.showErrorToast(invalidMessage);
                             return;
                           }
                           Navigator.of(context).pop();
@@ -169,11 +166,8 @@ class QuickUpdateDialog {
                                   hours,
                                   _model.user.authHeader)
                               .then((res) {
-                            ToastService.showCenterToast(
-                                getTranslated(context,
-                                    'todaysGroupHoursUpdatedSuccessfully'),
-                                BRIGHTER_DARK,
-                                GREEN);
+                            ToastService.showSuccessToast(getTranslated(context,
+                                'todaysGroupHoursUpdatedSuccessfully'));
                           }).catchError((onError) {
                             String s = onError.toString();
                             if (s.contains('TIMESHEET_NULL_OR_EMPTY')) {
@@ -272,18 +266,15 @@ class QuickUpdateDialog {
                           try {
                             rating = int.parse(_ratingController.text);
                           } catch (FormatException) {
-                            ToastService.showBottomToast(
-                                getTranslated(
-                                    context, 'givenValueIsNotANumber'),
-                                Colors.red);
+                            ToastService.showErrorToast(getTranslated(
+                                context, 'givenValueIsNotANumber'));
                             return;
                           }
                           String invalidMessage =
                               ValidatorService.validateUpdatingRating(
                                   rating, context);
                           if (invalidMessage != null) {
-                            ToastService.showBottomToast(
-                                invalidMessage, Colors.red);
+                            ToastService.showErrorToast(invalidMessage);
                             return;
                           }
                           Navigator.of(context).pop();
@@ -294,11 +285,8 @@ class QuickUpdateDialog {
                                   rating,
                                   _model.user.authHeader)
                               .then((res) {
-                            ToastService.showCenterToast(
-                                getTranslated(context,
-                                    'todaysGroupRatingUpdatedSuccessfully'),
-                                BRIGHTER_DARK,
-                                GREEN);
+                            ToastService.showSuccessToast(getTranslated(context,
+                                'todaysGroupRatingUpdatedSuccessfully'));
                           }).catchError((onError) {
                             String s = onError.toString();
                             if (s.contains('TIMESHEET_NULL_OR_EMPTY')) {
@@ -401,8 +389,7 @@ class QuickUpdateDialog {
                               ValidatorService.validateUpdatingPlan(
                                   plan, context);
                           if (invalidMessage != null) {
-                            ToastService.showBottomToast(
-                                invalidMessage, Colors.red);
+                            ToastService.showErrorToast(invalidMessage);
                             return;
                           }
                           Navigator.of(context).pop();
@@ -413,11 +400,8 @@ class QuickUpdateDialog {
                                   plan,
                                   _model.user.authHeader)
                               .then((res) {
-                            ToastService.showCenterToast(
-                                getTranslated(context,
-                                    'todaysGroupPlanUpdatedSuccessfully'),
-                                BRIGHTER_DARK,
-                                GREEN);
+                            ToastService.showSuccessToast(getTranslated(
+                                context, 'todaysGroupPlanUpdatedSuccessfully'));
                           }).catchError((onError) {
                             String s = onError.toString();
                             if (s.contains('TIMESHEET_NULL_OR_EMPTY')) {
@@ -520,8 +504,7 @@ class QuickUpdateDialog {
                               ValidatorService.validateUpdatingPlan(
                                   opinion, context);
                           if (invalidMessage != null) {
-                            ToastService.showBottomToast(
-                                invalidMessage, Colors.red);
+                            ToastService.showErrorToast(invalidMessage);
                             return;
                           }
                           Navigator.of(context).pop();
@@ -532,11 +515,8 @@ class QuickUpdateDialog {
                                   opinion,
                                   _model.user.authHeader)
                               .then((res) {
-                            ToastService.showCenterToast(
-                                getTranslated(context,
-                                    'todaysGroupOpinionUpdatedSuccessfully'),
-                                BRIGHTER_DARK,
-                                GREEN);
+                            ToastService.showSuccessToast(getTranslated(context,
+                                'todaysGroupOpinionUpdatedSuccessfully'));
                           }).catchError((onError) {
                             String s = onError.toString();
                             if (s.contains('TIMESHEET_NULL_OR_EMPTY')) {

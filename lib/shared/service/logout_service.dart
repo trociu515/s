@@ -36,6 +36,6 @@ class Logout {
     storage.delete(key: 'role');
     Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute(builder: (context) => LoginPage()), (e) => false);
-    ToastService.showBottomToast(msg, GREEN);
+    ToastService.showSuccessToast(msg);
   }
 }

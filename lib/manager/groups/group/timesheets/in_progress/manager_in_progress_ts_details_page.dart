@@ -493,18 +493,15 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                               try {
                                 hours = int.parse(_hoursController.text);
                               } catch (FormatException) {
-                                ToastService.showBottomToast(
-                                    getTranslated(
-                                        context, 'givenValueIsNotANumber'),
-                                    Colors.red);
+                                ToastService.showErrorToast(getTranslated(
+                                    context, 'givenValueIsNotANumber'));
                                 return;
                               }
                               String invalidMessage =
                                   ValidatorService.validateUpdatingHours(
                                       hours, context);
                               if (invalidMessage != null) {
-                                ToastService.showBottomToast(
-                                    invalidMessage, Colors.red);
+                                ToastService.showErrorToast(invalidMessage);
                                 return;
                               }
                               _managerService
@@ -520,11 +517,8 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                   .then(
                                 (res) {
                                   Navigator.of(context).pop();
-                                  ToastService.showCenterToast(
-                                      getTranslated(
-                                          context, 'hoursUpdatedSuccessfully'),
-                                      GREEN,
-                                      WHITE);
+                                  ToastService.showSuccessToast(getTranslated(
+                                      context, 'hoursUpdatedSuccessfully'));
                                   _uncheckAll();
                                   _refresh();
                                 },
@@ -637,18 +631,15 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                             try {
                               rating = int.parse(_ratingController.text);
                             } catch (FormatException) {
-                              ToastService.showBottomToast(
-                                  getTranslated(
-                                      context, 'givenValueIsNotANumber'),
-                                  Colors.red);
+                              ToastService.showErrorToast(getTranslated(
+                                  context, 'givenValueIsNotANumber'));
                               return;
                             }
                             String invalidMessage =
                                 ValidatorService.validateUpdatingRating(
                                     rating, context);
                             if (invalidMessage != null) {
-                              ToastService.showBottomToast(
-                                  invalidMessage, Colors.red);
+                              ToastService.showErrorToast(invalidMessage);
                               return;
                             }
                             _managerService
@@ -666,11 +657,8 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                 _uncheckAll();
                                 _refresh();
                                 Navigator.of(context).pop();
-                                ToastService.showCenterToast(
-                                    getTranslated(
-                                        context, 'ratingUpdatedSuccessfully'),
-                                    GREEN,
-                                    WHITE);
+                                ToastService.showSuccessToast(getTranslated(
+                                    context, 'ratingUpdatedSuccessfully'));
                               },
                             );
                           },
@@ -784,8 +772,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                 ValidatorService.validateUpdatingPlan(
                                     plan, context);
                             if (invalidMessage != null) {
-                              ToastService.showBottomToast(
-                                  invalidMessage, Colors.red);
+                              ToastService.showErrorToast(invalidMessage);
                               return;
                             }
                             _managerService
@@ -803,11 +790,8 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                 _uncheckAll();
                                 _refresh();
                                 Navigator.of(context).pop();
-                                ToastService.showCenterToast(
-                                    getTranslated(
-                                        context, 'planUpdatedSuccessfully'),
-                                    GREEN,
-                                    WHITE);
+                                ToastService.showSuccessToast(getTranslated(
+                                    context, 'planUpdatedSuccessfully'));
                               },
                             );
                           },
@@ -922,8 +906,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                 ValidatorService.validateUpdatingOpinion(
                                     opinion, context);
                             if (invalidMessage != null) {
-                              ToastService.showBottomToast(
-                                  invalidMessage, Colors.red);
+                              ToastService.showErrorToast(invalidMessage);
                               return;
                             }
                             _managerService
@@ -941,11 +924,8 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                 _uncheckAll();
                                 _refresh();
                                 Navigator.of(context).pop();
-                                ToastService.showCenterToast(
-                                    getTranslated(
-                                        context, 'opinionUpdatedSuccessfully'),
-                                    GREEN,
-                                    WHITE);
+                                ToastService.showSuccessToast(getTranslated(
+                                    context, 'opinionUpdatedSuccessfully'));
                               },
                             );
                           },

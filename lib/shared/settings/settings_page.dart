@@ -363,8 +363,7 @@ class _SettingsPageState extends State<SettingsPage> {
   _launchURL(String url) async {
     await canLaunch(url)
         ? await launch(url)
-        : ToastService.showBottomToast(
-            getTranslated(context, 'couldNotLaunch'), Colors.red);
+        : ToastService.showErrorToast(getTranslated(context, 'couldNotLaunch'));
   }
 
   Widget _buildPasswordTextField() {

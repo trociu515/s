@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                     ValidatorService.validateLoginCredentials(
                         username, password, context);
                 if (invalidMessage != null) {
-                  ToastService.showBottomToast(invalidMessage, Colors.red);
+                  ToastService.showErrorToast(invalidMessage);
                   return;
                 }
                 progressDialog.show();
@@ -135,26 +135,22 @@ class _LoginPageState extends State<LoginPage> {
                     } else if (role == ROLE_MANAGER) {
                       _chooseManagerPage(map, user);
                     }
-                    ToastService.showBottomToast(
-                        getTranslated(context, 'loginSuccessfully'),
-                        Color(0xffb5d76d));
+                    ToastService.showSuccessToast(
+                        getTranslated(context, 'loginSuccessfully'));
                   } else if (res.statusCode == 200 && !resNotNullOrEmpty) {
                     progressDialog.hide();
-                    ToastService.showBottomToast(
-                        getTranslated(context, 'userIsNotVerified'),
-                        Colors.red);
+                    ToastService.showErrorToast(
+                        getTranslated(context, 'userIsNotVerified'));
                   } else {
                     progressDialog.hide();
-                    ToastService.showBottomToast(
-                        getTranslated(context, 'wrongUsernameOrPassword'),
-                        Colors.red);
+                    ToastService.showErrorToast(
+                        getTranslated(context, 'wrongUsernameOrPassword'));
                   }
                 }, onError: (e) {
                   progressDialog
                       .hide(); // TODO progress dialog doesn't hide when error is catched
-                  ToastService.showBottomToast(
-                      getTranslated(context, 'cannotConnectToServer'),
-                      Colors.red);
+                  ToastService.showErrorToast(
+                      getTranslated(context, 'cannotConnectToServer'));
                 });
               },
               color: GREEN,
