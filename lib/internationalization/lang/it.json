@@ -276,5 +276,9 @@
   "userIsNotVerified": "Brukeren er ikke bekreftet",
   "In progress": "Pågår",
   "Completed": "Fullført",
-  "changingLanguage": "Endrer språk"
+  "changingLanguage": "Endrer språk",
+  "changingLanguageWarning": "Etter at du har endret passordet, må du logge på igjen. Vil du fortsatt gjøre dette?",
+  "changeMyPassword": "Ja, jeg vil endre passordet mitt",
+  "doNotChangeMyPassword": "Nei, jeg vil ikke endre passordet mitt",
+  "passwordUpdatedSuccessfully": "Passordet er oppdatert!"
 }

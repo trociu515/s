@@ -276,5 +276,9 @@
   "userIsNotVerified": "L'utilisateur n'est pas vérifié",
   "In progress": "En cours",
   "Completed": "Terminé",
-  "changingLanguage": "Changer de langue"
+  "changingLanguage": "Changer de langue",
+  "changingLanguageWarning": "Après avoir changé le mot de passe, vous devrez vous reconnecter. Voulez-vous toujours le faire?",
+  "changeMyPassword": "Oui, je souhaite modifier mon mot de passe",
+  "doNotChangeMyPassword": "Non, je ne veux pas changer mon mot de passe",
+  "passwordUpdatedSuccessfully": "Mot de passe mis à jour avec succès!"
 }

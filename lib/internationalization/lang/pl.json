@@ -276,5 +276,9 @@
   "userIsNotVerified": "Użytkownik nie jest zweryfikowany",
   "In progress": "W toku",
   "Completed": "Zakończony",
-  "changingLanguage": "Zmiana języka"
+  "changingLanguage": "Zmiana języka",
+  "changingLanguageWarning": "Po zmianie hasła będziesz musiał się ponownie zalogować. Czy nadal chcesz to zrobić?",
+  "changeMyPassword": "Tak, chcę zmienić swoje hasło",
+  "doNotChangeMyPassword": "Nie, nie chcę zmieniać swojego hasła",
+  "passwordUpdatedSuccessfully": "Hasło zostało zaktualizowane pomyślnie!"
 }

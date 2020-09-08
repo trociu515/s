@@ -1,6 +1,6 @@
 library constant;
 
-const String SERVER_IP = 'https://givejob-server.herokuapp.com/api';
+const String SERVER_IP = 'http://10.0.2.2:8080/api';
 
 const String ANDROID_APP_ID = 'com.givejob.mobile.give_job';
 const String IOS_APP_ID = null;

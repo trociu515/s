@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:give_job/employee/employee_app_bar.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
@@ -9,14 +10,17 @@ import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
+import 'package:give_job/shared/service/logout_service.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/service/user_service.dart';
 import 'package:give_job/shared/settings/bug_report_dialog.dart';
-import 'package:give_job/shared/settings/change_password_dialog.dart';
 import 'package:give_job/shared/settings/documents_page.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/circular_progress_indicator.dart';
+import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
@@ -33,11 +37,15 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   List<Language> _languages = LanguageUtil.getLanguages();
   List<DropdownMenuItem<Language>> _dropdownMenuItems;
+  final _userService = new UserService();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final _passwordController = new TextEditingController();
+  final _rePasswordController = new TextEditingController();
 
   @override
   void initState() {
-    _dropdownMenuItems = buildDropdownMenuItems(_languages);
     super.initState();
+    _dropdownMenuItems = buildDropdownMenuItems(_languages);
   }
 
   List<DropdownMenuItem<Language>> buildDropdownMenuItems(List languages) {
@@ -89,8 +97,161 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
                 margin: EdgeInsets.only(left: 15),
                 child: InkWell(
-                    onTap: () => changePasswordDialog(context,
-                        widget._user.username, widget._user.authHeader),
+                    onTap: () => {
+                          showGeneralDialog(
+                            context: context,
+                            barrierColor: DARK.withOpacity(0.95),
+                            barrierDismissible: false,
+                            barrierLabel:
+                                getTranslated(context, 'changePassword'),
+                            transitionDuration: Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return SizedBox.expand(
+                                child: Scaffold(
+                                  backgroundColor: Colors.black12,
+                                  body: Center(
+                                    child: Form(
+                                      autovalidate: true,
+                                      key: formKey,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 30, right: 30),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            _buildPasswordTextField(),
+                                            _buildRePasswordTextField(),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                MaterialButton(
+                                                  elevation: 0,
+                                                  height: 50,
+                                                  minWidth: 40,
+                                                  shape:
+                                                      new RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              new BorderRadius
+                                                                      .circular(
+                                                                  30.0)),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      iconWhite(Icons.close)
+                                                    ],
+                                                  ),
+                                                  color: Colors.red,
+                                                  onPressed: () => {
+                                                    _passwordController.clear(),
+                                                    _rePasswordController
+                                                        .clear(),
+                                                    Navigator.pop(context)
+                                                  },
+                                                ),
+                                                SizedBox(width: 25),
+                                                MaterialButton(
+                                                  elevation: 0,
+                                                  height: 50,
+                                                  shape:
+                                                      new RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              new BorderRadius
+                                                                      .circular(
+                                                                  30.0)),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      iconWhite(Icons.check)
+                                                    ],
+                                                  ),
+                                                  color: GREEN,
+                                                  onPressed: () {
+                                                    if (_isValid == null ||
+                                                        !_isValid()) {
+                                                      return;
+                                                    }
+                                                    slideDialog.showSlideDialog(
+                                                      context: context,
+                                                      backgroundColor: DARK,
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(10),
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            text20GreenBold(
+                                                                getTranslated(
+                                                                    context,
+                                                                    'warning')),
+                                                            SizedBox(
+                                                                height: 10),
+                                                            textCenter20White(
+                                                                getTranslated(
+                                                                    context,
+                                                                    'changingLanguageWarning')),
+                                                            SizedBox(
+                                                                height: 10),
+                                                            FlatButton(
+                                                              child: textWhite(
+                                                                  getTranslated(
+                                                                      context,
+                                                                      'changeMyPassword')),
+                                                              onPressed: () => {
+                                                                _userService
+                                                                    .updatePassword(
+                                                                        widget
+                                                                            ._user
+                                                                            .username,
+                                                                        _passwordController
+                                                                            .text,
+                                                                        widget
+                                                                            ._user
+                                                                            .authHeader)
+                                                                    .then(
+                                                                        (res) {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  Logout.logoutWithoutConfirm(
+                                                                      context,
+                                                                      getTranslated(
+                                                                          context,
+                                                                          'passwordUpdatedSuccessfully'));
+                                                                })
+                                                              },
+                                                            ),
+                                                            FlatButton(
+                                                                child: textWhite(
+                                                                    getTranslated(
+                                                                        context,
+                                                                        'doNotChangeMyPassword')),
+                                                                onPressed: () =>
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop()),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        },
                     child: _subtitleInkWellContainer(
                         getTranslated(context, 'changePassword')))),
             _titleContainer(getTranslated(context, 'other')),
@@ -204,5 +365,76 @@ class _SettingsPageState extends State<SettingsPage> {
         ? await launch(url)
         : ToastService.showBottomToast(
             getTranslated(context, 'couldNotLaunch'), Colors.red);
+  }
+
+  Widget _buildPasswordTextField() {
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          obscureText: true,
+          autofocus: true,
+          cursorColor: WHITE,
+          maxLength: 60,
+          controller: _passwordController,
+          style: TextStyle(color: WHITE),
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: WHITE, width: 2)),
+            counterStyle: TextStyle(color: WHITE),
+            border: OutlineInputBorder(),
+            labelText: getTranslated(context, 'newPassword'),
+            labelStyle: TextStyle(color: WHITE),
+            prefixIcon: iconWhite(Icons.lock),
+          ),
+          validator: MultiValidator([
+            RequiredValidator(
+              errorText: getTranslated(context, 'newPasswordIsRequired'),
+            ),
+            MinLengthValidator(
+              6,
+              errorText: getTranslated(context, 'newPasswordWrongLength'),
+            ),
+          ]),
+        ),
+        SizedBox(height: 10),
+      ],
+    );
+  }
+
+  Widget _buildRePasswordTextField() {
+    validate(String value) {
+      if (value.isEmpty) {
+        return getTranslated(context, 'retypeYourPassword');
+      } else if (value != _passwordController.text) {
+        return getTranslated(context, 'passwordAndRetypedPasswordDoNotMatch');
+      }
+      return null;
+    }
+
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          obscureText: true,
+          controller: _rePasswordController,
+          cursorColor: WHITE,
+          maxLength: 60,
+          style: TextStyle(color: WHITE),
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: WHITE, width: 2)),
+              counterStyle: TextStyle(color: WHITE),
+              border: OutlineInputBorder(),
+              labelText: getTranslated(context, 'retypedPassword'),
+              prefixIcon: iconWhite(Icons.lock),
+              labelStyle: TextStyle(color: WHITE)),
+          validator: (value) => validate(value),
+        ),
+        SizedBox(height: 10),
+      ],
+    );
+  }
+
+  bool _isValid() {
+    return formKey.currentState.validate();
   }
 }

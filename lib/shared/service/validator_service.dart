@@ -44,18 +44,4 @@ class ValidatorService {
         ? getTranslated(context, 'wrongOpinionLength')
         : null;
   }
-
-  static String validateUpdatingPassword(
-      String newPassword, String reNewPassword, BuildContext context) {
-    if (newPassword == null) {
-      return getTranslated(context, 'newPasswordIsRequired');
-    } else if (newPassword.length < 6) {
-      return getTranslated(context, 'newPasswordWrongLength');
-    } else if (reNewPassword == null) {
-      return getTranslated(context, 'reNewPasswordIsRequired');
-    } else if (reNewPassword != newPassword) {
-      return getTranslated(context, 'passwordsDoNotMatch');
-    }
-    return null;
-  }
 }

@@ -276,5 +276,9 @@
   "userIsNotVerified": "Gebruiker is niet geverifieerd",
   "In progress": "In uitvoering",
   "Completed": "Voltooid",
-  "changingLanguage": "Veranderende taal"
+  "changingLanguage": "Veranderende taal",
+  "changingLanguageWarning": "Nadat u het wachtwoord heeft gewijzigd, moet u opnieuw inloggen. Wilt u dit toch doen?",
+  "changeMyPassword": "Ja, ik wil mijn wachtwoord wijzigen",
+  "doNotChangeMyPassword": "Nee, ik wil mijn wachtwoord niet wijzigen",
+  "passwordUpdatedSuccessfully": "Wachtwoord succesvol bijgewerkt!"
 }

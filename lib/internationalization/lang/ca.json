@@ -276,5 +276,9 @@
   "userIsNotVerified": "Användaren är inte verifierad",
   "In progress": "Pågår",
   "Completed": "Slutfört",
-  "changingLanguage": "Ändrar språk"
+  "changingLanguage": "Ändrar språk",
+  "changingLanguageWarning": "När du har bytt lösenord måste du logga in igen. Vill du fortfarande göra det?",
+  "changeMyPassword": "Ja, jag vill ändra mitt lösenord",
+  "doNotChangeMyPassword": "Nej, jag vill inte ändra mitt lösenord",
+  "passwordUpdatedSuccessfully": "Lösenordet har uppdaterats!"
 }

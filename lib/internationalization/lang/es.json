@@ -276,5 +276,9 @@
   "userIsNotVerified": "El usuario no está verificado",
   "In progress": "En progreso",
   "Completed": "Completado",
-  "changingLanguage": "Cambio de idioma"
+  "changingLanguage": "Cambio de idioma",
+  "changingLanguageWarning": "Después de cambiar la contraseña, deberá iniciar sesión nuevamente. ¿Aún desea hacer esto?",
+  "changeMyPassword": "Sí, quiero cambiar mi contraseña",
+  "doNotChangeMyPassword": "No, no quiero cambiar mi contraseña",
+  "passwordUpdatedSuccessfully": "¡Contraseña actualizada correctamente!"
 }

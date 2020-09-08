@@ -276,5 +276,9 @@
   "userIsNotVerified": "Користувача не підтверджено",
   "In progress": "Виконується",
   "Completed": "Завершено",
-  "changingLanguage": "Зміна мови"
+  "changingLanguage": "Зміна мови",
+  "changingLanguageWarning": "Після зміни пароля вам доведеться ввійти ще раз. Ви все ще хочете це зробити?",
+  "changeMyPassword": "Так, я хочу змінити свій пароль",
+  "doNotChangeMyPassword": "Ні, я не хочу змінювати свій пароль",
+  "passwordUpdatedSuccessfully": "Пароль успішно оновлений!"
 }

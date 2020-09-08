@@ -276,5 +276,9 @@
   "userIsNotVerified": "Benutzer wird nicht verifiziert",
   "In progress": "In Bearbeitung",
   "Completed": "Abgeschlossen",
-  "changingLanguage": "Sprache ändern"
+  "changingLanguage": "Sprache ändern",
+  "changingLanguageWarning": "Nach dem Ändern des Passworts müssen Sie sich erneut anmelden. Möchten Sie dies trotzdem tun?",
+  "changeMyPassword": "Ja, ich möchte mein Passwort ändern",
+  "doNotChangeMyPassword": "Nein, ich möchte mein Passwort nicht ändern",
+  "passwordUpdatedSuccessfully": "Passwort erfolgreich aktualisiert!"
 }
