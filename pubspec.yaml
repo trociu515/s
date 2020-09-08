@@ -33,7 +33,7 @@ dependencies:
   countup: ^0.1.0
   open_appstore: ^1.0.2
   url_launcher: ^5.4.2
-  flutter_verification_code: ^0.2.0
+  pin_code_text_field: ^1.7.1
   form_field_validator: ^1.0.1
   dropdown_formfield: ^0.1.2
   flutter_plugin_pdf_viewer: ^1.0.7

@@ -170,13 +170,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_verification_code:
-    dependency: "direct main"
-    description:
-      name: flutter_verification_code
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -322,6 +315,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
+  pin_code_text_field:
+    dependency: "direct main"
+    description:
+      name: pin_code_text_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.7.1"
   platform:
     dependency: transitive
     description:

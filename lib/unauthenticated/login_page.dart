@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:give_job/employee/profile/employee_profil_page.dart';
 import 'package:give_job/main.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
@@ -21,6 +20,7 @@ import 'package:give_job/shared/widget/texts.dart';
 import 'package:give_job/unauthenticated/get_started_page.dart';
 import 'package:give_job/unauthenticated/registration_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 import '../internationalization/localization/localization_constants.dart';
@@ -34,10 +34,9 @@ class _LoginPageState extends State<LoginPage> {
   final TokenService _tokenService = TokenService();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _tokenController = TextEditingController();
 
   bool _passwordVisible = false;
-  String _token;
-  bool _onEditing = true;
 
   @override
   void initState() {
@@ -260,67 +259,94 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _showCreateAccountDialog() {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: DARK,
-            title: Column(
-              children: <Widget>[
-                textCenterWhite(getTranslated(context, 'createNewAccount')),
-                SizedBox(height: 5),
-                textCenter14White(
-                    getTranslated(context, 'createNewAccountPopupTitle')),
-              ],
-            ),
-            content: Container(
-              height: 50,
+    return showGeneralDialog(
+      context: context,
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: getTranslated(context, 'createNewAccount'),
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 10),
-                  VerificationCode(
-                    textStyle: TextStyle(fontSize: 20.0, color: WHITE),
-                    keyboardType: TextInputType.number,
+                  textCenter20GreenBold(
+                      getTranslated(context, 'createNewAccountPopupTitle')),
+                  SizedBox(height: 30),
+                  PinCodeTextField(
                     autofocus: true,
-                    itemSize: 40,
-                    length: 6,
-                    onCompleted: (String value) {
-                      setState(() {
-                        _token = value;
-                      });
-                    },
-                    onEditing: (bool value) {
-                      setState(() {
-                        _onEditing = value;
-                      });
-                    },
+                    highlight: true,
+                    controller: _tokenController,
+                    highlightColor: WHITE,
+                    defaultBorderColor: MORE_BRIGHTER_DARK,
+                    hasTextBorderColor: GREEN,
+                    maxLength: 6,
+                    pinBoxWidth: 50,
+                    pinBoxHeight: 64,
+                    pinBoxDecoration:
+                        ProvidedPinBoxDecoration.defaultPinBoxDecoration,
+                    pinTextStyle: TextStyle(fontSize: 22, color: WHITE),
+                    pinTextAnimatedSwitcherTransition:
+                        ProvidedPinBoxTextAnimation.scalingTransition,
+                    pinTextAnimatedSwitcherDuration:
+                        Duration(milliseconds: 300),
+                    keyboardType: TextInputType.number,
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        minWidth: 40,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.close)],
+                        ),
+                        color: Colors.red,
+                        onPressed: () => {
+                          Navigator.pop(context),
+                          _tokenController.clear(),
+                        },
+                      ),
+                      SizedBox(width: 25),
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.check)],
+                        ),
+                        color: GREEN,
+                        onPressed: () {
+                          _tokenService.isCorrect(_tokenController.text).then(
+                            (res) {
+                              if (!res) {
+                                _tokenAlertDialog(false);
+                                return;
+                              }
+                              _tokenAlertDialog(true);
+                            },
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-            actions: <Widget>[
-              FlatButton(
-                child: textWhite(getTranslated(context, 'confirm')),
-                onPressed: () {
-                  _tokenService.isCorrect(_token).then((res) {
-                    if (!res) {
-                      _tokenAlertDialog(false);
-                      return;
-                    }
-                    _tokenAlertDialog(true);
-                  });
-                },
-              ),
-              FlatButton(
-                child: textWhite(getTranslated(context, 'close')),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  _token = null;
-                },
-              )
-            ],
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   _tokenAlertDialog(bool isCorrect) {
@@ -372,7 +398,7 @@ class _LoginPageState extends State<LoginPage> {
                     pageBuilder: (BuildContext context,
                         Animation<double> animation,
                         Animation<double> secondaryAnimation) {
-                      return RegistrationPage(_token);
+                      return RegistrationPage(_tokenController.text);
                     },
                     transitionsBuilder: (BuildContext context,
                         Animation<double> animation,
