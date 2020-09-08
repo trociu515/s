@@ -81,7 +81,14 @@ class _ManagerEmployeeProfilePageState
                     Padding(
                       padding: EdgeInsets.only(right: 15.0),
                       child: IconButton(
-                        icon: iconWhite(Icons.person),
+                        icon: Container(
+                          child: Image(
+                            image: AssetImage(
+                              'images/big-manager-icon.png',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                         onPressed: () {
                           Navigator.push(
                             this.context,

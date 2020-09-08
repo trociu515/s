@@ -43,7 +43,7 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: _buildAppBar(this.context, _user),
+        appBar: _buildAppBar(context, _user),
         drawer: managerSideBar(context, _user),
         body: SingleChildScrollView(
           child: Center(
