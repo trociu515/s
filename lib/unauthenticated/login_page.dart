@@ -244,6 +244,7 @@ class _LoginPageState extends State<LoginPage> {
         containsMoreThanOneGroup == 'null') {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => ManagerGroupsPage(user)));
+      return;
     }
     int groupId = int.parse(data['groupId']);
     String groupName = data['groupName'];
