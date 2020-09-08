@@ -286,8 +286,8 @@ class _ManagerEmployeeProfilePageState
                     ),
                   ),
                 )
-              : _handleEmptyData(getTranslated(context, 'noTimesheets'),
-                  getTranslated(context, 'employeeHasNoTimesheets'));
+              : _handleEmptyData(getTranslated(this.context, 'noTimesheets'),
+                  getTranslated(this.context, 'employeeHasNoTimesheets'));
         }
       },
     );
