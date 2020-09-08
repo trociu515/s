@@ -300,7 +300,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 alignment: Alignment.centerLeft,
                 height: 30,
                 child: text13White(
-                    getTranslated(context, 'version') + ': 1.0.9+10')),
+                    getTranslated(context, 'version') + ': 1.0.10+11')),
             _titleContainer(getTranslated(context, 'followUs')),
             SizedBox(height: 5.0),
             _socialMediaInkWell(
