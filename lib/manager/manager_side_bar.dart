@@ -6,12 +6,11 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
-import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/settings/settings_page.dart';
+import 'package:give_job/shared/util/url_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:open_appstore/open_appstore.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'groups/manager_groups_page.dart';
 
@@ -58,8 +57,8 @@ Drawer managerSideBar(BuildContext context, User user) {
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () async =>
-                                _launchURL(context, 'https://www.givejob.pl'),
+                            ..onTap = () async => UrlUtil.launchURL(
+                                context, 'https://www.givejob.pl'),
                         ),
                       ],
                     ),
@@ -110,10 +109,4 @@ Drawer managerSideBar(BuildContext context, User user) {
       ),
     ),
   );
-}
-
-_launchURL(BuildContext context, String url) async {
-  await canLaunch(url)
-      ? await launch(url)
-      : ToastService.showErrorToast(getTranslated(context, 'couldNotLaunch'));
 }

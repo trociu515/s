@@ -11,17 +11,16 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/user.dart';
 import 'package:give_job/shared/service/logout_service.dart';
-import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/service/user_service.dart';
 import 'package:give_job/shared/settings/bug_report_dialog.dart';
 import 'package:give_job/shared/settings/documents_page.dart';
 import 'package:give_job/shared/util/language_util.dart';
+import 'package:give_job/shared/util/url_util.dart';
 import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 
@@ -340,7 +339,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   InkWell _socialMediaInkWell(String url, String text, String imagePath) {
     return InkWell(
-      onTap: () async => _launchURL(url),
+      onTap: () async => UrlUtil.launchURL(this.context, url),
       child: Column(
         children: <Widget>[
           ListTile(
@@ -358,12 +357,6 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
       ),
     );
-  }
-
-  _launchURL(String url) async {
-    await canLaunch(url)
-        ? await launch(url)
-        : ToastService.showErrorToast(getTranslated(context, 'couldNotLaunch'));
   }
 
   Widget _buildPasswordTextField() {

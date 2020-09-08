@@ -14,11 +14,11 @@ import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
+import 'package:give_job/shared/util/url_util.dart';
 import 'package:give_job/shared/widget/circular_progress_indicator.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/silver_app_bar_delegate.dart';
 import 'package:give_job/shared/widget/texts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../shared/libraries/constants.dart';
 import '../../../manager_side_bar.dart';
@@ -438,12 +438,12 @@ class _ManagerEmployeeProfilePageState
 
   _launchAction(String action, String number) async {
     String url = action + ':' + number;
-    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+    UrlUtil.launchURL(context, url);
   }
 
   _launchApp(String app, String number) async {
     var url = '$app://send?phone=$number';
-    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+    UrlUtil.launchURL(context, url);
   }
 
   Widget _buildEmptyListTile(String title) {
