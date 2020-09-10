@@ -169,7 +169,7 @@
   "acceptRegulations": "მე ვიღებ დებულებებს",
   "acceptRegulationsIsRequired": "საჭიროა დებულებების დადასტურება.",
   "acceptPrivacyPolicy": "მე ვეთანხმები კონფიდენციალურობის დებულებას",
-  "acceptPrivacyPolicyIsR Required": "საჭიროა კონფიდენციალურობის დებულების დადასტურება.",
+  "acceptPrivacyPolicyIsRequired": "საჭიროა კონფიდენციალურობის დებულების დადასტურება.",
   "oneOfThreeContactsIsRequired": "გთხოვთ, მიუთითოთ კონტაქტის სამი ფორმიდან ერთი.",
   "passwordIsRequired": "პაროლი აუცილებელია",
   "passwordWrongLength": "პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს",
