@@ -10,6 +10,7 @@ import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/manager/shimmer/shimmer_manager_timesheets.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/model/radio_element.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
@@ -35,6 +36,9 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
 
   bool _loading = false;
 
+  List<RadioElement> _elements = new List();
+  int _currentRadioValue = 0;
+
   @override
   void initState() {
     this._model = widget._model;
@@ -45,10 +49,17 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
             _model.groupId.toString(), _model.user.authHeader)
         .then((res) {
       setState(() {
+        int _counter = 0;
         res.forEach((ts) => {
               if (ts.status == STATUS_IN_PROGRESS)
                 {
                   _inProgressTimesheets.add(ts),
+                  _elements.add(RadioElement(
+                      index: _counter++,
+                      id: ts.id,
+                      title: ts.year.toString() +
+                          ' ' +
+                          MonthUtil.translateMonth(context, ts.month)))
                 }
               else
                 {_completedTimesheets.add(ts)}
@@ -123,24 +134,30 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
                       ),
                     )
                   : Container(),
-              for (var inProgressTs in _inProgressTimesheets)
-                Card(
-                  color: BRIGHTER_DARK,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        ListTile(
-                          title: text18WhiteBold(inProgressTs.year.toString() +
-                              ' ' +
-                              MonthUtil.translateMonth(
-                                  context, inProgressTs.month)),
-                        ),
-                      ],
-                    ),
+              Card(
+                color: BRIGHTER_DARK,
+                child: InkWell(
+                  onTap: () {},
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: _elements
+                        .map(
+                          (e) => RadioListTile(
+                            activeColor: GREEN,
+                            groupValue: _currentRadioValue,
+                            title: text18WhiteBold(e.title),
+                            value: e.index,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _currentRadioValue = newValue;
+                              });
+                            },
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
+              ),
               Padding(
                 padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
                 child: Align(
