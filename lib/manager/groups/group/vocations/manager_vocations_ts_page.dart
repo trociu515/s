@@ -13,6 +13,7 @@ import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/radio_element.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
@@ -38,6 +39,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
 
   List<RadioElement> _elements = new List();
   int _currentRadioValue = 0;
+  RadioElement _currentRadioElement;
 
   @override
   void initState() {
@@ -59,7 +61,11 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
                       id: ts.id,
                       title: ts.year.toString() +
                           ' ' +
-                          MonthUtil.translateMonth(context, ts.month)))
+                          MonthUtil.translateMonth(context, ts.month))),
+                  if (_currentRadioElement == null)
+                    {
+                      _currentRadioElement = _elements[0],
+                    }
                 }
               else
                 {_completedTimesheets.add(ts)}
@@ -150,6 +156,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
                             onChanged: (newValue) {
                               setState(() {
                                 _currentRadioValue = newValue;
+                                _currentRadioElement = e;
                               });
                             },
                           ),
@@ -208,8 +215,73 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
             ],
           ),
         ),
+        bottomNavigationBar: Container(
+          height: 40,
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 1),
+              Expanded(
+                child: MaterialButton(
+                  color: GREEN,
+                  child: textDarkBold('Arrange'),
+                  onPressed: () => {
+                    if (_currentRadioElement != null)
+                      {}
+                    else
+                      {_handleEmptyTs()},
+                  },
+                ),
+              ),
+              SizedBox(width: 5),
+              Expanded(
+                child: MaterialButton(
+                  color: GREEN,
+                  child: textDarkBold('Verify'),
+                  onPressed: () => {
+                    if (_currentRadioElement != null)
+                      {}
+                    else
+                      {_handleEmptyTs()},
+                  },
+                ),
+              ),
+              SizedBox(width: 5),
+              Expanded(
+                child: MaterialButton(
+                  color: GREEN,
+                  child: textDarkBold('Calendar'),
+                  onPressed: () => {
+                    if (_currentRadioElement != null)
+                      {}
+                    else
+                      {_handleEmptyTs()},
+                  },
+                ),
+              ),
+              SizedBox(width: 1),
+            ],
+          ),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: groupFloatingActionButton(context, _model),
+      ),
+    );
+  }
+
+  _handleEmptyTs() {
+    slideDialog.showSlideDialog(
+      context: context,
+      backgroundColor: DARK,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            text20GreenBold(getTranslated(context, 'hint')),
+            SizedBox(height: 20),
+            textCenter20White(
+                'You need to select in progress timesheet to manage vocations'),
+          ],
+        ),
       ),
     );
   }
