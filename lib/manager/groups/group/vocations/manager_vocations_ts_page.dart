@@ -6,6 +6,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
+import 'package:give_job/manager/groups/group/vocations/timesheets/arrange/manager_vocations_arrange_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/manager/shimmer/shimmer_manager_timesheets.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -226,7 +227,16 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
                   child: textDarkBold('Arrange'),
                   onPressed: () => {
                     if (_currentRadioElement != null)
-                      {}
+                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ManagerVocationsArrangePage(
+                                  _model,
+                                  _inProgressTimesheets[
+                                      _currentRadioElement.index])),
+                        ),
+                      }
                     else
                       {_handleEmptyTs()},
                   },

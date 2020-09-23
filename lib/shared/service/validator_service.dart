@@ -44,4 +44,10 @@ class ValidatorService {
         ? getTranslated(context, 'wrongOpinionLength')
         : null;
   }
+
+  static String validateVocationReason(String reason, BuildContext context) {
+    return reason == null || reason.length > 510
+        ? getTranslated(context, 'wrongPlanLength')
+        : null;
+  }
 }

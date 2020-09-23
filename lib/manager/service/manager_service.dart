@@ -8,6 +8,7 @@ import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
 import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
+import 'package:give_job/manager/dto/manager_vocations_ts_dto.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:http/http.dart';
 
@@ -98,6 +99,25 @@ class ManagerService {
     return res.statusCode == 200
         ? (json.decode(res.body) as List)
             .map((data) => ManagerGroupEmployeeDto.fromJson(data))
+            .toList()
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
+  Future<List<ManagerVocationsTsDto>>
+      findAllForVocationsTsByGroupIdAndTimesheetYearMonthStatusForMobile(
+          int groupId,
+          int year,
+          int month,
+          String status,
+          String authHeader) async {
+    Response res = await get(
+      _baseEmployeeUrl +
+          '/groups/$groupId/vocations/time-sheets/$year/$month/$status',
+      headers: {HttpHeaders.authorizationHeader: authHeader},
+    );
+    return res.statusCode == 200
+        ? (json.decode(res.body) as List)
+            .map((data) => ManagerVocationsTsDto.fromJson(data))
             .toList()
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
@@ -382,6 +402,38 @@ class ManagerService {
     };
     Response res = await put(
       _baseTimesheetUrl + '/group/date/opinion',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
+  Future<dynamic> createOrUpdateVocation(
+      String reason,
+      String dateFrom,
+      String dateTo,
+      Set<int> employeesId,
+      int timesheetYear,
+      int timesheetMonth,
+      String timesheetStatus,
+      String authHeader) async {
+    Map<String, dynamic> map = {
+      'reason': reason,
+      'isVerified': true,
+      'dateFrom': dateFrom,
+      'dateTo': dateTo,
+      'employeesId': employeesId.map((el) => el.toInt()).toList(),
+      'timesheetYear': timesheetYear,
+      'timesheetMonth': timesheetMonth,
+      'timesheetStatus': timesheetStatus,
+    };
+    Response res = await post(
+      _baseWorkdayUrl + '/group/vocations',
       body: jsonEncode(map),
       headers: {
         HttpHeaders.authorizationHeader: authHeader,
