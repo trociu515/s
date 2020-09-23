@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
+import 'package:give_job/manager/groups/group/vocations/timesheets/verify/manager_vocations_verify_page.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
-import '../../../manager_app_bar.dart';
-import '../../../manager_side_bar.dart';
+import '../../../../manager_app_bar.dart';
+import '../../../../manager_side_bar.dart';
+import 'arrange/manager_vocations_arrange_page.dart';
+import 'calendar/manager_vocations_calendar_page.dart';
 
 class ManagerVocationsPage extends StatefulWidget {
   final GroupEmployeeModel _model;
@@ -49,13 +52,37 @@ class _ManagerVocationsPageState extends State<ManagerVocationsPage> {
             child: Column(
               children: <Widget>[
                 _buildButtonWithoutHint(
-                    'Arrange vocation for the employee', () => print('object')),
+                  'Arrange vocation for the employee',
+                  () => Navigator.of(context).push(
+                    CupertinoPageRoute<Null>(
+                      builder: (BuildContext context) {
+                        return ManagerVocationsArrangePage(_model);
+                      },
+                    ),
+                  ),
+                ),
                 _buildButtonWithHint(
-                    'Verify vocation',
-                    '2 vocation request are waiting for verify',
-                    () => print('object')),
-                _buildButtonWithHint('Vocations calendar',
-                    '3 employees are on vocation today', () => print('object')),
+                  'Verify vocation',
+                  '2 vocation request are waiting for verify',
+                  () => Navigator.of(context).push(
+                    CupertinoPageRoute<Null>(
+                      builder: (BuildContext context) {
+                        return ManagerVocationsVerifyPage(_model);
+                      },
+                    ),
+                  ),
+                ),
+                _buildButtonWithHint(
+                  'Vocations calendar',
+                  '3 employees are on vocation today',
+                  () => Navigator.of(context).push(
+                    CupertinoPageRoute<Null>(
+                      builder: (BuildContext context) {
+                        return ManagerVocationsCalendarPage(_model);
+                      },
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

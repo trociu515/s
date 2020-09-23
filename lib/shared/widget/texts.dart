@@ -90,6 +90,12 @@ Text text25GreenUnderline(String text) { return Text(text, style: TextStyle(font
 
 
 ////////////////////////////
+/*    TEXT CENTER GREEN   */
+////////////////////////////
+Text textCenter14Green(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: GREEN)); }
+
+
+////////////////////////////
 /* TEXT CENTER GREEN BOLD */
 ////////////////////////////
 Text textCenter20GreenBold(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 20, color: GREEN, fontWeight: FontWeight.bold)); }

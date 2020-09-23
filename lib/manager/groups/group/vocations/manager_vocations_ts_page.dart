@@ -1,0 +1,199 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
+import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
+import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
+import 'package:give_job/manager/service/manager_service.dart';
+import 'package:give_job/manager/shimmer/shimmer_manager_timesheets.dart';
+import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/util/month_util.dart';
+import 'package:give_job/shared/widget/texts.dart';
+
+import '../../../manager_app_bar.dart';
+import '../../../manager_side_bar.dart';
+
+class ManagerVocationsTsPage extends StatefulWidget {
+  final GroupEmployeeModel _model;
+
+  ManagerVocationsTsPage(this._model);
+
+  @override
+  _ManagerVocationsTsPageState createState() => _ManagerVocationsTsPageState();
+}
+
+class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
+  final ManagerService _managerService = new ManagerService();
+
+  GroupEmployeeModel _model;
+
+  List<ManagerGroupTimesheetDto> _inProgressTimesheets = new List();
+  List<ManagerGroupTimesheetDto> _completedTimesheets = new List();
+
+  bool _loading = false;
+
+  @override
+  void initState() {
+    this._model = widget._model;
+    super.initState();
+    _loading = true;
+    _managerService
+        .findTimesheetsByGroupId(
+            _model.groupId.toString(), _model.user.authHeader)
+        .then((res) {
+      setState(() {
+        res.forEach((ts) => {
+              if (ts.status == STATUS_IN_PROGRESS)
+                {
+                  _inProgressTimesheets.add(ts),
+                }
+              else
+                {_completedTimesheets.add(ts)}
+            });
+        _loading = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_loading) {
+      return shimmerManagerTimesheets(context, _model.user);
+    }
+    return MaterialApp(
+      title: APP_NAME,
+      theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: DARK,
+        appBar: managerAppBar(
+            context,
+            _model.user,
+            getTranslated(context, 'vocations') +
+                ' - ' +
+                utf8.decode(_model.groupName != null
+                    ? _model.groupName.runes.toList()
+                    : '-')),
+        drawer: managerSideBar(context, _model.user),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: textCenter20White('Manage employees vocations'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: textCenter14Green(
+                        'Hint: Select a timesheet and click the button at the bottom to manage employees vocations'),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: Image(
+                          height: 45,
+                          image: AssetImage('images/unchecked.png'),
+                        ),
+                      ),
+                      text20OrangeBold(
+                          getTranslated(context, 'inProgressTimesheets')),
+                    ],
+                  ),
+                ),
+              ),
+              _inProgressTimesheets.isEmpty
+                  ? Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: text15White(
+                            getTranslated(context, 'noInProgressTimesheets')),
+                      ),
+                    )
+                  : Container(),
+              for (var inProgressTs in _inProgressTimesheets)
+                Card(
+                  color: BRIGHTER_DARK,
+                  child: InkWell(
+                    onTap: () {},
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ListTile(
+                          title: text18WhiteBold(inProgressTs.year.toString() +
+                              ' ' +
+                              MonthUtil.translateMonth(
+                                  context, inProgressTs.month)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              Padding(
+                padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: Image(
+                          height: 45,
+                          image: AssetImage('images/checked.png'),
+                        ),
+                      ),
+                      text20GreenBold(
+                          getTranslated(this.context, 'completedTimesheets')),
+                    ],
+                  ),
+                ),
+              ),
+              _completedTimesheets.isEmpty
+                  ? Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: text15White(getTranslated(
+                            this.context, 'noCompletedTimesheets')),
+                      ),
+                    )
+                  : Container(),
+              for (var completedTs in _completedTimesheets)
+                Card(
+                  color: BRIGHTER_DARK,
+                  child: InkWell(
+                    onTap: () {},
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ListTile(
+                          title: text18WhiteBold(completedTs.year.toString() +
+                              ' ' +
+                              MonthUtil.translateMonth(
+                                  context, completedTs.month)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: groupFloatingActionButton(context, _model),
+      ),
+    );
+  }
+}
