@@ -278,5 +278,7 @@
   "changingLanguageWarning": "Después de cambiar la contraseña, deberá iniciar sesión nuevamente. ¿Aún desea hacer esto?",
   "changeMyPassword": "Sí, quiero cambiar mi contraseña",
   "doNotChangeMyPassword": "No, no quiero cambiar mi contraseña",
-  "passwordUpdatedSuccessfully": "¡Contraseña actualizada correctamente!"
+  "passwordUpdatedSuccessfully": "¡Contraseña actualizada correctamente!",
+  "vocations": "Vocations",
+  "vocationsDescription": "Manage vocations"
 }

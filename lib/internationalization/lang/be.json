@@ -278,5 +278,7 @@
   "changingLanguageWarning": "Пасля змены пароля вам прыйдзецца ўвайсці яшчэ раз. Вы ўсё яшчэ хочаце зрабіць гэта?",
   "changeMyPassword": "Так, я хачу змяніць свой пароль",
   "doNotChangeMyPassword": "Не, я не хачу мяняць свой пароль",
-  "passwordUpdatedSuccessfully": "Пароль паспяхова абноўлены!"
+  "passwordUpdatedSuccessfully": "Пароль паспяхова абноўлены!",
+  "vocations": "Vocations",
+  "vocationsDescription": "Manage vocations"
 }

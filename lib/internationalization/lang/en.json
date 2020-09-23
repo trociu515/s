@@ -278,5 +278,7 @@
   "changingLanguageWarning": "After changing the password, you will have to log in again. Do you still want to do this?",
   "changeMyPassword": "Yes, I want to change my password",
   "doNotChangeMyPassword": "No, I don't want to change my password",
-  "passwordUpdatedSuccessfully": "Password updated successfully!"
+  "passwordUpdatedSuccessfully": "Password updated successfully!",
+  "vocations": "Vocations",
+  "vocationsDescription": "Manage vocations"
 }

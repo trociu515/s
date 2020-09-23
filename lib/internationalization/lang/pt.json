@@ -278,5 +278,7 @@
   "changingLanguageWarning": "პაროლის შეცვლის შემდეგ, თქვენ კვლავ უნდა შეხვიდეთ. კვლავ გსურთ ამის გაკეთება?",
   "changeMyPassword": "დიახ, ჩემი პაროლის შეცვლა მსურს",
   "doNotChangeMyPassword": "არა, არ მინდა პაროლის შეცვლა",
-  "passwordUpdatedSuccessfully": "პაროლი წარმატებით განახლდა!"
+  "passwordUpdatedSuccessfully": "პაროლი წარმატებით განახლდა!",
+  "vocations": "Vocations",
+  "vocationsDescription": "Manage vocations"
 }

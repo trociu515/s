@@ -278,5 +278,7 @@
   "changingLanguageWarning": "După schimbarea parolei, va trebui să vă conectați din nou. Vrei să faci asta?",
   "changeMyPassword": "Da, vreau să-mi schimb parola",
   "doNotChangeMyPassword": "Nu, nu vreau să-mi schimb parola",
-  "passwordUpdatedSuccessfully": "Parola actualizată cu succes!"
+  "passwordUpdatedSuccessfully": "Parola actualizată cu succes!",
+  "vocations": "Vocations",
+  "vocationsDescription": "Manage vocations"
 }

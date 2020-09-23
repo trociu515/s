@@ -278,5 +278,7 @@
   "changingLanguageWarning": "Après avoir changé le mot de passe, vous devrez vous reconnecter. Voulez-vous toujours le faire?",
   "changeMyPassword": "Oui, je souhaite modifier mon mot de passe",
   "doNotChangeMyPassword": "Non, je ne veux pas changer mon mot de passe",
-  "passwordUpdatedSuccessfully": "Mot de passe mis à jour avec succès!"
+  "passwordUpdatedSuccessfully": "Mot de passe mis à jour avec succès!",
+  "vocations": "Vocations",
+  "vocationsDescription": "Manage vocations"
 }

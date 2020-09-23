@@ -278,5 +278,7 @@
   "changingLanguageWarning": "Nadat u het wachtwoord heeft gewijzigd, moet u opnieuw inloggen. Wilt u dit toch doen?",
   "changeMyPassword": "Ja, ik wil mijn wachtwoord wijzigen",
   "doNotChangeMyPassword": "Nee, ik wil mijn wachtwoord niet wijzigen",
-  "passwordUpdatedSuccessfully": "Wachtwoord succesvol bijgewerkt!"
+  "passwordUpdatedSuccessfully": "Wachtwoord succesvol bijgewerkt!",
+  "vocations": "Vocations",
+  "vocationsDescription": "Manage vocations"
 }

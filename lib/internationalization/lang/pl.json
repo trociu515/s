@@ -278,5 +278,7 @@
   "changingLanguageWarning": "Po zmianie hasła będziesz musiał się ponownie zalogować. Czy nadal chcesz to zrobić?",
   "changeMyPassword": "Tak, chcę zmienić swoje hasło",
   "doNotChangeMyPassword": "Nie, nie chcę zmieniać swojego hasła",
-  "passwordUpdatedSuccessfully": "Hasło zostało zaktualizowane pomyślnie!"
+  "passwordUpdatedSuccessfully": "Hasło zostało zaktualizowane pomyślnie!",
+  "vocations": "Urlopy",
+  "vocationsDescription": "Zarządzaj urlopami"
 }

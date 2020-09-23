@@ -278,5 +278,7 @@
   "changingLanguageWarning": "När du har bytt lösenord måste du logga in igen. Vill du fortfarande göra det?",
   "changeMyPassword": "Ja, jag vill ändra mitt lösenord",
   "doNotChangeMyPassword": "Nej, jag vill inte ändra mitt lösenord",
-  "passwordUpdatedSuccessfully": "Lösenordet har uppdaterats!"
+  "passwordUpdatedSuccessfully": "Lösenordet har uppdaterats!",
+  "vocations": "Vocations",
+  "vocationsDescription": "Manage vocations"
 }
