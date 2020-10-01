@@ -96,6 +96,8 @@ flutter:
     - images/big-employees-icon.png
     - images/big-quick_update-icon.png
     - images/big-timesheets-icon.png
+    - images/big-vocation-icon.png
+    - images/big-documents-icon.png
     - images/big-manager-icon.png
     - images/big-employee-icon.png
     - images/small-group-icon.png
@@ -103,6 +105,8 @@ flutter:
     - images/small-employees-icon.png
     - images/small-quick_update-icon.png
     - images/small-timesheets-icon.png
+    - images/small-vocation-icon.png
+    - images/small-documents-icon.png
     - docs/regulations.pdf
     - docs/privacy_policy.pdf
 

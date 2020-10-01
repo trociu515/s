@@ -84,7 +84,7 @@ Widget groupFloatingActionButton(
       ),
       SpeedDialChild(
         backgroundColor: BRIGHTER_DARK,
-        child: Image(image: AssetImage('images/small-timesheets-icon.png')),
+        child: Image(image: AssetImage('images/small-vocation-icon.png')),
         label: getTranslated(context, 'vocations'),
         labelBackgroundColor: BRIGHTER_DARK,
         labelStyle: TextStyle(color: WHITE),
