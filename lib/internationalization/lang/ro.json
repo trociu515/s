@@ -280,5 +280,8 @@
   "doNotChangeMyPassword": "Nu, nu vreau să-mi schimb parola",
   "passwordUpdatedSuccessfully": "Parola actualizată cu succes!",
   "vocations": "Vocations",
-  "vocationsDescription": "Manage vocations"
+  "vocationsDescription": "Manage vocations",
+  "vocationReason": "Vocation reason",
+  "verified": "VERIFIED",
+  "notVerified": "NOT VERIFIED"
 }

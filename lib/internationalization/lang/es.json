@@ -280,5 +280,8 @@
   "doNotChangeMyPassword": "No, no quiero cambiar mi contraseña",
   "passwordUpdatedSuccessfully": "¡Contraseña actualizada correctamente!",
   "vocations": "Vocations",
-  "vocationsDescription": "Manage vocations"
+  "vocationsDescription": "Manage vocations",
+  "vocationReason": "Vocation reason",
+  "verified": "VERIFIED",
+  "notVerified": "NOT VERIFIED"
 }

@@ -44,4 +44,28 @@ class WorkdayUtil {
       ),
     );
   }
+
+  static void showVocationReasonDetails(
+      BuildContext context, String vocationReason, bool verified) {
+    slideDialog.showSlideDialog(
+      context: context,
+      backgroundColor: DARK,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            text20GreenBold(getTranslated(context, 'vocationReason')),
+            SizedBox(height: 20),
+            verified
+                ? text16GreenBold(getTranslated(context, 'verified'))
+                : text16RedBold(getTranslated(context, 'notVerified')),
+            SizedBox(height: 20),
+            text20White(vocationReason != null
+                ? utf8.decode(vocationReason.runes.toList())
+                : getTranslated(context, 'empty')),
+          ],
+        ),
+      ),
+    );
+  }
 }

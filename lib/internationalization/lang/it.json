@@ -280,5 +280,8 @@
   "doNotChangeMyPassword": "Nei, jeg vil ikke endre passordet mitt",
   "passwordUpdatedSuccessfully": "Passordet er oppdatert!",
   "vocations": "Vocations",
-  "vocationsDescription": "Manage vocations"
+  "vocationsDescription": "Manage vocations",
+  "vocationReason": "Vocation reason",
+  "verified": "VERIFIED",
+  "notVerified": "NOT VERIFIED"
 }

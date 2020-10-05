@@ -167,6 +167,9 @@ class _ManagerEmployeeTsCompletedPageState
                               DataColumn(
                                   label: textWhiteBold(
                                       getTranslated(this.context, 'opinion'))),
+                              DataColumn(
+                                  label: textWhiteBold(getTranslated(
+                                      this.context, 'vocations'))),
                             ],
                             rows: [
                               for (var workday in workdays)
@@ -204,6 +207,32 @@ class _ManagerEmployeeTsCompletedPageState
                                         onTap: () =>
                                             WorkdayUtil.showOpinionDetails(
                                                 this.context, workday.opinion)),
+                                    DataCell(
+                                        Wrap(
+                                          children: <Widget>[
+                                            workday.vocation != null
+                                                ? Row(
+                                                    children: [
+                                                      Image(
+                                                          height: 35,
+                                                          image: AssetImage(
+                                                              'images/big-vocation-icon.png')),
+                                                      workday.vocation
+                                                                  .verified ==
+                                                              true
+                                                          ? iconGreen(
+                                                              Icons.check)
+                                                          : iconRed(Icons.clear)
+                                                    ],
+                                                  )
+                                                : textWhiteBold('-'),
+                                          ],
+                                        ),
+                                        onTap: () => WorkdayUtil
+                                            .showVocationReasonDetails(
+                                                this.context,
+                                                workday.vocation.reason,
+                                                workday.vocation.verified)),
                                   ],
                                 ),
                             ],

@@ -280,5 +280,8 @@
   "doNotChangeMyPassword": "Nee, ik wil mijn wachtwoord niet wijzigen",
   "passwordUpdatedSuccessfully": "Wachtwoord succesvol bijgewerkt!",
   "vocations": "Vocations",
-  "vocationsDescription": "Manage vocations"
+  "vocationsDescription": "Manage vocations",
+  "vocationReason": "Vocation reason",
+  "verified": "VERIFIED",
+  "notVerified": "NOT VERIFIED"
 }

@@ -124,8 +124,7 @@ class _ManagerEmployeeTsInProgressPageState
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: textWhite(
-                                    getTranslated(context, 'hours') +
-                                        ': '),
+                                    getTranslated(context, 'hours') + ': '),
                               ),
                               textGreenBold(
                                   _timesheet.numberOfHoursWorked.toString() +
@@ -222,6 +221,9 @@ class _ManagerEmployeeTsInProgressPageState
                                           _onSortOpinions(
                                               columnIndex, ascending),
                                     ),
+                                    DataColumn(
+                                        label: textWhiteBold(getTranslated(
+                                            context, 'vocations'))),
                                   ],
                                   rows: this
                                       .workdays
@@ -269,6 +271,35 @@ class _ManagerEmployeeTsInProgressPageState
                                                       this.context,
                                                       workday.opinion),
                                             ),
+                                            DataCell(
+                                                Wrap(
+                                                  children: <Widget>[
+                                                    workday.vocation != null
+                                                        ? Row(
+                                                            children: [
+                                                              Image(
+                                                                  height: 35,
+                                                                  image: AssetImage(
+                                                                      'images/big-vocation-icon.png')),
+                                                              workday.vocation
+                                                                          .verified ==
+                                                                      true
+                                                                  ? iconGreen(
+                                                                      Icons
+                                                                          .check)
+                                                                  : iconRed(Icons
+                                                                      .clear)
+                                                            ],
+                                                          )
+                                                        : textWhiteBold('-'),
+                                                  ],
+                                                ),
+                                                onTap: () => WorkdayUtil
+                                                    .showVocationReasonDetails(
+                                                        this.context,
+                                                        workday.vocation.reason,
+                                                        workday.vocation
+                                                            .verified)),
                                           ],
                                         ),
                                       )
@@ -412,8 +443,7 @@ class _ManagerEmployeeTsInProgressPageState
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: textWhite(
-                                    getTranslated(context, 'hours') +
-                                        ': '),
+                                    getTranslated(context, 'hours') + ': '),
                               ),
                               textGreenBold(
                                   _timesheet.numberOfHoursWorked.toString() +
@@ -494,6 +524,9 @@ class _ManagerEmployeeTsInProgressPageState
                                 onSort: (columnIndex, ascending) =>
                                     _onSortOpinions(columnIndex, ascending),
                               ),
+                              DataColumn(
+                                  label: textWhiteBold(
+                                      getTranslated(context, 'vocations'))),
                             ],
                             rows: this
                                 .workdays
@@ -538,6 +571,33 @@ class _ManagerEmployeeTsInProgressPageState
                                             WorkdayUtil.showOpinionDetails(
                                                 this.context, workday.opinion),
                                       ),
+                                      DataCell(
+                                          Wrap(
+                                            children: <Widget>[
+                                              workday.vocation != null
+                                                  ? Row(
+                                                      children: [
+                                                        Image(
+                                                            height: 35,
+                                                            image: AssetImage(
+                                                                'images/big-vocation-icon.png')),
+                                                        workday.vocation
+                                                                    .verified ==
+                                                                true
+                                                            ? iconGreen(
+                                                                Icons.check)
+                                                            : iconRed(
+                                                                Icons.clear)
+                                                      ],
+                                                    )
+                                                  : textWhiteBold('-'),
+                                            ],
+                                          ),
+                                          onTap: () => WorkdayUtil
+                                              .showVocationReasonDetails(
+                                                  this.context,
+                                                  workday.vocation.reason,
+                                                  workday.vocation.verified)),
                                     ],
                                   ),
                                 )

@@ -15,11 +15,14 @@ class SharedWorkdayService {
       _baseTimesheetUrl + '/${int.parse(timesheetId)}',
       headers: {HttpHeaders.authorizationHeader: authHeader},
     );
-    return res.statusCode == 200
-        ? (json.decode(res.body) as List)
-            .map((data) => WorkdayDto.fromJson(data))
-            .toList()
-        : res.statusCode == 400 ? Future.error(res.body) : null;
+    if (res.statusCode == 200) {
+      return (json.decode(res.body) as List)
+          .map((data) => WorkdayDto.fromJson(data))
+          .toList();
+    } else if (res.statusCode == 400) {
+      return Future.error(res.body);
+    }
+    return null;
   }
 
   Future<List<EmployeeWorkdayDto>> findEmployeeWorkdaysByTimesheetId(

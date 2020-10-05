@@ -280,5 +280,8 @@
   "doNotChangeMyPassword": "არა, არ მინდა პაროლის შეცვლა",
   "passwordUpdatedSuccessfully": "პაროლი წარმატებით განახლდა!",
   "vocations": "Vocations",
-  "vocationsDescription": "Manage vocations"
+  "vocationsDescription": "Manage vocations",
+  "vocationReason": "Vocation reason",
+  "verified": "VERIFIED",
+  "notVerified": "NOT VERIFIED"
 }

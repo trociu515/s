@@ -280,5 +280,8 @@
   "doNotChangeMyPassword": "Nie, nie chcę zmieniać swojego hasła",
   "passwordUpdatedSuccessfully": "Hasło zostało zaktualizowane pomyślnie!",
   "vocations": "Urlopy",
-  "vocationsDescription": "Zarządzaj urlopami"
+  "vocationsDescription": "Zarządzaj urlopami",
+  "vocationReason": "Powód urlopu",
+  "verified": "ZWERYFIKOWANY",
+  "notVerified": "NIE ZWERYFIKOWANY"
 }
