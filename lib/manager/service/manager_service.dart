@@ -444,4 +444,32 @@ class ManagerService {
         ? res
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
+
+  Future<dynamic> createOrUpdateVocationForSelectedDays(
+      String reason,
+      Set<int> selectedIds,
+      int timesheetYear,
+      int timesheetMonth,
+      String timesheetStatus,
+      String authHeader) async {
+    Map<String, dynamic> map = {
+      'reason': reason,
+      'isVerified': true,
+      'selectedIds': selectedIds.map((el) => el.toInt()).toList(),
+      'timesheetYear': timesheetYear,
+      'timesheetMonth': timesheetMonth,
+      'timesheetStatus': timesheetStatus,
+    };
+    Response res = await post(
+      _baseWorkdayUrl + '/group/vocations/selected',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
 }

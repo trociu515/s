@@ -282,6 +282,11 @@
   "vocations": "Urlopy",
   "vocationsDescription": "Zarządzaj urlopami",
   "vocationReason": "Powód urlopu",
-  "verified": "ZWERYFIKOWANY",
-  "notVerified": "NIE ZWERYFIKOWANY"
+  "verifiedUpperCase": "ZWERYFIKOWANY",
+  "notVerifiedUpperCase": "NIE ZWERYFIKOWANY",
+  "vocation": "Urlop",
+  "vocationUpperCase": "URLOP",
+  "setVocationReasonForSelectedDays": "Wpisz powód urlopu dla wybranych dni",
+  "textSomeReason": "Wpisz powód ...",
+  "vocationUpdatedSuccessfully": "Urlop został stworzony/zaktualizowany pomyślnie"
 }

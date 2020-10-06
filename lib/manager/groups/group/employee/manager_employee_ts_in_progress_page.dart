@@ -48,6 +48,8 @@ class _ManagerEmployeeTsInProgressPageState
   final TextEditingController _ratingController = new TextEditingController();
   final TextEditingController _planController = new TextEditingController();
   final TextEditingController _opinionController = new TextEditingController();
+  final TextEditingController _vocationReasonController =
+      new TextEditingController();
 
   GroupEmployeeModel _model;
   String _employeeInfo;
@@ -384,6 +386,23 @@ class _ManagerEmployeeTsInProgressPageState
                     },
                   ),
                 ),
+                SizedBox(width: 5),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold(getTranslated(context, 'vocation')),
+                    onPressed: () => {
+                      if (selectedIds.isNotEmpty)
+                        {
+                          _vocationReasonController.clear(),
+                          _showUpdateVocationReasonDialog(
+                              _timesheet, selectedIds)
+                        }
+                      else
+                        {_showHint()}
+                    },
+                  ),
+                ),
                 SizedBox(width: 1),
               ],
             ),
@@ -669,8 +688,30 @@ class _ManagerEmployeeTsInProgressPageState
                     color: GREEN,
                     child: textDarkBold(getTranslated(context, 'opinion')),
                     onPressed: () => {
-                      _opinionController.clear(),
-                      _showUpdateOpinionDialog(selectedIds)
+                      if (selectedIds.isNotEmpty)
+                        {
+                          _opinionController.clear(),
+                          _showUpdateOpinionDialog(selectedIds)
+                        }
+                      else
+                        {_showHint()}
+                    },
+                  ),
+                ),
+                SizedBox(width: 5),
+                Expanded(
+                  child: MaterialButton(
+                    color: GREEN,
+                    child: textDarkBold(getTranslated(context, 'vocation')),
+                    onPressed: () => {
+                      if (selectedIds.isNotEmpty)
+                        {
+                          _vocationReasonController.clear(),
+                          _showUpdateVocationReasonDialog(
+                              _timesheet, selectedIds)
+                        }
+                      else
+                        {_showHint()}
                     },
                   ),
                 ),
@@ -1208,6 +1249,120 @@ class _ManagerEmployeeTsInProgressPageState
                             selectedIds.clear();
                             ToastService.showSuccessToast(getTranslated(
                                 context, 'opinionUpdatedSuccessfully'));
+                            _refresh();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showUpdateVocationReasonDialog(
+      EmployeeTimesheetDto timesheet, Set<int> selectedIds) {
+    showGeneralDialog(
+      context: context,
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: getTranslated(context, 'vocation'),
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: text20GreenBold(
+                          getTranslated(context, 'vocationUpperCase'))),
+                  SizedBox(height: 2.5),
+                  textGreen(getTranslated(
+                      context, 'setVocationReasonForSelectedDays')),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: TextFormField(
+                      autofocus: false,
+                      controller: _opinionController,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: 510,
+                      maxLines: 5,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        hintText: getTranslated(context, 'textSomeReason'),
+                        hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
+                        counterStyle: TextStyle(color: WHITE),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        minWidth: 40,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.close)],
+                        ),
+                        color: Colors.red,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      SizedBox(width: 25),
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.check)],
+                        ),
+                        color: GREEN,
+                        onPressed: () {
+                          String vocationReason =
+                              _vocationReasonController.text;
+                          String invalidMessage =
+                              ValidatorService.validateVocationReason(
+                                  vocationReason, context);
+                          if (invalidMessage != null) {
+                            ToastService.showErrorToast(invalidMessage);
+                            return;
+                          }
+                          Navigator.of(context).pop();
+                          _managerService
+                              .createOrUpdateVocationForSelectedDays(
+                                  vocationReason,
+                                  selectedIds,
+                                  timesheet.year,
+                                  MonthUtil.findMonthNumberByMonthName(
+                                      context, timesheet.month),
+                                  STATUS_IN_PROGRESS,
+                                  _model.user.authHeader)
+                              .then((res) {
+                            selectedIds.clear();
+                            ToastService.showSuccessToast(getTranslated(
+                                context, 'vocationUpdatedSuccessfully'));
                             _refresh();
                           });
                         },
