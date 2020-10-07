@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
+import 'package:give_job/manager/dto/manager_group_timesheet_with_no_status_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/groups/group/vocations/timesheets/arrange/manager_vocations_arrange_page.dart';
 import 'package:give_job/manager/groups/group/vocations/timesheets/calendar/manager_vocations_calendar_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
-import 'package:give_job/manager/shimmer/shimmer_manager_timesheets.dart';
+import 'package:give_job/manager/shimmer/shimmer_manager_vocations_timesheets.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/model/radio_element.dart';
@@ -34,8 +34,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
 
   GroupEmployeeModel _model;
 
-  List<ManagerGroupTimesheetDto> _inProgressTimesheets = new List();
-  List<ManagerGroupTimesheetDto> _completedTimesheets = new List();
+  List<ManagerGroupTimesheetWithNoStatusDto> _inProgressTimesheets = new List();
 
   bool _loading = false;
 
@@ -49,28 +48,23 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
     super.initState();
     _loading = true;
     _managerService
-        .findTimesheetsByGroupId(
+        .findInProgressTimesheetsByGroupId(
             _model.groupId.toString(), _model.user.authHeader)
         .then((res) {
       setState(() {
         int _counter = 0;
         res.forEach((ts) => {
-              if (ts.status == STATUS_IN_PROGRESS)
+              _inProgressTimesheets.add(ts),
+              _elements.add(RadioElement(
+                  index: _counter++,
+                  id: ts.id,
+                  title: ts.year.toString() +
+                      ' ' +
+                      MonthUtil.translateMonth(context, ts.month))),
+              if (_currentRadioElement == null)
                 {
-                  _inProgressTimesheets.add(ts),
-                  _elements.add(RadioElement(
-                      index: _counter++,
-                      id: ts.id,
-                      title: ts.year.toString() +
-                          ' ' +
-                          MonthUtil.translateMonth(context, ts.month))),
-                  if (_currentRadioElement == null)
-                    {
-                      _currentRadioElement = _elements[0],
-                    }
+                  _currentRadioElement = _elements[0],
                 }
-              else
-                {_completedTimesheets.add(ts)}
             });
         _loading = false;
       });
@@ -80,7 +74,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return shimmerManagerTimesheets(context, _model.user);
+      return shimmerManagerVocationsTimesheets(context, _model.user);
     }
     ManagerVocationsCalendarPage page;
     return MaterialApp(
@@ -168,53 +162,6 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 15),
-                        child: Image(
-                          height: 45,
-                          image: AssetImage('images/checked.png'),
-                        ),
-                      ),
-                      text20GreenBold(
-                          getTranslated(this.context, 'completedTimesheets')),
-                    ],
-                  ),
-                ),
-              ),
-              _completedTimesheets.isEmpty
-                  ? Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: text15White(getTranslated(
-                            this.context, 'noCompletedTimesheets')),
-                      ),
-                    )
-                  : Container(),
-              for (var completedTs in _completedTimesheets)
-                Card(
-                  color: BRIGHTER_DARK,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        ListTile(
-                          title: text18WhiteBold(completedTs.year.toString() +
-                              ' ' +
-                              MonthUtil.translateMonth(
-                                  context, completedTs.month)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
             ],
           ),
         ),

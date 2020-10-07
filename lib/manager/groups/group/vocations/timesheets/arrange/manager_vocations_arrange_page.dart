@@ -6,7 +6,7 @@ import 'package:date_util/date_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
-import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
+import 'package:give_job/manager/dto/manager_group_timesheet_with_no_status_dto.dart';
 import 'package:give_job/manager/dto/manager_vocations_ts_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
@@ -28,7 +28,7 @@ import '../../../../../manager_side_bar.dart';
 
 class ManagerVocationsArrangePage extends StatefulWidget {
   final GroupEmployeeModel _model;
-  final ManagerGroupTimesheetDto _timeSheet;
+  final ManagerGroupTimesheetWithNoStatusDto _timeSheet;
 
   ManagerVocationsArrangePage(this._model, this._timeSheet);
 
@@ -42,7 +42,7 @@ class _ManagerVocationsArrangePageState
   final ManagerService _managerService = new ManagerService();
 
   GroupEmployeeModel _model;
-  ManagerGroupTimesheetDto _timesheet;
+  ManagerGroupTimesheetWithNoStatusDto _timesheet;
 
   List<ManagerVocationsTsDto> _employees = new List();
   List<ManagerVocationsTsDto> _filteredEmployees = new List();

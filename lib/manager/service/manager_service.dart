@@ -9,6 +9,7 @@ import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
 import 'package:give_job/manager/dto/manager_group_employee_vocation_dto.dart';
 import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
+import 'package:give_job/manager/dto/manager_group_timesheet_with_no_status_dto.dart';
 import 'package:give_job/manager/dto/manager_vocations_ts_dto.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:http/http.dart';
@@ -82,6 +83,19 @@ class ManagerService {
     return res.statusCode == 200
         ? (json.decode(res.body) as List)
             .map((data) => ManagerGroupTimesheetDto.fromJson(data))
+            .toList()
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
+  Future<List<ManagerGroupTimesheetWithNoStatusDto>> findInProgressTimesheetsByGroupId(
+      String groupId, String authHeader) async {
+    Response res = await get(
+      _baseTimesheetUrl + '/groups/${int.parse(groupId)}/in-progress',
+      headers: {HttpHeaders.authorizationHeader: authHeader},
+    );
+    return res.statusCode == 200
+        ? (json.decode(res.body) as List)
+            .map((data) => ManagerGroupTimesheetWithNoStatusDto.fromJson(data))
             .toList()
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
