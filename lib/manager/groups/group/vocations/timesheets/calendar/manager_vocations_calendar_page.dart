@@ -301,7 +301,9 @@ class _ManagerVocationsCalendarPageState
             SizedBox(height: 10),
             text20GreenBold(getTranslated(context, 'vocationReason')),
             SizedBox(height: 10),
-            textCenter20White(vocation.reason),
+            textCenter20White(vocation.reason != null
+                ? utf8.decode(vocation.reason.runes.toList())
+                : getTranslated(context, 'empty')),
           ],
         ),
       ),
