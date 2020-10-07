@@ -92,74 +92,84 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
                     ? _model.groupName.runes.toList()
                     : '-')),
         drawer: managerSideBar(context, _model.user),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: textCenter20White('Manage employees vocations'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    child: textCenter14Green(
-                        'Hint: Select a timesheet and click the button at the bottom to manage employees vocations'),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 15),
-                        child: Image(
-                          height: 45,
-                          image: AssetImage('images/unchecked.png'),
+        body: RefreshIndicator(
+          color: DARK,
+          backgroundColor: WHITE,
+          onRefresh: _refresh,
+          child: ListView(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child:
+                              textCenter20White('Manage employees vocations'),
                         ),
-                      ),
-                      text20OrangeBold(
-                          getTranslated(context, 'inProgressTimesheets')),
-                    ],
-                  ),
-                ),
-              ),
-              _inProgressTimesheets.isEmpty
-                  ? Padding(
-                      padding: EdgeInsets.only(left: 20),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          child: textCenter14Green(
+                              'Hint: Select a timesheet and click the button at the bottom to manage employees vocations'),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: text15White(
-                            getTranslated(context, 'noInProgressTimesheets')),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 15),
+                              child: Image(
+                                height: 45,
+                                image: AssetImage('images/unchecked.png'),
+                              ),
+                            ),
+                            text20OrangeBold(
+                                getTranslated(context, 'inProgressTimesheets')),
+                          ],
+                        ),
                       ),
-                    )
-                  : Container(),
-              Card(
-                color: BRIGHTER_DARK,
-                child: InkWell(
-                  onTap: () {},
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: _elements
-                        .map(
-                          (e) => RadioListTile(
-                            activeColor: GREEN,
-                            groupValue: _currentRadioValue,
-                            title: text18WhiteBold(e.title),
-                            value: e.index,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _currentRadioValue = newValue;
-                                _currentRadioElement = e;
-                              });
-                            },
-                          ),
-                        )
-                        .toList(),
-                  ),
+                    ),
+                    _inProgressTimesheets.isEmpty
+                        ? Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: text15White(getTranslated(
+                                  context, 'noInProgressTimesheets')),
+                            ),
+                          )
+                        : Container(),
+                    Card(
+                      color: BRIGHTER_DARK,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: _elements
+                              .map(
+                                (e) => RadioListTile(
+                                  activeColor: GREEN,
+                                  groupValue: _currentRadioValue,
+                                  title: text18WhiteBold(e.title),
+                                  value: e.index,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _currentRadioValue = newValue;
+                                      _currentRadioElement = e;
+                                    });
+                                  },
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -252,5 +262,32 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
         ),
       ),
     );
+  }
+
+  Future<Null> _refresh() {
+    return _managerService
+        .findInProgressTimesheetsByGroupId(
+            _model.groupId.toString(), _model.user.authHeader)
+        .then((res) {
+      setState(() {
+        _inProgressTimesheets.clear();
+        _elements.clear();
+        int _counter = 0;
+        res.forEach((ts) => {
+              _inProgressTimesheets.add(ts),
+              _elements.add(RadioElement(
+                  index: _counter++,
+                  id: ts.id,
+                  title: ts.year.toString() +
+                      ' ' +
+                      MonthUtil.translateMonth(context, ts.month))),
+              if (_currentRadioElement == null)
+                {
+                  _currentRadioElement = _elements[0],
+                }
+            });
+        _loading = false;
+      });
+    });
   }
 }
