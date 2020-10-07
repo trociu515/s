@@ -286,11 +286,22 @@ class _ManagerVocationsCalendarPageState
             text20WhiteBold(employeeInfo),
             SizedBox(height: 10),
             vocation.verified
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                ? Column(
                     children: [
-                      text16GreenBold('Vocations are VERIFIED!'),
-                      iconGreen(Icons.check),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          text16GreenBold('Vocations are VERIFIED!'),
+                          SizedBox(width: 2),
+                          iconGreen(Icons.check),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildRemoveVocationButton(employeeInfo, vocation.id),
+                        ],
+                      ),
                     ],
                   )
                 : Column(
@@ -332,12 +343,59 @@ class _ManagerVocationsCalendarPageState
           'Are you sure u want to verify',
           _selectedDay.toString().substring(0, 10) + ' vocation day for',
           employeeInfo,
+          textGreen('Yes, I want to verify'),
+          textRed(getTranslated(context, 'no')),
           () => verifyVocation(vocationId)),
     );
   }
 
-  void _showConfirmationDialog(String title, String firstContent,
-      String secondContent, String employeeInfo, Function() fun) {
+  void verifyVocation(int vocationId) {
+    _vocationService
+        .updateVocationVerification(vocationId, true, _model.user.authHeader)
+        .then(
+          (value) => {
+            _refresh(),
+            Navigator.of(context).pop(),
+            ToastService.showSuccessToast('Vocation verified successfully!'),
+          },
+        );
+  }
+
+  Widget _buildRemoveVocationButton(String employeeInfo, int vocationId) {
+    String currentDate =
+        _selectedDay != null ? _selectedDay.toString().substring(0, 10) : '-';
+    return MaterialButton(
+      color: Colors.red,
+      child: textDarkBold('TAP TO REMOVE VOCATION'),
+      onPressed: () => _showConfirmationDialog(
+          'Confirmation',
+          'Are you sure u want to delete',
+          currentDate + ' vocation day for',
+          employeeInfo,
+          textRed('Yes, I want to remove vocation'),
+          textGreen(getTranslated(context, 'no')),
+          () => removeVocation(vocationId)),
+    );
+  }
+
+  void removeVocation(int vocationId) {
+    _vocationService.removeVocation(vocationId, _model.user.authHeader).then(
+          (value) => {
+            _refresh(),
+            Navigator.of(context).pop(),
+            ToastService.showSuccessToast('Vocation removed successfully!'),
+          },
+        );
+  }
+
+  void _showConfirmationDialog(
+      String title,
+      String firstContent,
+      String secondContent,
+      String employeeInfo,
+      Text confirmationBtnText,
+      Text disagreeBtnText,
+      Function() fun) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -357,28 +415,16 @@ class _ManagerVocationsCalendarPageState
           ),
           actions: <Widget>[
             FlatButton(
-              child: textGreen('Yes, I want to verify'),
-              onPressed: () => fun(),
+              child: confirmationBtnText,
+              onPressed: () => {fun(), Navigator.of(context).pop()},
             ),
             FlatButton(
-                child: textRed(getTranslated(context, 'no')),
+                child: disagreeBtnText,
                 onPressed: () => Navigator.of(context).pop()),
           ],
         );
       },
     );
-  }
-
-  void verifyVocation(int vocationId) {
-    _vocationService
-        .updateVocationVerification(vocationId, true, _model.user.authHeader)
-        .then(
-          (value) => {
-            _refresh(),
-            Navigator.of(context).pop(),
-            ToastService.showSuccessToast('Vocation verified successfully!'),
-          },
-        );
   }
 
   Future<Null> _refresh() {
@@ -388,6 +434,7 @@ class _ManagerVocationsCalendarPageState
         .then((res) {
       setState(() {
         _loading = false;
+        _events.clear();
         res.forEach((key, value) {
           _events[key] = value;
         });

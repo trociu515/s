@@ -23,4 +23,17 @@ class ManagerVocationService {
         ? res
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
+
+  Future<dynamic> removeVocation(int vocationId, String authHeader) async {
+    Response res = await delete(
+      _baseVocationUrl + '/$vocationId',
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
 }
