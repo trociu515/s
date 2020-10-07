@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_group_employee_vocation_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/service/manager_service.dart';
@@ -15,6 +16,7 @@ import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:intl/intl.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../../manager_app_bar.dart';
@@ -239,7 +241,7 @@ class _ManagerVocationsCalendarPageState
                 title: event.verified
                     ? _buildVerifiedWidget(event)
                     : _buildNotVerifiedWidget(event),
-                onTap: () => print('$event tapped!'),
+                onTap: () => _showVocationReason(event),
               ),
             ),
           )
@@ -253,7 +255,7 @@ class _ManagerVocationsCalendarPageState
           ' ' +
           LanguageUtil.findFlagByNationality(vocation.employeeNationality)),
       leading: iconGreen(Icons.check),
-      subtitle: text16GreenBold('Vocations are verified!'),
+      subtitle: text16GreenBold('Vocations are VERIFIED!'),
     );
   }
 
@@ -263,7 +265,46 @@ class _ManagerVocationsCalendarPageState
           ' ' +
           LanguageUtil.findFlagByNationality(vocation.employeeNationality)),
       leading: iconRed(Icons.cancel),
-      subtitle: text16RedBold('Vocations are not verified!'),
+      subtitle: text16RedBold('Vocations are NOT VERIFIED!'),
+    );
+  }
+
+  void _showVocationReason(ManagerGroupEmployeeVocationDto vocation) {
+    slideDialog.showSlideDialog(
+      context: context,
+      backgroundColor: DARK,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            text20WhiteBold(utf8.decode(vocation.employeeInfo.runes.toList()) +
+                ' ' +
+                LanguageUtil.findFlagByNationality(
+                    vocation.employeeNationality)),
+            SizedBox(height: 10),
+            vocation.verified
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      text16GreenBold('Vocations are VERIFIED!'),
+                      iconGreen(Icons.check),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      text16RedBold('Vocations are NOT VERIFIED!'),
+                      SizedBox(width: 2),
+                      iconRed(Icons.cancel),
+                    ],
+                  ),
+            SizedBox(height: 10),
+            text20GreenBold(getTranslated(context, 'vocationReason')),
+            SizedBox(height: 10),
+            textCenter20White(vocation.reason),
+          ],
+        ),
+      ),
     );
   }
 }
