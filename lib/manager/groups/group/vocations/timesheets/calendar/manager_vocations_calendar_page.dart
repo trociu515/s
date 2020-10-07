@@ -8,6 +8,7 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/manager_group_employee_vocation_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/service/manager_service.dart';
+import 'package:give_job/manager/service/manager_vocation_service.dart';
 import 'package:give_job/manager/shimmer/shimmer_manager_group_vocations_calendar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -40,9 +41,11 @@ class _ManagerVocationsCalendarPageState
     extends State<ManagerVocationsCalendarPage> with TickerProviderStateMixin {
   GroupEmployeeModel _model;
   ManagerService _service = new ManagerService();
+  ManagerVocationService _vocationService = new ManagerVocationService();
 
   Map<DateTime, List<ManagerGroupEmployeeVocationDto>> _events = new Map();
   List _selectedEvents;
+  DateTime _selectedDay;
   AnimationController _animationController;
   CalendarController _calendarController = new CalendarController();
 
@@ -83,9 +86,9 @@ class _ManagerVocationsCalendarPageState
   }
 
   void _onDaySelected(DateTime day, List events) {
-    print('CALLBACK: _onDaySelected');
     setState(() {
       _selectedEvents = events;
+      _selectedDay = day;
     });
   }
 
@@ -270,6 +273,9 @@ class _ManagerVocationsCalendarPageState
   }
 
   void _showVocationReason(ManagerGroupEmployeeVocationDto vocation) {
+    String employeeInfo = utf8.decode(vocation.employeeInfo.runes.toList()) +
+        ' ' +
+        LanguageUtil.findFlagByNationality(vocation.employeeNationality);
     slideDialog.showSlideDialog(
       context: context,
       backgroundColor: DARK,
@@ -277,10 +283,7 @@ class _ManagerVocationsCalendarPageState
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            text20WhiteBold(utf8.decode(vocation.employeeInfo.runes.toList()) +
-                ' ' +
-                LanguageUtil.findFlagByNationality(
-                    vocation.employeeNationality)),
+            text20WhiteBold(employeeInfo),
             SizedBox(height: 10),
             vocation.verified
                 ? Row(
@@ -290,12 +293,22 @@ class _ManagerVocationsCalendarPageState
                       iconGreen(Icons.check),
                     ],
                   )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                : Column(
                     children: [
-                      text16RedBold('Vocations are NOT VERIFIED!'),
-                      SizedBox(width: 2),
-                      iconRed(Icons.cancel),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          text16RedBold('Vocations are NOT VERIFIED!'),
+                          SizedBox(width: 2),
+                          iconRed(Icons.cancel),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildVerifyButton(employeeInfo, vocation.id),
+                        ],
+                      ),
                     ],
                   ),
             SizedBox(height: 10),
@@ -308,5 +321,85 @@ class _ManagerVocationsCalendarPageState
         ),
       ),
     );
+  }
+
+  Widget _buildVerifyButton(String employeeInfo, int vocationId) {
+    return MaterialButton(
+      color: GREEN,
+      child: textDarkBold('TAP TO VERIFY'),
+      onPressed: () => _showConfirmationDialog(
+          'Confirmation',
+          'Are you sure u want to verify',
+          _selectedDay.toString().substring(0, 10) + ' vocation day for',
+          employeeInfo,
+          () => verifyVocation(vocationId)),
+    );
+  }
+
+  void _showConfirmationDialog(String title, String firstContent,
+      String secondContent, String employeeInfo, Function() fun) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: DARK,
+          title: textGreenBold(title),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                textCenterWhite(firstContent),
+                SizedBox(height: 2),
+                textCenterWhite(secondContent),
+                SizedBox(height: 2),
+                textCenterWhite(employeeInfo + '?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: textGreen('Yes, I want to verify'),
+              onPressed: () => fun(),
+            ),
+            FlatButton(
+                child: textRed(getTranslated(context, 'no')),
+                onPressed: () => Navigator.of(context).pop()),
+          ],
+        );
+      },
+    );
+  }
+
+  void verifyVocation(int vocationId) {
+    _vocationService
+        .updateVocationVerification(vocationId, true, _model.user.authHeader)
+        .then(
+          (value) => {
+            _refresh(),
+            Navigator.of(context).pop(),
+            ToastService.showSuccessToast('Vocation verified successfully!'),
+          },
+        );
+  }
+
+  Future<Null> _refresh() {
+    return _service
+        .findTimesheetsWithVocationsByGroupId(
+            _model.groupId.toString(), _model.user.authHeader)
+        .then((res) {
+      setState(() {
+        _loading = false;
+        res.forEach((key, value) {
+          _events[key] = value;
+        });
+        DateTime currentDate =
+            DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+        _selectedEvents = _events[currentDate] ?? [];
+        _animationController = AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 400),
+        );
+        _animationController.forward();
+      });
+    });
   }
 }
