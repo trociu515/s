@@ -7,6 +7,7 @@ import 'package:give_job/manager/dto/manager_employee_contact_dto.dart';
 import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
 import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
+import 'package:give_job/manager/dto/manager_group_employee_vocation_dto.dart';
 import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
 import 'package:give_job/manager/dto/manager_vocations_ts_dto.dart';
 import 'package:give_job/shared/libraries/constants.dart';
@@ -82,6 +83,22 @@ class ManagerService {
         ? (json.decode(res.body) as List)
             .map((data) => ManagerGroupTimesheetDto.fromJson(data))
             .toList()
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
+  Future<Map<DateTime, List<ManagerGroupEmployeeVocationDto>>>
+      findTimesheetsWithVocationsByGroupId(
+          String groupId, String authHeader) async {
+    Response res = await get(
+      _baseTimesheetUrl + '/groups-with-vocations/${int.parse(groupId)}',
+      headers: {HttpHeaders.authorizationHeader: authHeader},
+    );
+    return res.statusCode == 200
+        ? (json.decode(res.body) as Map).map((key, value) => MapEntry(
+            DateTime.parse(key),
+            (value as List)
+                .map((data) => ManagerGroupEmployeeVocationDto.fromJson(data))
+                .toList()))
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 

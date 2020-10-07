@@ -115,6 +115,7 @@ Text text20GreenBold(String text) { return Text(text, style: TextStyle(fontSize:
 /////////////////////
 Text text13Red(String text) { return Text(text, style: TextStyle(fontSize: 13, color: Colors.red)); }
 Text text16RedBold(String text) { return Text(text, style: TextStyle(fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold)); }
+Text text20RedBold(String text) { return Text(text, style: TextStyle(fontSize: 20, color: Colors.red, fontWeight: FontWeight.bold)); }
 
 
 /////////////////////
