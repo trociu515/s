@@ -11,10 +11,12 @@ import 'package:give_job/manager/manager_side_bar.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/util/language_util.dart';
+import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 import '../../manager_app_bar.dart';
 import '../manager_groups_page.dart';
+import 'edit/manager_group_details_edit_page.dart';
 import 'employee/manager_employees_page.dart';
 
 class ManagerGroupDetailsPage extends StatefulWidget {
@@ -101,6 +103,21 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
                                         _model.countryOfWork.toString())),
                             alignment: Alignment.topLeft),
                       ],
+                    ),
+                    trailing: Ink(
+                      decoration:
+                          ShapeDecoration(color: GREEN, shape: CircleBorder()),
+                      child: IconButton(
+                        icon: iconDark(Icons.border_color),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ManagerGroupDetailsEditPage(_model)),
+                          );
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),
