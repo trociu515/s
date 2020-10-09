@@ -26,19 +26,19 @@ import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 import '../../../../../manager_app_bar.dart';
 import '../../../../../manager_side_bar.dart';
 
-class ManagerVocationsArrangePage extends StatefulWidget {
+class ManagerVocationsManagePage extends StatefulWidget {
   final GroupEmployeeModel _model;
   final ManagerGroupTimesheetWithNoStatusDto _timeSheet;
 
-  ManagerVocationsArrangePage(this._model, this._timeSheet);
+  ManagerVocationsManagePage(this._model, this._timeSheet);
 
   @override
-  _ManagerVocationsArrangePageState createState() =>
-      _ManagerVocationsArrangePageState();
+  _ManagerVocationsManagePageState createState() =>
+      _ManagerVocationsManagePageState();
 }
 
-class _ManagerVocationsArrangePageState
-    extends State<ManagerVocationsArrangePage> {
+class _ManagerVocationsManagePageState
+    extends State<ManagerVocationsManagePage> {
   final ManagerService _managerService = new ManagerService();
 
   GroupEmployeeModel _model;
@@ -88,7 +88,7 @@ class _ManagerVocationsArrangePageState
       home: Scaffold(
         backgroundColor: DARK,
         appBar:
-            managerAppBar(context, _model.user, 'Arrange employees vocations'),
+            managerAppBar(context, _model.user, 'Manage employees vocations'),
         drawer: managerSideBar(context, _model.user),
         body: RefreshIndicator(
           color: DARK,
@@ -241,11 +241,11 @@ class _ManagerVocationsArrangePageState
               Expanded(
                 child: MaterialButton(
                   color: GREEN,
-                  child: textDarkBold('Arrange'),
+                  child: textDarkBold('Manage'),
                   onPressed: () => {
                     if (_selectedIds.isNotEmpty)
                       {
-                        _arrangeVocations(),
+                        _manageVocations(),
                       }
                     else
                       {_showHint()}
@@ -262,7 +262,7 @@ class _ManagerVocationsArrangePageState
     );
   }
 
-  void _arrangeVocations() async {
+  void _manageVocations() async {
     int year = _timesheet.year;
     int monthNum =
         MonthUtil.findMonthNumberByMonthName(context, _timesheet.month);
@@ -377,7 +377,7 @@ class _ManagerVocationsArrangePageState
                                 _refresh();
                                 Navigator.of(context).pop();
                                 ToastService.showSuccessToast(
-                                    'Vocations arranged successfully!');
+                                    'Vocations managed successfully!');
                               },
                             );
                           },
@@ -413,7 +413,7 @@ class _ManagerVocationsArrangePageState
             text20GreenBold(getTranslated(context, 'hint')),
             SizedBox(height: 10),
             textCenter20White('U need to select employees to be' + ' '),
-            textCenter20White('able to choose vacation dates for them'),
+            textCenter20White('able to manage/remove vocations for them'),
           ],
         ),
       ),

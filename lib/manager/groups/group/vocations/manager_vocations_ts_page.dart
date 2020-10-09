@@ -6,8 +6,8 @@ import 'package:give_job/internationalization/localization/localization_constant
 import 'package:give_job/manager/dto/manager_group_timesheet_with_no_status_dto.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
-import 'package:give_job/manager/groups/group/vocations/timesheets/arrange/manager_vocations_arrange_page.dart';
 import 'package:give_job/manager/groups/group/vocations/timesheets/calendar/manager_vocations_calendar_page.dart';
+import 'package:give_job/manager/groups/group/vocations/timesheets/manage/manager_vocations_manage_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/manager/shimmer/shimmer_manager_vocations_timesheets.dart';
 import 'package:give_job/shared/libraries/colors.dart';
@@ -183,14 +183,14 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
               Expanded(
                 child: MaterialButton(
                   color: GREEN,
-                  child: textDarkBold('Arrange'),
+                  child: textDarkBold('Manage'),
                   onPressed: () => {
                     if (_currentRadioElement != null)
                       {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ManagerVocationsArrangePage(
+                              builder: (context) => ManagerVocationsManagePage(
                                   _model,
                                   _inProgressTimesheets[
                                       _currentRadioElement.index])),
