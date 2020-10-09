@@ -57,8 +57,8 @@ class WorkdayUtil {
             text20GreenBold(getTranslated(context, 'vocationReason')),
             SizedBox(height: 20),
             verified
-                ? text16GreenBold(getTranslated(context, 'verified'))
-                : text16RedBold(getTranslated(context, 'notVerified')),
+                ? text16GreenBold(getTranslated(context, 'verifiedUpperCase'))
+                : text16RedBold(getTranslated(context, 'notVerifiedUpperCase')),
             SizedBox(height: 20),
             text20White(vocationReason != null
                 ? utf8.decode(vocationReason.runes.toList())
