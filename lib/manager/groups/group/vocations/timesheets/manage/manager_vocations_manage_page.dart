@@ -248,10 +248,24 @@ class _ManagerVocationsManagePageState
                         _manageVocations(),
                       }
                     else
-                      {_showHint()}
+                      {_showHint('manage')}
                   },
                 ),
               ),
+              SizedBox(width: 1),
+              Expanded(
+                  child: MaterialButton(
+                color: Colors.red,
+                child: textWhiteBold('Remove'),
+                onPressed: () => {
+                  if (_selectedIds.isNotEmpty)
+                    {
+                      _removeVocations(),
+                    }
+                  else
+                    {_showHint('remove')}
+                },
+              )),
               SizedBox(width: 1),
             ],
           ),
@@ -394,6 +408,76 @@ class _ManagerVocationsManagePageState
     }
   }
 
+  void _removeVocations() async {
+    int year = _timesheet.year;
+    int monthNum =
+        MonthUtil.findMonthNumberByMonthName(context, _timesheet.month);
+    int days = DateUtil().daysInMonth(monthNum, year);
+    final List<DateTime> picked = await DateRagePicker.showDatePicker(
+        context: context,
+        initialFirstDate: new DateTime(year, monthNum, 1),
+        initialLastDate: new DateTime(year, monthNum, days),
+        firstDate: new DateTime(year, monthNum, 1),
+        lastDate: new DateTime(year, monthNum, days));
+    if (picked.length == 1) {
+      picked.add(picked[0]);
+    }
+    if (picked != null && picked.length == 2) {
+      String dateFrom = DateFormat('yyyy-MM-dd').format(picked[0]);
+      String dateTo = DateFormat('yyyy-MM-dd').format(picked[1]);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: DARK,
+            title: textRed('REMOVE Vocations'),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  textCenterWhite('Are you sure u want to remove'),
+                  SizedBox(height: 2),
+                  textCenterWhite('vocations for selected employees'),
+                  SizedBox(height: 2),
+                  textCenterWhite('from $dateFrom to $dateTo?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: textRed('Yes, I want to remove'),
+                onPressed: () => {
+                  _managerService
+                      .removeEmployeesVocations(
+                          dateFrom,
+                          dateTo,
+                          _selectedIds,
+                          _timesheet.year,
+                          MonthUtil.findMonthNumberByMonthName(
+                              context, _timesheet.month),
+                          STATUS_IN_PROGRESS,
+                          _model.user.authHeader)
+                      .then(
+                    (res) {
+                      _uncheckAll();
+                      _refresh();
+                      Navigator.of(context).pop();
+                      ToastService.showSuccessToast(
+                          'Vocations removed successfully!');
+                    },
+                  ),
+                },
+              ),
+              FlatButton(
+                child: textGreen(getTranslated(context, 'no')),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   void _uncheckAll() {
     _selectedIds.clear();
     _isChecked = false;
@@ -402,7 +486,7 @@ class _ManagerVocationsManagePageState
     _checked = l;
   }
 
-  void _showHint() {
+  void _showHint(String operationName) {
     slideDialog.showSlideDialog(
       context: context,
       backgroundColor: DARK,
@@ -413,7 +497,7 @@ class _ManagerVocationsManagePageState
             text20GreenBold(getTranslated(context, 'hint')),
             SizedBox(height: 10),
             textCenter20White('U need to select employees to be' + ' '),
-            textCenter20White('able to manage/remove vocations for them'),
+            textCenter20White('able to $operationName vocations for them'),
           ],
         ),
       ),

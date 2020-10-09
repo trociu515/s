@@ -87,8 +87,9 @@ class ManagerService {
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
 
-  Future<List<ManagerGroupTimesheetWithNoStatusDto>> findInProgressTimesheetsByGroupId(
-      String groupId, String authHeader) async {
+  Future<List<ManagerGroupTimesheetWithNoStatusDto>>
+      findInProgressTimesheetsByGroupId(
+          String groupId, String authHeader) async {
     Response res = await get(
       _baseTimesheetUrl + '/groups/${int.parse(groupId)}/in-progress',
       headers: {HttpHeaders.authorizationHeader: authHeader},
@@ -353,6 +354,35 @@ class ManagerService {
     };
     Response res = await put(
       _baseWorkdayUrl + '/group/opinion',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
+
+  Future<dynamic> removeEmployeesVocations(
+      String dateFrom,
+      String dateTo,
+      Set<int> employeesId,
+      int timesheetYear,
+      int timesheetMonth,
+      String timesheetStatus,
+      String authHeader) async {
+    Map<String, dynamic> map = {
+      'dateFrom': dateFrom,
+      'dateTo': dateTo,
+      'employeesId': employeesId.map((el) => el.toInt()).toList(),
+      'timesheetYear': timesheetYear,
+      'timesheetMonth': timesheetMonth,
+      'timesheetStatus': timesheetStatus,
+    };
+    Response res = await put(
+      _baseWorkdayUrl + '/group/remove-vocations',
       body: jsonEncode(map),
       headers: {
         HttpHeaders.authorizationHeader: authHeader,
