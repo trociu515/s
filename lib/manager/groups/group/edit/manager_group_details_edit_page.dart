@@ -10,7 +10,6 @@ import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/service/validator_service.dart';
-import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
@@ -68,15 +67,6 @@ class _ManagerGroupDetailsEditPageState
                         title: text18WhiteBold('Description'),
                         subtitle: text16White(_model.groupDescription),
                       ),
-                      ListTile(
-                          title: text18WhiteBold(
-                              getTranslated(context, 'groupCountryOfWork')),
-                          subtitle: text16White(
-                              LanguageUtil.findFlagByNationality(
-                                      _model.countryOfWork.toString()) +
-                                  ' ' +
-                                  LanguageUtil.convertShortNameToFullName(
-                                      context, _model.countryOfWork))),
                     ],
                   ),
                 ),
@@ -92,8 +82,6 @@ class _ManagerGroupDetailsEditPageState
                     'Description',
                     () => _updateGroupDescription(
                         context, _model.groupDescription)),
-                _buildButton(
-                    'Country of work', () => _updateGroupCountryOfWork()),
               ],
             ),
           ),
@@ -362,8 +350,6 @@ class _ManagerGroupDetailsEditPageState
       },
     );
   }
-
-  _updateGroupCountryOfWork() {}
 
   _errorDialog(BuildContext context, String content) {
     return showDialog(
