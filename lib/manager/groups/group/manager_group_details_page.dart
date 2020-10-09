@@ -35,6 +35,7 @@ class _ManagerGroupDetailsPageState extends State<ManagerGroupDetailsPage> {
   @override
   Widget build(BuildContext context) {
     this._model = widget._model;
+    //print('fsdfds: ' + utf8.decode(_model.groupDescription.runes.toList()));
     return WillPopScope(
       child: MaterialApp(
         title: APP_NAME,

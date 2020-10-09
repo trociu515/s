@@ -23,4 +23,20 @@ class ManagerGroupService {
         ? res
         : res.statusCode == 400 ? Future.error(res.body) : null;
   }
+
+  Future<dynamic> updateGroupDescription(
+      int id, String description, String authHeader) async {
+    Map<String, dynamic> map = {'id': id, 'description': description};
+    Response res = await put(
+      _baseGroupUrl + '/description',
+      body: jsonEncode(map),
+      headers: {
+        HttpHeaders.authorizationHeader: authHeader,
+        "content-type": "application/json"
+      },
+    );
+    return res.statusCode == 200
+        ? res
+        : res.statusCode == 400 ? Future.error(res.body) : null;
+  }
 }

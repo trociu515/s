@@ -60,4 +60,14 @@ class ValidatorService {
     }
     return null;
   }
+
+  static String validateUpdatingGroupDescription(
+      String groupDescription, BuildContext context) {
+    if (groupDescription.isEmpty) {
+      return 'Group description cannot be empty';
+    } else if (groupDescription.length > 100) {
+      return 'Group description length cannot be higher than 100';
+    }
+    return null;
+  }
 }

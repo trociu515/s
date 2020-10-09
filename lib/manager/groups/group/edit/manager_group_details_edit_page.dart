@@ -62,20 +62,11 @@ class _ManagerGroupDetailsEditPageState
                       SizedBox(height: 10),
                       ListTile(
                         title: text18WhiteBold(getTranslated(context, 'name')),
-                        subtitle: text16White(
-                          utf8.decode(
-                            _model.groupName != null
-                                ? _model.groupName.runes.toList()
-                                : getTranslated(context, 'empty'),
-                          ),
-                        ),
+                        subtitle: text16White(_model.groupName),
                       ),
                       ListTile(
                         title: text18WhiteBold('Description'),
-                        subtitle: text16White(utf8.decode(
-                            _model.groupDescription != null
-                                ? _model.groupDescription.runes.toList()
-                                : getTranslated(context, 'empty'))),
+                        subtitle: text16White(_model.groupDescription),
                       ),
                       ListTile(
                           title: text18WhiteBold(
@@ -97,7 +88,10 @@ class _ManagerGroupDetailsEditPageState
                 ),
                 _buildButton(getTranslated(context, 'name'),
                     () => _updateGroupName(context, _model.groupName)),
-                _buildButton('Description', () => _updateGroupDescription()),
+                _buildButton(
+                    'Description',
+                    () => _updateGroupDescription(
+                        context, _model.groupDescription)),
                 _buildButton(
                     'Country of work', () => _updateGroupCountryOfWork()),
               ],
@@ -215,14 +209,14 @@ class _ManagerGroupDetailsEditPageState
                             ToastService.showErrorToast(invalidMessage);
                             return;
                           }
-                          _model.groupName = groupName;
                           _managerGroupService
-                              .updateGroupName(_model.groupId, _model.groupName,
+                              .updateGroupName(_model.groupId, groupName,
                                   _model.user.authHeader)
                               .then(
                                 (res) => {
                                   ToastService.showSuccessToast(
                                       'Group name updated successfully!'),
+                                  _model.groupName = groupName,
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -254,7 +248,120 @@ class _ManagerGroupDetailsEditPageState
     );
   }
 
-  _updateGroupDescription() {}
+  _updateGroupDescription(BuildContext context, String groupDescription) {
+    TextEditingController _groupDescriptionController =
+        new TextEditingController();
+    _groupDescriptionController.text = groupDescription;
+    showGeneralDialog(
+      context: context,
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: 'Group description',
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: text20GreenBold('GROUP DESCRIPTION')),
+                  SizedBox(height: 2.5),
+                  textGreen('Set new description for group'),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: TextFormField(
+                      autofocus: false,
+                      controller: _groupDescriptionController,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: 100,
+                      maxLines: 3,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        hintText: 'Text some group description ...',
+                        hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
+                        counterStyle: TextStyle(color: WHITE),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        minWidth: 40,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.close)],
+                        ),
+                        color: Colors.red,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      SizedBox(width: 25),
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.check)],
+                        ),
+                        color: GREEN,
+                        onPressed: () {
+                          String groupDescription =
+                              _groupDescriptionController.text;
+                          String invalidMessage =
+                              ValidatorService.validateUpdatingGroupDescription(
+                                  groupDescription, context);
+                          if (invalidMessage != null) {
+                            ToastService.showErrorToast(invalidMessage);
+                            return;
+                          }
+                          _managerGroupService
+                              .updateGroupDescription(_model.groupId,
+                                  groupDescription, _model.user.authHeader)
+                              .then(
+                                (res) => {
+                                  ToastService.showSuccessToast(
+                                      'Group description updated successfully!'),
+                                  _model.groupDescription = groupDescription,
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ManagerGroupDetailsPage(_model),
+                                    ),
+                                  ),
+                                },
+                              );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   _updateGroupCountryOfWork() {}
 
