@@ -5,14 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
-import 'package:give_job/manager/service/manager_service.dart';
+import 'package:give_job/manager/service/manager_group_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
+import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 
 import '../../../manager_app_bar.dart';
 import '../../../manager_side_bar.dart';
+import '../manager_group_details_page.dart';
 
 class ManagerGroupDetailsEditPage extends StatefulWidget {
   final GroupEmployeeModel _model;
@@ -26,7 +30,7 @@ class ManagerGroupDetailsEditPage extends StatefulWidget {
 
 class _ManagerGroupDetailsEditPageState
     extends State<ManagerGroupDetailsEditPage> {
-  final ManagerService _managerService = new ManagerService();
+  final ManagerGroupService _managerGroupService = new ManagerGroupService();
   GroupEmployeeModel _model;
 
   @override
@@ -91,8 +95,8 @@ class _ManagerGroupDetailsEditPageState
                   child: textCenter14Green(
                       'Hint: Click the buttons below and edit the group details'),
                 ),
-                _buildButton(
-                    getTranslated(context, 'name'), () => _updateGroupName()),
+                _buildButton(getTranslated(context, 'name'),
+                    () => _updateGroupName(context, _model.groupName)),
                 _buildButton('Description', () => _updateGroupDescription()),
                 _buildButton(
                     'Country of work', () => _updateGroupCountryOfWork()),
@@ -128,9 +132,155 @@ class _ManagerGroupDetailsEditPageState
     );
   }
 
-  _updateGroupName() {}
+  void _updateGroupName(BuildContext context, String groupName) {
+    TextEditingController _groupNameController = new TextEditingController();
+    _groupNameController.text = groupName;
+    showGeneralDialog(
+      context: context,
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: 'Group name',
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: text20GreenBold('GROUP NAME')),
+                  SizedBox(height: 2.5),
+                  textGreen('Set new name for group'),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: TextFormField(
+                      autofocus: false,
+                      controller: _groupNameController,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: 26,
+                      maxLines: 1,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        hintText: 'Text some group name ...',
+                        hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
+                        counterStyle: TextStyle(color: WHITE),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        minWidth: 40,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.close)],
+                        ),
+                        color: Colors.red,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      SizedBox(width: 25),
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.check)],
+                        ),
+                        color: GREEN,
+                        onPressed: () {
+                          String groupName = _groupNameController.text;
+                          String invalidMessage =
+                              ValidatorService.validateUpdatingGroupName(
+                                  groupName, context);
+                          if (invalidMessage != null) {
+                            ToastService.showErrorToast(invalidMessage);
+                            return;
+                          }
+                          _model.groupName = groupName;
+                          _managerGroupService
+                              .updateGroupName(_model.groupId, _model.groupName,
+                                  _model.user.authHeader)
+                              .then(
+                                (res) => {
+                                  ToastService.showSuccessToast(
+                                      'Group name updated successfully!'),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ManagerGroupDetailsPage(_model),
+                                    ),
+                                  ),
+                                },
+                              )
+                              .catchError(
+                            (onError) {
+                              String s = onError.toString();
+                              if (s.contains('GROUP_NAME_TAKEN')) {
+                                _errorDialog(context,
+                                    'Provided group name is currently in use, please select another name');
+                              }
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   _updateGroupDescription() {}
 
   _updateGroupCountryOfWork() {}
+
+  _errorDialog(BuildContext context, String content) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: DARK,
+          title: textGreen(getTranslated(context, 'error')),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                textWhite(content),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: textWhite(getTranslated(context, 'close')),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

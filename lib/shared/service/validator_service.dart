@@ -50,4 +50,14 @@ class ValidatorService {
         ? getTranslated(context, 'wrongPlanLength')
         : null;
   }
+
+  static String validateUpdatingGroupName(
+      String groupName, BuildContext context) {
+    if (groupName.isEmpty) {
+      return 'Group name cannot be empty';
+    } else if (groupName.length > 26) {
+      return 'Group name length cannot be higher than 26';
+    }
+    return null;
+  }
 }
