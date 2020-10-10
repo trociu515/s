@@ -54,9 +54,9 @@ class ValidatorService {
   static String validateUpdatingGroupName(
       String groupName, BuildContext context) {
     if (groupName.isEmpty) {
-      return 'Group name cannot be empty';
+      return getTranslated(context, 'groupNameCannotBeEmpty');
     } else if (groupName.length > 26) {
-      return 'Group name length cannot be higher than 26';
+      return getTranslated(context, 'groupNameWrongLength');
     }
     return null;
   }
@@ -64,9 +64,9 @@ class ValidatorService {
   static String validateUpdatingGroupDescription(
       String groupDescription, BuildContext context) {
     if (groupDescription.isEmpty) {
-      return 'Group description cannot be empty';
+      return getTranslated(context, 'groupDescriptionCannotBeEmpty');
     } else if (groupDescription.length > 100) {
-      return 'Group description length cannot be higher than 100';
+      return getTranslated(context, 'groupDescriptionWrongLength');
     }
     return null;
   }

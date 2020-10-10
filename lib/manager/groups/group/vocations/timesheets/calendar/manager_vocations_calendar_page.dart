@@ -99,9 +99,10 @@ class _ManagerVocationsCalendarPageState
         element.year == currentDate.year && element.month == currentDate.month);
     if (vocationsInCurrentMonth) {
       ToastService.showToast(
-          'There are some planned vocations in current month!');
+          getTranslated(context, 'plannedVocationsInCurrentMonth'));
     } else {
-      ToastService.showToast('There are NO vocations for the current month!');
+      ToastService.showToast(
+          getTranslated(context, 'noVocationsForCurrentMonth'));
     }
   }
 
@@ -116,7 +117,8 @@ class _ManagerVocationsCalendarPageState
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar: managerAppBar(context, _model.user, 'Vocations calendar'),
+        appBar: managerAppBar(
+            context, _model.user, getTranslated(context, 'vocationsCalendar')),
         drawer: managerSideBar(context, _model.user),
         body: Column(
           mainAxisSize: MainAxisSize.max,
@@ -258,7 +260,7 @@ class _ManagerVocationsCalendarPageState
           ' ' +
           LanguageUtil.findFlagByNationality(vocation.employeeNationality)),
       leading: iconGreen(Icons.check),
-      subtitle: text16GreenBold('Vocations are VERIFIED!'),
+      subtitle: text16GreenBold(getTranslated(context, 'vocationsAreVerified')),
     );
   }
 
@@ -268,7 +270,8 @@ class _ManagerVocationsCalendarPageState
           ' ' +
           LanguageUtil.findFlagByNationality(vocation.employeeNationality)),
       leading: iconRed(Icons.cancel),
-      subtitle: text16RedBold('Vocations are NOT VERIFIED!'),
+      subtitle:
+          text16RedBold(getTranslated(context, 'vocationsAreNotVerified')),
     );
   }
 
@@ -291,7 +294,8 @@ class _ManagerVocationsCalendarPageState
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          text16GreenBold('Vocations are VERIFIED!'),
+                          text16GreenBold(
+                              getTranslated(context, 'vocationsAreVerified')),
                           SizedBox(width: 2),
                           iconGreen(Icons.check),
                         ],
@@ -309,7 +313,8 @@ class _ManagerVocationsCalendarPageState
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          text16RedBold('Vocations are NOT VERIFIED!'),
+                          text16RedBold(getTranslated(
+                              context, 'vocationsAreNotVerified')),
                           SizedBox(width: 2),
                           iconRed(Icons.cancel),
                         ],
@@ -337,13 +342,15 @@ class _ManagerVocationsCalendarPageState
   Widget _buildVerifyButton(String employeeInfo, int vocationId) {
     return MaterialButton(
       color: GREEN,
-      child: textDarkBold('TAP TO VERIFY'),
+      child: textDarkBold(getTranslated(context, 'tapToVerify')),
       onPressed: () => _showConfirmationDialog(
-          'Confirmation',
-          'Are you sure u want to verify',
-          _selectedDay.toString().substring(0, 10) + ' vocation day for',
+          getTranslated(context, 'confirmation'),
+          getTranslated(context, 'areYouSureYouWantToVerify'),
+          _selectedDay.toString().substring(0, 10) +
+              ' ' +
+              getTranslated(context, 'vocationDayFor'),
           employeeInfo,
-          textGreen('Yes, I want to verify'),
+          textGreen(getTranslated(context, 'verifyConfirmation')),
           textRed(getTranslated(context, 'no')),
           () => verifyVocation(vocationId)),
     );
@@ -356,7 +363,8 @@ class _ManagerVocationsCalendarPageState
           (value) => {
             _refresh(),
             Navigator.of(context).pop(),
-            ToastService.showSuccessToast('Vocation verified successfully!'),
+            ToastService.showSuccessToast(
+                getTranslated(context, 'vocationVerifiedSuccessfully')),
           },
         );
   }
@@ -366,13 +374,13 @@ class _ManagerVocationsCalendarPageState
         _selectedDay != null ? _selectedDay.toString().substring(0, 10) : '-';
     return MaterialButton(
       color: Colors.red,
-      child: textDarkBold('TAP TO REMOVE VOCATION'),
+      child: textDarkBold(getTranslated(context, 'tapToRemoveVocation')),
       onPressed: () => _showConfirmationDialog(
-          'Confirmation',
-          'Are you sure u want to delete',
-          currentDate + ' vocation day for',
+          getTranslated(context, 'confirmation'),
+          getTranslated(context, 'areYouSureYouWantToDelete'),
+          currentDate + ' ' + getTranslated(context, 'vocationDayFor'),
           employeeInfo,
-          textRed('Yes, I want to remove vocation'),
+          textRed(getTranslated(context, 'removeVocationConfirmation')),
           textGreen(getTranslated(context, 'no')),
           () => removeVocation(vocationId)),
     );
@@ -383,7 +391,8 @@ class _ManagerVocationsCalendarPageState
           (value) => {
             _refresh(),
             Navigator.of(context).pop(),
-            ToastService.showSuccessToast('Vocation removed successfully!'),
+            ToastService.showSuccessToast(
+                getTranslated(context, 'vocationRemovedSuccessfully')),
           },
         );
   }

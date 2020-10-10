@@ -44,7 +44,7 @@ class _ManagerGroupDetailsEditPageState
         appBar: managerAppBar(
             context,
             _model.user,
-            'Edit group' +
+            getTranslated(context, 'editGroup') +
                 ' - ' +
                 utf8.decode(_model.groupName != null
                     ? _model.groupName.runes.toList()
@@ -60,11 +60,12 @@ class _ManagerGroupDetailsEditPageState
                     children: <Widget>[
                       SizedBox(height: 10),
                       ListTile(
-                        title: text18WhiteBold(getTranslated(context, 'name')),
+                        title: text18WhiteBold(getTranslated(context, 'groupName')),
                         subtitle: text16White(_model.groupName),
                       ),
                       ListTile(
-                        title: text18WhiteBold('Description'),
+                        title: text18WhiteBold(
+                            getTranslated(context, 'groupDescription')),
                         subtitle: text16White(_model.groupDescription),
                       ),
                     ],
@@ -74,12 +75,12 @@ class _ManagerGroupDetailsEditPageState
                   padding:
                       EdgeInsets.only(right: 20, left: 20, top: 10, bottom: 10),
                   child: textCenter14Green(
-                      'Hint: Click the buttons below and edit the group details'),
+                      getTranslated(context, 'hintEditGroupDetails')),
                 ),
-                _buildButton(getTranslated(context, 'name'),
+                _buildButton(getTranslated(context, 'groupName'),
                     () => _updateGroupName(context, _model.groupName)),
                 _buildButton(
-                    'Description',
+                    getTranslated(context, 'groupDescription'),
                     () => _updateGroupDescription(
                         context, _model.groupDescription)),
               ],
@@ -121,7 +122,7 @@ class _ManagerGroupDetailsEditPageState
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Group name',
+      barrierLabel: getTranslated(context, 'groupName'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -133,9 +134,10 @@ class _ManagerGroupDetailsEditPageState
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('GROUP NAME')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'groupNameUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Set new name for group'),
+                  textGreen(getTranslated(context, 'setNewNameForGroup')),
                   SizedBox(height: 20),
                   Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
@@ -149,7 +151,7 @@ class _ManagerGroupDetailsEditPageState
                       textAlignVertical: TextAlignVertical.center,
                       style: TextStyle(color: WHITE),
                       decoration: InputDecoration(
-                        hintText: 'Text some group name ...',
+                        hintText: getTranslated(context, 'textSomeGroupName'),
                         hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
                         counterStyle: TextStyle(color: WHITE),
                         focusedBorder: OutlineInputBorder(
@@ -202,8 +204,8 @@ class _ManagerGroupDetailsEditPageState
                                   _model.user.authHeader)
                               .then(
                                 (res) => {
-                                  ToastService.showSuccessToast(
-                                      'Group name updated successfully!'),
+                                  ToastService.showSuccessToast(getTranslated(
+                                      context, 'groupNameUpdatedSuccessfully')),
                                   _model.groupName = groupName,
                                   Navigator.push(
                                     context,
@@ -218,8 +220,10 @@ class _ManagerGroupDetailsEditPageState
                             (onError) {
                               String s = onError.toString();
                               if (s.contains('GROUP_NAME_TAKEN')) {
-                                _errorDialog(context,
-                                    'Provided group name is currently in use, please select another name');
+                                _errorDialog(
+                                    context,
+                                    getTranslated(
+                                        context, 'groupNameNeedToBeUnique'));
                               }
                             },
                           );
@@ -244,7 +248,7 @@ class _ManagerGroupDetailsEditPageState
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Group description',
+      barrierLabel: getTranslated(context, 'groupDescription'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -256,9 +260,11 @@ class _ManagerGroupDetailsEditPageState
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(top: 50),
-                      child: text20GreenBold('GROUP DESCRIPTION')),
+                      child: text20GreenBold(
+                          getTranslated(context, 'groupDescriptionUpperCase'))),
                   SizedBox(height: 2.5),
-                  textGreen('Set new description for group'),
+                  textGreen(
+                      getTranslated(context, 'setNewDescriptionForGroup')),
                   SizedBox(height: 20),
                   Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
@@ -272,7 +278,8 @@ class _ManagerGroupDetailsEditPageState
                       textAlignVertical: TextAlignVertical.center,
                       style: TextStyle(color: WHITE),
                       decoration: InputDecoration(
-                        hintText: 'Text some group description ...',
+                        hintText:
+                            getTranslated(context, 'textSomeGroupDescription'),
                         hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
                         counterStyle: TextStyle(color: WHITE),
                         focusedBorder: OutlineInputBorder(
@@ -326,8 +333,9 @@ class _ManagerGroupDetailsEditPageState
                                   groupDescription, _model.user.authHeader)
                               .then(
                                 (res) => {
-                                  ToastService.showSuccessToast(
-                                      'Group description updated successfully!'),
+                                  ToastService.showSuccessToast(getTranslated(
+                                      context,
+                                      'groupDescriptionUpdatedSuccessfully')),
                                   _model.groupDescription = groupDescription,
                                   Navigator.push(
                                     context,

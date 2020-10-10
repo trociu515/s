@@ -87,8 +87,8 @@ class _ManagerVocationsManagePageState
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: DARK,
-        appBar:
-            managerAppBar(context, _model.user, 'Manage employees vocations'),
+        appBar: managerAppBar(context, _model.user,
+            getTranslated(context, 'manageEmployeesVocations')),
         drawer: managerSideBar(context, _model.user),
         body: RefreshIndicator(
           color: DARK,
@@ -108,8 +108,8 @@ class _ManagerVocationsManagePageState
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    child: textCenter14Green(
-                        'Hint: select employees and then press the button at the bottom to select the dates of the vocations'),
+                    child: textCenter14Green(getTranslated(
+                        context, 'hintSelectEmployeesAndDatesOfVocations')),
                   ),
                 ],
               ),
@@ -241,14 +241,14 @@ class _ManagerVocationsManagePageState
               Expanded(
                 child: MaterialButton(
                   color: GREEN,
-                  child: textDarkBold('Manage'),
+                  child: textDarkBold(getTranslated(context, 'manage')),
                   onPressed: () => {
                     if (_selectedIds.isNotEmpty)
                       {
                         _manageVocations(),
                       }
                     else
-                      {_showHint('manage')}
+                      {_showHint(getTranslated(context, 'manageLowerCase'))}
                   },
                 ),
               ),
@@ -256,14 +256,14 @@ class _ManagerVocationsManagePageState
               Expanded(
                   child: MaterialButton(
                 color: Colors.red,
-                child: textWhiteBold('Remove'),
+                child: textWhiteBold(getTranslated(context, 'remove')),
                 onPressed: () => {
                   if (_selectedIds.isNotEmpty)
                     {
                       _removeVocations(),
                     }
                   else
-                    {_showHint('remove')}
+                    {_showHint(getTranslated(context, 'removeLowerCase'))}
                 },
               )),
               SizedBox(width: 1),
@@ -297,7 +297,7 @@ class _ManagerVocationsManagePageState
         context: context,
         barrierColor: DARK.withOpacity(0.95),
         barrierDismissible: false,
-        barrierLabel: 'Reason',
+        barrierLabel: getTranslated(context, 'reason'),
         transitionDuration: Duration(milliseconds: 400),
         pageBuilder: (_, __, ___) {
           return SizedBox.expand(
@@ -309,9 +309,11 @@ class _ManagerVocationsManagePageState
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.only(top: 50),
-                        child: text20GreenBold('REASON')),
+                        child: text20GreenBold(
+                            getTranslated(context, 'reasonUpperCase'))),
                     SizedBox(height: 2.5),
-                    textGreen('Vocation for selected employees'),
+                    textGreen(
+                        getTranslated(context, 'vocationForSelectedEmployees')),
                     SizedBox(height: 2.5),
                     textGreenBold('[' + dateFrom + ' - ' + dateTo + ']'),
                     SizedBox(height: 20),
@@ -327,7 +329,7 @@ class _ManagerVocationsManagePageState
                         textAlignVertical: TextAlignVertical.center,
                         style: TextStyle(color: WHITE),
                         decoration: InputDecoration(
-                          hintText: 'Text some reason ...',
+                          hintText: getTranslated(context, 'textSomeReason'),
                           hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
                           counterStyle: TextStyle(color: WHITE),
                           focusedBorder: OutlineInputBorder(
@@ -390,8 +392,8 @@ class _ManagerVocationsManagePageState
                                 _uncheckAll();
                                 _refresh();
                                 Navigator.of(context).pop();
-                                ToastService.showSuccessToast(
-                                    'Vocations managed successfully!');
+                                ToastService.showSuccessToast(getTranslated(
+                                    context, 'vocationManagedSuccessfully'));
                               },
                             );
                           },
@@ -430,21 +432,27 @@ class _ManagerVocationsManagePageState
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: DARK,
-            title: textRed('REMOVE Vocations'),
+            title: textRed(getTranslated(context, 'removeVocations')),
             content: SingleChildScrollView(
               child: Column(
                 children: [
-                  textCenterWhite('Are you sure u want to remove'),
+                  textCenterWhite(
+                      getTranslated(context, 'areYouSureYouWantToRemove')),
                   SizedBox(height: 2),
-                  textCenterWhite('vocations for selected employees'),
+                  textCenterWhite(
+                      getTranslated(context, "vocationsForSelectedEmployees")),
                   SizedBox(height: 2),
-                  textCenterWhite('from $dateFrom to $dateTo?'),
+                  textCenterWhite(getTranslated(context, 'from') +
+                      dateFrom +
+                      getTranslated(context, 'to') +
+                      dateTo +
+                      '?'),
                 ],
               ),
             ),
             actions: <Widget>[
               FlatButton(
-                child: textRed('Yes, I want to remove'),
+                child: textRed(getTranslated(context, 'removeConfirmation')),
                 onPressed: () => {
                   _managerService
                       .removeEmployeesVocations(
@@ -461,8 +469,8 @@ class _ManagerVocationsManagePageState
                       _uncheckAll();
                       _refresh();
                       Navigator.of(context).pop();
-                      ToastService.showSuccessToast(
-                          'Vocations removed successfully!');
+                      ToastService.showSuccessToast(getTranslated(
+                          context, 'vocationsRemovedSuccessfully'));
                     },
                   ),
                 },
@@ -496,8 +504,13 @@ class _ManagerVocationsManagePageState
           children: <Widget>[
             text20GreenBold(getTranslated(context, 'hint')),
             SizedBox(height: 10),
-            textCenter20White('U need to select employees to be' + ' '),
-            textCenter20White('able to $operationName vocations for them'),
+            textCenter20White(
+                getTranslated(context, 'needToSelectEmployeesToBe')),
+            textCenter20White(getTranslated(context, 'ableTo') +
+                ' ' +
+                operationName +
+                ' ' +
+                getTranslated(context, 'vocationsForThem')),
           ],
         ),
       ),

@@ -105,13 +105,13 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10),
-                          child:
-                              textCenter20White('Manage employees vocations'),
+                          child: textCenter20White(getTranslated(
+                              context, 'manageEmployeesVocations')),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10, right: 10),
                           child: textCenter14Green(
-                              'Hint: Select a timesheet and click the button at the bottom to manage employees vocations'),
+                              getTranslated(context, 'hintSelectTsVocations')),
                         ),
                       ],
                     ),
@@ -183,7 +183,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
               Expanded(
                 child: MaterialButton(
                   color: GREEN,
-                  child: textDarkBold('Manage'),
+                  child: textDarkBold(getTranslated(context, 'manage')),
                   onPressed: () => {
                     if (_currentRadioElement != null)
                       {
@@ -205,7 +205,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
               Expanded(
                 child: MaterialButton(
                   color: GREEN,
-                  child: textDarkBold('Verify'),
+                  child: textDarkBold(getTranslated(context, 'verify')),
                   onPressed: () => {
                     if (_currentRadioElement != null)
                       {}
@@ -218,7 +218,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
               Expanded(
                 child: MaterialButton(
                   color: GREEN,
-                  child: textDarkBold('Calendar'),
+                  child: textDarkBold(getTranslated(context, 'calendar')),
                   onPressed: () => {
                     if (_currentRadioElement != null)
                       {
@@ -257,7 +257,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
             text20GreenBold(getTranslated(context, 'hint')),
             SizedBox(height: 20),
             textCenter20White(
-                'You need to select in progress timesheet to manage vocations'),
+                getTranslated(context, 'hintSelectTsManageVocations')),
           ],
         ),
       ),
