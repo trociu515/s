@@ -29,17 +29,18 @@ class ManagerGroupsPage extends StatefulWidget {
 }
 
 class _ManagerGroupsPageState extends State<ManagerGroupsPage> {
-  final ManagerService _managerService = new ManagerService();
   User _user;
+  ManagerService _managerService;
 
   List<ManagerGroupDto> _groups = new List();
 
   @override
   Widget build(BuildContext context) {
     this._user = widget._user;
+    this._managerService = new ManagerService(context, _user.authHeader);
     return WillPopScope(
       child: FutureBuilder<List<ManagerGroupDto>>(
-        future: _managerService.findGroupsManager(_user.id, _user.authHeader),
+        future: _managerService.findGroupsManager(_user.id),
         builder: (BuildContext context,
             AsyncSnapshot<List<ManagerGroupDto>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting ||

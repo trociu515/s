@@ -1,40 +1,48 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:give_job/employee/dto/employee_workday_dto.dart';
 import 'package:give_job/manager/dto/workday_dto.dart';
 import 'package:give_job/shared/libraries/constants.dart';
+import 'package:give_job/shared/service/logout_service.dart';
 import 'package:http/http.dart';
 
 class SharedWorkdayService {
-  final String _baseTimesheetUrl = SERVER_IP + '/mobile/workdays';
+  final BuildContext context;
+  final String authHeader;
 
-  Future<List<WorkdayDto>> findWorkdaysByTimesheetId(
-      String timesheetId, String authHeader) async {
-    Response res = await get(
-      _baseTimesheetUrl + '/${int.parse(timesheetId)}',
-      headers: {HttpHeaders.authorizationHeader: authHeader},
-    );
+  SharedWorkdayService(this.context, this.authHeader);
+
+  static const String _baseTimesheetUrl = SERVER_IP + '/mobile/workdays';
+
+  Future<List<WorkdayDto>> findWorkdaysByTimesheetId(String timesheetId) async {
+    Response res = await get(_baseTimesheetUrl + '/${int.parse(timesheetId)}',
+        headers: {HttpHeaders.authorizationHeader: authHeader});
     if (res.statusCode == 200) {
       return (json.decode(res.body) as List)
           .map((data) => WorkdayDto.fromJson(data))
           .toList();
-    } else if (res.statusCode == 400) {
+    } else if (res.statusCode == 401) {
+      return Logout.handle401WithLogout(context);
+    } else {
       return Future.error(res.body);
     }
-    return null;
   }
 
   Future<List<EmployeeWorkdayDto>> findEmployeeWorkdaysByTimesheetId(
-      String timesheetId, String authHeader) async {
+      String timesheetId) async {
     Response res = await get(
-      _baseTimesheetUrl + '/${int.parse(timesheetId)}/employee',
-      headers: {HttpHeaders.authorizationHeader: authHeader},
-    );
-    return res.statusCode == 200
-        ? (json.decode(res.body) as List)
-            .map((data) => EmployeeWorkdayDto.fromJson(data))
-            .toList()
-        : res.statusCode == 400 ? Future.error(res.body) : null;
+        _baseTimesheetUrl + '/${int.parse(timesheetId)}/employee',
+        headers: {HttpHeaders.authorizationHeader: authHeader});
+    if (res.statusCode == 200) {
+      return (json.decode(res.body) as List)
+          .map((data) => EmployeeWorkdayDto.fromJson(data))
+          .toList();
+    } else if (res.statusCode == 401) {
+      return Logout.handle401WithLogout(context);
+    } else {
+      return Future.error(res.body);
+    }
   }
 }

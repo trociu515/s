@@ -29,7 +29,7 @@ class ManagerEmployeesPage extends StatefulWidget {
 }
 
 class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
-  final ManagerService _managerService = new ManagerService();
+  ManagerService _managerService;
 
   GroupEmployeeModel _model;
 
@@ -40,11 +40,11 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
   @override
   void initState() {
     this._model = widget._model;
+    this._managerService = new ManagerService(context, _model.user.authHeader);
     super.initState();
     _loading = true;
     _managerService
-        .findEmployeesGroupDetails(
-            _model.groupId.toString(), _model.user.authHeader)
+        .findEmployeesGroupDetails(_model.groupId.toString())
         .then((res) {
       setState(() {
         _employees = res;
@@ -257,8 +257,7 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
 
   Future<Null> _refresh() {
     return _managerService
-        .findEmployeesGroupDetails(
-            _model.groupId.toString(), _model.user.authHeader)
+        .findEmployeesGroupDetails(_model.groupId.toString())
         .then((res) {
       setState(() {
         _employees = res;

@@ -15,8 +15,9 @@ import 'package:give_job/unauthenticated/service/unauthenticated_service.dart';
 
 class RegistrationPage extends StatefulWidget {
   final String _tokenId;
+  final String _accountExpirationDate;
 
-  RegistrationPage(this._tokenId);
+  RegistrationPage(this._tokenId, this._accountExpirationDate);
 
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
@@ -953,7 +954,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     nip: _nipController.text,
                     bankAccountNumber: _bankAccountNumberController.text,
                     drivingLicense: _drivingLicenseController.text,
-                    tokenId: widget._tokenId),
+                    tokenId: widget._tokenId,
+                    accountExpirationDate: widget._accountExpirationDate),
                 _unauthenticatedService.registerEmployee(dto).then((res) {
                   _successDialog();
                 }).catchError((onError) {

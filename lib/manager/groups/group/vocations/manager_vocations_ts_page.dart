@@ -30,9 +30,8 @@ class ManagerVocationsTsPage extends StatefulWidget {
 }
 
 class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
-  final ManagerService _managerService = new ManagerService();
-
   GroupEmployeeModel _model;
+  ManagerService _managerService;
 
   List<ManagerGroupTimesheetWithNoStatusDto> _inProgressTimesheets = new List();
 
@@ -45,11 +44,11 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
   @override
   void initState() {
     this._model = widget._model;
+    this._managerService = new ManagerService(context, _model.user.authHeader);
     super.initState();
     _loading = true;
     _managerService
-        .findInProgressTimesheetsByGroupId(
-            _model.groupId.toString(), _model.user.authHeader)
+        .findInProgressTimesheetsByGroupId(_model.groupId.toString())
         .then((res) {
       setState(() {
         int _counter = 0;
@@ -266,8 +265,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
 
   Future<Null> _refresh() {
     return _managerService
-        .findInProgressTimesheetsByGroupId(
-            _model.groupId.toString(), _model.user.authHeader)
+        .findInProgressTimesheetsByGroupId(_model.groupId.toString())
         .then((res) {
       setState(() {
         _inProgressTimesheets.clear();

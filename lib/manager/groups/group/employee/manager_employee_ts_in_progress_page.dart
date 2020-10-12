@@ -42,8 +42,6 @@ class ManagerEmployeeTsInProgressPage extends StatefulWidget {
 
 class _ManagerEmployeeTsInProgressPageState
     extends State<ManagerEmployeeTsInProgressPage> {
-  final SharedWorkdayService _sharedWorkdayService = new SharedWorkdayService();
-  final ManagerService _managerService = new ManagerService();
   final TextEditingController _hoursController = new TextEditingController();
   final TextEditingController _ratingController = new TextEditingController();
   final TextEditingController _planController = new TextEditingController();
@@ -52,6 +50,8 @@ class _ManagerEmployeeTsInProgressPageState
       new TextEditingController();
 
   GroupEmployeeModel _model;
+  SharedWorkdayService _sharedWorkdayService;
+  ManagerService _managerService;
   String _employeeInfo;
   String _employeeNationality;
   String _currency;
@@ -71,6 +71,9 @@ class _ManagerEmployeeTsInProgressPageState
   @override
   Widget build(BuildContext context) {
     this._model = widget._model;
+    this._sharedWorkdayService =
+        new SharedWorkdayService(context, _model.user.authHeader);
+    this._managerService = new ManagerService(context, _model.user.authHeader);
     this._employeeInfo = widget._employeeInfo;
     this._employeeNationality = widget._employeeNationality;
     this._currency = widget._currency;
@@ -158,8 +161,8 @@ class _ManagerEmployeeTsInProgressPageState
                   ),
                 ),
                 FutureBuilder(
-                  future: _sharedWorkdayService.findWorkdaysByTimesheetId(
-                      _timesheet.id.toString(), _model.user.authHeader),
+                  future: _sharedWorkdayService
+                      .findWorkdaysByTimesheetId(_timesheet.id.toString()),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<WorkdayDto>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting ||
@@ -728,8 +731,7 @@ class _ManagerEmployeeTsInProgressPageState
 
   Future<Null> _refresh() {
     return _sharedWorkdayService
-        .findWorkdaysByTimesheetId(
-            _timesheet.id.toString(), _model.user.authHeader)
+        .findWorkdaysByTimesheetId(_timesheet.id.toString())
         .then((_workdays) {
       setState(() {
         workdays = _workdays;
@@ -920,8 +922,7 @@ class _ManagerEmployeeTsInProgressPageState
                             return;
                           }
                           _managerService
-                              .updateWorkdaysHours(
-                                  selectedIds, hours, _model.user.authHeader)
+                              .updateWorkdaysHours(selectedIds, hours)
                               .then(
                             (res) {
                               Navigator.of(context).pop();
@@ -1031,8 +1032,7 @@ class _ManagerEmployeeTsInProgressPageState
                             return;
                           }
                           _managerService
-                              .updateWorkdaysRating(
-                                  selectedIds, rating, _model.user.authHeader)
+                              .updateWorkdaysRating(selectedIds, rating)
                               .then((res) {
                             Navigator.of(context).pop();
                             selectedIds.clear();
@@ -1136,8 +1136,7 @@ class _ManagerEmployeeTsInProgressPageState
                             return;
                           }
                           _managerService
-                              .updateWorkdaysPlan(
-                                  selectedIds, plan, _model.user.authHeader)
+                              .updateWorkdaysPlan(selectedIds, plan)
                               .then((res) {
                             Navigator.of(context).pop();
                             selectedIds.clear();
@@ -1243,8 +1242,7 @@ class _ManagerEmployeeTsInProgressPageState
                           }
                           Navigator.of(context).pop();
                           _managerService
-                              .updateWorkdaysOpinion(
-                                  selectedIds, opinion, _model.user.authHeader)
+                              .updateWorkdaysOpinion(selectedIds, opinion)
                               .then((res) {
                             selectedIds.clear();
                             ToastService.showSuccessToast(getTranslated(
@@ -1357,8 +1355,7 @@ class _ManagerEmployeeTsInProgressPageState
                                   timesheet.year,
                                   MonthUtil.findMonthNumberByMonthName(
                                       context, timesheet.month),
-                                  STATUS_IN_PROGRESS,
-                                  _model.user.authHeader)
+                                  STATUS_IN_PROGRESS)
                               .then((res) {
                             selectedIds.clear();
                             ToastService.showSuccessToast(getTranslated(

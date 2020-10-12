@@ -32,7 +32,7 @@ class EmployeeProfilPage extends StatefulWidget {
 }
 
 class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
-  final EmployeeService _employeeService = new EmployeeService();
+  EmployeeService _employeeService;
 
   User _user;
   EmployeeDto _employee;
@@ -41,11 +41,12 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
   @override
   Widget build(BuildContext context) {
     this._user = widget._user;
+    _employeeService = new EmployeeService(context, _user.authHeader);
     if (_refreshCalled) {
       return _buildPage();
     } else {
       return FutureBuilder<EmployeeDto>(
-        future: _employeeService.findById(_user.id, _user.authHeader),
+        future: _employeeService.findById(_user.id),
         builder: (BuildContext context, AsyncSnapshot<EmployeeDto> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting ||
               snapshot.data == null) {
@@ -257,9 +258,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
   }
 
   Future<Null> _refresh() {
-    return _employeeService
-        .findById(_user.id.toString(), _user.authHeader)
-        .then((employee) {
+    return _employeeService.findById(_user.id.toString()).then((employee) {
       setState(() {
         _employee = employee;
         _refreshCalled = true;

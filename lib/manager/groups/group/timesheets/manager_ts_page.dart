@@ -28,9 +28,8 @@ class ManagerTsPage extends StatefulWidget {
 }
 
 class _ManagerTsPageState extends State<ManagerTsPage> {
-  final ManagerService _managerService = new ManagerService();
-
   GroupEmployeeModel _model;
+  ManagerService _managerService;
 
   List<ManagerGroupTimesheetDto> _inProgressTimesheets = new List();
   List<ManagerGroupTimesheetDto> _completedTimesheets = new List();
@@ -40,11 +39,11 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
   @override
   void initState() {
     this._model = widget._model;
+    this._managerService = new ManagerService(context, _model.user.authHeader);
     super.initState();
     _loading = true;
     _managerService
-        .findTimesheetsByGroupId(
-            _model.groupId.toString(), _model.user.authHeader)
+        .findTimesheetsByGroupId(_model.groupId.toString())
         .then((res) {
       setState(() {
         res.forEach((ts) => {
@@ -146,8 +145,8 @@ class _ManagerTsPageState extends State<ManagerTsPage> {
                       padding: EdgeInsets.only(left: 20),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: text15White(
-                            getTranslated(this.context, 'noCompletedTimesheets')),
+                        child: text15White(getTranslated(
+                            this.context, 'noCompletedTimesheets')),
                       ),
                     )
                   : Container(),

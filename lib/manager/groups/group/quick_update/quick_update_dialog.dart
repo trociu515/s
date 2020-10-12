@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 class QuickUpdateDialog {
-  static final ManagerService _managerService = new ManagerService();
+  static ManagerService _managerService;
   static GroupEmployeeModel _model;
   static String _todaysDate;
 
@@ -159,12 +159,10 @@ class QuickUpdateDialog {
                             return;
                           }
                           Navigator.of(context).pop();
+                          _initialize(context, _model.user.authHeader);
                           _managerService
                               .updateGroupHoursOfTodaysDateInCurrentTimesheet(
-                                  _model.groupId,
-                                  _todaysDate,
-                                  hours,
-                                  _model.user.authHeader)
+                                  _model.groupId, _todaysDate, hours)
                               .then((res) {
                             ToastService.showSuccessToast(getTranslated(context,
                                 'todaysGroupHoursUpdatedSuccessfully'));
@@ -278,12 +276,10 @@ class QuickUpdateDialog {
                             return;
                           }
                           Navigator.of(context).pop();
+                          _initialize(context, _model.user.authHeader);
                           _managerService
                               .updateGroupHoursOfTodaysDateInCurrentTimesheet(
-                                  _model.groupId,
-                                  _todaysDate,
-                                  rating,
-                                  _model.user.authHeader)
+                                  _model.groupId, _todaysDate, rating)
                               .then((res) {
                             ToastService.showSuccessToast(getTranslated(context,
                                 'todaysGroupRatingUpdatedSuccessfully'));
@@ -393,12 +389,10 @@ class QuickUpdateDialog {
                             return;
                           }
                           Navigator.of(context).pop();
+                          _initialize(context, _model.user.authHeader);
                           _managerService
                               .updateGroupPlanOfTodaysDateInCurrentTimesheet(
-                                  _model.groupId,
-                                  _todaysDate,
-                                  plan,
-                                  _model.user.authHeader)
+                                  _model.groupId, _todaysDate, plan)
                               .then((res) {
                             ToastService.showSuccessToast(getTranslated(
                                 context, 'todaysGroupPlanUpdatedSuccessfully'));
@@ -508,12 +502,10 @@ class QuickUpdateDialog {
                             return;
                           }
                           Navigator.of(context).pop();
+                          _initialize(context, _model.user.authHeader);
                           _managerService
                               .updateGroupOpinionOfTodaysDateInCurrentTimesheet(
-                                  _model.groupId,
-                                  _todaysDate,
-                                  opinion,
-                                  _model.user.authHeader)
+                                  _model.groupId, _todaysDate, opinion)
                               .then((res) {
                             ToastService.showSuccessToast(getTranslated(context,
                                 'todaysGroupOpinionUpdatedSuccessfully'));
@@ -537,6 +529,10 @@ class QuickUpdateDialog {
         );
       },
     );
+  }
+
+  static _initialize(BuildContext context, String authHeader) {
+    _managerService = new ManagerService(context, authHeader);
   }
 
   static _errorDialog(BuildContext context, String content) {

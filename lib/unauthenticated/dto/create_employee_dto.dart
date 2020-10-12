@@ -25,6 +25,7 @@ class CreateEmployeeDto {
   final String bankAccountNumber;
   final String drivingLicense;
   final String tokenId;
+  final String accountExpirationDate;
 
   CreateEmployeeDto({
     @required this.username,
@@ -51,6 +52,7 @@ class CreateEmployeeDto {
     @required this.bankAccountNumber,
     @required this.drivingLicense,
     @required this.tokenId,
+    @required this.accountExpirationDate,
   });
 
   static Map<String, dynamic> jsonEncode(CreateEmployeeDto dto) {
@@ -79,6 +81,7 @@ class CreateEmployeeDto {
     map['bankAccountNumber'] = dto.bankAccountNumber;
     map['drivingLicense'] = dto.drivingLicense;
     map['tokenId'] = dto.tokenId;
+    map['accountExpirationDate'] = dto.accountExpirationDate;
     return map;
   }
 }

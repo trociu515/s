@@ -4,8 +4,8 @@ import 'package:http/http.dart';
 class TokenService {
   final String _baseTokenUrl = SERVER_IP + '/mobile/tokens';
 
-  Future<bool> isCorrect(String id) async {
+  Future<String> isCorrect(String id) async {
     Response res = await get(_baseTokenUrl + '/is-correct/${int.parse(id)}');
-    return res.body.toString() == 'true';
+    return res.statusCode == 200 ? res.body : Future.error(res.body);
   }
 }

@@ -1,6 +1,3 @@
-//  Copyright (c) 2019 Aleksander Woźniak
-//  Licensed under Apache License v2.0
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -40,8 +37,8 @@ class ManagerVocationsCalendarPage extends StatefulWidget {
 class _ManagerVocationsCalendarPageState
     extends State<ManagerVocationsCalendarPage> with TickerProviderStateMixin {
   GroupEmployeeModel _model;
-  ManagerService _service = new ManagerService();
-  ManagerVocationService _vocationService = new ManagerVocationService();
+  ManagerService _service;
+  ManagerVocationService _vocationService;
 
   Map<DateTime, List<ManagerGroupEmployeeVocationDto>> _events = new Map();
   List _selectedEvents;
@@ -55,11 +52,15 @@ class _ManagerVocationsCalendarPageState
   void initState() {
     super.initState();
     this._model = widget._model;
+    this._service = new ManagerService(context, _model.user.authHeader);
+    this._vocationService =
+        new ManagerVocationService(context, _model.user.authHeader);
     super.initState();
     _loading = true;
     _service
         .findTimesheetsWithVocationsByGroupId(
-            _model.groupId.toString(), _model.user.authHeader)
+      _model.groupId.toString(),
+    )
         .then((res) {
       setState(() {
         _loading = false;
@@ -357,9 +358,7 @@ class _ManagerVocationsCalendarPageState
   }
 
   void verifyVocation(int vocationId) {
-    _vocationService
-        .updateVocationVerification(vocationId, true, _model.user.authHeader)
-        .then(
+    _vocationService.updateVocationVerification(vocationId, true).then(
           (value) => {
             _refresh(),
             Navigator.of(context).pop(),
@@ -387,7 +386,7 @@ class _ManagerVocationsCalendarPageState
   }
 
   void removeVocation(int vocationId) {
-    _vocationService.removeVocation(vocationId, _model.user.authHeader).then(
+    _vocationService.removeVocation(vocationId).then(
           (value) => {
             _refresh(),
             Navigator.of(context).pop(),
@@ -438,8 +437,7 @@ class _ManagerVocationsCalendarPageState
 
   Future<Null> _refresh() {
     return _service
-        .findTimesheetsWithVocationsByGroupId(
-            _model.groupId.toString(), _model.user.authHeader)
+        .findTimesheetsWithVocationsByGroupId(_model.groupId.toString())
         .then((res) {
       setState(() {
         _loading = false;

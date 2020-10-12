@@ -29,12 +29,14 @@ class ManagerGroupDetailsEditPage extends StatefulWidget {
 
 class _ManagerGroupDetailsEditPageState
     extends State<ManagerGroupDetailsEditPage> {
-  final ManagerGroupService _managerGroupService = new ManagerGroupService();
   GroupEmployeeModel _model;
+  ManagerGroupService _managerGroupService;
 
   @override
   Widget build(BuildContext context) {
     this._model = widget._model;
+    _managerGroupService =
+        new ManagerGroupService(context, _model.user.authHeader);
     return MaterialApp(
       title: APP_NAME,
       theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
@@ -60,7 +62,8 @@ class _ManagerGroupDetailsEditPageState
                     children: <Widget>[
                       SizedBox(height: 10),
                       ListTile(
-                        title: text18WhiteBold(getTranslated(context, 'groupName')),
+                        title: text18WhiteBold(
+                            getTranslated(context, 'groupName')),
                         subtitle: text16White(_model.groupName),
                       ),
                       ListTile(
@@ -200,8 +203,7 @@ class _ManagerGroupDetailsEditPageState
                             return;
                           }
                           _managerGroupService
-                              .updateGroupName(_model.groupId, groupName,
-                                  _model.user.authHeader)
+                              .updateGroupName(_model.groupId, groupName)
                               .then(
                                 (res) => {
                                   ToastService.showSuccessToast(getTranslated(
@@ -329,8 +331,8 @@ class _ManagerGroupDetailsEditPageState
                             return;
                           }
                           _managerGroupService
-                              .updateGroupDescription(_model.groupId,
-                                  groupDescription, _model.user.authHeader)
+                              .updateGroupDescription(
+                                  _model.groupId, groupDescription)
                               .then(
                                 (res) => {
                                   ToastService.showSuccessToast(getTranslated(

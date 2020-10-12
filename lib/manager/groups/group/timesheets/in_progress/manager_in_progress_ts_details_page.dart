@@ -43,14 +43,13 @@ class ManagerTimesheetsEmployeesInProgressPage extends StatefulWidget {
 
 class _ManagerTimesheetsEmployeesInProgressPageState
     extends State<ManagerTimesheetsEmployeesInProgressPage> {
-  final ManagerService _managerService = new ManagerService();
-
   final TextEditingController _hoursController = new TextEditingController();
   final TextEditingController _ratingController = new TextEditingController();
   final TextEditingController _planController = new TextEditingController();
   final TextEditingController _opinionController = new TextEditingController();
 
   GroupEmployeeModel _model;
+  ManagerService _managerService;
   ManagerGroupTimesheetDto _timesheet;
 
   List<ManagerGroupEmployeeDto> _employees = new List();
@@ -63,6 +62,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
   @override
   void initState() {
     this._model = widget._model;
+    this._managerService = new ManagerService(context, _model.user.authHeader);
     this._timesheet = widget._timeSheet;
     super.initState();
     _loading = true;
@@ -71,8 +71,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
             _model.groupId,
             _timesheet.year,
             MonthUtil.findMonthNumberByMonthName(context, _timesheet.month),
-            STATUS_IN_PROGRESS,
-            _model.user.authHeader)
+            STATUS_IN_PROGRESS)
         .then((res) {
       setState(() {
         _employees = res;
@@ -260,8 +259,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                         child: Row(
                                           children: <Widget>[
                                             textWhite(getTranslated(
-                                                    this.context,
-                                                    'hours') +
+                                                    this.context, 'hours') +
                                                 ': '),
                                             textGreenBold(employee
                                                 .numberOfHoursWorked
@@ -409,7 +407,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
         initialLastDate: new DateTime(year, monthNum, days),
         firstDate: new DateTime(year, monthNum, 1),
         lastDate: new DateTime(year, monthNum, days));
-    if (picked.length == 1) {
+    if (picked != null && picked.length == 1) {
       picked.add(picked[0]);
     }
     if (picked != null && picked.length == 2) {
@@ -512,8 +510,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                       _selectedIds,
                                       year,
                                       monthNum,
-                                      STATUS_IN_PROGRESS,
-                                      _model.user.authHeader)
+                                      STATUS_IN_PROGRESS)
                                   .then(
                                 (res) {
                                   Navigator.of(context).pop();
@@ -650,8 +647,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                     _selectedIds,
                                     year,
                                     monthNum,
-                                    STATUS_IN_PROGRESS,
-                                    _model.user.authHeader)
+                                    STATUS_IN_PROGRESS)
                                 .then(
                               (res) {
                                 _uncheckAll();
@@ -783,8 +779,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                     _selectedIds,
                                     year,
                                     monthNum,
-                                    STATUS_IN_PROGRESS,
-                                    _model.user.authHeader)
+                                    STATUS_IN_PROGRESS)
                                 .then(
                               (res) {
                                 _uncheckAll();
@@ -896,9 +891,8 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0)),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[iconWhite(Icons.check)],
-                          ),
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[iconWhite(Icons.check)]),
                           color: GREEN,
                           onPressed: () {
                             String opinion = _opinionController.text;
@@ -917,8 +911,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                     _selectedIds,
                                     year,
                                     monthNum,
-                                    STATUS_IN_PROGRESS,
-                                    _model.user.authHeader)
+                                    STATUS_IN_PROGRESS)
                                 .then(
                               (res) {
                                 _uncheckAll();
@@ -974,8 +967,7 @@ class _ManagerTimesheetsEmployeesInProgressPageState
             _model.groupId,
             _timesheet.year,
             MonthUtil.findMonthNumberByMonthName(context, _timesheet.month),
-            STATUS_IN_PROGRESS,
-            _model.user.authHeader)
+            STATUS_IN_PROGRESS)
         .then((res) {
       setState(() {
         _employees = res;

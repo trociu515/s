@@ -36,6 +36,28 @@ class Logout {
     storage.delete(key: 'role');
     Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute(builder: (context) => LoginPage()), (e) => false);
-    ToastService.showSuccessToast(msg);
+    if (msg != null) {
+      ToastService.showSuccessToast(msg);
+    }
+  }
+
+  static handle401WithLogout(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: DARK,
+          title: textWhite('Account expired'),
+          content: textWhite(
+              'Your account probably expired. You can contact administrator for more info.'),
+          actions: <Widget>[
+            FlatButton(
+              child: textWhite('Ok'),
+              onPressed: () => logoutWithoutConfirm(context, null),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

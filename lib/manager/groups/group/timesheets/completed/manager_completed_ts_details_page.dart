@@ -37,9 +37,8 @@ class ManagerTimesheetsEmployeesCompletedPage extends StatefulWidget {
 
 class _ManagerTimesheetsEmployeesCompletedPageState
     extends State<ManagerTimesheetsEmployeesCompletedPage> {
-  final ManagerService _managerService = new ManagerService();
-
   GroupEmployeeModel _model;
+  ManagerService _managerService;
   ManagerGroupTimesheetDto _timesheet;
 
   List<ManagerGroupEmployeeDto> _employees = new List();
@@ -49,6 +48,7 @@ class _ManagerTimesheetsEmployeesCompletedPageState
   @override
   void initState() {
     this._model = widget._model;
+    this._managerService = new ManagerService(context, _model.user.authHeader);
     this._timesheet = widget._timesheet;
     super.initState();
     _loading = true;
@@ -57,8 +57,7 @@ class _ManagerTimesheetsEmployeesCompletedPageState
             _model.groupId,
             _timesheet.year,
             MonthUtil.findMonthNumberByMonthName(context, _timesheet.month),
-            STATUS_COMPLETED,
-            _model.user.authHeader)
+            STATUS_COMPLETED)
         .then((res) {
       setState(() {
         _employees = res;

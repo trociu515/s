@@ -325,13 +325,15 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           _tokenService.isCorrect(_tokenController.text).then(
                             (res) {
-                              if (!res) {
-                                _tokenAlertDialog(false);
+                              if (res == null) {
+                                _tokenAlertDialog(false, res);
                                 return;
                               }
-                              _tokenAlertDialog(true);
+                              _tokenAlertDialog(true, res);
                             },
-                          );
+                          ).catchError((onError) {
+                            _tokenAlertDialog(false, null);
+                          });
                         },
                       ),
                     ],
@@ -345,7 +347,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _tokenAlertDialog(bool isCorrect) {
+  _tokenAlertDialog(bool isCorrect, String accountExpirationDate) {
     return showDialog(
       barrierDismissible: false,
       context: context,
@@ -394,7 +396,8 @@ class _LoginPageState extends State<LoginPage> {
                     pageBuilder: (BuildContext context,
                         Animation<double> animation,
                         Animation<double> secondaryAnimation) {
-                      return RegistrationPage(_tokenController.text);
+                      return RegistrationPage(
+                          _tokenController.text, accountExpirationDate);
                     },
                     transitionsBuilder: (BuildContext context,
                         Animation<double> animation,

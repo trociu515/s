@@ -9,14 +9,8 @@ class UnauthenticatedService {
       SERVER_IP + '/mobile/unauthenticated-employees';
 
   Future<dynamic> registerEmployee(CreateEmployeeDto dto) async {
-    Response res = await post(
-      _baseUnauthenticatedUrl,
-      body: jsonEncode(CreateEmployeeDto.jsonEncode(dto)),
-      headers: {"content-type": "application/json"},
-    );
-    if (res.statusCode == 200) {
-      return res;
-    }
-    return Future.error(res.body);
+    Response res = await post(_baseUnauthenticatedUrl,
+        body: jsonEncode(CreateEmployeeDto.jsonEncode(dto)));
+    return res.statusCode == 200 ? res : Future.error(res.body);
   }
 }

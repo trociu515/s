@@ -37,7 +37,7 @@ class ManagerEmployeeTsCompletedPage extends StatefulWidget {
 
 class _ManagerEmployeeTsCompletedPageState
     extends State<ManagerEmployeeTsCompletedPage> {
-  final SharedWorkdayService _sharedWorkdayService = new SharedWorkdayService();
+  SharedWorkdayService _sharedWorkdayService;
 
   GroupEmployeeModel _model;
   String _employeeInfo;
@@ -48,6 +48,8 @@ class _ManagerEmployeeTsCompletedPageState
   @override
   Widget build(BuildContext context) {
     this._model = widget._model;
+    this._sharedWorkdayService =
+        new SharedWorkdayService(context, _model.user.authHeader);
     this._employeeInfo = widget._employeeInfo;
     this._employeeNationality = widget._employeeNationality;
     this._currency = widget._currency;
@@ -128,8 +130,8 @@ class _ManagerEmployeeTsCompletedPageState
               ),
             ),
             FutureBuilder(
-              future: _sharedWorkdayService.findWorkdaysByTimesheetId(
-                  timesheet.id.toString(), _model.user.authHeader),
+              future: _sharedWorkdayService
+                  .findWorkdaysByTimesheetId(timesheet.id.toString()),
               builder: (BuildContext context,
                   AsyncSnapshot<List<WorkdayDto>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting ||

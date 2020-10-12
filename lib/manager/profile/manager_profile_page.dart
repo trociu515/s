@@ -29,14 +29,15 @@ class ManagerProfilePage extends StatefulWidget {
 }
 
 class _ManagerProfilePageState extends State<ManagerProfilePage> {
-  final ManagerService _managerService = new ManagerService();
   ManagerDto _manager;
 
   User _user;
+  ManagerService _managerService;
 
   @override
   Widget build(BuildContext context) {
-    _user = widget._user;
+    this._user = widget._user;
+    this._managerService = new ManagerService(context, _user.authHeader);
     return MaterialApp(
       title: APP_NAME,
       theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
@@ -96,8 +97,7 @@ class _ManagerProfilePageState extends State<ManagerProfilePage> {
                           transitionDuration: Duration(milliseconds: 400),
                           pageBuilder: (_, __, ___) {
                             return FutureBuilder<ManagerDto>(
-                              future: _managerService.findById(
-                                  widget._user.id, widget._user.authHeader),
+                              future: _managerService.findById(widget._user.id),
                               builder: (BuildContext context,
                                   AsyncSnapshot<ManagerDto> snapshot) {
                                 if (snapshot.connectionState ==

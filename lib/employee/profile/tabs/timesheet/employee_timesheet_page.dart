@@ -30,14 +30,15 @@ class EmployeeTimesheetPage extends StatefulWidget {
 }
 
 class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
-  final SharedWorkdayService _sharedWorkdayService = new SharedWorkdayService();
-
   User _user;
+  SharedWorkdayService _sharedWorkdayService;
   EmployeeTimesheetDto _timesheet;
 
   @override
   Widget build(BuildContext context) {
     this._user = widget._user;
+    this._sharedWorkdayService =
+        new SharedWorkdayService(context, _user.authHeader);
     this._timesheet = widget._timesheet;
     return MaterialApp(
       title: APP_NAME,
@@ -117,8 +118,8 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
               ),
             ),
             FutureBuilder(
-              future: _sharedWorkdayService.findEmployeeWorkdaysByTimesheetId(
-                  _timesheet.id.toString(), _user.authHeader),
+              future: _sharedWorkdayService
+                  .findEmployeeWorkdaysByTimesheetId(_timesheet.id.toString()),
               builder: (BuildContext context,
                   AsyncSnapshot<List<EmployeeWorkdayDto>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting ||

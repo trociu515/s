@@ -39,9 +39,8 @@ class ManagerVocationsManagePage extends StatefulWidget {
 
 class _ManagerVocationsManagePageState
     extends State<ManagerVocationsManagePage> {
-  final ManagerService _managerService = new ManagerService();
-
   GroupEmployeeModel _model;
+  ManagerService _managerService;
   ManagerGroupTimesheetWithNoStatusDto _timesheet;
 
   List<ManagerVocationsTsDto> _employees = new List();
@@ -56,6 +55,7 @@ class _ManagerVocationsManagePageState
   @override
   void initState() {
     this._model = widget._model;
+    this._managerService = new ManagerService(context, _model.user.authHeader);
     this._timesheet = widget._timeSheet;
     super.initState();
     _loading = true;
@@ -64,8 +64,7 @@ class _ManagerVocationsManagePageState
             _model.groupId,
             _timesheet.year,
             MonthUtil.findMonthNumberByMonthName(context, _timesheet.month),
-            STATUS_IN_PROGRESS,
-            _model.user.authHeader)
+            STATUS_IN_PROGRESS)
         .then((res) {
       setState(() {
         _employees = res;
@@ -385,8 +384,7 @@ class _ManagerVocationsManagePageState
                                     _selectedIds,
                                     year,
                                     monthNum,
-                                    STATUS_IN_PROGRESS,
-                                    _model.user.authHeader)
+                                    STATUS_IN_PROGRESS)
                                 .then(
                               (res) {
                                 _uncheckAll();
@@ -462,8 +460,7 @@ class _ManagerVocationsManagePageState
                           _timesheet.year,
                           MonthUtil.findMonthNumberByMonthName(
                               context, _timesheet.month),
-                          STATUS_IN_PROGRESS,
-                          _model.user.authHeader)
+                          STATUS_IN_PROGRESS)
                       .then(
                     (res) {
                       _uncheckAll();
@@ -523,8 +520,7 @@ class _ManagerVocationsManagePageState
             _model.groupId,
             _timesheet.year,
             MonthUtil.findMonthNumberByMonthName(context, _timesheet.month),
-            STATUS_IN_PROGRESS,
-            _model.user.authHeader)
+            STATUS_IN_PROGRESS)
         .then((res) {
       setState(() {
         _employees = res;

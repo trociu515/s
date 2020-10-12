@@ -47,9 +47,8 @@ class ManagerEmployeeProfilePage extends StatefulWidget {
 
 class _ManagerEmployeeProfilePageState
     extends State<ManagerEmployeeProfilePage> {
-  final ManagerService _managerService = new ManagerService();
-
   GroupEmployeeModel _model;
+  ManagerService _managerService;
   String _employeeNationality;
   String _currency;
   int _employeeId;
@@ -58,6 +57,7 @@ class _ManagerEmployeeProfilePageState
   @override
   Widget build(BuildContext context) {
     this._model = widget._model;
+    this._managerService = new ManagerService(context, _model.user.authHeader);
     this._employeeNationality = widget._employeeNationality;
     this._currency = widget._currency;
     this._employeeId = widget._employeeId;
@@ -178,9 +178,7 @@ class _ManagerEmployeeProfilePageState
   Widget _buildTimesheetsSection() {
     return FutureBuilder(
       future: _managerService.findEmployeeTimesheetsByGroupIdAndEmployeeId(
-          _model.groupId.toString(),
-          _employeeId.toString(),
-          _model.user.authHeader),
+          _model.groupId.toString(), _employeeId.toString()),
       builder: (BuildContext context,
           AsyncSnapshot<List<EmployeeTimesheetDto>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
@@ -250,8 +248,7 @@ class _ManagerEmployeeProfilePageState
                                             child: Row(
                                               children: <Widget>[
                                                 textWhite(getTranslated(
-                                                        this.context,
-                                                        'hours') +
+                                                        this.context, 'hours') +
                                                     ': '),
                                                 textGreenBold(timesheet
                                                         .numberOfHoursWorked
@@ -302,8 +299,7 @@ class _ManagerEmployeeProfilePageState
 
   Widget _buildContactSection() {
     return FutureBuilder(
-        future: _managerService.findEmployeeContactByEmployeeId(
-            _employeeId, _model.user.authHeader),
+        future: _managerService.findEmployeeContactByEmployeeId(_employeeId),
         builder: (BuildContext context,
             AsyncSnapshot<ManagerEmployeeContactDto> snapshot) {
           ManagerEmployeeContactDto contact = snapshot.data;
