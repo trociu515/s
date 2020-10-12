@@ -205,7 +205,8 @@ class _ManagerTimesheetsEmployeesInProgressPageState
                                                     nationality,
                                                     currency,
                                                     employee.id,
-                                                    info),
+                                                    info,
+                                                    employee.moneyPerHour),
                                           ),
                                         );
                                       },

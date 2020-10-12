@@ -137,7 +137,8 @@ class _ManagerEmployeesPageState extends State<ManagerEmployeesPage> {
                                                 nationality,
                                                 currency,
                                                 employee.employeeId,
-                                                info);
+                                                info,
+                                                employee.moneyPerHour);
                                           },
                                         ),
                                       );

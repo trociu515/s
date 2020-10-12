@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_timesheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
@@ -12,6 +13,7 @@ import 'package:give_job/manager/groups/group/shared/group_floating_action_butto
 import 'package:give_job/manager/profile/manager_profile_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/util/url_util.dart';
@@ -31,6 +33,7 @@ class ManagerEmployeeProfilePage extends StatefulWidget {
   final String _currency;
   final int _employeeId;
   final String _employeeInfo;
+  final double _employeeMoneyPerHour;
 
   const ManagerEmployeeProfilePage(
     this._model,
@@ -38,6 +41,7 @@ class ManagerEmployeeProfilePage extends StatefulWidget {
     this._currency,
     this._employeeId,
     this._employeeInfo,
+    this._employeeMoneyPerHour,
   );
 
   @override
@@ -53,6 +57,7 @@ class _ManagerEmployeeProfilePageState
   String _currency;
   int _employeeId;
   String _employeeInfo;
+  double _employeeMoneyPerHour;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +67,7 @@ class _ManagerEmployeeProfilePageState
     this._currency = widget._currency;
     this._employeeId = widget._employeeId;
     this._employeeInfo = widget._employeeInfo;
+    this._employeeMoneyPerHour = widget._employeeMoneyPerHour;
     return MaterialApp(
       title: APP_NAME,
       theme: ThemeData(primarySwatch: MaterialColor(0xffFFFFFF, WHITE_RGBO)),
@@ -70,7 +76,7 @@ class _ManagerEmployeeProfilePageState
         drawer: managerSideBar(context, _model.user),
         backgroundColor: DARK,
         body: DefaultTabController(
-          length: 2,
+          length: 3,
           child: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
@@ -151,6 +157,10 @@ class _ManagerEmployeeProfilePageState
                         Tab(
                             icon: Icon(Icons.import_contacts),
                             text: getTranslated(this.context, 'contact')),
+                        Tab(
+                          icon: Icon(Icons.border_color),
+                          text: 'Edit',
+                        )
                       ],
                     ),
                   ),
@@ -164,6 +174,7 @@ class _ManagerEmployeeProfilePageState
                 children: <Widget>[
                   _buildTimesheetsSection(),
                   _buildContactSection(),
+                  _buildEditSection(),
                 ],
               ),
             ),
@@ -446,6 +457,158 @@ class _ManagerEmployeeProfilePageState
     return ListTile(
       title: text16GreenBold(getTranslated(this.context, title)),
       subtitle: text16White(getTranslated(this.context, 'empty')),
+    );
+  }
+
+  Widget _buildEditSection() {
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          _buildButton(
+              'Change money per hour',
+              Icons.monetization_on,
+              () =>
+                  _changeCurrentMoneyPerHour(_employeeMoneyPerHour.toString())),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildButton(String content, IconData icon, Function() fun) {
+    return Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: MaterialButton(
+        elevation: 0,
+        height: 50,
+        shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(30.0)),
+        onPressed: () => fun(),
+        color: GREEN,
+        child: Container(
+          width: 250,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              text20White(content),
+              iconWhite(icon),
+            ],
+          ),
+        ),
+        textColor: Colors.white,
+      ),
+    );
+  }
+
+  void _changeCurrentMoneyPerHour(String employeeMoneyPerHour) {
+    TextEditingController _moneyPerHourController = new TextEditingController();
+    showGeneralDialog(
+      context: context,
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: 'Money per hour',
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
+              child: Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: Column(
+                        children: [
+                          text20GreenBold('MONEY PER HOUR'),
+                          text20GreenBold(
+                              'Current hourly wage: $employeeMoneyPerHour'),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 7.5),
+                    textGreen('Change money per hour for the employee'),
+                    SizedBox(height: 5.0),
+                    textCenter15Red(
+                        'Note: The rate will not be set to previously filled hours.'),
+                    textCenter15Red(
+                        'To update the amounts on the previous sheets, you must overwrite the number of hours entered.'),
+                    SizedBox(height: 2.5),
+                    Container(
+                      width: 150,
+                      child: TextFormField(
+                        autofocus: true,
+                        controller: _moneyPerHourController,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: <TextInputFormatter>[
+                          WhitelistingTextInputFormatter(
+                              RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        maxLength: 6,
+                        cursorColor: WHITE,
+                        textAlignVertical: TextAlignVertical.center,
+                        style: TextStyle(color: WHITE),
+                        decoration: InputDecoration(
+                          counterStyle: TextStyle(color: WHITE),
+                          labelStyle: TextStyle(color: WHITE),
+                          labelText: '(0-200)',
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        MaterialButton(
+                          elevation: 0,
+                          height: 50,
+                          minWidth: 40,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[iconWhite(Icons.close)],
+                          ),
+                          color: Colors.red,
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        SizedBox(width: 25),
+                        MaterialButton(
+                          elevation: 0,
+                          height: 50,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[iconWhite(Icons.check)],
+                          ),
+                          color: GREEN,
+                          onPressed: () {
+                            double newHourlyRate =
+                                double.parse(_moneyPerHourController.text);
+                            _managerService
+                                .updateMoneyPerHour(_employeeId, newHourlyRate)
+                                .then(
+                                  (value) => {
+                                    _employeeMoneyPerHour = newHourlyRate,
+                                    Navigator.pop(context),
+                                    ToastService.showSuccessToast(
+                                        'Money per hour updated successfully!'),
+                                  },
+                                );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

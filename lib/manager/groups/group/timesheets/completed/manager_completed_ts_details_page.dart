@@ -183,7 +183,8 @@ class _ManagerTimesheetsEmployeesCompletedPageState
                                                   nationality,
                                                   currency,
                                                   employee.id,
-                                                  info),
+                                                  info,
+                                                  employee.moneyPerHour),
                                         ),
                                       );
                                     },

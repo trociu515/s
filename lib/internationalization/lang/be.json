@@ -342,5 +342,6 @@
   "groupNameCannotBeEmpty": "Group name cannot be empty",
   "groupNameWrongLength": "Group name length cannot be higher than 26",
   "groupDescriptionCannotBeEmpty": "Group description cannot be empty",
-  "groupDescriptionWrongLength": "Group description length cannot be higher than 100"
+  "groupDescriptionWrongLength": "Group description length cannot be higher than 100",
+  "edit": "Edit"
 }

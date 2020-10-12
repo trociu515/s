@@ -178,6 +178,24 @@ class ManagerService {
     }
   }
 
+  Future<dynamic> updateMoneyPerHour(
+      int employeeId, double moneyPerHour) async {
+    Response res = await put(_baseEmployeeUrl + '/money-per-hour',
+        body: jsonEncode(
+            {'employeeId': employeeId, 'moneyPerHour': moneyPerHour}),
+        headers: {
+          HttpHeaders.authorizationHeader: authHeader,
+          'content-type': 'application/json'
+        });
+    if (res.statusCode == 200) {
+      return res;
+    } else if (res.statusCode == 401) {
+      return Logout.handle401WithLogout(context);
+    } else {
+      return Future.error(res.body);
+    }
+  }
+
   Future<ManagerEmployeeContactDto> findEmployeeContactByEmployeeId(
       int employeeId) async {
     String url = _baseContactUrl + '/$employeeId';
