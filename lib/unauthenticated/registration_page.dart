@@ -957,7 +957,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     tokenId: widget._tokenId,
                     accountExpirationDate: widget._accountExpirationDate),
                 _unauthenticatedService.registerEmployee(dto).then((res) {
-                  _successDialog();
+                  _showSuccessDialog();
                 }).catchError((onError) {
                   String s = onError.toString();
                   if (s.contains('USERNAME_UNIQUE')) {
@@ -1016,7 +1016,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  _successDialog() {
+  _showSuccessDialog() {
     return showDialog(
       context: context,
       builder: (BuildContext context) {

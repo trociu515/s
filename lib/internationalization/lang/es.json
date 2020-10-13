@@ -186,7 +186,7 @@
   "smthWentWrong": "Algo salió mal",
   "register": "Registrarse",
   "error": "Error",
-  "registerSuccess": "El registro se realizó correctamente. La cuenta estará activa después de la verificación del administrador.",
+  "registerSuccess": "El registro fue exitoso. Ahora puedes iniciar sesión.",
   "goToLoginPage": "Ir a la página de inicio de sesión",
   "planDetails": "Detalles del plan",
   "opinionDetails": "Detalles de la opinión",

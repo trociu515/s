@@ -186,7 +186,7 @@
   "smthWentWrong": "Une erreur s'est produite",
   "register": "Register",
   "error": "Error",
-  "registerSuccess": "L'enregistrement a réussi. Le compte sera actif après la vérification de l'administrateur.",
+  "registerSuccess": "L'enregistrement s'est déroulé avec succès. Vous pouvez maintenant vous connecter.",
   "goToLoginPage": "Aller à la page de connexion",
   "planDetails": "Détails du plan",
   "opinionDetails": "Détails de l'opinion",

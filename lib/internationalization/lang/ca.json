@@ -186,7 +186,7 @@
   "smthWentWrong": "Något gick fel",
   "register": "Register",
   "error": "Error",
-  "registerSuccess": "Registreringen gick framgångsrikt. Kontot är aktivt efter administratörsverifiering.",
+  "registerSuccess": "Registreringen gick framgångsrikt. Nu kan du logga in.",
   "goToLoginPage": "Gå till inloggningssidan",
   "planDetails": "Planinformation",
   "opinionDetails": "Yttrandeuppgifter",

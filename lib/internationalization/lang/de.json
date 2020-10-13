@@ -186,7 +186,7 @@
   "smthWentWrong": "Etwas ist schief gelaufen",
   "register": "registrieren",
   "error": "Fehler",
-  "registerSuccess": "Die Registrierung wurde erfolgreich durchgeführt. Das Konto ist nach der Administratorüberprüfung aktiv.",
+  "registerSuccess": "Die Registrierung verlief erfolgreich. Jetzt können Sie sich anmelden.",
   "goToLoginPage": "Zur Anmeldeseite gehen",
   "planDetails": "Planungsdetails",
   "opinionDetails": "Meinungsdetails",

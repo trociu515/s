@@ -10,7 +10,8 @@ class UnauthenticatedService {
 
   Future<dynamic> registerEmployee(CreateEmployeeDto dto) async {
     Response res = await post(_baseUnauthenticatedUrl,
-        body: jsonEncode(CreateEmployeeDto.jsonEncode(dto)));
+        body: jsonEncode(CreateEmployeeDto.jsonEncode(dto)),
+        headers: {"content-type": "application/json"});
     return res.statusCode == 200 ? res : Future.error(res.body);
   }
 }
