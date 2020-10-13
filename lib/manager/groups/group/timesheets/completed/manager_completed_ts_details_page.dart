@@ -212,21 +212,6 @@ class _ManagerTimesheetsEmployeesCompletedPageState
                                       child: Row(
                                         children: <Widget>[
                                           textWhite(getTranslated(this.context,
-                                                  'moneyPerHour') +
-                                              ': '),
-                                          textGreenBold(
-                                              _filteredEmployees[index]
-                                                      .moneyPerHour
-                                                      .toString() +
-                                                  ' ' +
-                                                  currency),
-                                        ],
-                                      ),
-                                      alignment: Alignment.topLeft),
-                                  Align(
-                                      child: Row(
-                                        children: <Widget>[
-                                          textWhite(getTranslated(this.context,
                                                   'averageRating') +
                                               ': '),
                                           textGreenBold(

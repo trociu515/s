@@ -203,7 +203,7 @@ class _ManagerVocationsTsPageState extends State<ManagerVocationsTsPage> {
               SizedBox(width: 5),
               Expanded(
                 child: MaterialButton(
-                  color: GREEN,
+                  color: Colors.grey,
                   child: textDarkBold(getTranslated(context, 'verify')),
                   onPressed: () => {
                     if (_currentRadioElement != null)

@@ -329,7 +329,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'hours')),
+                    child: text12DarkBold(getTranslated(context, 'hours')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -345,7 +345,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'rating')),
+                    child: text12DarkBold(getTranslated(context, 'rating')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -361,7 +361,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'plan')),
+                    child: text12DarkBold(getTranslated(context, 'plan')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -377,7 +377,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'opinion')),
+                    child: text12DarkBold(getTranslated(context, 'opinion')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -393,7 +393,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'vocation')),
+                    child: text12DarkBold(getTranslated(context, 'vocation')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -641,7 +641,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'hours')),
+                    child: text12DarkBold(getTranslated(context, 'hours')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -657,7 +657,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'rating')),
+                    child: text12DarkBold(getTranslated(context, 'rating')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -673,7 +673,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'plan')),
+                    child: text12DarkBold(getTranslated(context, 'plan')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -689,7 +689,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'opinion')),
+                    child: text12DarkBold(getTranslated(context, 'opinion')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {
@@ -705,7 +705,7 @@ class _ManagerEmployeeTsInProgressPageState
                 Expanded(
                   child: MaterialButton(
                     color: GREEN,
-                    child: textDarkBold(getTranslated(context, 'vocation')),
+                    child: text12DarkBold(getTranslated(context, 'vocation')),
                     onPressed: () => {
                       if (selectedIds.isNotEmpty)
                         {

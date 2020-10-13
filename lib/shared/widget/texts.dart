@@ -70,6 +70,7 @@ Text textDark(String text) { return Text(text, style: TextStyle(color: DARK)); }
 /* TEXT DARK BOLD  */
 /////////////////////
 Text textDarkBold(String text) { return Text(text, style: TextStyle(color: DARK, fontWeight: FontWeight.bold)); }
+Text text12DarkBold(String text) { return Text(text, style: TextStyle(fontSize: 12, color: DARK, fontWeight: FontWeight.bold)); }
 Text text14DarkBold(String text) { return Text(text, style: TextStyle(fontSize: 14, color: DARK, fontWeight: FontWeight.bold)); }
 Text text18DarkBold(String text) { return Text(text, style: TextStyle(fontSize: 18, color: DARK, fontWeight: FontWeight.bold)); }
 Text text20DarkBold(String text) { return Text(text, style: TextStyle(fontSize: 20, color: DARK, fontWeight: FontWeight.bold)); }
