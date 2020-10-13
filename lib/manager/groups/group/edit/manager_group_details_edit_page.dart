@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
+import 'package:give_job/manager/groups/group/edit/money_per_hour/edit_group_money_per_hour.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/service/manager_group_service.dart';
@@ -86,6 +87,16 @@ class _ManagerGroupDetailsEditPageState
                     getTranslated(context, 'groupDescription'),
                     () => _updateGroupDescription(
                         context, _model.groupDescription)),
+                _buildButton(
+                  getTranslated(context, 'hourlyGroupRates'),
+                  () => Navigator.of(context).push(
+                    CupertinoPageRoute<Null>(
+                      builder: (BuildContext context) {
+                        return EditGroupMoneyPerHourPage(_model);
+                      },
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

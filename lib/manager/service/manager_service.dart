@@ -7,6 +7,7 @@ import 'package:give_job/manager/dto/manager_dto.dart';
 import 'package:give_job/manager/dto/manager_employee_contact_dto.dart';
 import 'package:give_job/manager/dto/manager_group_details_dto.dart';
 import 'package:give_job/manager/dto/manager_group_dto.dart';
+import 'package:give_job/manager/dto/manager_group_edit_money_per_hour_dto.dart';
 import 'package:give_job/manager/dto/manager_group_employee_dto.dart';
 import 'package:give_job/manager/dto/manager_group_employee_vocation_dto.dart';
 import 'package:give_job/manager/dto/manager_group_timesheet_dto.dart';
@@ -66,6 +67,22 @@ class ManagerService {
     if (res.statusCode == 200) {
       return (json.decode(res.body) as List)
           .map((data) => ManagerGroupDetailsDto.fromJson(data))
+          .toList();
+    } else if (res.statusCode == 401) {
+      return Logout.handle401WithLogout(context);
+    } else {
+      return Future.error(res.body);
+    }
+  }
+
+  Future<List<ManagerGroupEditMoneyPerHourDto>>
+      findEmployeesForEditMoneyPerHour(int groupId) async {
+    String url = _baseEmployeeUrl + '/groups/$groupId/money-per-hour';
+    Response res =
+        await get(url, headers: {HttpHeaders.authorizationHeader: authHeader});
+    if (res.statusCode == 200) {
+      return (json.decode(res.body) as List)
+          .map((data) => ManagerGroupEditMoneyPerHourDto.fromJson(data))
           .toList();
     } else if (res.statusCode == 401) {
       return Logout.handle401WithLogout(context);
@@ -183,6 +200,26 @@ class ManagerService {
     Response res = await put(_baseEmployeeUrl + '/money-per-hour',
         body: jsonEncode(
             {'employeeId': employeeId, 'moneyPerHour': moneyPerHour}),
+        headers: {
+          HttpHeaders.authorizationHeader: authHeader,
+          'content-type': 'application/json'
+        });
+    if (res.statusCode == 200) {
+      return res;
+    } else if (res.statusCode == 401) {
+      return Logout.handle401WithLogout(context);
+    } else {
+      return Future.error(res.body);
+    }
+  }
+
+  Future<dynamic> updateMoneyPerHourForSelectedEmployees(
+      Set<int> employeesId, double moneyPerHour) async {
+    Response res = await put(_baseEmployeeUrl + '/selected/money-per-hour',
+        body: jsonEncode({
+          'employeesId': employeesId.map((el) => el.toInt()).toList(),
+          'moneyPerHour': moneyPerHour
+        }),
         headers: {
           HttpHeaders.authorizationHeader: authHeader,
           'content-type': 'application/json'

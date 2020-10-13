@@ -350,8 +350,15 @@
   "moneyPerHourUpperCase": "STAWKA GODZINOWA",
   "currentlyHourlyWage": "Obecna stawka godzinowa",
   "changeMoneyPerHourForEmployee": "Zmień stawkę godzinową dla pracownika",
+  "changeMoneyPerHourForEmployees": "Zmień stawkę godzinową dla wybranych pracowników",
   "theRateWillNotBeSetToPreviouslyFilledHours": "Podpowiedź: Nowa stawka nie będzie ustawiona dla wcześniejszych uzupełnionych godzin.",
   "updateAmountsOfPrevSheetsOverwrite": "Aby zaktualizować kwoty na wcześniej wypełnionych arkuszach, musisz nadpisać godziny ponownie.",
   "moneyPerHourCannotBeLowerThan0": "Stawka godzinowa nie może być mniejsza niż 0",
-  "moneyPerHourCannotBeHigherThan200": "Stawka godzinowa nie może być większa niż 200"
+  "moneyPerHourCannotBeHigherThan200": "Stawka godzinowa nie może być większa niż 200",
+  "hourlyGroupRates": "Stawki godzinowe grupy",
+  "editGroupMoneyPerHour": "Edycja stawki godzinowej",
+  "setMoneyPerHour": "Ustaw stawkę godzinową",
+  "needToSelectEmployees": "Musisz zaznaczyć pracowników",
+  "whichYouWantToSetHourlyRate": "dla których chcesz ustawić stawkę godzinową",
+  "successfullyUpdatedMoneyPerHourForSelectedEmployees": "Pomyślnie zaktualizowano stawkę godzinową dla wybranych pracowników!"
 }

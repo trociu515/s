@@ -350,8 +350,15 @@
   "moneyPerHourUpperCase": "MONEY PER HOUR",
   "currentlyHourlyWage": "Current hourly wage",
   "changeMoneyPerHourForEmployee": "Change money per hour for the employee",
+  "changeMoneyPerHourForEmployees": "Change money per hour for the selected employees",
   "theRateWillNotBeSetToPreviouslyFilledHours": "Note: The rate will not be set to previously filled hours.",
   "updateAmountsOfPrevSheetsOverwrite": "To update the amounts on the previous sheets, you must overwrite the number of hours entered.",
   "moneyPerHourCannotBeLowerThan0": "Money per hour cannot be lower than 0",
-  "moneyPerHourCannotBeHigherThan200": "Money per hour cannot be higher than 200"
+  "moneyPerHourCannotBeHigherThan200": "Money per hour cannot be higher than 200",
+  "hourlyGroupRates": "Hourly group rates",
+  "editGroupMoneyPerHour": "Hourly rate edition",
+  "setMoneyPerHour": "Set money per hour",
+  "needToSelectEmployees": "Need to select employees",
+  "whichYouWantToSetHourlyRate": "which you want to set hourly rate",
+  "successfullyUpdatedMoneyPerHourForSelectedEmployees": "Money per hour updated successfully for selected employees!"
 }
