@@ -8,12 +8,14 @@ import 'package:flutter/widgets.dart';
 import 'package:give_job/employee/dto/employee_timesheet_dto.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/dto/manager_employee_contact_dto.dart';
+import 'package:give_job/manager/groups/group/employee/manager_employees_page.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
 import 'package:give_job/manager/groups/group/shared/group_floating_action_button.dart';
 import 'package:give_job/manager/profile/manager_profile_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
+import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
 import 'package:give_job/shared/util/url_util.dart';
@@ -159,7 +161,7 @@ class _ManagerEmployeeProfilePageState
                             text: getTranslated(this.context, 'contact')),
                         Tab(
                           icon: Icon(Icons.border_color),
-                          text: 'Edit',
+                          text: getTranslated(this.context, 'edit'),
                         )
                       ],
                     ),
@@ -465,7 +467,7 @@ class _ManagerEmployeeProfilePageState
       child: Column(
         children: <Widget>[
           _buildButton(
-              'Change money per hour',
+              getTranslated(context, 'changeMoneyPerHour'),
               Icons.monetization_on,
               () =>
                   _changeCurrentMoneyPerHour(_employeeMoneyPerHour.toString())),
@@ -485,7 +487,7 @@ class _ManagerEmployeeProfilePageState
         onPressed: () => fun(),
         color: GREEN,
         child: Container(
-          width: 250,
+          width: 285,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -505,7 +507,7 @@ class _ManagerEmployeeProfilePageState
       context: context,
       barrierColor: DARK.withOpacity(0.95),
       barrierDismissible: false,
-      barrierLabel: 'Money per hour',
+      barrierLabel: getTranslated(context, 'moneyPerHour'),
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SizedBox.expand(
@@ -521,19 +523,22 @@ class _ManagerEmployeeProfilePageState
                       padding: EdgeInsets.only(top: 50),
                       child: Column(
                         children: [
-                          text20GreenBold('MONEY PER HOUR'),
                           text20GreenBold(
-                              'Current hourly wage: $employeeMoneyPerHour'),
+                              getTranslated(context, 'moneyPerHourUpperCase')),
+                          text20GreenBold(
+                              getTranslated(context, 'currentlyHourlyWage') +
+                                  ': $employeeMoneyPerHour'),
                         ],
                       ),
                     ),
                     SizedBox(height: 7.5),
-                    textGreen('Change money per hour for the employee'),
+                    textGreen(getTranslated(
+                        context, 'changeMoneyPerHourForEmployee')),
                     SizedBox(height: 5.0),
-                    textCenter15Red(
-                        'Note: The rate will not be set to previously filled hours.'),
-                    textCenter15Red(
-                        'To update the amounts on the previous sheets, you must overwrite the number of hours entered.'),
+                    textCenter15Red(getTranslated(
+                        context, 'theRateWillNotBeSetToPreviouslyFilledHours')),
+                    textCenter15Red(getTranslated(
+                        context, 'updateAmountsOfPrevSheetsOverwrite')),
                     SizedBox(height: 2.5),
                     Container(
                       width: 150,
@@ -586,16 +591,39 @@ class _ManagerEmployeeProfilePageState
                           ),
                           color: GREEN,
                           onPressed: () {
-                            double newHourlyRate =
-                                double.parse(_moneyPerHourController.text);
+                            double newHourlyRate;
+                            try {
+                              newHourlyRate =
+                                  double.parse(_moneyPerHourController.text);
+                            } catch (FormatException) {
+                              ToastService.showErrorToast(getTranslated(
+                                  context, 'newHourlyRateIsRequired'));
+                              return;
+                            }
+                            String invalidMessage =
+                                ValidatorService.validateNewHourlyRate(
+                                    newHourlyRate, context);
+                            if (invalidMessage != null) {
+                              ToastService.showErrorToast(invalidMessage);
+                              return;
+                            }
                             _managerService
                                 .updateMoneyPerHour(_employeeId, newHourlyRate)
                                 .then(
                                   (value) => {
-                                    _employeeMoneyPerHour = newHourlyRate,
-                                    Navigator.pop(context),
-                                    ToastService.showSuccessToast(
-                                        'Money per hour updated successfully!'),
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ManagerEmployeesPage(_model)),
+                                        (e) => false),
+                                    ToastService.showSuccessToast(getTranslated(
+                                            context,
+                                            'moneyPerHourUpdatedSuccessfullyFor') +
+                                        utf8.decode(_employeeInfo != null
+                                            ? _employeeInfo.runes.toList()
+                                            : '-') +
+                                        '!'),
                                   },
                                 );
                           },

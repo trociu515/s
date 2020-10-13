@@ -70,4 +70,14 @@ class ValidatorService {
     }
     return null;
   }
+
+  static String validateNewHourlyRate(
+      double newMoneyPerHour, BuildContext context) {
+    if (newMoneyPerHour < 0) {
+      return getTranslated(context, 'moneyPerHourCannotBeLowerThan0');
+    } else if (newMoneyPerHour > 200) {
+      return getTranslated(context, 'moneyPerHourCannotBeHigherThan200');
+    }
+    return null;
+  }
 }

@@ -342,5 +342,16 @@
   "groupNameCannotBeEmpty": "Nazwa grupy nie może być pusta",
   "groupNameWrongLength": "Długość nazwy grupy nie może być większa niż 26 znaków",
   "groupDescriptionCannotBeEmpty": "Opis grupy nie może być pusty",
-  "groupDescriptionWrongLength": "Długość opisu grupy nie może być większy niż 100 znaków"
+  "groupDescriptionWrongLength": "Długość opisu grupy nie może być większy niż 100 znaków",
+  "edit": "Edycja",
+  "newHourlyRateIsRequired": "Proszę wprowadzić nową stawkę godzinową",
+  "moneyPerHourUpdatedSuccessfullyFor": "Stawka godzinowa została zaktualizowana dla ",
+  "changeMoneyPerHour": "Zmień stawkę godzinową",
+  "moneyPerHourUpperCase": "STAWKA GODZINOWA",
+  "currentlyHourlyWage": "Obecna stawka godzinowa",
+  "changeMoneyPerHourForEmployee": "Zmień stawkę godzinową dla pracownika",
+  "theRateWillNotBeSetToPreviouslyFilledHours": "Podpowiedź: Nowa stawka nie będzie ustawiona dla wcześniejszych uzupełnionych godzin.",
+  "updateAmountsOfPrevSheetsOverwrite": "Aby zaktualizować kwoty na wcześniej wypełnionych arkuszach, musisz nadpisać godziny ponownie.",
+  "moneyPerHourCannotBeLowerThan0": "Stawka godzinowa nie może być mniejsza niż 0",
+  "moneyPerHourCannotBeHigherThan200": "Stawka godzinowa nie może być większa niż 200"
 }

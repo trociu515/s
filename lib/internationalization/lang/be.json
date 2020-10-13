@@ -343,5 +343,15 @@
   "groupNameWrongLength": "Group name length cannot be higher than 26",
   "groupDescriptionCannotBeEmpty": "Group description cannot be empty",
   "groupDescriptionWrongLength": "Group description length cannot be higher than 100",
-  "edit": "Edit"
+  "edit": "Edit",
+  "newHourlyRateIsRequired": "Please enter new hourly rate",
+  "moneyPerHourUpdatedSuccessfullyFor": "Money per hour updated successfully for ",
+  "changeMoneyPerHour": "Change money per hour",
+  "moneyPerHourUpperCase": "MONEY PER HOUR",
+  "currentlyHourlyWage": "Current hourly wage",
+  "changeMoneyPerHourForEmployee": "Change money per hour for the employee",
+  "theRateWillNotBeSetToPreviouslyFilledHours": "Note: The rate will not be set to previously filled hours.",
+  "updateAmountsOfPrevSheetsOverwrite": "To update the amounts on the previous sheets, you must overwrite the number of hours entered.",
+  "moneyPerHourCannotBeLowerThan0": "Money per hour cannot be lower than 0",
+  "moneyPerHourCannotBeHigherThan200": "Money per hour cannot be higher than 200"
 }
