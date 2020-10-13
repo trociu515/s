@@ -1290,7 +1290,7 @@ class _ManagerEmployeeTsInProgressPageState
                     padding: EdgeInsets.only(left: 25, right: 25),
                     child: TextFormField(
                       autofocus: false,
-                      controller: _opinionController,
+                      controller: _vocationReasonController,
                       keyboardType: TextInputType.multiline,
                       maxLength: 510,
                       maxLines: 5,

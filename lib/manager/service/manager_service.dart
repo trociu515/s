@@ -568,19 +568,19 @@ class ManagerService {
 
   Future<dynamic> createOrUpdateVocationForSelectedDays(
       String reason,
-      Set<int> selectedIds,
+      Set<int> workdayIds,
       int timesheetYear,
       int timesheetMonth,
       String timesheetStatus) async {
     Map<String, dynamic> map = {
       'reason': reason,
       'isVerified': true,
-      'selectedIds': selectedIds.map((el) => el.toInt()).toList(),
+      'workdayIds': workdayIds.map((el) => el.toInt()).toList(),
       'timesheetYear': timesheetYear,
       'timesheetMonth': timesheetMonth,
       'timesheetStatus': timesheetStatus,
     };
-    Response res = await post(_baseWorkdayUrl + '/group/vocations/selected',
+    Response res = await post(_baseWorkdayUrl + '/selected/vocations',
         body: jsonEncode(map),
         headers: {
           HttpHeaders.authorizationHeader: authHeader,
