@@ -99,6 +99,7 @@ Text textCenter14Green(String text) { return Text(text, textAlign: TextAlign.cen
 ////////////////////////////
 /* TEXT CENTER GREEN BOLD */
 ////////////////////////////
+Text textCenter16GreenBold(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: GREEN, fontWeight: FontWeight.bold)); }
 Text textCenter20GreenBold(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 20, color: GREEN, fontWeight: FontWeight.bold)); }
 Text textCenter28GreenBold(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 28, color: GREEN, fontWeight: FontWeight.bold)); }
 
@@ -123,8 +124,14 @@ Text text20RedBold(String text) { return Text(text, style: TextStyle(fontSize: 2
 /////////////////////
 /* TEXT CENTER RED */
 /////////////////////
-Text textCenter18Red(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: Colors.red)); }
 Text textCenter15Red(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, color: Colors.red)); }
+Text textCenter18Red(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: Colors.red)); }
+
+
+/////////////////////////////////
+/* TEXT CENTER GREEN UNDERLINE */
+/////////////////////////////////
+Text textCenter15RedUnderline(String text) { return Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 15, color: Colors.red, decoration: TextDecoration.underline)); }
 
 
 /////////////////////

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/manager/groups/group/employee/model/group_employee_model.dart';
+import 'package:give_job/manager/groups/group/vocations/timesheets/calendar/manager_vocations_calendar_page.dart';
 import 'package:give_job/manager/service/manager_service.dart';
 import 'package:give_job/shared/libraries/colors.dart';
 import 'package:give_job/shared/service/toastr_service.dart';
@@ -19,6 +20,8 @@ class QuickUpdateDialog {
 
   static void showQuickUpdateDialog(
       BuildContext context, GroupEmployeeModel model) {
+    ManagerVocationsCalendarPage page = ManagerVocationsCalendarPage();
+    page.model = model;
     DateTime now = DateTime.now();
     DateFormat formatter = DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(now);
@@ -28,16 +31,27 @@ class QuickUpdateDialog {
       context: context,
       backgroundColor: DARK,
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(2.5),
         child: Column(
           children: <Widget>[
-            textCenter20GreenBold(
+            textCenter16GreenBold(
                 getTranslated(context, 'quickUpdateOfTodaysDate') +
                     ' $formattedDate'),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             textCenter16White(
                 getTranslated(context, 'updateDataForAllEmployeesOfGroup')),
-            SizedBox(height: 20),
+            SizedBox(height: 5),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => page),
+                );
+              },
+              child: textCenter15RedUnderline(
+                  'Uwaga: Godziny osób przebywających na urlopie nie bedą zaktualizowane. Sprawdź kalendarz urlopów'),
+            ),
+            SizedBox(height: 10),
             _buildUpdateButton(getTranslated(context, 'hours'),
                 () => _buildUpdateHoursDialog(context)),
             _buildUpdateButton(getTranslated(context, 'rating'),
