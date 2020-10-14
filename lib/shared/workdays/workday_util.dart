@@ -1,71 +1,126 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:give_job/internationalization/localization/localization_constants.dart';
 import 'package:give_job/shared/libraries/colors.dart';
+import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
-import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 class WorkdayUtil {
-  static void showPlanDetails(BuildContext context, String plan) {
-    slideDialog.showSlideDialog(
+  static void showScrollableDialog(
+      BuildContext context, String title, String value) {
+    if (value == null || value.isEmpty) {
+      return;
+    }
+    showGeneralDialog(
       context: context,
-      backgroundColor: DARK,
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            text20GreenBold(getTranslated(context, 'planDetails')),
-            SizedBox(height: 20),
-            text20White(plan != null
-                ? utf8.decode(plan.runes.toList())
-                : getTranslated(context, 'empty')),
-          ],
-        ),
-      ),
-    );
-  }
-
-  static void showOpinionDetails(BuildContext context, String opinion) {
-    slideDialog.showSlideDialog(
-      context: context,
-      backgroundColor: DARK,
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            text20GreenBold(getTranslated(context, 'opinionDetails')),
-            SizedBox(height: 20),
-            text20White(opinion != null
-                ? utf8.decode(opinion.runes.toList())
-                : getTranslated(context, 'empty')),
-          ],
-        ),
-      ),
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: title,
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: <Widget>[
+                        text20GreenBold(title),
+                        SizedBox(height: 20),
+                        textCenter20White(value != null
+                            ? utf8.decode(value.runes.toList())
+                            : getTranslated(context, 'empty')),
+                        SizedBox(height: 20),
+                        Container(
+                          width: 80,
+                          child: MaterialButton(
+                            elevation: 0,
+                            height: 50,
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[iconWhite(Icons.close)],
+                            ),
+                            color: Colors.red,
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
   static void showVocationReasonDetails(
       BuildContext context, String vocationReason, bool verified) {
-    slideDialog.showSlideDialog(
+    showGeneralDialog(
       context: context,
-      backgroundColor: DARK,
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            text20GreenBold(getTranslated(context, 'vocationReason')),
-            SizedBox(height: 20),
-            verified
-                ? text16GreenBold(getTranslated(context, 'verifiedUpperCase'))
-                : text16RedBold(getTranslated(context, 'notVerifiedUpperCase')),
-            SizedBox(height: 20),
-            text20White(vocationReason != null
-                ? utf8.decode(vocationReason.runes.toList())
-                : getTranslated(context, 'empty')),
-          ],
-        ),
-      ),
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: getTranslated(context, 'vocationReason'),
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: <Widget>[
+                        text20GreenBold(
+                            getTranslated(context, 'vocationReason')),
+                        SizedBox(height: 20),
+                        verified
+                            ? text16GreenBold(
+                                getTranslated(context, 'verifiedUpperCase'))
+                            : text16RedBold(
+                                getTranslated(context, 'notVerifiedUpperCase')),
+                        SizedBox(height: 20),
+                        textCenter20White(vocationReason != null
+                            ? utf8.decode(vocationReason.runes.toList())
+                            : getTranslated(context, 'empty')),
+                        SizedBox(height: 20),
+                        Container(
+                          width: 80,
+                          child: MaterialButton(
+                            elevation: 0,
+                            height: 50,
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[iconWhite(Icons.close)],
+                            ),
+                            color: Colors.red,
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

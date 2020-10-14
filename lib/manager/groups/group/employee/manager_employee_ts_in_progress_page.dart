@@ -257,9 +257,12 @@ class _ManagerEmployeeTsInProgressPageState
                                                       : textWhiteBold('-'),
                                                 ],
                                               ),
-                                              onTap: () =>
-                                                  WorkdayUtil.showPlanDetails(
+                                              onTap: () => WorkdayUtil
+                                                  .showScrollableDialog(
                                                       this.context,
+                                                      getTranslated(
+                                                          this.context,
+                                                          'planDetails'),
                                                       workday.plan),
                                             ),
                                             DataCell(
@@ -272,8 +275,11 @@ class _ManagerEmployeeTsInProgressPageState
                                                 ],
                                               ),
                                               onTap: () => WorkdayUtil
-                                                  .showOpinionDetails(
+                                                  .showScrollableDialog(
                                                       this.context,
+                                                      getTranslated(
+                                                          this.context,
+                                                          'opinionDetails'),
                                                       workday.opinion),
                                             ),
                                             DataCell(
@@ -577,8 +583,11 @@ class _ManagerEmployeeTsInProgressPageState
                                           ],
                                         ),
                                         onTap: () =>
-                                            WorkdayUtil.showPlanDetails(
-                                                this.context, workday.plan),
+                                            WorkdayUtil.showScrollableDialog(
+                                                this.context,
+                                                getTranslated(this.context,
+                                                    'planDetails'),
+                                                workday.plan),
                                       ),
                                       DataCell(
                                         Wrap(
@@ -590,8 +599,11 @@ class _ManagerEmployeeTsInProgressPageState
                                           ],
                                         ),
                                         onTap: () =>
-                                            WorkdayUtil.showOpinionDetails(
-                                                this.context, workday.opinion),
+                                            WorkdayUtil.showScrollableDialog(
+                                                this.context,
+                                                getTranslated(this.context,
+                                                    'opinionDetails'),
+                                                workday.opinion),
                                       ),
                                       DataCell(
                                           Wrap(

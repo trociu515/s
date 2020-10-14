@@ -171,8 +171,11 @@ class _EmployeeTimesheetPageState extends State<EmployeeTimesheetPage> {
                                           ],
                                         ),
                                         onTap: () =>
-                                            WorkdayUtil.showPlanDetails(
-                                                this.context, workday.plan)),
+                                            WorkdayUtil.showScrollableDialog(
+                                                this.context,
+                                                getTranslated(this.context,
+                                                    'planDetails'),
+                                                workday.plan)),
                                   ],
                                 ),
                             ],

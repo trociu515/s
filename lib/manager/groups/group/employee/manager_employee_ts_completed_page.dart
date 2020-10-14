@@ -195,20 +195,27 @@ class _ManagerEmployeeTsCompletedPageState
                                           ],
                                         ),
                                         onTap: () =>
-                                            WorkdayUtil.showPlanDetails(
-                                                this.context, workday.plan)),
+                                            WorkdayUtil.showScrollableDialog(
+                                                this.context,
+                                                getTranslated(this.context,
+                                                    'planDetails'),
+                                                workday.plan)),
                                     DataCell(
-                                        Wrap(
-                                          children: <Widget>[
-                                            workday.opinion != null &&
-                                                    workday.opinion != ''
-                                                ? iconWhite(Icons.zoom_in)
-                                                : textWhiteBold('-'),
-                                          ],
-                                        ),
-                                        onTap: () =>
-                                            WorkdayUtil.showOpinionDetails(
-                                                this.context, workday.opinion)),
+                                      Wrap(
+                                        children: <Widget>[
+                                          workday.opinion != null &&
+                                                  workday.opinion != ''
+                                              ? iconWhite(Icons.zoom_in)
+                                              : textWhiteBold('-'),
+                                        ],
+                                      ),
+                                      onTap: () =>
+                                          WorkdayUtil.showScrollableDialog(
+                                              this.context,
+                                              getTranslated(this.context,
+                                                  'opinionDetails'),
+                                              workday.opinion),
+                                    ),
                                     DataCell(
                                         Wrap(
                                           children: <Widget>[
