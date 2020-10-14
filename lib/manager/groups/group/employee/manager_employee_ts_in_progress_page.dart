@@ -1375,7 +1375,9 @@ class _ManagerEmployeeTsInProgressPageState
 
   void _editPlan(BuildContext context, int workdayId, String plan) {
     TextEditingController _planController = new TextEditingController();
-    _planController.text = plan;
+    _planController.text = plan != null
+        ? utf8.decode(plan != null ? plan.runes.toList() : '-')
+        : null;
     showGeneralDialog(
       context: context,
       barrierColor: DARK.withOpacity(0.95),
@@ -1480,7 +1482,9 @@ class _ManagerEmployeeTsInProgressPageState
 
   void _editOpinion(BuildContext context, int workdayId, String opinion) {
     TextEditingController _opinionController = new TextEditingController();
-    _opinionController.text = opinion;
+    _opinionController.text = opinion != null
+        ? utf8.decode(opinion != null ? opinion.runes.toList() : '-')
+        : null;
     showGeneralDialog(
       context: context,
       barrierColor: DARK.withOpacity(0.95),
