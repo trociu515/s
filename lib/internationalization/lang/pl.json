@@ -362,5 +362,7 @@
   "whichYouWantToSetHourlyRate": "dla których chcesz ustawić stawkę godzinową",
   "successfullyUpdatedMoneyPerHourForSelectedEmployees": "Pomyślnie zaktualizowano stawkę godzinową dla wybranych pracowników!",
   "panel": "Panel",
-  "contactWithYourManager": "Skontaktuj się ze swoim menadżerem"
+  "contactWithYourManager": "Skontaktuj się ze swoim menadżerem",
+  "setNewOpinion": "Ustaw nową opinię",
+  "setNewPlan": "Ustaw nowy plan"
 }

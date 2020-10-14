@@ -257,13 +257,10 @@ class _ManagerEmployeeTsInProgressPageState
                                                       : textWhiteBold('-'),
                                                 ],
                                               ),
-                                              onTap: () => WorkdayUtil
-                                                  .showScrollableDialog(
-                                                      this.context,
-                                                      getTranslated(
-                                                          this.context,
-                                                          'planDetails'),
-                                                      workday.plan),
+                                              onTap: () => _editPlan(
+                                                  this.context,
+                                                  workday.id,
+                                                  workday.plan),
                                             ),
                                             DataCell(
                                               Wrap(
@@ -274,13 +271,10 @@ class _ManagerEmployeeTsInProgressPageState
                                                       : textWhiteBold('-'),
                                                 ],
                                               ),
-                                              onTap: () => WorkdayUtil
-                                                  .showScrollableDialog(
-                                                      this.context,
-                                                      getTranslated(
-                                                          this.context,
-                                                          'opinionDetails'),
-                                                      workday.opinion),
+                                              onTap: () => _editOpinion(
+                                                  this.context,
+                                                  workday.id,
+                                                  workday.opinion),
                                             ),
                                             DataCell(
                                                 Wrap(
@@ -582,12 +576,8 @@ class _ManagerEmployeeTsInProgressPageState
                                                 : textWhiteBold('-'),
                                           ],
                                         ),
-                                        onTap: () =>
-                                            WorkdayUtil.showScrollableDialog(
-                                                this.context,
-                                                getTranslated(this.context,
-                                                    'planDetails'),
-                                                workday.plan),
+                                        onTap: () => _editPlan(this.context,
+                                            workday.id, workday.plan),
                                       ),
                                       DataCell(
                                         Wrap(
@@ -598,12 +588,8 @@ class _ManagerEmployeeTsInProgressPageState
                                                 : textWhiteBold('-'),
                                           ],
                                         ),
-                                        onTap: () =>
-                                            WorkdayUtil.showScrollableDialog(
-                                                this.context,
-                                                getTranslated(this.context,
-                                                    'opinionDetails'),
-                                                workday.opinion),
+                                        onTap: () => _editOpinion(this.context,
+                                            workday.id, workday.opinion),
                                       ),
                                       DataCell(
                                           Wrap(
@@ -1372,6 +1358,216 @@ class _ManagerEmployeeTsInProgressPageState
                             selectedIds.clear();
                             ToastService.showSuccessToast(getTranslated(
                                 context, 'vocationUpdatedSuccessfully'));
+                            _refresh();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _editPlan(BuildContext context, int workdayId, String plan) {
+    TextEditingController _planController = new TextEditingController();
+    _planController.text = plan;
+    showGeneralDialog(
+      context: context,
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: getTranslated(context, 'planDetails'),
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: text20GreenBold(
+                          getTranslated(context, 'planUpperCase'))),
+                  SizedBox(height: 2.5),
+                  textGreen(getTranslated(context, 'setNewPlan')),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: TextFormField(
+                      autofocus: false,
+                      controller: _planController,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: 510,
+                      maxLines: 5,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        hintText: getTranslated(context, 'textSomePlan'),
+                        hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
+                        counterStyle: TextStyle(color: WHITE),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        minWidth: 40,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.close)],
+                        ),
+                        color: Colors.red,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      SizedBox(width: 25),
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.check)],
+                        ),
+                        color: GREEN,
+                        onPressed: () {
+                          String plan = _planController.text;
+                          String invalidMessage =
+                              ValidatorService.validateUpdatingPlan(
+                                  plan, context);
+                          if (invalidMessage != null) {
+                            ToastService.showErrorToast(invalidMessage);
+                            return;
+                          }
+                          Navigator.of(context).pop();
+                          _managerService
+                              .updateWorkdayPlan(workdayId, plan)
+                              .then((res) {
+                            ToastService.showSuccessToast(getTranslated(
+                                context, 'planUpdatedSuccessfully'));
+                            _refresh();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _editOpinion(BuildContext context, int workdayId, String opinion) {
+    TextEditingController _opinionController = new TextEditingController();
+    _opinionController.text = opinion;
+    showGeneralDialog(
+      context: context,
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: getTranslated(context, 'opinionDetails'),
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: text20GreenBold(
+                          getTranslated(context, 'opinionUpperCase'))),
+                  SizedBox(height: 2.5),
+                  textGreen(getTranslated(context, 'setNewOpinion')),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: TextFormField(
+                      autofocus: false,
+                      controller: _opinionController,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: 510,
+                      maxLines: 5,
+                      cursorColor: WHITE,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(color: WHITE),
+                      decoration: InputDecoration(
+                        hintText: getTranslated(context, 'textSomeOpinion'),
+                        hintStyle: TextStyle(color: MORE_BRIGHTER_DARK),
+                        counterStyle: TextStyle(color: WHITE),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: GREEN, width: 2.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        minWidth: 40,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.close)],
+                        ),
+                        color: Colors.red,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      SizedBox(width: 25),
+                      MaterialButton(
+                        elevation: 0,
+                        height: 50,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[iconWhite(Icons.check)],
+                        ),
+                        color: GREEN,
+                        onPressed: () {
+                          String opinion = _opinionController.text;
+                          String invalidMessage =
+                              ValidatorService.validateUpdatingOpinion(
+                                  opinion, context);
+                          if (invalidMessage != null) {
+                            ToastService.showErrorToast(invalidMessage);
+                            return;
+                          }
+                          Navigator.of(context).pop();
+                          _managerService
+                              .updateWorkdayOpinion(workdayId, opinion)
+                              .then((res) {
+                            ToastService.showSuccessToast(getTranslated(
+                                context, 'opinionUpdatedSuccessfully'));
                             _refresh();
                           });
                         },

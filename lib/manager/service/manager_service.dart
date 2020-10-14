@@ -285,6 +285,21 @@ class ManagerService {
     }
   }
 
+  Future<dynamic> updateWorkdayPlan(int workdayId, String plan) async {
+    String url = _baseWorkdayUrl + '/$workdayId/plan';
+    Response res = await put(url, body: jsonEncode({'plan': plan}), headers: {
+      HttpHeaders.authorizationHeader: authHeader,
+      'content-type': 'application/json'
+    });
+    if (res.statusCode == 200) {
+      return res;
+    } else if (res.statusCode == 401) {
+      return Logout.handle401WithLogout(context);
+    } else {
+      return Future.error(res.body);
+    }
+  }
+
   Future<dynamic> updateWorkdaysPlan(Set<int> workdayIds, String plan) async {
     Map<String, dynamic> map = {
       'workdayIds': workdayIds.map((el) => el.toString()).toList(),
@@ -295,6 +310,23 @@ class ManagerService {
       HttpHeaders.authorizationHeader: authHeader,
       'content-type': 'application/json'
     });
+    if (res.statusCode == 200) {
+      return res;
+    } else if (res.statusCode == 401) {
+      return Logout.handle401WithLogout(context);
+    } else {
+      return Future.error(res.body);
+    }
+  }
+
+  Future<dynamic> updateWorkdayOpinion(int workdayId, String opinion) async {
+    String url = _baseWorkdayUrl + '/$workdayId/opinion';
+    Response res = await put(url,
+        body: jsonEncode({'opinion': opinion}),
+        headers: {
+          HttpHeaders.authorizationHeader: authHeader,
+          'content-type': 'application/json'
+        });
     if (res.statusCode == 200) {
       return res;
     } else if (res.statusCode == 401) {

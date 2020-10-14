@@ -362,5 +362,7 @@
   "whichYouWantToSetHourlyRate": "which you want to set hourly rate",
   "successfullyUpdatedMoneyPerHourForSelectedEmployees": "Money per hour updated successfully for selected employees!",
   "panel": "Panel",
-  "contactWithYourManager": "Contact with your manager"
+  "contactWithYourManager": "Contact with your manager",
+  "setNewOpinion": "Set new opinion",
+  "setNewPlan": "Set new plan"
 }
