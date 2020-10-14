@@ -11,7 +11,6 @@ import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:intl/intl.dart';
-import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 class QuickUpdateDialog {
   static ManagerService _managerService;
@@ -27,42 +26,65 @@ class QuickUpdateDialog {
     String formattedDate = formatter.format(now);
     _model = model;
     _todaysDate = formattedDate;
-    slideDialog.showSlideDialog(
+    showGeneralDialog(
       context: context,
-      backgroundColor: DARK,
-      child: Padding(
-        padding: EdgeInsets.all(2.5),
-        child: Column(
-          children: <Widget>[
-            textCenter16GreenBold(
-                getTranslated(context, 'quickUpdateOfTodaysDate') +
-                    ' $formattedDate'),
-            SizedBox(height: 5),
-            textCenter16White(
-                getTranslated(context, 'updateDataForAllEmployeesOfGroup')),
-            SizedBox(height: 5),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => page),
-                );
-              },
-              child: textCenter15RedUnderline(
-                  'Uwaga: Godziny osób przebywających na urlopie nie bedą zaktualizowane. Sprawdź kalendarz urlopów'),
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: getTranslated(context, 'quickUpdateOfTodaysDate'),
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                textCenter16GreenBold(
+                    getTranslated(context, 'quickUpdateOfTodaysDate') +
+                        ' $formattedDate'),
+                SizedBox(height: 5),
+                textCenter16White(
+                    getTranslated(context, 'updateDataForAllEmployeesOfGroup')),
+                SizedBox(height: 5),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => page),
+                    );
+                  },
+                  child: textCenter15RedUnderline(
+                      'Uwaga: Godziny osób przebywających na urlopie nie bedą zaktualizowane. Sprawdź kalendarz urlopów'),
+                ),
+                SizedBox(height: 10),
+                _buildUpdateButton(getTranslated(context, 'hours'),
+                    () => _buildUpdateHoursDialog(context)),
+                _buildUpdateButton(getTranslated(context, 'rating'),
+                    () => _buildUpdateRatingDialog(context)),
+                _buildUpdateButton(getTranslated(context, 'plan'),
+                    () => _buildUpdatePlanDialog(context)),
+                _buildUpdateButton(getTranslated(context, 'opinion'),
+                    () => _buildUpdateOpinionDialog(context)),
+                Container(
+                  width: 80,
+                  child: MaterialButton(
+                    elevation: 0,
+                    height: 50,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[iconWhite(Icons.close)],
+                    ),
+                    color: Colors.red,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 10),
-            _buildUpdateButton(getTranslated(context, 'hours'),
-                () => _buildUpdateHoursDialog(context)),
-            _buildUpdateButton(getTranslated(context, 'rating'),
-                () => _buildUpdateRatingDialog(context)),
-            _buildUpdateButton(getTranslated(context, 'plan'),
-                () => _buildUpdatePlanDialog(context)),
-            _buildUpdateButton(getTranslated(context, 'opinion'),
-                () => _buildUpdateOpinionDialog(context)),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -345,7 +367,7 @@ class QuickUpdateDialog {
                   Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
                     child: TextFormField(
-                      autofocus: false,
+                      autofocus: true,
                       controller: _planController,
                       keyboardType: TextInputType.multiline,
                       maxLength: 510,
@@ -458,7 +480,7 @@ class QuickUpdateDialog {
                   Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
                     child: TextFormField(
-                      autofocus: false,
+                      autofocus: true,
                       controller: _opinionController,
                       keyboardType: TextInputType.multiline,
                       maxLength: 510,

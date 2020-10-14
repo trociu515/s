@@ -319,7 +319,7 @@ class _ManagerVocationsManagePageState
                     Padding(
                       padding: EdgeInsets.only(left: 25, right: 25),
                       child: TextFormField(
-                        autofocus: false,
+                        autofocus: true,
                         controller: _reasonController,
                         keyboardType: TextInputType.multiline,
                         maxLength: 510,

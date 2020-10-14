@@ -14,7 +14,6 @@ import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/texts.dart';
 import 'package:intl/intl.dart';
-import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../../manager_app_bar.dart';
@@ -280,63 +279,88 @@ class _ManagerVocationsCalendarPageState
     String employeeInfo = utf8.decode(vocation.employeeInfo.runes.toList()) +
         ' ' +
         LanguageUtil.findFlagByNationality(vocation.employeeNationality);
-    slideDialog.showSlideDialog(
+    showGeneralDialog(
       context: context,
-      backgroundColor: DARK,
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            text20WhiteBold(employeeInfo),
-            SizedBox(height: 10),
-            vocation.verified
-                ? Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+      barrierColor: DARK.withOpacity(0.95),
+      barrierDismissible: false,
+      barrierLabel: getTranslated(context, 'vocationsAreVerified'),
+      transitionDuration: Duration(milliseconds: 400),
+      pageBuilder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Scaffold(
+            backgroundColor: Colors.black12,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                text20WhiteBold(employeeInfo),
+                SizedBox(height: 10),
+                vocation.verified
+                    ? Column(
                         children: [
-                          text16GreenBold(
-                              getTranslated(context, 'vocationsAreVerified')),
-                          SizedBox(width: 2),
-                          iconGreen(Icons.check),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              text16GreenBold(getTranslated(
+                                  context, 'vocationsAreVerified')),
+                              SizedBox(width: 2),
+                              iconGreen(Icons.check),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _buildRemoveVocationButton(
+                                  employeeInfo, vocation.id),
+                            ],
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              text16RedBold(getTranslated(
+                                  context, 'vocationsAreNotVerified')),
+                              SizedBox(width: 2),
+                              iconRed(Icons.cancel),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _buildVerifyButton(employeeInfo, vocation.id),
+                            ],
+                          ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildRemoveVocationButton(employeeInfo, vocation.id),
-                        ],
-                      ),
-                    ],
-                  )
-                : Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          text16RedBold(getTranslated(
-                              context, 'vocationsAreNotVerified')),
-                          SizedBox(width: 2),
-                          iconRed(Icons.cancel),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildVerifyButton(employeeInfo, vocation.id),
-                        ],
-                      ),
-                    ],
+                SizedBox(height: 10),
+                text20GreenBold(getTranslated(context, 'vocationReason')),
+                SizedBox(height: 10),
+                textCenter20White(vocation.reason != null
+                    ? utf8.decode(vocation.reason.runes.toList())
+                    : getTranslated(context, 'empty')),
+                SizedBox(height: 20),
+                Container(
+                  width: 80,
+                  child: MaterialButton(
+                    elevation: 0,
+                    height: 50,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[iconWhite(Icons.close)],
+                    ),
+                    color: Colors.red,
+                    onPressed: () => Navigator.pop(context),
                   ),
-            SizedBox(height: 10),
-            text20GreenBold(getTranslated(context, 'vocationReason')),
-            SizedBox(height: 10),
-            textCenter20White(vocation.reason != null
-                ? utf8.decode(vocation.reason.runes.toList())
-                : getTranslated(context, 'empty')),
-          ],
-        ),
-      ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
