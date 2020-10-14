@@ -1,12 +1,12 @@
 import 'dart:convert';
 
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:countup/countup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:give_job/employee/dto/employee_dto.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
-import 'package:give_job/employee/profile/tabs/employee_info_tab.dart';
 import 'package:give_job/employee/profile/tabs/employee_timesheets.tab.dart';
 import 'package:give_job/employee/profile/tabs/employee_todo.dart';
 import 'package:give_job/employee/service/employee_service.dart';
@@ -21,6 +21,9 @@ import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/silver_app_bar_delegate.dart';
 import 'package:give_job/shared/widget/texts.dart';
+import 'package:shimmer/shimmer.dart';
+
+import 'about_me/employee_about_me_page.dart';
 
 class EmployeeProfilPage extends StatefulWidget {
   final User _user;
@@ -71,7 +74,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
             drawer: employeeSideBar(context, _user),
             backgroundColor: DARK,
             body: DefaultTabController(
-              length: 3,
+              length: 2,
               child: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
@@ -100,17 +103,31 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                       flexibleSpace: FlexibleSpaceBar(
                         background: Column(
                           children: <Widget>[
-                            Container(
-                              width: 100,
-                              height: 100,
-                              margin: EdgeInsets.only(top: 35, bottom: 5),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                      'images/big-employee-icon.png',
+                            Shimmer.fromColors(
+                              baseColor: GREEN,
+                              highlightColor: WHITE,
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 35, bottom: 5),
+                                child: BouncingWidget(
+                                  duration: Duration(milliseconds: 100),
+                                  scaleFactor: 2,
+                                  onPressed: () => {
+                                    Navigator.push(
+                                      this.context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EmployeeAboutMePage(
+                                                _user, _employee),
+                                      ),
                                     ),
-                                    fit: BoxFit.fill),
+                                  },
+                                  child: Image(
+                                    width: 100,
+                                    height: 100,
+                                    image: AssetImage(
+                                        'images/big-employee-icon.png'),
+                                  ),
+                                ),
                               ),
                             ),
                             text25WhiteBold(utf8.decode(_user.info != null
@@ -223,9 +240,6 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                             Tab(
                                 icon: iconWhite(Icons.done_outline),
                                 text: getTranslated(this.context, 'todo')),
-                            Tab(
-                                icon: iconWhite(Icons.info),
-                                text: getTranslated(this.context, 'aboutMe')),
                           ],
                         ),
                       ),
@@ -241,7 +255,6 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                           this.context, _user, _employee.timesheets)),
                       _buildTab(employeeTodaysTodo(
                           this.context, _employee.todaysPlan)),
-                      _buildTab(employeeInfoTab(this.context, _employee)),
                     ],
                   ),
                 ),
