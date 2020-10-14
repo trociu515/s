@@ -9,6 +9,7 @@ import 'package:give_job/shared/widget/texts.dart';
 import 'contact/manager_contact.dart';
 
 Container employeePanel(BuildContext context, EmployeeDto employee) {
+  String manager = employee.groupManager;
   String managerEmail = employee.groupManagerEmail;
   String managerPhone = employee.groupManagerPhone;
   String managerViber = employee.groupManagerViber;
@@ -21,7 +22,7 @@ Container employeePanel(BuildContext context, EmployeeDto employee) {
             child: Material(
               color: BRIGHTER_DARK,
               child: InkWell(
-                onTap: () => showManagerContact(context, managerEmail,
+                onTap: () => showManagerContact(context, manager, managerEmail,
                     managerPhone, managerViber, managerWhatsApp),
                 child: _buildScrollableContainer(
                     context, Icons.phone, 'contact', 'contactWithYourManager'),
