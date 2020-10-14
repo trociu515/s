@@ -360,5 +360,7 @@
   "setMoneyPerHour": "Ustaw stawkę godzinową",
   "needToSelectEmployees": "Musisz zaznaczyć pracowników",
   "whichYouWantToSetHourlyRate": "dla których chcesz ustawić stawkę godzinową",
-  "successfullyUpdatedMoneyPerHourForSelectedEmployees": "Pomyślnie zaktualizowano stawkę godzinową dla wybranych pracowników!"
+  "successfullyUpdatedMoneyPerHourForSelectedEmployees": "Pomyślnie zaktualizowano stawkę godzinową dla wybranych pracowników!",
+  "panel": "Panel",
+  "contactWithYourManager": "Skontaktuj się ze swoim menadżerem"
 }

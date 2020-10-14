@@ -360,5 +360,7 @@
   "setMoneyPerHour": "Set money per hour",
   "needToSelectEmployees": "Need to select employees",
   "whichYouWantToSetHourlyRate": "which you want to set hourly rate",
-  "successfullyUpdatedMoneyPerHourForSelectedEmployees": "Money per hour updated successfully for selected employees!"
+  "successfullyUpdatedMoneyPerHourForSelectedEmployees": "Money per hour updated successfully for selected employees!",
+  "panel": "Panel",
+  "contactWithYourManager": "Contact with your manager"
 }

@@ -29,6 +29,10 @@ class EmployeeDto {
   final String groupCountryOfWork;
   final String groupDescription;
   final String groupManager;
+  final String groupManagerEmail;
+  final String groupManagerPhone;
+  final String groupManagerViber;
+  final String groupManagerWhatsApp;
   final String currentYear;
   final String currentMonth;
   final num daysWorkedInCurrentMonth;
@@ -65,6 +69,10 @@ class EmployeeDto {
     @required this.groupCountryOfWork,
     @required this.groupDescription,
     @required this.groupManager,
+    @required this.groupManagerEmail,
+    @required this.groupManagerPhone,
+    @required this.groupManagerViber,
+    @required this.groupManagerWhatsApp,
     @required this.currentYear,
     @required this.currentMonth,
     @required this.daysWorkedInCurrentMonth,
@@ -103,6 +111,10 @@ class EmployeeDto {
       groupCountryOfWork: json['groupCountryOfWork'] as String,
       groupDescription: json['groupDescription'] as String,
       groupManager: json['groupManager'] as String,
+      groupManagerEmail: json['groupManagerEmail'] as String,
+      groupManagerPhone: json['groupManagerPhone'] as String,
+      groupManagerViber: json['groupManagerViber'] as String,
+      groupManagerWhatsApp: json['groupManagerWhatsApp'] as String,
       currentYear: json['currentYear'] as String,
       currentMonth: json['currentMonth'] as String,
       daysWorkedInCurrentMonth: json['daysWorkedInCurrentMonth'] as num,

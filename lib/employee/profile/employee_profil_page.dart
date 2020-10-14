@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:give_job/employee/dto/employee_dto.dart';
 import 'package:give_job/employee/employee_side_bar.dart';
+import 'package:give_job/employee/profile/tabs/employee_panel.dart';
 import 'package:give_job/employee/profile/tabs/employee_timesheets.tab.dart';
 import 'package:give_job/employee/profile/tabs/employee_todo.dart';
 import 'package:give_job/employee/service/employee_service.dart';
@@ -74,7 +75,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
             drawer: employeeSideBar(context, _user),
             backgroundColor: DARK,
             body: DefaultTabController(
-              length: 2,
+              length: 3,
               child: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
@@ -240,6 +241,9 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                             Tab(
                                 icon: iconWhite(Icons.done_outline),
                                 text: getTranslated(this.context, 'todo')),
+                            Tab(
+                                icon: iconWhite(Icons.sort),
+                                text: getTranslated(this.context, 'panel')),
                           ],
                         ),
                       ),
@@ -255,6 +259,7 @@ class _EmployeeProfilPageState extends State<EmployeeProfilPage> {
                           this.context, _user, _employee.timesheets)),
                       _buildTab(employeeTodaysTodo(
                           this.context, _employee.todaysPlan)),
+                      _buildTab(employeePanel(this.context, _employee)),
                     ],
                   ),
                 ),

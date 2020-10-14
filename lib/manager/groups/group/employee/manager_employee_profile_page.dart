@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,8 +17,8 @@ import 'package:give_job/shared/service/toastr_service.dart';
 import 'package:give_job/shared/service/validator_service.dart';
 import 'package:give_job/shared/util/language_util.dart';
 import 'package:give_job/shared/util/month_util.dart';
-import 'package:give_job/shared/util/url_util.dart';
 import 'package:give_job/shared/widget/circular_progress_indicator.dart';
+import 'package:give_job/shared/widget/contact_section.dart';
 import 'package:give_job/shared/widget/icons.dart';
 import 'package:give_job/shared/widget/silver_app_bar_delegate.dart';
 import 'package:give_job/shared/widget/texts.dart';
@@ -330,136 +329,13 @@ class _ManagerEmployeeProfilePageState
             return SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  email != null
-                      ? _buildEmail(email)
-                      : _buildEmptyListTile('email'),
-                  phoneNumber != null
-                      ? _buildPhoneNumber(phoneNumber)
-                      : _buildEmptyListTile('phone'),
-                  viberNumber != null
-                      ? _buildViber(viberNumber)
-                      : _buildEmptyListTile('viber'),
-                  whatsAppNumber != null
-                      ? _buildWhatsApp(whatsAppNumber)
-                      : _buildEmptyListTile('whatsApp'),
+                  buildContactSection(this.context, email, phoneNumber,
+                      viberNumber, whatsAppNumber)
                 ],
               ),
             );
           }
         });
-  }
-
-  Widget _buildEmail(String email) {
-    return ListTile(
-      title: text16GreenBold(getTranslated(this.context, 'email')),
-      subtitle: Row(
-        children: <Widget>[
-          SelectableText(email, style: TextStyle(fontSize: 16, color: WHITE)),
-          SizedBox(width: 5),
-          IconButton(
-            icon: icon30White(Icons.alternate_email),
-            onPressed: () => _launchAction('mailto', email),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPhoneNumber(String phoneNumber) {
-    return ListTile(
-      title: text16GreenBold(getTranslated(this.context, 'phone')),
-      subtitle: Row(
-        children: <Widget>[
-          SelectableText(phoneNumber,
-              style: TextStyle(fontSize: 16, color: WHITE)),
-          SizedBox(width: 5),
-          IconButton(
-            icon: icon30White(Icons.phone),
-            onPressed: () => _launchAction('tel', phoneNumber),
-          ),
-          IconButton(
-            icon: icon30White(Icons.local_post_office),
-            onPressed: () => _launchAction('sms', phoneNumber),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildViber(String viberNumber) {
-    return ListTile(
-      title: text16GreenBold(getTranslated(this.context, 'viber')),
-      subtitle: Row(
-        children: <Widget>[
-          SelectableText(viberNumber,
-              style: TextStyle(fontSize: 16, color: WHITE)),
-          SizedBox(width: 5),
-          SizedBox(width: 7.5),
-          Padding(
-            padding: EdgeInsets.all(4),
-            child: Transform.scale(
-              scale: 1.2,
-              child: BouncingWidget(
-                duration: Duration(milliseconds: 100),
-                scaleFactor: 2,
-                onPressed: () => _launchApp('viber', viberNumber),
-                child: Image(
-                  width: 40,
-                  height: 40,
-                  image: AssetImage('images/viber-logo.png'),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildWhatsApp(String whatsAppNumber) {
-    return ListTile(
-      title: text16GreenBold(getTranslated(this.context, 'whatsApp')),
-      subtitle: Row(
-        children: <Widget>[
-          SelectableText(whatsAppNumber,
-              style: TextStyle(fontSize: 16, color: WHITE)),
-          SizedBox(width: 7.5),
-          Padding(
-            padding: EdgeInsets.all(4),
-            child: Transform.scale(
-              scale: 1.2,
-              child: BouncingWidget(
-                duration: Duration(milliseconds: 100),
-                scaleFactor: 2,
-                onPressed: () => _launchApp('whatsapp', whatsAppNumber),
-                child: Image(
-                  width: 40,
-                  height: 40,
-                  image: AssetImage('images/whatsapp-logo.png'),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _launchAction(String action, String number) async {
-    String url = action + ':' + number;
-    UrlUtil.launchURL(context, url);
-  }
-
-  _launchApp(String app, String number) async {
-    var url = '$app://send?phone=$number';
-    UrlUtil.launchURL(context, url);
-  }
-
-  Widget _buildEmptyListTile(String title) {
-    return ListTile(
-      title: text16GreenBold(getTranslated(this.context, title)),
-      subtitle: text16White(getTranslated(this.context, 'empty')),
-    );
   }
 
   Widget _buildEditSection() {
